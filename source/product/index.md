@@ -6,6 +6,24 @@ type: product
 
 <div style="display: flex; justify-content: space-between;">
   <div class="product-intro-left">
+    <h2><a href="/2048">2048 经典中文版</a></h2><p>基于 https://github.com/gabrielecirulli/2048，开源项目改造的版本，将原版本的 UI 进行了精简，中文化处理，增加了 PWA 支持可直接添加到桌面离线使用</p>
+    <p>欢迎访问 <a href="/2048">w3cay.com/2048</a> 体验</p>
+</div>
+    <img src="../images/2048.png" width="180" />
+</div>
+
+<hr/>
+
+<div class="photos-row">
+  <img src="../images/e6c9d24egy1gzybr8xv6ij20n01aoq4k.jpg" width="180" />
+  <img src="../images/e6c9d24egy1gzybr8ks9dj20n01at75p.jpg" width="180" />
+  <img src="../images/e6c9d24egy1gzybr81zafj20n01bd40n.jpg" width="180" />
+</div>
+
+<hr/>
+
+<div style="display: flex; justify-content: space-between;">
+  <div class="product-intro-left">
     <h2><a href="/post/1be3071d.html">时光里程表小程序</a></h2><p>时光里程表是一款可以记录重要日子的小程序。包括倒数日、正数日、纪念日、生日、恋爱天数等，同时支持年、月、周、日多维度切换。微信搜索『时光里程表』或 扫描小程序码访问</p></div>
   <div>
     <img src="../images/008i3skNgy1gynquz4rdnj309k09kmxa.jpg" width="180" />
