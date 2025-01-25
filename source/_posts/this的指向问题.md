@@ -2,6 +2,7 @@
 title: this的指向问题
 tags:
   - javascript
+	- 文章
 abbrlink: 6c4fc4b2
 date: 2015-08-25 17:53:55
 ---
