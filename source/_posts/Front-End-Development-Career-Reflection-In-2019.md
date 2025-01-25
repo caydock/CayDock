@@ -7,7 +7,6 @@ tags:
   - 总结
 abbrlink: 60ca7ed4
 date: 2019-11-23 22:29:33
-cover: https://ftp.bmp.ovh/imgs/2019/11/07e3c50447dbf665.jpg
 ---
 
 ## 背景

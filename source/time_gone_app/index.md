@@ -12,7 +12,6 @@ tags:
     - 小程序
     - APP
 
-cover: /img/product/time-minapp/dark-landscape-mountain.jpg
 photos: ['/img/product/time-minapp/IMG_6978.PNG','/img/product/time-minapp/IMG_6979.PNG','/img/product/time-minapp/IMG_6980.PNG','/img/product/time-minapp/qrcode.jpg']
 ---
 

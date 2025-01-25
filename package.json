@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "clean": "rm -rf node_modules && npm i",
     "build": "hexo generate",
     "clean": "hexo clean",
     "server": "hexo server",
@@ -29,5 +30,8 @@
     "hexo-renderer-stylus": "^1.1.0",
     "hexo-server": "^1.0.0",
     "ignore": "^5.2.4"
+  },
+  "devDependencies": {
+    "node-sass": "^9.0.0"
   }
 }
