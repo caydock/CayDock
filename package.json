@@ -6,7 +6,8 @@
     "clean": "rm -rf node_modules && npm i && hexo clean",
     "build": "hexo generate",
     "start": "hexo server",
-    "publish": "npm install hexo-cli -g && npm install && hexo clean && hexo generate && node script/deploy.js"
+    "publish": "npm install hexo-cli -g && npm install && hexo clean && hexo generate && node script/deploy.js",
+    "new": "hexo new post"
   },
   "hexo": {
     "version": "4.2.1"
