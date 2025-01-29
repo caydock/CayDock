@@ -3,10 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "clean": "rm -rf node_modules && npm i",
+    "clean": "rm -rf node_modules && npm i && hexo clean",
     "build": "hexo generate",
-    "clean": "hexo clean",
-    "server": "hexo server",
+    "start": "hexo server",
     "publish": "npm install hexo-cli -g && npm install && hexo clean && hexo generate && node script/deploy.js"
   },
   "hexo": {
