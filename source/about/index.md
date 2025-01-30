@@ -4,7 +4,7 @@ subtitle: 分享有趣的前端技术产品和工具
 type: product
 ---
 <div><p style="float: left; margin-right: 20px">
- <img src="../images/008i3skNgy1gynp755ah3j30n00n0t9g.jpg" width="100" />
+ <img src="/images/apple-touch-icon.png" width="100" />
 </p>
 </div>
 

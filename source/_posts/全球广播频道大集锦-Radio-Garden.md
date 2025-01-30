@@ -1,7 +1,7 @@
 ---
 title: 全球广播频道大集锦 - Radio Garden
 tags:
-  - 酷站
+  - 趣站
 cover: ./images/radio_garden_cover.png
 abbrlink: c5514e5a
 date: 2025-01-29 18:05:26

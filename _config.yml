@@ -3,14 +3,14 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: "安望云海"
+title: "万趣岛"
 subtitle: "分享有趣有用的站点工具"
 description: "分享有趣有用的站点工具"
-keywords: "工具分享,站点分享"
+keywords: "趣站分享,工具分享"
 author: "Bright Chen"
 language:
 timezone:
-menu_title: 安望云海
+menu_title: 万趣岛
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
 url: https://w3cay.com
