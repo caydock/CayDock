@@ -1,5 +1,6 @@
 ---
-title: 这个程序员把简历做成了游戏！玩过的人都想立刻雇他！
+title: 超级玛丽风格简历
+subTitle: 打破传统简历的边界：Ryan-Leonardi的交互式简历为何让人眼前一亮？
 abbrlink: 737fa50
 date: 2025-01-30 17:12:21
 tags: 
