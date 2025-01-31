@@ -5,6 +5,7 @@ abbrlink: 737fa50
 date: 2025-01-30 17:12:21
 tags: 
   - 趣站
+  - 创意简历
 cover: /images/leonardi-person-cover.png
 ---
 
