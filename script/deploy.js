@@ -5,7 +5,7 @@ const ignore = require('ignore');
 
 // 配置信息
 const config = {
-  host: 'vhost276.cloudvhost.cn',
+  host: 'vhost360.cloudvhost.cn',
   port: 21,
   user: 'webmaster@HA675619',
   password: 'cay69090595',
