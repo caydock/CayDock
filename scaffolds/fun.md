@@ -3,7 +3,7 @@ title: {{ title }}
 date: {{ date }}
 subTitle: 
 tags: 
-  - 灵感研究所  
+  - 奇趣宇宙
 icon: 
 cover:
 link: 
