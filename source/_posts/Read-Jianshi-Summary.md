@@ -7,7 +7,7 @@ date: 2020-02-07 00:05:45
 tags:
   - 文摘
   - 灵感研究所
-cover: https://ftp.bmp.ovh/imgs/2019/11/07e3c50447dbf665.jpg
+icon: https://ftp.bmp.ovh/imgs/2019/11/07e3c50447dbf665.jpg
 ---
 
 1. “命”主要取决于两个因素：环境因素和我们自己对未来走向划定的方向

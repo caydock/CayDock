@@ -2,7 +2,7 @@
 title: 全球广播频道大集锦
 tags:
   - 奇趣宇宙
-cover: /images/radio_garden_cover.png
+icon: /images/radio_garden_cover.png
 abbrlink: c5514e5a
 date: 2025-01-29 18:05:26
 subTitle: Radio Garden 是一个由荷兰阿姆斯特丹的非营利组织开发的项目

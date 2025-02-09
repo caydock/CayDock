@@ -4,7 +4,7 @@ subTitle: 用3000+三角形为地球生物写电子情书，看濒危动物在�
 tags:
   - 奇趣宇宙
   - 公益
-cover: /images/species-cover.png
+icon: /images/species-cover.png
 abbrlink: 293a993a
 date: 2025-01-31 12:24:48
 ---

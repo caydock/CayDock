@@ -3,9 +3,7 @@ title: {{ title }}
 date: {{ date }}
 subTitle: 
 tags: 
-  - 奇趣宇宙
   - AI工具库
-  - 灵感研究所  
 icon: 
 cover:
 link: 

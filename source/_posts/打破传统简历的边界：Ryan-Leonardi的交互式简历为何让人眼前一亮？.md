@@ -6,7 +6,7 @@ date: 2025-01-30 17:12:21
 tags: 
   - 奇趣宇宙
   - 创意简历
-cover: /images/leonardi-person-cover.png
+icon: /images/leonardi-person-cover.png
 ---
 
 

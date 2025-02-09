@@ -5,7 +5,7 @@ abbrlink: 178b2bee
 date: 2025-02-05 17:07:52
 tags:
   - AI工具库
-cover: /images/chatgpt.webp
+icon: /images/chatgpt.webp
 ---
 
 **🌐 传送门**：[https://chat.openai.com/](https://chat.openai.com/)
