@@ -6,6 +6,7 @@ tags:
 link: 'https://www.anumberfromtheghost.com/'
 icon: 'https://www.anumberfromtheghost.com/images/meta/home.jpg'
 abbrlink: bc8bd661
+date: 2025-02-17 12:03:08
 ---
 
 沉浸式互动音乐MV，结合游戏元素，让你在享受音乐的同时，亲自参与其中！
