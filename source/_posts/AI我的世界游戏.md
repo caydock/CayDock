@@ -5,6 +5,7 @@ subTitle: Oasis：体验AI创造的虚拟世界，探索未来游戏可能。
 tags:
   - 奇趣宇宙
   - AI工具库  
+  - 小游戏
 link: 'https://oasis.decart.ai/'
 abbrlink: cdfad36
 icon:

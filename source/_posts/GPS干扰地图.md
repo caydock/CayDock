@@ -3,8 +3,9 @@ title: GPS干扰地图
 subTitle: GPSJAM：实时查看全球GPS干扰情况，助你掌控导航精度！
 tags:
   - 奇趣宇宙
-link: https://gpsjam.org/
-icon: https://gpsjam.obliscence.com/images/gpsjam-card-preview.png
+link: 'https://gpsjam.org/'
+icon: 'https://gpsjam.obliscence.com/images/gpsjam-card-preview.png'
+abbrlink: 10f470c3
 date: 2025-02-20 22:17:59
 ---
 

@@ -4,8 +4,9 @@ subTitle: Riddle Me This：用AI图像挑战你的推理和创意！
 tags:
   - 奇趣宇宙
   - AI工具库
-link: https://riddlemethis.xyz/
-icon: https://riddle-oy68vwjsv-alextcns-projects.vercel.app/play/924797e/og
+link: 'https://riddlemethis.xyz/'
+icon: 'https://riddle-oy68vwjsv-alextcns-projects.vercel.app/play/924797e/og'
+abbrlink: 7be3521a
 date: 2025-02-20 22:17:59
 ---
 

@@ -3,9 +3,10 @@ title: AI情景哄哄模拟器
 subTitle: HongHong：用AI模拟情景挑战你的哄人技巧！
 tags:
   - 奇趣宇宙
-  - AI工具库  
-link: https://hong.greatdk.com/
-icon: https://hong.greatdk.com/favicon.ico
+  - AI工具库
+link: 'https://hong.greatdk.com/'
+icon: 'https://hong.greatdk.com/favicon.ico'
+abbrlink: 5d500f37
 date: 2025-02-20 22:17:59
 ---
 

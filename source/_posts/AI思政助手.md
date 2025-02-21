@@ -4,6 +4,7 @@ title: AI思政助手
 subTitle: 用AI技术解答中国思政课程中的疑问，探索历史与哲学知识的有趣答案
 tags:
   - 奇趣宇宙
+  - AI工具库
 icon: 'https://chatmarx.zihaoai.cn/logo.png'
 link: 'https://chatmarx.zihaoai.cn/'
 abbrlink: 572ab8db
