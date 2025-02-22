@@ -3,7 +3,6 @@ title: 成为一名优秀的前端工程师
 subtitle: 2019年我的前端生涯思考与反思
 description: 2019年我的前端生涯思考与反思
 tags:
-  - 年终总结
   - 总结
 abbrlink: 60ca7ed4
 date: 2019-11-23 22:29:33
