@@ -1,7 +1,7 @@
 ---
 title: Kimi
 tags:
-  - AI工具库
+  - 趣味AI
 abbrlink: ce6a3c99
 date: 2025-02-09 15:23:00
 subTitle: Kimi：智能助手让你的生活事半功倍

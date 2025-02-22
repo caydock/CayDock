@@ -4,7 +4,7 @@ title: AI取个好名字
 subTitle: SmartName：让AI帮你发现名字背后的独特含义与创意！
 tags:
   - 奇趣宇宙
-  - AI工具库
+  - 趣味AI
 link: 'https://smartnameai.com/'
 abbrlink: 2f038053
 icon:

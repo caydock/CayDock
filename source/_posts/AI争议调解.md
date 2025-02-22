@@ -4,7 +4,7 @@ title: AI争议调解
 subTitle: Pingli：AI调解争议，轻松化解你们的矛盾！
 tags:
   - 奇趣宇宙
-  - AI工具库
+  - 趣味AI
 link: 'https://pingli.app/'
 icon: 'https://www.pingli.app/pingli.jpg'
 abbrlink: ee5b676c

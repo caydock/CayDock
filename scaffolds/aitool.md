@@ -3,7 +3,7 @@ title: {{ title }}
 date: {{ date }}
 subTitle: 
 tags: 
-  - AI工具库
+  - 趣味AI
 icon: 
 cover:
 link: 

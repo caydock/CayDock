@@ -1,7 +1,7 @@
 ---
 title: Midjourney
 tags:
-  - AI工具库
+  - 趣味AI
 abbrlink: 79d56404
 date: 2025-02-09 14:42:17
 subTitle: Midjourney - 解锁 AI 创意新世界

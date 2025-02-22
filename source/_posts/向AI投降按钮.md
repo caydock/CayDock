@@ -4,7 +4,7 @@ title: 向AI投降按钮
 subTitle: 1ksu：一键向AI投降，体验幽默与科技的结合！
 tags:
   - 奇趣宇宙
-  - AI工具库  
+  - 趣味AI  
 link: 'https://syaro.io/1ksu/'
 abbrlink: b1cd2166
 icon:
