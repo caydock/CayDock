@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://w3cay.com/sitemap.xml

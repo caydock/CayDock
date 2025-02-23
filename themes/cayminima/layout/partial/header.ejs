@@ -1,0 +1,21 @@
+<div class="row">
+  <a class="six columns" href="/">
+    <h2 class="mt-2 vertical-center">
+      <img class="home-avatar" alt="万趣岛" src="/images/logo.png"/>
+    </h2>
+  </a>
+
+  <div class="twelve columns">
+    <div class="menu-head">
+        <%- partial('partial/menu') %>
+        <% if (theme.email) { %>
+          <% if (typeof obfuscate === "function") { %>
+            <a href="mailto:<%- obfuscate(theme.email) %>" target="_blank" class="ml">Email</a>
+          <% } else { %>
+            <a href="mailto:<%= theme.email %>" target="_blank" class="ml">Email</a>
+          <% } %>
+        <% } %>
+    </div>
+    <hr style="margin-bottom: 1rem; margin-top: 1rem;">
+  </div>
+</div>

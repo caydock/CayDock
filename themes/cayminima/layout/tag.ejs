@@ -1,0 +1,28 @@
+
+<%
+    var title = '';
+    if (page.category) title = page.category;
+    if (page.tag) title = page.tag;
+    if (page.archive){
+        if (page.year) title = page.year + (page.month ? '/' + page.month : '');
+        else title = "Archives";
+    }
+%>
+<% if(title) { %>
+   <h2><%- title %></h2>
+   
+<% } %>
+<div class="row">
+    <!-- 第一栏：包含 cards 部分 -->
+    <div class="columns">
+      <div><%- partial('partial/cards') %></div>
+    </div>
+  
+    <!-- 第二栏：包含 tags 部分 -->
+    <!-- <div class="three columns">
+      <%- partial('partial/tags') %>
+    </div> -->
+  </div>
+<div class="pagination-wrap">
+<%- partial('partial/pagination') %>
+</div>

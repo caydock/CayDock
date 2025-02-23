@@ -1,0 +1,32 @@
+<% 
+// 获取标签并转换为数组
+var tags = site.tags.toArray();
+
+// 按照 tag.length 排序，降序排列
+tags.sort(function(a, b) {
+  return b.length - a.length;  // 降序排列
+});
+
+// 只取前 4 个标签
+var limitTags = tags.slice(0, 4);
+%>
+
+<ul class="menu-list-warp ">
+  <!-- 首页链接 -->
+  <li class="menu-item">
+    <a href="<%= config.root %>" class="tag-item">
+      首页
+    </a>
+  </li>    
+  
+  <% limitTags.forEach(function(tag) { %>
+    <li class="menu-item <%= page.tag === tag.name ? 'selected' : '' %>">
+      <a href="<%= url_for(tag.path) %>" class="tag-item">
+        <%= tag.name %> <span class="count">(<%= tag.length %>)</span>
+      </a>
+    </li>
+  <% }); %>
+</ul>
+
+<%- partial('partial/search') %>
+

@@ -1,0 +1,63 @@
+#title in header
+title: "万趣岛"
+
+#main info
+#owner
+owner: "我叫安阳"
+info: "理想是做一名自由的独立开发者，在此分享记录我的所做所想和自己成长的点滴"
+#description
+desc: ""
+
+#menu
+menu:
+  趣味AI: /tags/趣味AI/
+  奇趣宇宙: /tags/奇趣宇宙/
+  灵感研究所: /tags/灵感研究所/
+
+
+#index/main page max show posts (in number)
+max_post: 9
+per_page: 12
+
+# Colors use hex color without #
+# Theme color
+tcolor: 333
+
+# Define path to user css
+#(could be also located outside of theme)
+# Relative to source/ directory
+# usercss: css/user.css
+
+# social profile at the footer/bottom
+footer: true
+placename: 2015-2025 万趣岛 · w3cay.com |
+placelink: http://w3cay.com
+
+# Misc
+nanobar: /js/nanobar.min.js
+switch_light: ☀️
+switch_dark: 🌑
+
+# Picture enlargement
+picjs: /js/pic.min.js
+highlight_js: /js/highlight.min.js
+highlight_css: /css/github.min.css
+# favicon
+favicon: /images/favicon.ico
+
+article:
+  thumbnail: true
+thumbnail: /images/page_default_cover.png
+twitter: https://twitter.com/AnyangChen
+rss: https://w3cay.com/atom.xml
+
+hash:
+  enable: true 
+
+tag_cloud:
+  path: tags/index.html
+  limit: 0  # 设置显示标签的数量，0表示不限制
+  order: desc  # 排序方式，desc表示按标签使用次数降序
+  color: false  # 是否启用标签颜色
+  size: 1.2  # 标签大小
+  font_size: 16  # 字体大小

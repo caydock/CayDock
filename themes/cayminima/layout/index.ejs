@@ -1,0 +1,21 @@
+<div class="row">
+  <!-- 第一栏：包含 cards 部分 -->
+  <div class="columns">
+    <div><%- partial('partial/cards') %></div>
+  </div>
+
+  <!-- 第二栏：包含 tags 部分 -->
+  <div class="three columns">
+    <!-- <%- partial('partial/search') %> -->
+    <!-- <%- partial('partial/tags') %> -->
+  </div>
+</div>
+
+<!-- 分页部分：放在页面底部 -->
+<div class="row">
+  <div class="twelve columns">
+    <div class="pagination-wrap">
+      <%- partial('partial/pagination', {type: 'page'}) %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+<% 
+// 获取标签并转换为数组
+var tags = site.tags.toArray();
+
+// 按照 tag.length 排序，降序排列
+tags.sort(function(a, b) {
+  return b.length - a.length;  // 降序排列
+});
+
+// 只取前 40 个标签
+var limitTags = tags.slice(4, 30);
+%>
+
+<div class="tag-cloud">
+  <h4>标签云 🏷️</h4>
+  <ul class="tag-list-warp">
+    <% limitTags.forEach(function(tag) { %>
+      <li>
+        <a href="<%= url_for(tag.path) %>" class="tag-item">
+          <%= tag.name %> <span class="count">(<%= tag.length %>)</span>
+        </a>
+      </li>
+    <% }); %>
+  </ul>
+</div>
