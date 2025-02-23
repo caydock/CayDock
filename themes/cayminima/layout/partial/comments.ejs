@@ -1,29 +1,10 @@
 <hr />
-<!-- <script
-  src="https://giscus.app/client.js"
-  data-repo="w3cay/w3cay.github.io"
-  data-repo-id="MDEwOlJlcG9zaXRvcnk3NjYzNDE4MQ=="
-  data-category="Announcements"
-  data-category-id="DIC_kwDOBJFYRc4CmcAB"
-  data-mapping="pathname"
-  data-strict="0"
-  data-reactions-enabled="1"
-  data-emit-metadata="0"
-  data-input-position="top"
-  data-theme="light"
-  data-lang="zh-CN"
-  data-loading="lazy"
-  crossorigin="anonymous"
-  async
-></script> -->
-<%- css('css/waline.css') %>
-<div id="waline"></div>
-<script type="module">
-  import { init } from '/js/waline.js';
-
-  init({
-    el: '#waline',
-    serverURL: 'https://blog-waline.w3cay.com',
-    login: 'disable',
+<%- js('js/Valine.min.js') %>
+<div id="vcomments"></div>
+<script>
+  new Valine({
+    el: "#vcomments",
+    appId: "2RPLQGvxicb06F127wr1yjsM-9Nh9j0Va",
+    appKey: "GOiYet2qQ4iPWbC93HrgFmpc",
   });
 </script>
