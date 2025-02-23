@@ -3,7 +3,6 @@ date: 2025-02-16 18:03:08
 title: AI我的世界游戏
 subTitle: Oasis：体验AI创造的虚拟世界，探索未来游戏可能。
 tags:
-  - 奇趣宇宙
   - 趣味AI  
   - 小游戏
 link: 'https://oasis.decart.ai/'

@@ -666,10 +666,27 @@ p code {
   background-color: #0056b3;
 }
 
+
+.link-warp strong {
+  background-color: #d8f3d4;
+  display: inline-block;
+  border-radius: 15px;
+  padding: 5px 20px 5px 10px;
+}
+
+.header-hr {
+  margin-bottom: 15px; 
+  margin-top: 15px; 
+}
+
 /* 移动端 */
 @media (max-width: 768px) {
   .container {
     padding: 0 0px;
+  }
+  .header-hr {
+    margin-bottom: 10px; 
+    margin-top: 30px; 
   }
   .post-warp {
     padding: 12px 12px;

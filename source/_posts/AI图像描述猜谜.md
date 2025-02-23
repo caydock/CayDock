@@ -2,7 +2,6 @@
 title: AI图像描述猜谜
 subTitle: Riddle Me This：用AI图像挑战你的推理和创意！
 tags:
-  - 奇趣宇宙
   - 趣味AI
 link: 'https://riddlemethis.xyz/'
 icon: 'https://riddle-oy68vwjsv-alextcns-projects.vercel.app/play/924797e/og'
