@@ -2,12 +2,6 @@
 <html lang="en">
 
 <head>
-
-  <!-- Minima -->
-  <!-- Hexo theme created by @adisaktijrs -->
-
-  <!-- Basic Page Needs
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta charset="utf-8">
 
   <%
@@ -61,7 +55,7 @@
   <% } %>
   <meta property="og:url" content="<%= url.replace(/index\.html$/, '').replace(/index\.html$/, '') %>" />
 
-  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="<%= title %>">
   <% if (is_page()){ %>
   <meta name="twitter:description" content="<%= page.description %>">
@@ -71,8 +65,10 @@
   <% } else { %>
   <meta name="twitter:description" content="<%= config.description %>">
   <% } %>
-  <% if ((is_post() || is_page()) && page.cover) { %>
-  <meta name="twitter:image" content="<%-config.url + page.cover %>">
+  <% if ((is_post() || is_page()) && page.cover ) { %>
+  <meta name="twitter:image" content="<%-page.cover %>">
+  <% } else if((is_post() || is_page()) && page.icon) { %>
+    <meta name="twitter:image" content="<%-page.icon %>">
   <% } else { %>
   <meta name="twitter:image" content="<%-config.url + theme.thumbnail %>">
   <% } %>
