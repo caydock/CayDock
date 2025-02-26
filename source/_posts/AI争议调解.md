@@ -3,7 +3,7 @@ date: 2025-02-16 18:03:08
 title: AI争议调解
 subTitle: Pingli：AI调解争议，轻松化解你们的矛盾！
 tags:
-  - 趣味AI
+  - AI
 link: 'https://pingli.app/'
 icon: 'https://www.pingli.app/pingli.jpg'
 abbrlink: ee5b676c

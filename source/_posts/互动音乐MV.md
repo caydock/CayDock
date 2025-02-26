@@ -2,7 +2,7 @@
 title: 互动音乐MV
 subTitle: A Number From the Ghost：沉浸互动音乐MV，参与其中感受音乐魅力！
 tags:
-  - 奇趣宇宙
+  - 酷站
 link: 'https://www.anumberfromtheghost.com/'
 icon: 'https://www.anumberfromtheghost.com/images/meta/home.jpg'
 abbrlink: bc8bd661

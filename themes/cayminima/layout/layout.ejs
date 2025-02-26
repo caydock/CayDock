@@ -9,6 +9,13 @@
     config.author = ""
   }
 
+  var tagTitle = {
+    '酷站': '有趣网站大全',
+    '游戏': '在线小游戏集合',
+    'AI': '趣味AI工具集',
+    '工具': '有趣实用工具箱',
+  }
+
   var title = title = config.title;
   if (is_archive()){
     title = theme.title;
@@ -17,7 +24,7 @@
   } else if (is_page()){
     title = page.title + ' - ' + theme.title;
   } else if (is_tag()){
-    title = page.tag + ' - ' + theme.title;;
+    title = (tagTitle[page.tag] || page.tag)  + ' - ' + theme.title;;
   }
   %>
   <title><%= title %></title>

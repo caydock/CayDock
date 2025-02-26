@@ -3,7 +3,7 @@ date: 2025-02-16 18:03:08
 title: Minecraft派对
 subTitle: 加入Minecraft主题的多人在线小游戏，与朋友一起畅享创造与冒险
 tags:
-  - 奇趣宇宙
+  - 酷站
 icon: 'https://bloxd.io/favicon-32x32.png?v=2'
 link: 'https://bloxd.io/'
 abbrlink: 15840cd1

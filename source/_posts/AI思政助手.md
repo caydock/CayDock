@@ -3,7 +3,7 @@ date: 2025-02-16 18:03:08
 title: AI思政助手
 subTitle: 用AI技术解答中国思政课程中的疑问，探索历史与哲学知识的有趣答案
 tags:
-  - 趣味AI
+  - AI
 icon: 'https://chatmarx.zihaoai.cn/logo.png'
 link: 'https://chatmarx.zihaoai.cn/'
 abbrlink: 572ab8db

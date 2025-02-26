@@ -1,7 +1,7 @@
 ---
 title: DeepSeek
 tags:
-  - 趣味AI
+  - AI
 abbrlink: bc9a4dc7
 date: 2025-02-09 14:10:17
 subTitle: DeepSeek - 国产AI的六边形战士

@@ -2,7 +2,7 @@
 title: AI春联生成器
 subTitle: Ai sfc：输入关键词，AI生成欢乐春联！
 tags:
-  - 趣味AI
+  - AI
 link: 'https://ai-sfc.yunyoujun.cn/'
 icon: 'https://ai-sfc.yunyoujun.cn/layout-column-line.svg'
 abbrlink: e12ddb41
