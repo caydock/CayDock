@@ -3,11 +3,11 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: "万趣岛-分享全球有趣应用"
+title: "万趣岛-分享全球有趣网站游戏工具AI应用"
 site_name: "万趣岛"
-subtitle: "分享全球有趣的应用"
-description: "分享全球有趣有意思的网站、小游戏、APP 以及 AI 趣味使用经验"
-keywords: "有趣的网站,好玩的网站,酷站,fun,ai"
+subtitle: "分享全球有趣网站游戏工具AI应用"
+description: "分享全球有趣的网站、游戏、工具、AI应用和使用经验"
+keywords: "有趣的网站,小游戏,有趣工具,ai应用"
 author: "Bright Chen"
 language:
 timezone:
