@@ -2,7 +2,7 @@
 title: 嘴臭AI聊天
 subTitle: Onima：挑战极限耐性，和嘴臭AI展开对话！
 tags:
-  - 酷站
+  - 网站
   - AI
 link: 'https://onima.oksocool.com/'
 icon: 'https://onima.oksocool.com/icon.svg'

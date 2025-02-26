@@ -4,7 +4,7 @@ subTitle: 打破传统简历的边界：Ryan-Leonardi的交互式简历为何让
 abbrlink: 737fa50
 date: 2025-01-30 17:12:21
 tags: 
-  - 酷站
+  - 网站
   - 创意简历
 icon: /images/leonardi-person-cover.png
 ---

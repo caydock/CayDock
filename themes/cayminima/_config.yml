@@ -47,7 +47,7 @@ favicon: /images/favicon.ico
 
 article:
   thumbnail: true
-thumbnail: /images/page_default_cover.png
+thumbnail: /images/android-chrome-192x192.png
 twitter: https://twitter.com/AnyangChen
 rss: https://w3cay.com/atom.xml
 

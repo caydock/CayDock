@@ -3,7 +3,7 @@ date: 2025-02-16 18:03:08
 title: 向AI投降按钮
 subTitle: 1ksu：一键向AI投降，体验幽默与科技的结合！
 tags:
-  - 酷站
+  - 网站
   - AI  
 link: 'https://syaro.io/1ksu/'
 abbrlink: b1cd2166

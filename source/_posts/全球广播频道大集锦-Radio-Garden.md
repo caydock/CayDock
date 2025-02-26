@@ -1,7 +1,7 @@
 ---
 title: 全球广播频道大集锦
 tags:
-  - 酷站
+  - 网站
   - 工具
 icon: /images/radio_garden_cover.png
 abbrlink: c5514e5a

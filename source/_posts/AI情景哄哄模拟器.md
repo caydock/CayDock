@@ -2,7 +2,7 @@
 title: AI情景哄哄模拟器
 subTitle: HongHong：用AI模拟情景挑战你的哄人技巧！
 tags:
-  - 酷站
+  - 网站
   - AI
 link: 'https://hong.greatdk.com/'
 icon: 'https://hong.greatdk.com/favicon.ico'

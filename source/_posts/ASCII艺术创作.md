@@ -2,7 +2,7 @@
 title: ASCII艺术创作
 subTitle: ASCII Art Archive：创作并欣赏ASCII艺术，尽情释放你的艺术才华！
 tags:
-  - 酷站
+  - 网站
   - 工具
 link: 'https://www.asciiart.eu/'
 icon: 'https://www.asciiart.eu/favicon-32x32.png'
