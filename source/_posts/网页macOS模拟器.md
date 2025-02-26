@@ -2,7 +2,7 @@
 title: 网页macOS模拟器
 subTitle: macOS in Svelte：体验仿真macOS界面，感受经典！
 tags:
-  - 趣味AI
+  - AI
 link: 'https://macos-web.app/'
 icon: 'https://macos-web.app/cover-image.png'
 abbrlink: e43aba79

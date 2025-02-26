@@ -2,7 +2,7 @@
 title: In Pieces
 subTitle: 用3000+三角形为地球生物写电子情书，看濒危动物在指尖破碎重组，边玩边哭
 tags:
-  - 奇趣宇宙
+  - 酷站
   - 公益
 icon: /images/species-cover.png
 abbrlink: 293a993a

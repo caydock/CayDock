@@ -2,7 +2,7 @@
 title: PDF扫描件效果
 subTitle: Look Scanned：将PDF转成扫描件，轻松应对文档要求！
 tags:
-  - 趣味AI
+  - AI
 link: 'https://lookscanned.io/'
 icon: 'https://lookscanned.io/favicon.ico'
 abbrlink: e671d1ca

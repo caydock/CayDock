@@ -4,7 +4,7 @@ subTitle: ChatGPT - 人工智能领域对话系统的一次重要飞跃
 abbrlink: 178b2bee
 date: 2025-02-05 17:07:52
 tags:
-  - 趣味AI
+  - AI
 icon: /images/chatgpt.webp
 ---
 

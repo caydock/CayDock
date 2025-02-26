@@ -2,7 +2,7 @@
 title: AI音乐创作工具
 subTitle: Suno：让AI为你创作音乐，轻松生成属于你的旋律！
 tags:
-  - 趣味AI
+  - AI
 link: 'https://suno.com/'
 icon: 'https://cdn1.suno.ai/preview.jpg'
 abbrlink: 82960edc

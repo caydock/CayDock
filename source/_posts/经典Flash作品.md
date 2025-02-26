@@ -2,7 +2,7 @@
 title: 经典Flash作品
 subTitle: Flash Homes：重温经典Flash作品，回顾辉煌时刻！
 tags:
-  - 奇趣宇宙
+  - 酷站
 link: 'https://flash.homes/'
 icon: 'https://flash.homes/favicon.ico'
 abbrlink: 50d99369
