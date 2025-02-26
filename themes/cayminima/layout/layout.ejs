@@ -64,15 +64,15 @@
   <meta property="og:url" content="<%= url.replace(/index\.html$/, '').replace(/index\.html$/, '') %>" />
 
   <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="<%= title %>">
   <% if (is_page()){ %>
-  <meta name="twitter:title" content="<%= page.description %>">
-  <% } else if (page.content){ %>
-  <meta name="twitter:title"
-    content="<%= strip_html(page.content).replace(/\n/g, " ").replace(/^\s*/, '').replace(/\s*$/, '').substring(0, 150) %>">
-  <% } else { %>
-  <meta name="twitter:description" content="<%= config.description %>">
-  <% } %>
-  <meta name="twitter:description" content="<%= title %>">
+    <meta name="twitter:description" content="<%= page.description %>">
+    <% } else if (page.content){ %>
+    <meta name="twitter:description"
+      content="<%= strip_html(page.content).replace(/\n/g, " ").replace(/^\s*/, '').replace(/\s*$/, '').substring(0, 150) %>">
+    <% } else { %>
+    <meta name="twitter:description" content="<%= config.description %>">
+    <% } %>
   <% if ((is_post() || is_page()) && page.cover ) { %>
   <meta name="twitter:image" content="<%-page.cover %>">
   <% } else if((is_post() || is_page()) && page.icon) { %>
