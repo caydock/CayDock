@@ -5,11 +5,19 @@
       <p class="subtitle"> 发布于 <%- full_date(page.date, 'YYYY-MM-DD') %></p>
       <p class="post-content">
         <% if (page.link) { %> 
-          <p class="link-warp">
-            <strong> 🌐 传送门：
+          <div class="link-warp">
+            <div class="link-warp-icon">
+              <img  src="<%-page.icon %>" onerror="this.src='/images/default_logo.png';">
+            </div>
+            <div>
+              <div class="link-title">
+                <%- page.title %>
+              </div>
+              传送门 
               <a href="<%- page.link %>?from=w3cay.com" target="_blank" rel="external nofollow noopener noreferrer"><%- page.link %>
               </a>
-          </strong></p>
+            </div>
+            </div>
         <% } %>
         <% if (page.cover) { %> <img alt="<%- page.subTitle || page.title %>" src="<%- page.cover %>" /> <% } %>
         <%- page.content%>

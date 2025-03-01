@@ -310,11 +310,7 @@ body.darkmode {
 }
 
 .related-posts {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: left;
   width: 253px;
-  flex: 1;
 }
 
 .related-posts .card {
@@ -710,11 +706,32 @@ p code {
 }
 
 
-.link-warp strong {
-  background-color: #d8f3d4;
-  display: inline-block;
-  border-radius: 15px;
+.link-warp {
+  display: flex;
+  border-radius: 5px;
   padding: 5px 20px 5px 10px;
+  flex-direction: row;
+  align-items: center;
+  background: url('/images/network.png') no-repeat 100% 50%;
+  background-size: 120px 120px;
+  box-shadow: #cbc7c7 0px 1px 3px 0px
+}
+
+.link-warp a {
+  color: #62630d;
+}
+
+.link-warp-icon {
+  margin-right: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.link-title {
+  font-size: 18px;
+  font-weight: 500;
+  color: #3f9f43;
 }
 
 .header-hr {
@@ -749,6 +766,13 @@ p code {
   overflow: hidden;
   word-break: break-all;
   white-space: nowrap;
+}
+
+.link-warp img {
+  width: 45px;
+  height: 45px;
+  background: url('/images/default_logo.png') no-repeat center center;
+  background-size: cover;
 }
 
 /* 移动端 */
