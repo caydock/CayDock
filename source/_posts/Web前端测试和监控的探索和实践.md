@@ -6,7 +6,7 @@ tags:
   - 文章
 abbrlink: 8793df21
 date: 2016-11-08 15:52:29
-icon: /images/articel_cover.png
+icon: 
 ---
 
 ## 引言

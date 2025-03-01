@@ -6,7 +6,7 @@ tags:
   - 文章
 abbrlink: dc49b55
 date: 2018-07-02 23:09:08
-icon: /images/articel_cover.png
+icon: 
 ---
 
 最近在使用 React 技术栈重构一个单页应用，其中有个页面是实现城市选择功能，主要是根据城市的首字母来快速跳转到相应位置，比较类似原生 APP 中的电话联系人查找功能，页面如图

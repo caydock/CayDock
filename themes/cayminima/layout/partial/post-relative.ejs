@@ -1,0 +1,9 @@
+<% var relatedPosts = get_related_posts(page); %>
+<% if (relatedPosts.length > 0) { %>
+  <div class="related-posts">
+    <h3>相关<%- page.tag %>推荐</h3>
+    <% relatedPosts.forEach(function(post) { %>
+      <%- partial('partial/card-item', { post }) %>
+    <% }); %>
+  </div>
+<% } %>

@@ -1,0 +1,14 @@
+<div class="prev-next-wrap">
+  <% if (page.prev) { %>
+    <a class="page-arrow-wrap" href="<%-url_for(page.prev.path) %>">
+      <img class="page-prev-arrow" src="/images/arrow.png" >
+    </a>
+    <%- partial('partial/card-item-long', { card: page.prev }) %>
+  <% } %> 
+  <% if (page.next) { %>
+    <%- partial('partial/card-item-long', { card: page.next }) %>
+  <% } %>
+  <a class="page-arrow-wrap" href="<%-url_for(page.next.path) %>">
+    <img class="page-next-arrow" src="/images/arrow.png" >
+  </a>
+</div>

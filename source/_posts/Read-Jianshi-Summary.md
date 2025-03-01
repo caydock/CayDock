@@ -7,7 +7,7 @@ date: 2020-02-07 00:05:45
 tags:
   - 文摘
   - 文章
-icon: /images/articel_cover.png
+icon: 
 ---
 
 1. “命”主要取决于两个因素：环境因素和我们自己对未来走向划定的方向

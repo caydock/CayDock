@@ -6,7 +6,7 @@ tags:
   - Webpack
   - 文章
 abbrlink: 96ac4750
-icon: /images/articel_cover.png
+icon: 
 date: 2016-09-20 18:26:32
 ---
 

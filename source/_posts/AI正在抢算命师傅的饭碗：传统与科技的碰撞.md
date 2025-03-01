@@ -6,7 +6,7 @@ tags:
 abbrlink: a4748064
 date: 2025-02-09 20:54:49
 subTitle: 
-icon: /images/articel_cover.png
+icon: 
 cover: /images/suanming-cover.JPG
 link:
 ---

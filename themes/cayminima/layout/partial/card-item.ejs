@@ -1,0 +1,42 @@
+<div class="card row mb-1 ">
+  <div class="card-head">
+    <div class="cover-wrap">
+      <% if (post.icon) { %>
+      <img
+        src="<%- post.icon %>"
+        class="post-item-cover"
+        onerror="this.src='/images/default_logo.png';"
+      />
+      <% } else { %>
+        <img src="/images/default_logo.png" class="post-item-cover" />
+      <% } %>
+    </div>
+    <div class="post-title-wrap nine left">
+      <a href="<%- url_for(post.path) %>">
+        <h3 class="list-post-title">
+          <% if (post.title == "") { %> no title <% } else { %> <%- post.title
+          %> <% } %>
+        </h3>
+        <p class="bottom datatime">
+          发布于 <%- full_date(post.date, theme.date_format) %>
+        </p>
+      </a>
+    </div>
+  </div>
+  <div>
+    <% if (post.subTitle) { %>
+    <a href="<%- url_for(post.path) %>">
+      <p class="list-post-subtitle">
+        <% if (post.subTitle == "") { %> no title <% } else { %> <%-
+        post.subTitle %> <% } %>
+      </p>
+    </a>
+    <% } %> <% if (post.tags && post.tags.length > 0) { %>
+    <div class="tag-list">
+      <% post.tags.slice(0, 2).forEach(function(tag){ %>
+      <a href="<%- url_for(tag.path) %>"><%-tag.name %></a>
+      <% }); %>
+    </div>
+    <% } %>
+  </div>
+</div>

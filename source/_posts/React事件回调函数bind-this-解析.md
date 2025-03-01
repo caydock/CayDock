@@ -6,7 +6,7 @@ tags:
   - React
   - Javascript
   - 文章
-icon: /images/articel_cover.png
+icon: 
 ---
 
 在使用 React 的过程中（ES6 Class 语法下），我一直很疑惑一件事情，那就是事件的绑定，比如 onClick、onChange 的事件处理函数必须这样写

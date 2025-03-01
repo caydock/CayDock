@@ -1,0 +1,35 @@
+<% if (card) { %>
+<div class="card-long row mb-1">
+  <div class="card-head">
+    <div class="cover-wrap">      
+      <% if (card.icon) { %>
+      <img
+        src="<%- card.icon %>"
+        class="post-item-cover"
+        onerror="this.src='/images/default_logo.png';"
+      />
+      <% } else { %>
+      <img src="/images/default_logo.png" class="post-item-cover" />
+      <% } %>
+    </div>
+    <div class="post-title-wrap nine left">
+      <a href="<%- url_for(card.path) %>">
+        <h3 class="list-post-title">
+          <% if (card.title == "") { %> no title <% } else { %> <%-
+          card.title %> <% } %>
+        </h3>
+        <div>
+          <% if (card.subTitle) { %>
+          <a href="<%- url_for(card.path) %>">
+            <p class="list-post-subtitle ">
+              <% if (card.subTitle == "") { %> no title <% } else { %> <%-
+              card.subTitle %> <% } %>
+            </p>
+          </a>
+          <% } %>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+<% } %>
