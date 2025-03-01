@@ -3,7 +3,7 @@ title: Web渲染及性能优化
 tags:
   - web性能
   - web动画
-  - 灵感研究所
+  - 文章
 abbrlink: 3165caf
 date: 2018-06-23 16:21:35
 icon: /images/articel_cover.png

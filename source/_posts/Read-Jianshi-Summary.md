@@ -6,7 +6,7 @@ abbrlink: 65e1bca0
 date: 2020-02-07 00:05:45
 tags:
   - 文摘
-  - 灵感研究所
+  - 文章
 icon: /images/articel_cover.png
 ---
 

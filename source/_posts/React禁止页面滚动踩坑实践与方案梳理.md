@@ -3,7 +3,7 @@ title: React禁止页面滚动踩坑实践与方案梳理
 tags:
   - Javascript
   - React
-  - 灵感研究所
+  - 文章
 abbrlink: dc49b55
 date: 2018-07-02 23:09:08
 icon: /images/articel_cover.png

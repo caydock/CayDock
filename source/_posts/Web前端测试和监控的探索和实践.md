@@ -3,7 +3,7 @@ title: Web前端测试和监控的探索和实践
 tags:
   - 前端测试
   - 前端监控
-  - 灵感研究所
+  - 文章
 abbrlink: 8793df21
 date: 2016-11-08 15:52:29
 icon: /images/articel_cover.png

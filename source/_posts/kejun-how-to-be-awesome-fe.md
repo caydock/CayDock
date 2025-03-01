@@ -4,7 +4,7 @@ abbrlink: d15c2efd
 date: 2019-11-22 22:29:11
 tags:
   - 转载
-  - 灵感研究所
+  - 文章
 icon: /images/articel_cover.png
 ---
 
