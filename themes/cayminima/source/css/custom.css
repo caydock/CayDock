@@ -713,7 +713,7 @@ p code {
   flex-direction: row;
   align-items: center;
   background: url('/images/network.png') no-repeat 100% 50%;
-  background-size: 120px 120px;
+  background-size: 80px 70px;
   box-shadow: #cbc7c7 0px 1px 3px 0px
 }
 
