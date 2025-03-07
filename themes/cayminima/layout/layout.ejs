@@ -44,8 +44,8 @@
   <meta name="keywords" content="<%= config.keywords %>">
   <% } %>
   <meta name="author" content="<%- config.author %>">
-  <% if ((is_post() || is_page()) && page.cover) { %>
-  <meta property="og:image" content="<%-config.url + page.cover %>">
+  <% if ((is_post() || is_page()) && page.icon) { %>
+    <meta property="og:image" content="<%-page.icon %>">
   <% } else { %>
   <meta property="og:image" content="<%-config.url + theme.thumbnail %>">
   <% } %>
@@ -73,9 +73,7 @@
     <% } else { %>
     <meta name="twitter:description" content="<%= config.description %>">
     <% } %>
-  <% if ((is_post() || is_page()) && page.cover ) { %>
-  <meta name="twitter:image" content="<%-page.cover %>">
-  <% } else if((is_post() || is_page()) && page.icon) { %>
+  <% if((is_post() || is_page()) && page.icon) { %>
     <meta name="twitter:image" content="<%-page.icon %>">
   <% } else { %>
   <meta name="twitter:image" content="<%-config.url + theme.thumbnail %>">
@@ -110,7 +108,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-icon-180x180.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png" />
-  <link rel="icon" type="image/ico" href="/favicon.ico" />
+  <link rel="icon" type="image/ico" href="/images/apple-icon-180x180.png" />
 
   <!-- Custom Theme Color Style
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
