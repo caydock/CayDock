@@ -94,3 +94,5 @@ deploy:
   type: git
   repo:
     coding: git@github.com:w3cay/w3cay.github.io.git,master
+
+neat_enable: true
