@@ -302,6 +302,7 @@ body.darkmode {
 
 .post-content-warp {
   margin-right: 20px;
+  flex: 1;
 }
 
 .post-content-col {
@@ -512,6 +513,19 @@ p code {
   border-radius: 1rem;
 }
 
+.post-tags a {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1rem;
+  border: 1px solid #373633;
+  margin-right: 0.25rem;
+  margin-bottom: 0.25rem;
+  padding: 5px;
+  border-radius: 1rem;
+}
+
+
+
 .pagination-wrap {
   margin: 30px 0;
   text-align: center;
@@ -709,7 +723,7 @@ p code {
 .link-warp {
   display: flex;
   border-radius: 5px;
-  padding: 5px 20px 5px 10px;
+  padding: 10px;
   flex-direction: row;
   align-items: center;
   background: url('/images/network.png') no-repeat 100% 50%;
@@ -733,6 +747,8 @@ p code {
   font-size: 18px;
   font-weight: 500;
   color: #3f9f43;
+  display: flex;
+  align-items: center;
 }
 
 .header-hr {
@@ -770,8 +786,8 @@ p code {
 }
 
 .link-warp img {
-  width: 45px;
-  height: 45px;
+  width: 35px;
+  height: 35px;
   background: url('/images/default_logo.png') no-repeat center center;
   background-size: cover;
 }

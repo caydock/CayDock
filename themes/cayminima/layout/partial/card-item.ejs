@@ -24,11 +24,10 @@
     </div>
   </div>
   <div>
-    <% if (post.subTitle) { %>
+    <% if (post.subTitle || post.desc ) { %>
     <a href="<%- url_for(post.path) %>">
       <p class="list-post-subtitle">
-        <% if (post.subTitle == "") { %> no title <% } else { %> <%-
-        post.subTitle %> <% } %>
+         <%-post.subTitle || post.desc %> 
       </p>
     </a>
     <% } %> <% if (post.tags && post.tags.length > 0) { %>
