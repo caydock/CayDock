@@ -5,6 +5,7 @@ tags:
   - 工具
 link: 'https://ufostalker.com/'
 icon: 'https://ufostalker.com/assets/img/logo.png'
+cover: https://cdn-image.w3cay.com/imgs/screenshot-20250315150135.jpg
 abbrlink: 50b2fcc6
 date: 2025-03-02 12:46:45
 ---

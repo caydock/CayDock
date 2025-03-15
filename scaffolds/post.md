@@ -3,8 +3,8 @@ title: {{ title }}
 date: {{ date }}
 subTitle: 
 tags: 
-  - 灵感研究所  
-icon: 
+  - 文章 
+icon: /images/apple-icon-180x180.png
 cover:
 link: 
 ---
