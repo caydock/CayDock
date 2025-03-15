@@ -305,6 +305,10 @@ body.darkmode {
   flex: 1;
 }
 
+.post-content-warp h3 a {
+  text-decoration: underline;
+}
+
 .post-content-col {
   display: flex;
   justify-content: space-between;
