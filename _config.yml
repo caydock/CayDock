@@ -79,6 +79,13 @@ plugins:
  hexo-generator-feed
  hexo-generator-sitemap
 
+
+feed: 
+  enable: true
+  type: atom
+  path: atom.xml
+  content_limit: 140
+
 nofollow:
 	enable: true
 
