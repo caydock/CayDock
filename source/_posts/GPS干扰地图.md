@@ -5,7 +5,7 @@ tags:
   - 网站
 link: 'https://gpsjam.org/'
 icon: 'https://gpsjam.obliscence.com/images/gpsjam-card-preview.png'
-cover: https://cdn-image.w3cay.com/imgs/screenshot-20250315150908.png
+cover: https://cdn-image.w3cay.com/imgs/screenshot-20250315150908.jpg
 abbrlink: 10f470c3
 date: 2025-02-20 22:17:59
 ---
