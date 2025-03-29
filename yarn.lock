@@ -659,6 +659,14 @@ chalk@^3.0.0:
     ansi-styles "^4.1.0"
     supports-color "^7.1.0"
 
+chalk@^4:
+  version "4.1.2"
+  resolved "https://registry.npmmirror.com/chalk/-/chalk-4.1.2.tgz"
+  integrity sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==
+  dependencies:
+    ansi-styles "^4.1.0"
+    supports-color "^7.1.0"
+
 chalk@^4.1.2:
   version "4.1.2"
   resolved "https://registry.npmmirror.com/chalk/-/chalk-4.1.2.tgz"
@@ -1843,6 +1851,13 @@ hexo-hash@^1.0.4:
   integrity sha512-PKU6+dBRkjIELs+MXj9ym9mW5HNubVopNK9u520tNhnPjgXJcbNZPVG6weadKEhsZuT7QAMIRvmrgYdQWOievw==
   dependencies:
     cache-hash "^1.0.0-beta.10"
+
+hexo-hide-posts@^0.4.3:
+  version "0.4.3"
+  resolved "https://registry.npmmirror.com/hexo-hide-posts/-/hexo-hide-posts-0.4.3.tgz"
+  integrity sha512-5VLzaX6ntJ0uJy56X5tgbII6oucBoUS5gCzm37ozXibMT8lBmRgbuzzayKNuBL+oQpyAa+vEsLyxlSunyaRs7g==
+  dependencies:
+    chalk "^4"
 
 hexo-i18n@^1.0.0:
   version "1.0.0"

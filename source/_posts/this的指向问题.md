@@ -5,6 +5,7 @@ tags:
 	- 文章
 abbrlink: 6c4fc4b2
 date: 2015-08-25 17:53:55
+hidden: true
 ---
 引言：javascript的this关键字是个非常让人头疼的部分，this的指向真是让人“出乎意料”。看了《javascript高级程序设计》中的关于this对象的描述，差不多有了一个清晰的认识，为了防止忘记和分享所以做此总结。
 ## this在不同情况下的指向
