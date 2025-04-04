@@ -796,6 +796,14 @@ p code {
   background-size: cover;
 }
 
+.sub-icon {
+  margin-right: 15px;
+}
+
+.sub-icon img {
+  width: 18px;
+}
+
 /* 移动端 */
 @media (max-width: 768px) {
   .container {
@@ -905,3 +913,4 @@ p code {
     font-size: 20px;
   }
 }
+
