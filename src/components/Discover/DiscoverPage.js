@@ -3,6 +3,8 @@ import { useCallback, useMemo, useState } from 'react'
 import { sites } from '@/src/data/sites'
 import SiteCard from '@/src/components/SiteCard'
 import { useLanguage } from '@/src/components/i18n/LanguageProvider'
+import { useThemeSwitch } from '@/src/components/Hooks/useThemeSwitch'
+import { MoonIcon, SunIcon } from '@/src/components/Icons'
 
 const styles = `
   :root {
@@ -155,11 +157,8 @@ const styles = `
   .floating-actions .secondary:active {
     transform: translateY(0);
   }
-  .floating-actions .secondary::before {
-    content: "🎲";
-    font-size: 16px;
-    line-height: 1;
-  }
+  .floating-actions .secondary.random::before { content: "🎲"; font-size: 16px; line-height: 1; }
+  .floating-actions .secondary.retry::before { content: "⟳"; font-size: 16px; line-height: 1; }
 
   @media (prefers-color-scheme: dark) {
     .floating-actions .secondary {
@@ -179,13 +178,31 @@ const styles = `
     .floating-actions .primary { padding: 12px 16px; font-size: 0.98rem; }
     .floating-actions .secondary { padding: 10px 14px; font-size: 0.96rem; }
   }
+
+  /* 首页浮动暗夜模式切换按钮 */
+  .theme-fab {
+    position: fixed; top: 16px; right: 16px; z-index: 70;
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 40px; height: 40px; border-radius: 999px;
+    background: rgba(255,255,255,0.9);
+    border: 1px solid rgba(0,0,0,0.08);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+    backdrop-filter: blur(10px);
+    transition: transform 0.15s ease, box-shadow 0.2s ease;
+  }
+  .theme-fab:hover { transform: translateY(-1px); box-shadow: 0 12px 26px rgba(0,0,0,0.16); }
+  @media (prefers-color-scheme: dark) {
+    .theme-fab { background: rgba(22,22,28,0.78); border-color: rgba(255,255,255,0.06); }
+  }
 `;
 
 export default function DiscoverPage() {
   const { language, t } = useLanguage()
+  const [mode, setMode] = useThemeSwitch()
   const [index, setIndex] = useState(() => Math.floor(Math.random() * sites.length))
   const [serverSite, setServerSite] = useState(null)
   const [openedIds, setOpenedIds] = useState(() => new Set())
+  const [reloadKey, setReloadKey] = useState(0)
 
   const current = useMemo(() => serverSite || sites[index], [serverSite, index])
 
@@ -215,7 +232,7 @@ export default function DiscoverPage() {
         <div className="card-wrap">
           {current ? (
             <div className="card">
-              <SiteCard site={current} language={language} />
+              <SiteCard site={current} language={language} reloadKey={reloadKey} />
               {isOpened ? null : <div className="hint">{t('discover.hint')}</div>}
             </div>
           ) : (
@@ -223,11 +240,17 @@ export default function DiscoverPage() {
           )}
         </div>
         <div className="floating-actions">
-          <button className="secondary" onClick={fetchRandom}>{t('discover.random')}</button>
+          <button className="secondary random" onClick={fetchRandom}>{t('discover.random')}</button>
+          {current ? (
+            <button className="secondary retry" onClick={() => setReloadKey(Date.now())}>{t('discover.retry')}</button>
+          ) : null}
           {current ? (
             <a className="primary" href={current.url} target="_blank" rel="noreferrer" onClick={markOpened}>{t('discover.open')}</a>
           ) : null}
         </div>
+        <button className="theme-fab" aria-label="home-theme-switcher" onClick={() => setMode(mode === 'light' ? 'dark' : 'light')}>
+          {mode === 'light' ? <MoonIcon className="w-5 h-5" /> : <SunIcon className="w-5 h-5" />}
+        </button>
       </main>
     </>
   )

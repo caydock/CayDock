@@ -13,6 +13,7 @@ const STRINGS = {
     discover: {
       random: "Random",
       open: "Open Site",
+      retry: "Retry",
       hint: "It will be marked as visited after clicking \"Open Site\".",
       empty: "Click \"Random\" to get a recommendation.",
     },
@@ -22,6 +23,7 @@ const STRINGS = {
     discover: {
       random: "随机",
       open: "打开网站",
+      retry: "重试",
       hint: "点击“打开网站”后将标记为已访问。",
       empty: "点击“随机”按钮获取一个推荐。",
     },
