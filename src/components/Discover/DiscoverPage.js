@@ -1,0 +1,232 @@
+"use client";
+import { useCallback, useMemo, useState } from 'react'
+import { sites } from '@/src/data/sites'
+import SiteCard from '@/src/components/SiteCard'
+
+const styles = `
+  :root {
+    --bg1: #f0f4ff;
+    --bg2: #ffeef6;
+    --bg3: #e8fff3;
+    --bg4: #f3f0ff;
+    --vignette: rgba(0, 0, 0, 0.18);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg1: #0f1226;
+      --bg2: #1b1d3a;
+      --bg3: #0d1f2e;
+      --bg4: #1e1030;
+      --vignette: rgba(0, 0, 0, 0.35);
+    }
+  }
+
+  .main { position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+
+  .islands-bg { 
+    position: fixed; inset: 0; z-index: -1; 
+    background: linear-gradient(120deg, var(--bg1), var(--bg2), var(--bg3), var(--bg4));
+    background-size: 400% 400%;
+    animation: bgShift 18s ease-in-out infinite;
+  }
+  @keyframes bgShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .islands-bg { animation: none; }
+  }
+
+  /* 柔和暗角与高光层次 */
+  .islands-bg::after { 
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(1200px 800px at 50% 40%, rgba(255,255,255,0.18), transparent 60%),
+                radial-gradient(900px 600px at 20% 20%, rgba(255,255,255,0.10), transparent 60%),
+                radial-gradient(1200px 900px at 80% 80%, rgba(255,255,255,0.10), transparent 60%),
+                radial-gradient(1600px 900px at 50% 120%, var(--vignette), transparent 60%);
+    mix-blend-mode: overlay;
+  }
+
+  .card-wrap { position: relative; z-index: 10; max-width: 1200px; width: 96%; margin: 0 auto; padding: 0 16px; }
+  .card { background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(10px); border-radius: 20px; padding: 2rem; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08); text-align: center; }
+
+  @media (prefers-color-scheme: dark) {
+    .card { background: rgba(22, 22, 28, 0.78); box-shadow: 0 20px 50px rgba(0,0,0,0.35); }
+  }
+
+  .site-card { margin-bottom: 2rem; }
+  .shot-wrap { position: relative; width: 100%; height: clamp(480px, 70vh, 860px); border-radius: 14px; overflow: hidden; margin-bottom: 1rem; background: rgba(245, 245, 245, 0.85); }
+  .frame { width: 100%; height: 100%; border: none; border-radius: 14px; }
+  .loading { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(245, 245, 245, 0.85); }
+  .spinner { width: 40px; height: 40px; border: 4px solid #e5e5e5; border-top: 4px solid #667eea; border-radius: 50%; animation: spin 1s linear infinite; }
+  @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+  .fallback { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(245,245,245,0.9); }
+  .box { text-align: center; padding: 2rem; }
+  .meta { text-align: left; }
+  .title { font-size: 1.5rem; font-weight: bold; margin-bottom: 0.5rem; color: #333; }
+  .pitch { color: #666; line-height: 1.6; }
+
+  .hint { margin-top: 0.75rem; color: #666; font-size: 0.95rem; }
+  .empty { text-align: center; color: #666; font-size: 1.1rem; }
+
+  @media (prefers-color-scheme: dark) {
+    .shot-wrap, .loading, .fallback { background: rgba(34, 34, 38, 0.85); }
+    .title { color: #fff; }
+    .pitch { color: #cfcfe1; }
+  }
+
+  @media (max-width: 640px) {
+    .shot-wrap { height: 60vh; }
+  }
+
+  /* 悬浮操作条：底部中间绝对居中 */
+  .floating-actions {
+    position: fixed; left: 50%; bottom: calc(env(safe-area-inset-bottom, 0px) + 24px);
+    transform: translateX(-50%);
+    z-index: 60;
+    display: flex; gap: 12px; align-items: center; justify-content: center;
+    background: rgba(255,255,255,0.88);
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 999px;
+    padding: 10px 14px;
+    box-shadow: 0 12px 34px rgba(0,0,0,0.14);
+    backdrop-filter: blur(10px);
+    width: fit-content; max-width: min(92vw, 520px);
+  }
+  @media (prefers-color-scheme: dark) {
+    .floating-actions { background: rgba(22,22,28,0.78); border-color: rgba(255,255,255,0.06); }
+  }
+  @media (max-width: 480px) {
+    .floating-actions { padding: 8px 10px; gap: 10px; }
+  }
+  .floating-actions .secondary, .floating-actions .primary { margin: 0; }
+
+  /* 更显眼的操作按钮样式 */
+  .floating-actions .primary {
+    display: inline-flex; align-items: center; justify-content: center;
+    gap: 8px;
+    padding: 12px 18px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #7c3aed 0%, #2563eb 100%);
+    color: #fff;
+    font-weight: 800;
+    letter-spacing: 0.2px;
+    border: none;
+    text-decoration: none;
+    box-shadow: 0 8px 20px rgba(124, 58, 237, 0.4), 0 4px 12px rgba(37, 99, 235, 0.25);
+    transform: translateZ(0);
+    transition: transform 0.15s ease, box-shadow 0.2s ease, filter 0.2s ease;
+  }
+  .floating-actions .primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 12px 26px rgba(124,58,237,0.50), 0 6px 16px rgba(37,99,235,0.28);
+    filter: brightness(1.02);
+  }
+  .floating-actions .primary:active {
+    transform: translateY(0);
+    filter: brightness(0.98);
+  }
+  .floating-actions .primary::after {
+    content: "↗";
+    font-size: 14px;
+    line-height: 1;
+  }
+
+  .floating-actions .secondary {
+    display: inline-flex; align-items: center; justify-content: center;
+    gap: 6px;
+    padding: 12px 16px;
+    border-radius: 999px;
+    border: 2px solid rgba(124, 58, 237, 0.85);
+    color: rgb(124,58,237);
+    background: rgba(255,255,255,0.9);
+    font-weight: 700;
+    letter-spacing: 0.2px;
+    transition: background-color 0.2s ease, color 0.2s ease, transform 0.15s ease, border-color 0.2s ease;
+  }
+  .floating-actions .secondary:hover {
+    background: rgba(124, 58, 237, 0.08);
+    transform: translateY(-1px);
+  }
+  .floating-actions .secondary:active {
+    transform: translateY(0);
+  }
+  .floating-actions .secondary::before {
+    content: "🎲";
+    font-size: 16px;
+    line-height: 1;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .floating-actions .secondary {
+      background: rgba(22,22,28,0.84);
+      border-color: rgba(167, 139, 250, 0.9);
+      color: rgb(196,181,253);
+    }
+    .floating-actions .secondary:hover {
+      background: rgba(167,139,250,0.12);
+    }
+    .floating-actions .primary {
+      box-shadow: 0 10px 24px rgba(0,0,0,0.5), 0 10px 24px rgba(139,92,246,0.35);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .floating-actions .primary { padding: 12px 16px; font-size: 0.98rem; }
+    .floating-actions .secondary { padding: 10px 14px; font-size: 0.96rem; }
+  }
+`;
+
+export default function DiscoverPage() {
+  const [index, setIndex] = useState(() => Math.floor(Math.random() * sites.length))
+  const [serverSite, setServerSite] = useState(null)
+  const [openedIds, setOpenedIds] = useState(() => new Set())
+
+  const current = useMemo(() => serverSite || sites[index], [serverSite, index])
+
+  const fetchRandom = useCallback(async () => {
+    try {
+      const res = await fetch(`/api/random`, { headers: { 'accept': 'application/json' } })
+      if (!res.ok) throw new Error('bad status')
+      const data = await res.json()
+      setServerSite(data)
+    } catch {
+      setServerSite(null)
+      if (sites.length === 0) return
+      let next = Math.floor(Math.random() * sites.length)
+      if (sites.length > 1) { while (next === index) next = Math.floor(Math.random() * sites.length) }
+      setIndex(next)
+    }
+  }, [index])
+
+  const markOpened = useCallback(() => { setOpenedIds((prev) => new Set(prev).add(current?.id)) }, [current])
+  const isOpened = current ? openedIds.has(current.id) : false
+
+  return (
+    <>
+      <style jsx>{styles}</style>
+      <main className="main">
+        <div className="islands-bg" aria-hidden="true" />
+        <div className="card-wrap">
+          {current ? (
+            <div className="card">
+              <SiteCard site={current} language="zh" />
+              {isOpened ? null : <div className="hint">点击“打开网站”后将标记为已访问。</div>}
+            </div>
+          ) : (
+            <div className="empty">点击“随机”按钮获取一个推荐。</div>
+          )}
+        </div>
+        <div className="floating-actions">
+          <button className="secondary" onClick={fetchRandom}>随机</button>
+          {current ? (
+            <a className="primary" href={current.url} target="_blank" rel="noreferrer" onClick={markOpened}>打开网站</a>
+          ) : null}
+        </div>
+      </main>
+    </>
+  )
+}
