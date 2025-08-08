@@ -71,12 +71,14 @@ const Footer = () => {
         <span className="text-center">
           &copy;2023 CodeBucks. All rights reserved.
         </span>
-        <Link
-          href="/sitemap.xml"
-          className="text-center underline my-4 md:my-0"
-        >
-          sitemap.xml
-        </Link>
+        <nav className="text-center flex items-center gap-4 my-4 md:my-0">
+          <Link href="/" className="underline">{t('nav.home')}</Link>
+          <Link href="/blogs" className="underline">{t('nav.blogs')}</Link>
+          <Link href="/submit" className="underline">{t('nav.submit')}</Link>
+          <Link href="/about" className="underline">{t('nav.about')}</Link>
+          <Link href="/contact" className="underline">{t('nav.contact')}</Link>
+          <Link href="/sitemap.xml" className="underline">sitemap.xml</Link>
+        </nav>
         <div className="text-center flex items-center gap-3">
           <span>
             Made with &hearts; by{" "}
