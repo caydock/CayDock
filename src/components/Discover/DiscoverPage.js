@@ -1,5 +1,5 @@
 "use client";
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { sites } from '@/src/data/sites'
 import SiteCard from '@/src/components/SiteCard'
 import { useLanguage } from '@/src/components/i18n/LanguageProvider'
@@ -7,13 +7,6 @@ import { useThemeSwitch } from '@/src/components/Hooks/useThemeSwitch'
 import { MoonIcon, SunIcon } from '@/src/components/Icons'
 
 const styles = `
-  :root {
-    --bg1: #f0f4ff;
-    --bg2: #ffeef6;
-    --bg3: #e8fff3;
-    --bg4: #f3f0ff;
-    --vignette: rgba(0, 0, 0, 0.18);
-  }
 
   @media (prefers-color-scheme: dark) {
     :root {
@@ -189,7 +182,8 @@ const styles = `
 export default function DiscoverPage() {
   const { language, t } = useLanguage()
   const [mode, setMode] = useThemeSwitch()
-  const [index, setIndex] = useState(() => Math.floor(Math.random() * sites.length))
+  // Avoid SSR/CSR mismatch: deterministic initial index
+  const [index, setIndex] = useState(0)
   const [serverSite, setServerSite] = useState(null)
   const [openedIds, setOpenedIds] = useState(() => new Set())
   const [reloadKey, setReloadKey] = useState(0)
@@ -210,6 +204,16 @@ export default function DiscoverPage() {
       setIndex(next)
     }
   }, [index])
+
+  // On mount, pick a random index once on client to avoid SSR mismatch
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    if (!serverSite && sites.length > 0 && index === 0) {
+      const firstRandom = Math.floor(Math.random() * sites.length)
+      setIndex(firstRandom)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const markOpened = useCallback(() => { setOpenedIds((prev) => new Set(prev).add(current?.id)) }, [current])
   const isOpened = current ? openedIds.has(current.id) : false
@@ -238,9 +242,6 @@ export default function DiscoverPage() {
             <a className="primary" href={current.url} target="_blank" rel="noreferrer" onClick={markOpened}>{t('discover.open')}</a>
           ) : null}
         </div>
-        <button className="theme-fab" aria-label="home-theme-switcher" onClick={() => setMode(mode === 'light' ? 'dark' : 'light')}>
-          {mode === 'light' ? <MoonIcon className="w-5 h-5" /> : <SunIcon className="w-5 h-5" />}
-        </button>
       </main>
     </>
   )
