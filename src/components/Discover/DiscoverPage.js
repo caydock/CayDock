@@ -2,6 +2,7 @@
 import { useCallback, useMemo, useState } from 'react'
 import { sites } from '@/src/data/sites'
 import SiteCard from '@/src/components/SiteCard'
+import { useLanguage } from '@/src/components/i18n/LanguageProvider'
 
 const styles = `
   :root {
@@ -181,6 +182,7 @@ const styles = `
 `;
 
 export default function DiscoverPage() {
+  const { language, t } = useLanguage()
   const [index, setIndex] = useState(() => Math.floor(Math.random() * sites.length))
   const [serverSite, setServerSite] = useState(null)
   const [openedIds, setOpenedIds] = useState(() => new Set())
@@ -213,17 +215,17 @@ export default function DiscoverPage() {
         <div className="card-wrap">
           {current ? (
             <div className="card">
-              <SiteCard site={current} language="zh" />
-              {isOpened ? null : <div className="hint">点击“打开网站”后将标记为已访问。</div>}
+              <SiteCard site={current} language={language} />
+              {isOpened ? null : <div className="hint">{t('discover.hint')}</div>}
             </div>
           ) : (
-            <div className="empty">点击“随机”按钮获取一个推荐。</div>
+            <div className="empty">{t('discover.empty')}</div>
           )}
         </div>
         <div className="floating-actions">
-          <button className="secondary" onClick={fetchRandom}>随机</button>
+          <button className="secondary" onClick={fetchRandom}>{t('discover.random')}</button>
           {current ? (
-            <a className="primary" href={current.url} target="_blank" rel="noreferrer" onClick={markOpened}>打开网站</a>
+            <a className="primary" href={current.url} target="_blank" rel="noreferrer" onClick={markOpened}>{t('discover.open')}</a>
           ) : null}
         </div>
       </main>
