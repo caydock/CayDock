@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { DribbbleIcon, GithubIcon, LinkedinIcon, TwitterIcon } from "../Icons";
 import Link from "next/link";
 import siteMetadata from "@/src/utils/siteMetaData";
+import { useLanguage } from "@/src/components/i18n/LanguageProvider";
 
 const Footer = () => {
   const {
@@ -13,6 +14,8 @@ const Footer = () => {
   } = useForm();
   const onSubmit = (data) => console.log(data);
   console.log(errors);
+
+  const { language, setLanguage, t } = useLanguage();
 
   return (
     <footer className="mt-16 rounded-2xl bg-dark dark:bg-accentDark/90 m-2 sm:m-10 flex flex-col items-center text-light dark:text-dark">
@@ -24,22 +27,7 @@ const Footer = () => {
         members community to stay up to date with latest news.
       </p>
 
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="mt-6 w-fit sm:min-w-[384px] flex items-stretch bg-light dark:bg-dark p-1 sm:p-2 rounded mx04"
-      >
-        <input
-          type="email"
-          placeholder="Enter your email"
-          {...register("email", { required: true, maxLength: 80 })}
-          className="w-full bg-transparent pl-2 sm:pl-0 text-dark focus:border-dark focus:ring-0 border-0 border-b mr-2 pb-1"
-        />
-
-        <input
-          type="submit"
-          className="bg-dark text-light dark:text-dark dark:bg-light cursor-pointer font-medium rounded px-3 sm:px-5 py-1"
-        />
-      </form>
+    
       <div className="flex items-center mt-8">
         <a
           href={siteMetadata.linkedin}
@@ -89,11 +77,20 @@ const Footer = () => {
         >
           sitemap.xml
         </Link>
-        <div className="text-center">
-          Made with &hearts; by{" "}
-          <a href="https://devdreaming.com" className="underline" target="_blank">
-            CodeBucks
-          </a>
+        <div className="text-center flex items-center gap-3">
+          <span>
+            Made with &hearts; by{" "}
+            <a href="https://devdreaming.com" className="underline" target="_blank">
+              CodeBucks
+            </a>
+          </span>
+          <button
+            onClick={() => setLanguage(language === 'zh' ? 'en' : 'zh')}
+            className="ml-2 px-3 py-1 rounded-full border border-solid border-light/60 dark:border-dark/60 text-sm bg-transparent"
+            aria-label="language-switcher-footer"
+          >
+            {language === 'zh' ? 'EN' : '中文'}
+          </button>
         </div>
       </div>
     </footer>

@@ -68,13 +68,7 @@ const toggle = () =>{
                   mode === "light" ? <MoonIcon className={"fill-dark"} />  : <SunIcon className={"fill-dark"} />
                 }
             </button>
-            <button
-              onClick={() => setLanguage(language === 'zh' ? 'en' : 'zh')}
-              className={cx("ml-2 px-2 py-1 rounded-full border border-solid border-dark text-sm", "bg-transparent")}
-              aria-label="language-switcher"
-            >
-              {language === 'zh' ? 'EN' : '中文'}
-            </button>
+            {/* language switcher moved to footer */}
         </nav>
 
 
@@ -94,13 +88,7 @@ const toggle = () =>{
                   mode === "light" ? <MoonIcon className={"fill-dark"} />  : <SunIcon className={"fill-dark"} />
                 }
             </button>
-            <button
-              onClick={() => setLanguage(language === 'zh' ? 'en' : 'zh')}
-              className={cx("ml-2 px-2 py-1 rounded-full border border-solid border-dark text-sm", "bg-transparent")}
-              aria-label="language-switcher"
-            >
-              {language === 'zh' ? 'EN' : '中文'}
-            </button>
+            {/* language switcher moved to footer */}
         </nav>
         <div className=" hidden sm:flex items-center">
             <a href={siteMetadata.linkedin} rel="noopener noreferrer" className="inline-block w-6 h-6 mr-4" aria-label="Reach out to me via LinkedIn" target="_blank"><LinkedinIcon className="hover:scale-125 transition-all ease duration-200" /></a>
