@@ -19,17 +19,17 @@ const Footer = () => {
 
   return (
     <footer className="mt-16 rounded-2xl bg-dark dark:bg-accentDark/90 m-2 sm:m-10 flex flex-col items-center text-light dark:text-dark">
-      <div className="mt-16 w-full flex flex-col md:flex-row items-center justify-between gap-4 px-4">
-        <h3 className="font-medium dark:font-bold text-center md:text-left capitalize text-2xl sm:text-3xl lg:text-4xl">
-          Interesting Stories | Updates | Guides
-        </h3>
-        <nav className="flex flex-wrap items-center justify-center gap-4 text-base">
+      <div className="mt-16 w-full flex flex-col items-center justify-center gap-4 px-4">
+        <nav className="flex flex-wrap items-center justify-center gap-4 text-base order-1">
           <Link href="/" className="underline">{t('nav.home')}</Link>
           <Link href="/blogs" className="underline">{t('nav.blogs')}</Link>
           <Link href="/submit" className="underline">{t('nav.submit')}</Link>
           <Link href="/about" className="underline">{t('nav.about')}</Link>
           <Link href="/contact" className="underline">{t('nav.contact')}</Link>
         </nav>
+        <h3 className="font-medium dark:font-bold text-center capitalize text-2xl sm:text-3xl lg:text-4xl order-2">
+          Interesting Stories | Updates | Guides
+        </h3>
       </div>
       <p className="mt-5 px-4 text-center w-full sm:w-3/5 font-light dark:font-medium text-sm sm:text-base">
         Subscribe to learn about new technology and updates. Join over 5000+
