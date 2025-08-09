@@ -94,7 +94,7 @@ const styles = `
   :global(.dark) .card { background: rgba(22, 22, 28, 0.78); box-shadow: 0 20px 50px rgba(0,0,0,0.35); }
 
   .site-card { margin-bottom: 2rem; }
-  .shot-wrap { position: relative; width: 100%; height: clamp(480px, 70vh, 860px); border-radius: 14px; overflow: hidden; margin-bottom: 1rem; background: rgba(245, 245, 245, 0.85); }
+  .shot-wrap { position: relative; width: 100%; height: clamp(480px, 70vh, 90svh); border-radius: 14px; overflow: hidden; margin-bottom: 1rem; background: rgba(245, 245, 245, 0.85); }
   .frame { width: 100%; height: 100%; border: none; border-radius: 14px; }
   .loading { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(245, 245, 245, 0.85); }
   .spinner { width: 40px; height: 40px; border: 4px solid #e5e5e5; border-top: 4px solid #667eea; border-radius: 50%; animation: spin 1s linear infinite; }
@@ -115,7 +115,10 @@ const styles = `
   :global(.dark) .pitch { color: #cfcfe1; }
 
   @media (max-width: 640px) {
-    .shot-wrap { height: 60vh; }
+    :root { --mobile-area-offset: 160px; }
+    .shot-wrap {
+      height: calc(100svh - var(--mobile-area-offset));
+    }
   }
 
   /* 悬浮操作条：底部中间绝对居中 */
