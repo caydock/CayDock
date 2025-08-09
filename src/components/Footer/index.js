@@ -23,11 +23,11 @@ const Footer = () => {
       <div className="mt-16 w-full flex flex-col items-center justify-center gap-4 px-4">
         <Logo />
         <h3 className="font-medium dark:font-bold text-center capitalize text-2xl sm:text-3xl lg:text-4xl">
-          Weird Wonder Web Cay
+          {t('footer.title')}
         </h3>
       </div>
       <p className="mt-5 px-4 text-center w-full sm:w-3/5 font-light dark:font-medium text-sm sm:text-base">
-          W3Cay is a collection of weird and wonderful websites. It is a place to share and discover new and interesting websites.  
+          {t('footer.description')}
       </p>
 
     
@@ -72,12 +72,12 @@ const Footer = () => {
 
       <div className="w-full  mt-16 md:mt-24 relative font-medium border-t border-solid border-light py-6 px-8 flex  flex-col md:flex-row items-center justify-between">
         <span className="text-center">
-          &copy;2025 W3Cay. All rights reserved.
+          &copy;2025 W3Cay. {t('footer.allRights')}
         </span>
-        <Link href="/sitemap.xml" className="text-center underline my-4 md:my-0">sitemap.xml</Link>
+        <Link href="/sitemap.xml" className="text-center underline my-4 md:my-0">{t('footer.sitemap')}</Link>
         <div className="text-center flex items-center gap-3">
           <span>
-            Made with &hearts; by{" "}
+            {t('footer.madeWithBy')}{" "}
             <a href="https://blog.w3cay.com" className="underline" target="_blank">
               Cay
             </a>
