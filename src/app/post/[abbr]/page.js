@@ -1,8 +1,11 @@
 "use client";
+
 import { useCallback, useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import SiteCard from '@/src/components/SiteCard'
 import { useLanguage } from '@/src/components/i18n/LanguageProvider'
+
+export const runtime = 'edge'
 
 const styles = `
 .page { max-width: 1200px; margin: 4rem auto 0; padding: 0 16px; }
@@ -31,7 +34,7 @@ export default function PostByAbbrPage({ params }) {
     } catch (e) {
       router.replace('/not-found')
     }
-  }, [params.abbr])
+  }, [params.abbr, router])
 
   useEffect(() => { fetchByAbbr() }, [fetchByAbbr])
 

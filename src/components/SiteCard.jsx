@@ -2,7 +2,6 @@
 import { memo, useEffect, useMemo, useRef, useState } from 'react'
 
 function SiteCard({ site, language, reloadKey = 0 }) {
-  if (!site) return null
   
   const title = site.title?.[language] || site.title?.en || ''
   const pitch = site.pitch?.[language] || site.pitch?.en || ''

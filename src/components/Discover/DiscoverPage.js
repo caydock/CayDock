@@ -154,7 +154,7 @@ export default function DiscoverPage() {
   // On mount, fetch one random site once on client
   useEffect(() => {
     fetchRandom()
-  }, [])
+  }, [fetchRandom])
 
   // Hide floating actions when footer enters viewport
   useEffect(() => {
