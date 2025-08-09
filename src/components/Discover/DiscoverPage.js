@@ -29,17 +29,45 @@ const styles = `
   :global(.dark) .islands-bg {
     background: linear-gradient(120deg, #0f1226, #1b1d3a, #0d1f2e, #1e1030);
   }
-  /* 碎花图案背景层（置于渐变之上、内容之下） */
-  .pattern-bg {
+  /* 科技感网格 + 霓虹扫光 背景层 */
+  .tech-bg {
     position: fixed; inset: 0; z-index: -1; pointer-events: none;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='60' height='60'><rect width='60' height='60' fill='none'/><g opacity='0.28'><g transform='translate(12 12)'><g fill='%23f59e0b'><circle cx='0' cy='3' r='2'/><circle cx='3' cy='0' r='2'/><circle cx='-3' cy='0' r='2'/><circle cx='0' cy='-3' r='2'/></g><circle cx='0' cy='0' r='1.2' fill='%23f97316'/></g><g transform='translate(36 18)'><g fill='%2393c5fd'><circle cx='0' cy='3' r='2'/><circle cx='3' cy='0' r='2'/><circle cx='-3' cy='0' r='2'/><circle cx='0' cy='-3' r='2'/></g><circle cx='0' cy='0' r='1.2' fill='%2360a5fa'/></g><g transform='translate(45 45)'><g fill='%23a7f3d0'><circle cx='0' cy='3' r='2'/><circle cx='3' cy='0' r='2'/><circle cx='-3' cy='0' r='2'/><circle cx='0' cy='-3' r='2'/></g><circle cx='0' cy='0' r='1.2' fill='%234ad2b8'/></g><g fill='%239ca3af' opacity='0.45'><circle cx='8' cy='40' r='1.2'/><circle cx='28' cy='6' r='1'/><circle cx='52' cy='26' r='1.2'/></g></g></svg>");
-    background-repeat: repeat;
-    background-size: 60px 60px;
+    background-image:
+      linear-gradient(rgba(99,102,241,0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(99,102,241,0.08) 1px, transparent 1px),
+      radial-gradient(rgba(99,102,241,0.10) 1px, transparent 1px),
+      radial-gradient(rgba(16,185,129,0.10) 1px, transparent 1px);
+    background-size: 48px 48px, 48px 48px, 24px 24px, 24px 24px;
+    background-position: 0 0, 0 0, 12px 12px, 0 0;
   }
+  .tech-bg::before {
+    content: ""; position: absolute; inset: -20%;
+    background:
+      radial-gradient(600px 400px at 20% 30%, rgba(56,189,248,0.12), transparent 60%),
+      radial-gradient(800px 500px at 80% 70%, rgba(167,139,250,0.12), transparent 60%);
+    animation: glowMove 16s ease-in-out infinite alternate;
+  }
+  .tech-bg::after {
+    content: ""; position: absolute; inset: -50%; opacity: 0.35;
+    background: conic-gradient(from 0deg at 50% 50%, rgba(59,130,246,0.06), transparent 30%, rgba(16,185,129,0.06), transparent 60%, rgba(236,72,153,0.05), transparent 90%);
+    animation: spin 40s linear infinite;
+  }
+  @keyframes glowMove { to { transform: translate(4%, 2%); } }
+  @keyframes spin { to { transform: rotate(360deg); } }
   @media (prefers-color-scheme: dark) {
-    .pattern-bg { background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='60' height='60'><rect width='60' height='60' fill='none'/><g opacity='0.24'><g transform='translate(12 12)'><g fill='%238b5cf6'><circle cx='0' cy='3' r='2'/><circle cx='3' cy='0' r='2'/><circle cx='-3' cy='0' r='2'/><circle cx='0' cy='-3' r='2'/></g><circle cx='0' cy='0' r='1.2' fill='%237c3aed'/></g><g transform='translate(36 18)'><g fill='%234f46e5'><circle cx='0' cy='3' r='2'/><circle cx='3' cy='0' r='2'/><circle cx='-3' cy='0' r='2'/><circle cx='0' cy='-3' r='2'/></g><circle cx='0' cy='0' r='1.2' fill='%233256ed'/></g><g transform='translate(45 45)'><g fill='%230ea5e9'><circle cx='0' cy='3' r='2'/><circle cx='3' cy='0' r='2'/><circle cx='-3' cy='0' r='2'/><circle cx='0' cy='-3' r='2'/></g><circle cx='0' cy='0' r='1.2' fill='%230ea5e9'/></g><g fill='%236b7280' opacity='0.5'><circle cx='8' cy='40' r='1.2'/><circle cx='28' cy='6' r='1'/><circle cx='52' cy='26' r='1.2'/></g></g></svg>"); }
+    .tech-bg {
+      background-image:
+        linear-gradient(rgba(139,92,246,0.10) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(139,92,246,0.10) 1px, transparent 1px),
+        radial-gradient(rgba(139,92,246,0.12) 1px, transparent 1px),
+        radial-gradient(rgba(14,165,233,0.12) 1px, transparent 1px);
+    }
+    .tech-bg::before { background:
+      radial-gradient(600px 400px at 18% 28%, rgba(14,165,233,0.12), transparent 60%),
+      radial-gradient(800px 500px at 82% 72%, rgba(139,92,246,0.14), transparent 60%);
+    }
+    .tech-bg::after { opacity: 0.45; }
   }
-  :global(.dark) .pattern-bg { filter: none; }
   @keyframes bgShift {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
@@ -234,7 +262,7 @@ export default function DiscoverPage() {
       <style jsx>{styles}</style>
       <main className="main">
         <div className="islands-bg" aria-hidden="true" />
-        <div className="pattern-bg" aria-hidden="true" />
+        <div className="tech-bg" aria-hidden="true" />
         <div className="card-wrap">
           {current ? (
             <div className="card">
