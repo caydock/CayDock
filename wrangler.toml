@@ -1,0 +1,14 @@
+name = "w3cay"
+# 使用新版日期并启用 Node.js 兼容层
+compatibility_date = "2024-12-01"
+compatibility_flags = ["nodejs_compat"]
+
+# 指向 next-on-pages 生成的目录
+pages_build_output_dir = ".vercel/output/static"
+
+# D1 binding
+[[d1_databases]]
+binding = "DB"
+database_name = "w3cay-db"
+database_id = "22bc9589-e042-4707-b19e-75e284d57c79"
+preview_database_id = "DB"

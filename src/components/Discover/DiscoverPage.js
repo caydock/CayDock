@@ -1,12 +1,16 @@
 "use client";
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { sites } from '@/src/data/sites'
 import SiteCard from '@/src/components/SiteCard'
 import { useLanguage } from '@/src/components/i18n/LanguageProvider'
-import { useThemeSwitch } from '@/src/components/Hooks/useThemeSwitch'
-import { MoonIcon, SunIcon } from '@/src/components/Icons'
 
 const styles = `
+  :root {
+    --bg1: #f0f4ff;
+    --bg2: #ffeef6;
+    --bg3: #e8fff3;
+    --bg4: #f3f0ff;
+    --vignette: rgba(0, 0, 0, 0.18);
+  }
 
   @media (prefers-color-scheme: dark) {
     :root {
@@ -18,55 +22,13 @@ const styles = `
     }
   }
 
-  .main { position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .main { position: relative; min-height: 88vh; display: flex; align-items: center; justify-content: center; overflow: hidden; }
 
   .islands-bg { 
     position: fixed; inset: 0; z-index: -1; 
     background: linear-gradient(120deg, var(--bg1), var(--bg2), var(--bg3), var(--bg4));
     background-size: 400% 400%;
     animation: bgShift 18s ease-in-out infinite;
-  }
-  :global(.dark) .islands-bg {
-    background: linear-gradient(120deg, #0f1226, #1b1d3a, #0d1f2e, #1e1030);
-  }
-  /* 科技感网格 + 霓虹扫光 背景层 */
-  .tech-bg {
-    position: fixed; inset: 0; z-index: -1; pointer-events: none;
-    background-image:
-      linear-gradient(rgba(99,102,241,0.08) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(99,102,241,0.08) 1px, transparent 1px),
-      radial-gradient(rgba(99,102,241,0.10) 1px, transparent 1px),
-      radial-gradient(rgba(16,185,129,0.10) 1px, transparent 1px);
-    background-size: 48px 48px, 48px 48px, 24px 24px, 24px 24px;
-    background-position: 0 0, 0 0, 12px 12px, 0 0;
-  }
-  .tech-bg::before {
-    content: ""; position: absolute; inset: -20%;
-    background:
-      radial-gradient(600px 400px at 20% 30%, rgba(56,189,248,0.12), transparent 60%),
-      radial-gradient(800px 500px at 80% 70%, rgba(167,139,250,0.12), transparent 60%);
-    animation: glowMove 16s ease-in-out infinite alternate;
-  }
-  .tech-bg::after {
-    content: ""; position: absolute; inset: -50%; opacity: 0.35;
-    background: conic-gradient(from 0deg at 50% 50%, rgba(59,130,246,0.06), transparent 30%, rgba(16,185,129,0.06), transparent 60%, rgba(236,72,153,0.05), transparent 90%);
-    animation: spin 40s linear infinite;
-  }
-  @keyframes glowMove { to { transform: translate(4%, 2%); } }
-  @keyframes spin { to { transform: rotate(360deg); } }
-  @media (prefers-color-scheme: dark) {
-    .tech-bg {
-      background-image:
-        linear-gradient(rgba(139,92,246,0.10) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(139,92,246,0.10) 1px, transparent 1px),
-        radial-gradient(rgba(139,92,246,0.12) 1px, transparent 1px),
-        radial-gradient(rgba(14,165,233,0.12) 1px, transparent 1px);
-    }
-    .tech-bg::before { background:
-      radial-gradient(600px 400px at 18% 28%, rgba(14,165,233,0.12), transparent 60%),
-      radial-gradient(800px 500px at 82% 72%, rgba(139,92,246,0.14), transparent 60%);
-    }
-    .tech-bg::after { opacity: 0.45; }
   }
   @keyframes bgShift {
     0% { background-position: 0% 50%; }
@@ -88,14 +50,10 @@ const styles = `
   }
 
   .card-wrap { position: relative; z-index: 10; max-width: 1200px; width: 96%; margin: 0 auto; padding: 0 16px; }
-  .card { background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(10px); border-radius: 20px; padding: 2rem; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08); text-align: center; }
-
-  @media (prefers-color-scheme: dark) { .card { background: rgba(22, 22, 28, 0.78); box-shadow: 0 20px 50px rgba(0,0,0,0.35); } }
-  :global(.dark) .card { background: rgba(22, 22, 28, 0.78); box-shadow: 0 20px 50px rgba(0,0,0,0.35); }
 
   .site-card { margin-bottom: 2rem; }
-  .shot-wrap { position: relative; width: 100%; height: clamp(480px, 70vh, 90svh); border-radius: 14px; overflow: hidden; margin-bottom: 1rem; background: rgba(245, 245, 245, 0.85); }
-  .frame { width: 100%; height: 100%; border: none; border-radius: 14px; pointer-events: none; }
+  .shot-wrap { position: relative; width: 100%; height: clamp(480px, 70vh, 860px); border-radius: 14px; overflow: hidden; margin-bottom: 1rem; background: rgba(245, 245, 245, 0.85); }
+  .frame { width: 100%; height: 100%; border: none; border-radius: 14px; }
   .loading { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(245, 245, 245, 0.85); }
   .spinner { width: 40px; height: 40px; border: 4px solid #e5e5e5; border-top: 4px solid #667eea; border-radius: 50%; animation: spin 1s linear infinite; }
   @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
@@ -109,157 +67,51 @@ const styles = `
   .hint { margin-top: 0.75rem; color: #666; font-size: 0.95rem; }
   .empty { text-align: center; color: #666; font-size: 1.1rem; }
 
-  @media (prefers-color-scheme: dark) { .shot-wrap, .loading, .fallback { background: rgba(34, 34, 38, 0.85); } .title { color: #fff; } .pitch { color: #cfcfe1; } }
-  :global(.dark) .shot-wrap, :global(.dark) .loading, :global(.dark) .fallback { background: rgba(34, 34, 38, 0.85); }
-  :global(.dark) .title { color: #fff; }
-  :global(.dark) .pitch { color: #cfcfe1; }
+  @media (prefers-color-scheme: dark) {
+    .shot-wrap, .loading, .fallback { background: rgba(34, 34, 38, 0.85); }
+    .title { color: #fff; }
+    .pitch { color: #cfcfe1; }
+  }
 
   @media (max-width: 640px) {
-    :root { --mobile-area-offset: 100px; }
-    .card-wrap { width: 100%; }
-    .card { padding: .5rem; }
-    .shot-wrap {
-      height: calc(100svh - var(--mobile-area-offset));
-    }
-    .floating-actions { display: flex; }
-    .theme-fab { display: none; }
+    .card-wrap { width: 95%; max-width: 100%; padding: 0; }
+    .shot-wrap { height: 60vh; border-radius: 10px; }
+    .frame { border-radius: 10px; }
   }
-
-  /* 悬浮操作条：底部中间绝对居中 */
-  .floating-actions {
-    position: fixed; left: 50%; bottom: calc(env(safe-area-inset-bottom, 0px) + 24px);
-    transform: translateX(-50%);
-    z-index: 9999;
-    isolation: isolate;
-    pointer-events: auto;
-    will-change: transform;
-    display: flex; gap: 12px; align-items: center; justify-content: center;
-    background: rgba(255,255,255,0.88);
-    border: 1px solid rgba(0,0,0,0.08);
-    border-radius: 999px;
-    padding: 10px 14px;
-    box-shadow: 0 12px 34px rgba(0,0,0,0.14);
-    backdrop-filter: blur(10px);
-    width: fit-content; max-width: min(92vw, 520px);
-  }
-  @media (prefers-color-scheme: dark) { .floating-actions { background: rgba(22,22,28,0.78); border-color: rgba(255,255,255,0.06); } }
-  :global(.dark) .floating-actions { background: rgba(22,22,28,0.78); border-color: rgba(255,255,255,0.06); }
-  @media (max-width: 480px) {
-    .floating-actions { padding: 8px 10px; gap: 10px; width: 75%; }
-  }
-  .floating-actions .secondary, .floating-actions .primary { margin: 0; }
-
-  /* 更显眼的操作按钮样式 */
-  .floating-actions .primary {
-    display: inline-flex; align-items: center; justify-content: center;
-    gap: 8px;
-    padding: 12px 18px;
-    border-radius: 999px;
-    background: linear-gradient(135deg, #7c3aed 0%, #2563eb 100%);
-    color: #fff;
-    font-weight: 800;
-    letter-spacing: 0.2px;
-    border: none;
-    text-decoration: none;
-    box-shadow: 0 8px 20px rgba(124, 58, 237, 0.4), 0 4px 12px rgba(37, 99, 235, 0.25);
-    transform: translateZ(0);
-    transition: transform 0.15s ease, box-shadow 0.2s ease, filter 0.2s ease;
-  }
-  .floating-actions .primary:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 12px 26px rgba(124,58,237,0.50), 0 6px 16px rgba(37,99,235,0.28);
-    filter: brightness(1.02);
-  }
-  .floating-actions .primary:active {
-    transform: translateY(0);
-    filter: brightness(0.98);
-  }
-  .floating-actions .primary::after {
-    content: "";
-  }
-
-  .floating-actions .secondary {
-    display: inline-flex; align-items: center; justify-content: center;
-    gap: 6px;
-    padding: 12px 16px;
-    border-radius: 999px;
-    border: 2px solid rgba(124, 58, 237, 0.85);
-    color: rgb(124,58,237);
-    background: rgba(255,255,255,0.9);
-    font-weight: 700;
-    letter-spacing: 0.2px;
-    transition: background-color 0.2s ease, color 0.2s ease, transform 0.15s ease, border-color 0.2s ease;
-  }
-  .floating-actions .secondary:hover {
-    background: rgba(124, 58, 237, 0.08);
-    transform: translateY(-1px);
-  }
-  .floating-actions .secondary:active {
-    transform: translateY(0);
-  }
-  .floating-actions .secondary.open-site::before { content: "↗"; font-size: 14px; line-height: 1; }
-  .floating-actions .primary.random::before { content: "🎲"; font-size: 16px; line-height: 1; }
-
-  @media (prefers-color-scheme: dark) { .floating-actions .secondary { background: rgba(22,22,28,0.84); border-color: rgba(167, 139, 250, 0.9); color: rgb(196,181,253); } .floating-actions .secondary:hover { background: rgba(167,139,250,0.12); } .floating-actions .primary { box-shadow: 0 10px 24px rgba(0,0,0,0.5), 0 10px 24px rgba(139,92,246,0.35); } }
-  :global(.dark) .floating-actions .secondary { background: rgba(22,22,28,0.84); border-color: rgba(167, 139, 250, 0.9); color: rgb(196,181,253); }
-  :global(.dark) .floating-actions .secondary:hover { background: rgba(167,139,250,0.12); }
-  :global(.dark) .floating-actions .primary { box-shadow: 0 10px 24px rgba(0,0,0,0.5), 0 10px 24px rgba(139,92,246,0.35); }
-
-  @media (max-width: 480px) {
-    .floating-actions .primary { padding: 12px 16px; font-size: 0.98rem; }
-    .floating-actions .secondary { padding: 10px 14px; font-size: 0.96rem; }
-  }
-
-  /* 首页浮动暗夜模式切换按钮 */
-  .theme-fab {
-    position: fixed; top: 16px; right: 16px; z-index: 70;
-    display: inline-flex; align-items: center; justify-content: center;
-    width: 40px; height: 40px; border-radius: 999px;
-    background: rgba(255,255,255,0.9);
-    border: 1px solid rgba(0,0,0,0.08);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-    backdrop-filter: blur(10px);
-    transition: transform 0.15s ease, box-shadow 0.2s ease;
-  }
-  .theme-fab:hover { transform: translateY(-1px); box-shadow: 0 12px 26px rgba(0,0,0,0.16); }
-  @media (prefers-color-scheme: dark) { .theme-fab { background: rgba(22,22,28,0.78); border-color: rgba(255,255,255,0.06); } }
-  :global(.dark) .theme-fab { background: rgba(22,22,28,0.78); border-color: rgba(255,255,255,0.06); }
 `;
 
 export default function DiscoverPage() {
   const { language, t } = useLanguage()
-  const [mode, setMode] = useThemeSwitch()
-  // Avoid SSR/CSR mismatch: deterministic initial index
-  const [index, setIndex] = useState(0)
-  const [serverSite, setServerSite] = useState(null)
+  const [current, setCurrent] = useState(null)
   const [openedIds, setOpenedIds] = useState(() => new Set())
   const [reloadKey, setReloadKey] = useState(0)
 
-  const current = useMemo(() => serverSite || sites[index], [serverSite, index])
-
   const fetchRandom = useCallback(async () => {
     try {
-      const res = await fetch(`/api/random`, { headers: { 'accept': 'application/json' } })
+      const res = await fetch('/api/random', { headers: { accept: 'application/json' } })
       if (!res.ok) throw new Error('bad status')
       const data = await res.json()
-      setServerSite(data)
+      if (!data?.url) throw new Error('no url')
+      setCurrent({
+        id: data.id || data.slug || data.abbrlink || data.url,
+        url: data.url || data.link || data.permalink,
+        title: {
+          en: data.title?.en || data.title_en || data.title || '',
+          zh: data.title?.zh || data.title_zh || data.title || '',
+        },
+        pitch: {
+          en: data.pitch?.en || data.desc_en || data.description || '',
+          zh: data.pitch?.zh || data.desc_zh || data.description || '',
+        },
+      })
     } catch {
-      setServerSite(null)
-      if (sites.length === 0) return
-      let next = Math.floor(Math.random() * sites.length)
-      if (sites.length > 1) { while (next === index) next = Math.floor(Math.random() * sites.length) }
-      setIndex(next)
+      setCurrent(null)
     }
-  }, [index])
+  }, [])
 
-  // On mount, pick a random index once on client to avoid SSR mismatch
+  // On mount, fetch one random site once on client
   useEffect(() => {
-    if (typeof window === 'undefined') return
-    if (!serverSite && sites.length > 0 && index === 0) {
-      const firstRandom = Math.floor(Math.random() * sites.length)
-      setIndex(firstRandom)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    fetchRandom()
   }, [])
 
   const markOpened = useCallback(() => { setOpenedIds((prev) => new Set(prev).add(current?.id)) }, [current])
@@ -270,10 +122,9 @@ export default function DiscoverPage() {
       <style jsx>{styles}</style>
       <main className="main">
         <div className="islands-bg" aria-hidden="true" />
-        <div className="tech-bg" aria-hidden="true" />
         <div className="card-wrap">
           {current ? (
-            <div className="card">
+            <div className="rounded-xl md:rounded-2xl p-2 md:p-8 text-center bg-white/90 dark:bg-zinc-900/80 backdrop-blur-md shadow-xl">
               <SiteCard site={current} language={language} reloadKey={reloadKey} />
               {isOpened ? null : <div className="hint">{t('discover.hint')}</div>}
             </div>
@@ -281,10 +132,26 @@ export default function DiscoverPage() {
             <div className="empty">{t('discover.empty')}</div>
           )}
         </div>
-        <div className="floating-actions">
-          <button className="primary random" onClick={fetchRandom}>{t('discover.random')}</button>
+        <div
+          className="fixed left-1/2 -translate-x-1/2 bottom-5 z-50 flex items-center gap-4 rounded-full border border-black/10 bg-white/90 dark:bg-zinc-900/80 backdrop-blur-md px-4 sm:px-3 py-2 shadow-xl w-[94vw] max-w-[680px] sm:w-auto sm:max-w-none"
+          style={{ bottom: 'calc(env(safe-area-inset-bottom, 0px) + 20px)' }}
+        >
+          <button
+            className="inline-flex items-center justify-center rounded-full bg-gradient-to-tr from-violet-600 to-blue-600 text-white font-extrabold px-5 py-3 shadow-md hover:brightness-105 active:brightness-95 transition flex-1 sm:flex-none"
+            onClick={fetchRandom}
+          >
+            {t('discover.random')}
+          </button>
           {current ? (
-            <a className="secondary open-site" href={current.url} target="_blank" rel="noreferrer" onClick={markOpened}>{t('discover.open')}</a>
+            <a
+              className="inline-flex items-center justify-center rounded-full border-2 border-violet-600/90 text-violet-700 bg-white/90 dark:bg-zinc-900/80 dark:text-violet-200 px-5 py-3 hover:bg-violet-50/40 active:opacity-95 transition flex-1 sm:flex-none"
+              href={current.url}
+              target="_blank"
+              rel="noreferrer"
+              onClick={markOpened}
+            >
+              {t('discover.open')}
+            </a>
           ) : null}
         </div>
       </main>
