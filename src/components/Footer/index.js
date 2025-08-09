@@ -74,7 +74,12 @@ const Footer = () => {
         <span className="text-center">
           &copy;2025 W3Cay. {t('footer.allRights')}
         </span>
-        <Link href="/sitemap.xml" className="text-center underline my-4 md:my-0">{t('footer.sitemap')}</Link>
+        <div className="text-center my-4 md:my-0 flex items-center gap-4">
+          <Link href="/terms-of-service" className="underline">{t('legal.terms')}</Link>
+          <Link href="/privacy-policy" className="underline">{t('legal.privacy')}</Link>
+          <Link href="/disclaimer" className="underline">{t('legal.disclaimer')}</Link>
+          <Link href="/sitemap.xml" className="underline">{t('footer.sitemap')}</Link>
+        </div>
         <div className="text-center flex items-center gap-3">
           <span>
             {t('footer.madeWithBy')}{" "}

@@ -40,7 +40,97 @@ export const sites = [
     url: 'https://heeeeeeeey.com',
     title: { en: 'Heeeeeeeey', zh: '嘿——' },
     pitch: { en: 'Say hey. That is it.', zh: '打个招呼，就这样。' }
-  }
+  },
+  {
+    id: 'figure-game',
+    url: 'https://figure.game',
+    title: { en: 'Figure Game', zh: '消除挑战' },
+    pitch: {
+      en: 'Figure Game is a game website that is playable in the browser.',
+      zh: '挑战小游戏，要求在9步之内，消除所有方块'
+    }
+  },
+  {
+    id: 'spaceis-cool',
+    url: 'http://spaceis.cool',
+    title: { en: 'Spaceis Cool', zh: 'Emoji太阳系' },
+    pitch: {
+      en: 'Spaceis Cool is a map/astronomy website that offers interactive visuals and data.',
+      zh: '用 emoji 演绎太阳、地球与月球的奇妙运动'
+    }
+  },
+  {
+    id: '996-icu',
+    url: 'https://996.icu',
+    title: { en: '996 Icu', zh: '996.ICU' },
+    pitch: {
+      en: '996 Icu is a website website that offers an interesting online experience.',
+      zh: '996.ICU是一个致力于抵制996工作制的网站，关注程序员的工作权益。'
+    }
+  },
+  {
+    id: 'kiomet-com',
+    url: 'https://kiomet.com',
+    title: { en: 'Kiomet Com', zh: 'Kiomet' },
+    pitch: {
+      en: 'Kiomet Com is a website website that offers an interesting online experience.',
+      zh: 'Kiomet是一个多人实时战略游戏，玩家可以在网页浏览器中免费在线游玩，无需安装。'
+    }
+  },
+  {
+    id: 'missile-game-bwhmather-com',
+    url: 'https://missile-game.bwhmather.com',
+    title: { en: 'Missile Game Bwhmather Com', zh: '躲避小游戏' },
+    pitch: {
+      en: 'Missile Game Bwhmather Com is a game website that is playable in the browser.',
+      zh: 'Missile Game是一个用SVG和JavaScript制作的3D躲避游戏'
+    }
+  },
+  {
+    id: 'tank-war-top',
+    url: 'http://tank-war.top',
+    title: { en: 'Tank War Top', zh: '坦克大战' },
+    pitch: {
+      en: 'Tank War Top is a website website that offers an interesting online experience.',
+      zh: '坦克大战简易版，让您重温经典游戏，挑战自己的操作技巧。'
+    }
+  },
+  {
+    id: 'doge2048-com',
+    url: 'https://doge2048.com',
+    title: { en: 'Doge2048 Com', zh: '狗头 2048' },
+    pitch: {
+      en: 'Doge2048 Com is a website website that offers an interesting online experience.',
+      zh: '2048游戏的狗头版本'
+    }
+  },
+  {
+    id: 'richup-io',
+    url: 'https://richup.io',
+    title: { en: 'Richup Io', zh: '在线大富翁游戏' },
+    pitch: {
+      en: 'Richup Io is a game website that is playable in the browser.',
+      zh: '一个免费在线替代地产大亨的游戏。与朋友、陌生人或机器人一起玩。无需注册或下载！'
+    }
+  },
+  {
+    id: 'www-worldlicenseplates-com',
+    url: 'http://www.worldlicenseplates.com',
+    title: { en: 'Www Worldlicenseplates Com', zh: '世界车牌大全' },
+    pitch: {
+      en: 'Www Worldlicenseplates Com is a website website that offers an interesting online experience.',
+      zh: '一个收集全球车牌信息的网站，让您可以了解各国的车牌设计、含义以及历史。'
+    }
+  },
+  {
+    id: 'mecabricks-com',
+    url: 'https://mecabricks.com',
+    title: { en: 'Mecabricks Com', zh: '在线玩乐高积木' },
+    pitch: {
+      en: 'Mecabricks Com is a website website that offers an interesting online experience.',
+      zh: '一个专业的在线乐高积木模型设计和分享平台'
+    }
+  },
 ]
 
 export function getScreenshotUrl(targetUrl) {

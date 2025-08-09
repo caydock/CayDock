@@ -1,11 +1,12 @@
 "use client";
 import { useMemo, useState } from 'react'
+import { useLanguage } from '@/src/components/i18n/LanguageProvider'
 
 // 内联CSS样式
 const styles = `
   .page {
     max-width: 800px;
-    margin: 0 auto;
+    margin: 4rem auto 0;
     padding: 2rem;
   }
 
@@ -180,6 +181,7 @@ const styles = `
   @media (max-width: 768px) {
     .page {
       padding: 1rem;
+      margin-top: 1.5rem;
     }
     
     .page h1 {
@@ -203,7 +205,14 @@ const styles = `
   }
 `;
 
-function buildSubmission(url, titleEn, titleZh, pitchEn, pitchZh) {
+function isValidUrl(u) {
+  try {
+    const url = new URL(u)
+    return url.protocol === 'http:' || url.protocol === 'https:'
+  } catch { return false }
+}
+
+function buildSubmission(url, title, pitch) {
   const idFromUrl = (u) => {
     try { return new URL(u).hostname.replace(/^www\./, '').replace(/[^a-z0-9]+/gi, '-').replace(/(^-|-$)/g, '') } catch { return '' }
   }
@@ -212,37 +221,28 @@ function buildSubmission(url, titleEn, titleZh, pitchEn, pitchZh) {
   return {
     id: id || undefined,
     url: clean(url),
-    title: {
-      en: clean(titleEn) || undefined,
-      zh: clean(titleZh) || undefined
-    },
-    pitch: {
-      en: clean(pitchEn) || undefined,
-      zh: clean(pitchZh) || undefined
-    }
+    title: clean(title) || undefined,
+    description: clean(pitch) || undefined
   }
 }
 
 export default function SubmitPage() {
+  const { t } = useLanguage()
   const [url, setUrl] = useState('')
-  const [titleEn, setTitleEn] = useState('')
-  const [titleZh, setTitleZh] = useState('')
-  const [pitchEn, setPitchEn] = useState('')
-  const [pitchZh, setPitchZh] = useState('')
+  const [title, setTitle] = useState('')
+  const [pitch, setPitch] = useState('')
   const [savedHint, setSavedHint] = useState('')
-  const [copiedHint, setCopiedHint] = useState('')
-
-  const submission = useMemo(() => buildSubmission(url, titleEn, titleZh, pitchEn, pitchZh), [url, titleEn, titleZh, pitchEn, pitchZh])
+  const submission = useMemo(() => buildSubmission(url, title, pitch), [url, title, pitch])
   const json = useMemo(() => JSON.stringify(submission, null, 2), [submission])
 
-  const requiredMissing = !url
+  const requiredMissing = !url || !isValidUrl(url)
 
   const saveLocal = () => {
     try {
       const list = JSON.parse(localStorage.getItem('user_submissions') || '[]')
       list.push(submission)
       localStorage.setItem('user_submissions', JSON.stringify(list))
-      setSavedHint('已保存')
+      setSavedHint(t('submit.saved'))
       setTimeout(() => setSavedHint(''), 1500)
     } catch {}
   }
@@ -256,72 +256,42 @@ export default function SubmitPage() {
       })
       if (!res.ok) throw new Error('bad status')
       await res.json()
-      setSavedHint('已保存')
+      setSavedHint(t('submit.saved'))
       setTimeout(() => setSavedHint(''), 1500)
     } catch (e) {
       saveLocal()
     }
   }
 
-  const copyJson = async () => {
-    try {
-      await navigator.clipboard.writeText(json)
-      setCopiedHint('已复制！')
-      setTimeout(() => setCopiedHint(''), 1500)
-    } catch {}
-  }
-
-  const mailto = () => {
-    const subject = encodeURIComponent('W3Cay site submission')
-    const body = encodeURIComponent(json)
-    window.location.href = `mailto:?subject=${subject}&body=${body}`
-  }
-
   return (
     <>
       <style jsx>{styles}</style>
       <main className="page">
-        <h1>推荐一个网站</h1>
-        <p className="tagline">分享你觉得很酷的网站，我们会审核后择优收录。</p>
+        <h1>{t('submit.title')}</h1>
+        <p className="tagline">{t('submit.tagline')}</p>
 
         <form className="form" onSubmit={(e) => { e.preventDefault(); saveLocal() }}>
           <div className="field">
-            <label>网站链接</label>
-            <input type="url" placeholder="https://example.com" value={url} onChange={(e) => setUrl(e.target.value)} required />
+            <label>{t('submit.urlLabel')}</label>
+            <input type="url" placeholder={t('submit.urlPlaceholder')} value={url} onChange={(e) => setUrl(e.target.value)} required aria-invalid={!url ? undefined : (!isValidUrl(url) ? 'true' : undefined)} />
+            {url && !isValidUrl(url) && <div style={{color:'#c00', marginTop:6, fontSize:'0.9rem'}}>{t('submit.urlInvalid')}</div>}
           </div>
-          <div className="grid two">
-            <div className="field">
-              <label>标题（英文）</label>
-              <input type="text" value={titleEn} onChange={(e) => setTitleEn(e.target.value)} />
-            </div>
-            <div className="field">
-              <label>标题（中文）</label>
-              <input type="text" value={titleZh} onChange={(e) => setTitleZh(e.target.value)} />
-            </div>
+          <div className="field">
+            <label>{t('submit.siteTitleLabel')}</label>
+            <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
           </div>
-          <div className="grid two">
-            <div className="field">
-              <label>推荐语（英文）</label>
-              <textarea rows={3} value={pitchEn} onChange={(e) => setPitchEn(e.target.value)} />
-            </div>
-            <div className="field">
-              <label>推荐语（中文）</label>
-              <textarea rows={3} value={pitchZh} onChange={(e) => setPitchZh(e.target.value)} />
-            </div>
+          <div className="field">
+            <label>{t('submit.pitchLabel')}</label>
+            <textarea rows={3} value={pitch} onChange={(e) => setPitch(e.target.value)} />
           </div>
 
           <div className="actions">
-            <button className="secondary" type="submit" onClick={(e)=>{e.preventDefault(); submitApi()}} disabled={requiredMissing}>提交</button>
-            <button className="secondary" type="button" onClick={copyJson}>复制 JSON</button>
-            <a className="primary" role="button" onClick={mailto}>邮件提交</a>
+            <button className="secondary" type="submit" onClick={(e)=>{e.preventDefault(); submitApi()}} disabled={requiredMissing}>{t('submit.submitBtn')}</button>
           </div>
           <div className="hint">
             <span>{savedHint}</span>
-            <span style={{ marginLeft: 12 }}>{copiedHint}</span>
           </div>
         </form>
-
-        <pre className="code" aria-label="json preview"><code>{json}</code></pre>
       </main>
     </>
   )

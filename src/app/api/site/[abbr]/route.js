@@ -24,17 +24,16 @@ function normalizeRowToSite(row) {
   }
 }
 
-// NOTE: Schema creation is handled via D1 migrations; API should not modify schema.
+export async function GET(_req, { params }) {
+  const abbr = params?.abbr
+  if (!abbr) {
+    return Response.json({ error: 'abbrlink required' }, { status: 400 })
+  }
 
-export async function GET() {
-  // Production/Cloudflare: require D1; Local (non-CF runtime): fallback to default data
+  // Production/Cloudflare: require D1
   let isCloudflareRuntime = true
   let env
-  try {
-    ;({ env } = getRequestContext())
-  } catch {
-    isCloudflareRuntime = false
-  }
+  try { ({ env } = getRequestContext()) } catch { isCloudflareRuntime = false }
 
   if (isCloudflareRuntime) {
     try {
@@ -43,21 +42,20 @@ export async function GET() {
         return Response.json({ error: 'DB binding not available' }, { status: 503 })
       }
       const row = await db.prepare(
-        `SELECT * FROM sites WHERE isShow = 1 ORDER BY random() LIMIT 1`
-      ).first()
+        `SELECT * FROM sites WHERE isShow = 1 AND (abbrlink = ? OR slug = ? OR id = ?) LIMIT 1`
+      ).bind(abbr, abbr, abbr).first()
       const site = normalizeRowToSite(row)
       if (site?.url) return Response.json(site)
-      return Response.json({ error: 'No site available' }, { status: 404 })
+      return Response.json({ error: 'Not found' }, { status: 404 })
     } catch (error) {
-      return Response.json({ error: 'Failed to get random site', message: String(error?.message || error) }, { status: 500 })
+      return Response.json({ error: 'Failed to get site', message: String(error?.message || error) }, { status: 500 })
     }
   }
 
-  // Local (non-CF) fallback for development only
+  // Local dev fallback: try bundled data by id/slug
   if (Array.isArray(fallbackSites) && fallbackSites.length > 0) {
-    const idx = Math.floor(Math.random() * fallbackSites.length)
-    return Response.json(fallbackSites[idx])
+    const match = fallbackSites.find(s => s.id === abbr || s.slug === abbr)
+    if (match) return Response.json(match)
   }
-  return Response.json({ error: 'No site available' }, { status: 404 })
+  return Response.json({ error: 'Not found' }, { status: 404 })
 }
-// old fallback implementation removed (duplicated exports)
