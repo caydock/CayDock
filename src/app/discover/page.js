@@ -1,5 +1,6 @@
+"use client";
 import DiscoverPage from "@/src/components/Discover/DiscoverPage";
 
-export default function Home() {
+export default function Page() {
   return <DiscoverPage />
-}
+} 

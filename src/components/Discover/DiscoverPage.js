@@ -95,7 +95,7 @@ const styles = `
 
   .site-card { margin-bottom: 2rem; }
   .shot-wrap { position: relative; width: 100%; height: clamp(480px, 70vh, 90svh); border-radius: 14px; overflow: hidden; margin-bottom: 1rem; background: rgba(245, 245, 245, 0.85); }
-  .frame { width: 100%; height: 100%; border: none; border-radius: 14px; }
+  .frame { width: 100%; height: 100%; border: none; border-radius: 14px; pointer-events: none; }
   .loading { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(245, 245, 245, 0.85); }
   .spinner { width: 40px; height: 40px; border: 4px solid #e5e5e5; border-top: 4px solid #667eea; border-radius: 50%; animation: spin 1s linear infinite; }
   @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
@@ -115,17 +115,24 @@ const styles = `
   :global(.dark) .pitch { color: #cfcfe1; }
 
   @media (max-width: 640px) {
-    :root { --mobile-area-offset: 160px; }
+    :root { --mobile-area-offset: 100px; }
+    .card-wrap { width: 100%; }
+    .card { padding: .5rem; }
     .shot-wrap {
       height: calc(100svh - var(--mobile-area-offset));
     }
+    .floating-actions { display: flex; }
+    .theme-fab { display: none; }
   }
 
   /* 悬浮操作条：底部中间绝对居中 */
   .floating-actions {
     position: fixed; left: 50%; bottom: calc(env(safe-area-inset-bottom, 0px) + 24px);
     transform: translateX(-50%);
-    z-index: 60;
+    z-index: 9999;
+    isolation: isolate;
+    pointer-events: auto;
+    will-change: transform;
     display: flex; gap: 12px; align-items: center; justify-content: center;
     background: rgba(255,255,255,0.88);
     border: 1px solid rgba(0,0,0,0.08);
@@ -138,7 +145,7 @@ const styles = `
   @media (prefers-color-scheme: dark) { .floating-actions { background: rgba(22,22,28,0.78); border-color: rgba(255,255,255,0.06); } }
   :global(.dark) .floating-actions { background: rgba(22,22,28,0.78); border-color: rgba(255,255,255,0.06); }
   @media (max-width: 480px) {
-    .floating-actions { padding: 8px 10px; gap: 10px; }
+    .floating-actions { padding: 8px 10px; gap: 10px; width: 75%; }
   }
   .floating-actions .secondary, .floating-actions .primary { margin: 0; }
 
@@ -168,9 +175,7 @@ const styles = `
     filter: brightness(0.98);
   }
   .floating-actions .primary::after {
-    content: "↗";
-    font-size: 14px;
-    line-height: 1;
+    content: "";
   }
 
   .floating-actions .secondary {
@@ -192,8 +197,8 @@ const styles = `
   .floating-actions .secondary:active {
     transform: translateY(0);
   }
-  .floating-actions .secondary.random::before { content: "🎲"; font-size: 16px; line-height: 1; }
-  .floating-actions .secondary.retry::before { content: "⟳"; font-size: 16px; line-height: 1; }
+  .floating-actions .secondary.open-site::before { content: "↗"; font-size: 14px; line-height: 1; }
+  .floating-actions .primary.random::before { content: "🎲"; font-size: 16px; line-height: 1; }
 
   @media (prefers-color-scheme: dark) { .floating-actions .secondary { background: rgba(22,22,28,0.84); border-color: rgba(167, 139, 250, 0.9); color: rgb(196,181,253); } .floating-actions .secondary:hover { background: rgba(167,139,250,0.12); } .floating-actions .primary { box-shadow: 0 10px 24px rgba(0,0,0,0.5), 0 10px 24px rgba(139,92,246,0.35); } }
   :global(.dark) .floating-actions .secondary { background: rgba(22,22,28,0.84); border-color: rgba(167, 139, 250, 0.9); color: rgb(196,181,253); }
@@ -277,12 +282,9 @@ export default function DiscoverPage() {
           )}
         </div>
         <div className="floating-actions">
-          <button className="secondary random" onClick={fetchRandom}>{t('discover.random')}</button>
+          <button className="primary random" onClick={fetchRandom}>{t('discover.random')}</button>
           {current ? (
-            <button className="secondary retry" onClick={() => setReloadKey(Date.now())}>{t('discover.retry')}</button>
-          ) : null}
-          {current ? (
-            <a className="primary" href={current.url} target="_blank" rel="noreferrer" onClick={markOpened}>{t('discover.open')}</a>
+            <a className="secondary open-site" href={current.url} target="_blank" rel="noreferrer" onClick={markOpened}>{t('discover.open')}</a>
           ) : null}
         </div>
       </main>

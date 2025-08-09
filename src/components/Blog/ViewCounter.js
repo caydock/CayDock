@@ -2,13 +2,25 @@
 import React, { useEffect, useState } from "react";
 import { createClient } from '@supabase/supabase-js'
 
+// 检查环境变量是否存在
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
+// 只有在环境变量存在时才创建Supabase客户端
+const supabase = supabaseUrl && supabaseAnonKey 
+  ? createClient(supabaseUrl, supabaseAnonKey)
+  : null;
 
 const ViewCounter = ({ slug, noCount = false, showCount = true }) => {
   const [views, setViews] = useState(0);
 
   useEffect(() => {
+    // 如果没有Supabase配置，跳过视图计数
+    if (!supabase) {
+      console.warn("Supabase not configured. View counting is disabled.");
+      return;
+    }
+
     const incrementView = async () => {
       try {
         let { error } = await supabase.rpc("increment", {
@@ -33,6 +45,11 @@ const ViewCounter = ({ slug, noCount = false, showCount = true }) => {
   }, [slug, noCount]);
 
   useEffect(() => {
+    // 如果没有Supabase配置，跳过获取视图数
+    if (!supabase) {
+      return;
+    }
+
     const getViews = async () => {
       try {
         let { data, error } = await supabase
@@ -58,6 +75,11 @@ const ViewCounter = ({ slug, noCount = false, showCount = true }) => {
 
         getViews();
   }, [slug]);
+
+  // 如果没有Supabase配置，不显示视图计数
+  if (!supabase) {
+    return null;
+  }
 
   if (showCount) {
     return <div>{views} views</div>;

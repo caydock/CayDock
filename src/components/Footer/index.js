@@ -5,7 +5,7 @@ import { DribbbleIcon, GithubIcon, LinkedinIcon, TwitterIcon } from "../Icons";
 import Link from "next/link";
 import siteMetadata from "@/src/utils/siteMetaData";
 import { useLanguage } from "@/src/components/i18n/LanguageProvider";
-import Logo from "@/src/components/Header/Logo";
+import Logo from "@/src/components/Header/SiteLogo";
 
 const Footer = () => {
   const {
@@ -78,7 +78,7 @@ const Footer = () => {
         <div className="text-center flex items-center gap-3">
           <span>
             Made with &hearts; by{" "}
-            <a href="https://devdreaming.com" className="underline" target="_blank">
+            <a href="https://blog.w3cay.com" className="underline" target="_blank">
               Cay
             </a>
           </span>

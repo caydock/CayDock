@@ -28,7 +28,7 @@ function SiteCard({ site, language, reloadKey = 0 }) {
 
   return (
     <div className="site-card">
-      <div className="shot-wrap">
+      <div className="shot-wrap" style={{ pointerEvents: 'none' }}>
         {isLoading && (
           <div className="loading" aria-hidden="true">
             <div className="spinner" />

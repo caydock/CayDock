@@ -1,6 +1,7 @@
 "use client"
 import Link from "next/link";
 import Logo from "./Logo";
+import SiteLogo from "./SiteLogoBlack";
 import { MoonIcon, SunIcon } from "../Icons";
 import { useThemeSwitch } from "../Hooks/useThemeSwitch";
 import { useLanguage } from "@/src/components/i18n/LanguageProvider";
@@ -28,7 +29,7 @@ const Header = () => {
         </button>
       </div>
       <div className="sm:hidden">
-        <Logo />
+        <SiteLogo sizeClass="w-32" />
       </div>
 
       {/* Desktop top nav */}
@@ -53,14 +54,14 @@ const Header = () => {
       </div>
       <aside
         className={cx(
-          "sm:hidden fixed top-0 right-0 h-full w-4/5 max-w-[320px] z-50 bg-light dark:bg-dark border-l border-dark/10 dark:border-light/10 shadow-2xl transition-transform",
-          open ? "translate-x-0" : "translate-x-full"
+          "sm:hidden fixed top-0 left-0 h-full w-4/5 max-w-[320px] z-50 bg-light dark:bg-dark border-r border-dark/10 dark:border-light/10 shadow-2xl transition-transform",
+          open ? "translate-x-0" : "-translate-x-full"
         )}
         role="dialog"
         aria-modal="true"
       >
         <div className="flex items-center justify-between p-4 border-b border-dark/10 dark:border-light/10">
-          <Logo />
+          <SiteLogo sizeClass="w-32" />
           <button aria-label="close-menu" onClick={() => setOpen(false)} className="w-9 h-9 rounded-full border border-dark/70 flex items-center justify-center">
             ×
           </button>
