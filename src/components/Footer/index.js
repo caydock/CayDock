@@ -5,6 +5,7 @@ import { DribbbleIcon, GithubIcon, LinkedinIcon, TwitterIcon } from "../Icons";
 import Link from "next/link";
 import siteMetadata from "@/src/utils/siteMetaData";
 import { useLanguage } from "@/src/components/i18n/LanguageProvider";
+import Logo from "@/src/components/Header/Logo";
 
 const Footer = () => {
   const {
@@ -20,6 +21,7 @@ const Footer = () => {
   return (
     <footer className="mt-16 rounded-2xl bg-dark dark:bg-accentDark/90 m-2 sm:m-10 flex flex-col items-center text-light dark:text-dark">
       <div className="mt-16 w-full flex flex-col items-center justify-center gap-4 px-4">
+        <Logo />
         <h3 className="font-medium dark:font-bold text-center capitalize text-2xl sm:text-3xl lg:text-4xl">
           Weird Wonder Web Cay
         </h3>
