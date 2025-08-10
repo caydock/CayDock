@@ -60,7 +60,7 @@ export async function POST(request) {
       if (db && typeof db.prepare === 'function') {
         await db.prepare(`
           INSERT INTO sites (id, abbrlink, slug, title, title_zh, title_en, description, desc_zh, desc_en, sub_title, icon, link, permalink, date, isShow)
-          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0)
           ON CONFLICT(id) DO UPDATE SET
             abbrlink=excluded.abbrlink,
             slug=excluded.slug,

@@ -133,7 +133,7 @@ const STRINGS = {
     },
   },
   zh: {
-    nav: { home: "首页", submit: "推荐网站", about: "关于本站", contact: "联系我们" },
+    nav: { home: "首页", submit: "推荐投稿", about: "关于本站", contact: "联系我们" },
     discover: {
       random: "随机",
       open: "打开网站",

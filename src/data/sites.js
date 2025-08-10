@@ -5,6 +5,7 @@ export const sites = [
   {
     id: 'paper-planes',
     url: 'https://paperplanes.world',
+    abbrlink: '824079b',
     title: {
       en: 'Paper Planes',
       zh: '纸飞机'
@@ -140,6 +141,6 @@ export function getScreenshotUrl(targetUrl) {
 
 export function getScreenshotFallbackUrl(targetUrl) {
   const encoded = encodeURIComponent(targetUrl)
-  // WordPress mShots service (returns an actual image)
-  return `https://s.wordpress.com/mshots/v1/${encoded}?w=1200`
+  // Disabled: WordPress mShots service is not available
+  return ''
 } 

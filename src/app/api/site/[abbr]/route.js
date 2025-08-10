@@ -52,8 +52,18 @@ export async function GET(_req, { params }) {
     }
   }
 
-  // Local dev fallback: try bundled data by id/slug
+  // Local dev fallback: mock specific abbr and try bundled data by id/slug
   if (Array.isArray(fallbackSites) && fallbackSites.length > 0) {
+    // Special local mock for 824079b
+    if (abbr === 'test') {
+      const origin = (() => { try { return new URL(_req.url).origin } catch { return '' } })()      
+      return Response.json({
+        id: '824079b',
+        url: 'https://w3cay.com',
+        title: { en: 'Local Mock Demo', zh: '本地Mock演示' },
+        pitch: { en: 'This is a locally mocked post for development.', zh: '本地开发环境下的模拟站点，便于预览与调试。' },
+      })
+    }
     const match = fallbackSites.find(s => s.id === abbr || s.slug === abbr)
     if (match) return Response.json(match)
   }

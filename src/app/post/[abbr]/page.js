@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 import SiteCard from '@/src/components/SiteCard'
 import { useLanguage } from '@/src/components/i18n/LanguageProvider'
 
@@ -13,28 +13,24 @@ const styles = `
 @media (prefers-color-scheme: dark) { .hint { color: #cfcfe1; } }
 `;
 
-export default function PostByAbbrPage({ params }) {
-  const { language, t } = useLanguage()
+export default function PostByAbbrPage() {
+  const { language } = useLanguage()
   const [site, setSite] = useState(null)
   const router = useRouter()
+  const params = useParams()
+  const abbr = typeof params?.abbr === 'string' ? params.abbr : Array.isArray(params?.abbr) ? params.abbr[0] : ''
 
   const fetchByAbbr = useCallback(async () => {
     try {
-      const res = await fetch(`/api/site/${params.abbr}`, { headers: { 'accept': 'application/json' } })
-      if (!res.ok) {
-        router.replace('/not-found')
-        return
-      }
+      const res = await fetch(`/api/site/${abbr}`, { headers: { 'accept': 'application/json' } })
+      if (!res.ok) { router.replace('/not-found'); return }
       const data = await res.json()
-      if (!data?.url) {
-        router.replace('/not-found')
-        return
-      }
+      if (!data?.url) { router.replace('/not-found'); return }
       setSite(data)
-    } catch (e) {
+    } catch {
       router.replace('/not-found')
     }
-  }, [params.abbr, router])
+  }, [abbr, router])
 
   useEffect(() => { fetchByAbbr() }, [fetchByAbbr])
 
@@ -43,7 +39,11 @@ export default function PostByAbbrPage({ params }) {
       <style jsx>{styles}</style>
       <div className="rounded-xl md:rounded-2xl p-2 md:p-8 text-center bg-white/90 dark:bg-zinc-900/80 backdrop-blur-md shadow-xl">
         {site ? (
-          <SiteCard site={site} language={language} />
+          <SiteCard
+            site={site}
+            language={language}
+            onUnembeddable={() => router.replace('/discover')}
+          />
         ) : (
           <div className="site-card">
             <div className="shot-wrap">
