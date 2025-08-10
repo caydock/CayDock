@@ -11,6 +11,8 @@ const styles = `
 }
 `;
 
+export const runtime = 'edge';
+
 export default function DisclaimerPage() {
   const { t } = useLanguage()
   return (

@@ -11,6 +11,8 @@ const styles = `
 }
 `;
 
+export const runtime = 'edge';
+
 export default function PrivacyPolicyPage() {
   const { t } = useLanguage()
   return (

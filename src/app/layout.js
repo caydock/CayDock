@@ -74,6 +74,8 @@ export const viewport = {
   viewportFit: 'cover',
 };
 
+export const runtime = 'edge';
+
 export default async function RootLayout({ children }) {
   const headerStore = await headers();
   const cookieStore = await cookies();

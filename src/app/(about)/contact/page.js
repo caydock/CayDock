@@ -2,6 +2,8 @@
 import { useLanguage } from "@/src/components/i18n/LanguageProvider";
 import siteMetadata from "@/src/utils/siteMetaData";
 
+export const runtime = 'edge';
+
 
 export default function Contact() {
   const { t } = useLanguage()

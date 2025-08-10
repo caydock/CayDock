@@ -2,6 +2,8 @@
 import { useMemo, useState } from 'react'
 import { useLanguage } from '@/src/components/i18n/LanguageProvider'
 
+export const runtime = 'edge';
+
 // 内联CSS样式
 const styles = `
   .page {

@@ -1,6 +1,8 @@
 "use client";
 import { useLanguage } from "@/src/components/i18n/LanguageProvider";
 
+export const runtime = 'edge';
+
 const styles = `
 .page { max-width: 60rem; margin: 4rem auto 0; padding: 2rem; }
 .page h1 { font-size: 2.25rem; font-weight: 800; }

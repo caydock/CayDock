@@ -2,6 +2,8 @@
 import Link from "next/link";
 import { useLanguage } from "@/src/components/i18n/LanguageProvider";
 
+export const runtime = 'edge';
+
 export default function NotFound() {
   const { t } = useLanguage()
   return (

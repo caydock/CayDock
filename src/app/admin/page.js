@@ -1,6 +1,8 @@
 "use client";
 import { useEffect, useMemo, useState } from "react";
 
+export const runtime = 'edge';
+
 function TextInput({ label, value, onChange, placeholder }) {
   return (
     <label className="block mb-3">
