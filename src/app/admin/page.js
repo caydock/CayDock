@@ -82,12 +82,6 @@ export default function AdminPage() {
     }
   }
 
-  async function approve(id) {
-    if (!confirm("确认审核通过该站点？")) return;
-    await fetch(`/api/admin/sites/${encodeURIComponent(id)}?token=${encodeURIComponent(token)}`, { method: "PATCH", headers, body: JSON.stringify({ isShow: 1 }) });
-    fetchList();
-  }
-
   async function publish(id) {
     if (!confirm("确认上线该站点？")) return;
     await fetch(`/api/admin/sites/${encodeURIComponent(id)}?token=${encodeURIComponent(token)}`, { method: "PATCH", headers, body: JSON.stringify({ isShow: 1 }) });
@@ -228,10 +222,7 @@ export default function AdminPage() {
                   ) : (
                     <>
                       {!item.isShow ? (
-                        <>
-                          <button className="px-3 py-1 rounded bg-violet-600 text-white" onClick={()=>approve(item.id)}>审核通过</button>
-                          <button className="px-3 py-1 rounded bg-emerald-600 text-white" onClick={()=>publish(item.id)}>上线</button>
-                        </>
+                        <button className="px-3 py-1 rounded bg-emerald-600 text-white" onClick={()=>publish(item.id)}>上线</button>
                       ) : (
                         <button className="px-3 py-1 rounded bg-slate-600 text-white" onClick={()=>unpublish(item.id)}>下线</button>
                       )}

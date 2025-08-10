@@ -3,6 +3,7 @@ import { cx } from "@/src/utils";
 import { Inter, Manrope } from "next/font/google";
 import Header from "@/src/components/Header";
 import Footer from "../components/Footer";
+import Analytics from "@/src/components/Analytics";
 import siteMetadata from "../utils/siteMetaData";
 import enTdk from "@/src/i18n/tdk/en.json";
 import zhTdk from "@/src/i18n/tdk/zh.json";
@@ -105,6 +106,7 @@ export default async function RootLayout({ children }) {
           {children}
           <Footer />
         </LanguageProvider>
+        <Analytics />
       </body>
     </html>
   );

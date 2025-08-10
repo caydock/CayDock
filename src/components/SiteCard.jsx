@@ -7,12 +7,15 @@ function SiteCard({ site, language, reloadKey = 0, onUnembeddable }) {
   const pitch = site.pitch?.[language] || site.pitch?.en || ''
   const [isLoading, setIsLoading] = useState(true)
   const [timedOut, setTimedOut] = useState(false)
+  const [loadError, setLoadError] = useState(false)
   const [isFullscreen, setIsFullscreen] = useState(false)
+  const [canFullscreen, setCanFullscreen] = useState(false)
   const containerRef = useRef(null)
   
   useEffect(() => {
     setIsLoading(true)
     setTimedOut(false)
+    setLoadError(false)
     let timer = setTimeout(() => {
       setTimedOut(true)
       setIsLoading(false)
@@ -61,6 +64,12 @@ function SiteCard({ site, language, reloadKey = 0, onUnembeddable }) {
     }
     document.addEventListener('fullscreenchange', handleFsChange)
     document.addEventListener('webkitfullscreenchange', handleFsChange)
+    // Detect fullscreen capability
+    const el = containerRef.current
+    const doc = document
+    const enabled = (typeof doc.fullscreenEnabled === 'boolean' ? doc.fullscreenEnabled : true) || doc.webkitFullscreenEnabled
+    const elementCapable = !!(el && (el.requestFullscreen || el.webkitRequestFullscreen))
+    setCanFullscreen(Boolean(enabled && elementCapable))
     return () => {
       document.removeEventListener('fullscreenchange', handleFsChange)
       document.removeEventListener('webkitfullscreenchange', handleFsChange)
@@ -112,8 +121,15 @@ function SiteCard({ site, language, reloadKey = 0, onUnembeddable }) {
             <div className="spinner" />
           </div>
         )}
-        {isMixedContent ? (
-          <div className="loading" aria-hidden="true"><div className="spinner" /></div>
+        {(isMixedContent || loadError) ? (
+          <div className="fallback" role="status" aria-live="polite">
+            <div className="box">
+              <div className="text-lg font-semibold mb-1 dark:text-light">{language?.startsWith('zh') ? '预览加载失败' : 'Preview failed to load'}</div>
+              <div className="text-sm text-zinc-600 dark:text-zinc-300">
+                {language?.startsWith('zh') ? '请点击下方“打开”按钮直接访问该网站。' : 'Please click the Open button below to visit the site directly.'}
+              </div>
+            </div>
+          </div>
         ) : (
           <iframe
             key={`${site?.id || site?.url}-${reloadKey}`}
@@ -125,17 +141,27 @@ function SiteCard({ site, language, reloadKey = 0, onUnembeddable }) {
             allow="fullscreen; autoplay; clipboard-read; clipboard-write"
             referrerPolicy="no-referrer"
             allowFullScreen
-            onLoad={() => setIsLoading(false)}
+             onLoad={() => setIsLoading(false)}
+             onError={(e) => {
+               setIsLoading(false);
+               // 仅在常见被拒绝嵌入的错误信息时置为失败（部分浏览器会抛出此类跨域错误）
+               const msg = (e?.message || '').toString()
+               if (msg.includes("X-Frame-Options") || msg.includes('Refused to display')) {
+                 setLoadError(true)
+               }
+             }}
           />
         )}
-        <button
-          type="button"
-          onClick={toggleFullscreen}
-          aria-label={isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'}
-          className="absolute bottom-3 right-3 z-20 rounded-full bg-black/60 text-white text-sm px-3 py-2 backdrop-blur hover:bg-black/70 active:opacity-90"
-        >
-          {isFullscreen ? '✕' : '⛶'}
-        </button>
+        {canFullscreen && !isMixedContent ? (
+          <button
+            type="button"
+            onClick={toggleFullscreen}
+            aria-label={isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'}
+            className="absolute bottom-3 right-3 z-20 rounded-full bg-black/60 text-white text-sm px-3 py-2 backdrop-blur hover:bg-black/70 active:opacity-90"
+          >
+            {isFullscreen ? '✕' : '⛶'}
+          </button>
+        ) : null}
       </div>
       <div className="meta">
         <h2 className="title dark:text-light">{title}</h2>
