@@ -13,9 +13,63 @@ function getProvidedToken(request) {
   return token
 }
 
+function getLockInfo(request) {
+  const cookie = request.headers.get('cookie') || ''
+  const m = /(?:^|; )admin_lock_until=([^;]+)/.exec(cookie)
+  const until = m ? parseInt(decodeURIComponent(m[1]), 10) : 0
+  const now = Date.now()
+  return { locked: Number.isFinite(until) && until > now, until }
+}
+
+function buildLockHeaders(until) {
+  const maxAge = Math.max(0, Math.floor((until - Date.now()) / 1000))
+  const cookie = [
+    `admin_lock_until=${encodeURIComponent(String(until))}`,
+    'Path=/',
+    'HttpOnly',
+    'SameSite=Strict',
+    'Secure',
+    `Max-Age=${maxAge}`,
+  ].join('; ')
+  return { 'set-cookie': cookie, 'x-lock-until': String(until) }
+}
+
+function getFailInfo(request) {
+  const cookie = request.headers.get('cookie') || ''
+  const m = /(?:^|; )admin_fail_count=([^;]+)/.exec(cookie)
+  const count = m ? parseInt(decodeURIComponent(m[1]), 10) : 0
+  return Number.isFinite(count) && count > 0 ? count : 0
+}
+
+function buildFailHeaders(count) {
+  const cookie = [
+    `admin_fail_count=${encodeURIComponent(String(count))}`,
+    'Path=/',
+    'HttpOnly',
+    'SameSite=Strict',
+    'Secure',
+    'Max-Age=3600',
+  ].join('; ')
+  return { 'set-cookie': cookie, 'x-fail-count': String(count) }
+}
+
+function buildClearFailHeaders() {
+  const cookie = [
+    'admin_fail_count=; Path=/; HttpOnly; SameSite=Strict; Secure; Max-Age=0'
+  ].join('; ')
+  return { 'set-cookie': cookie }
+}
+
 function likeWrap(v) { return `%${v || ''}%` }
 
 export async function GET(request) {
+  // Check lock status first
+  const lock = getLockInfo(request)
+  if (lock.locked) {
+    const headers = buildLockHeaders(lock.until)
+    return new Response(JSON.stringify({ error: 'locked', until: lock.until }), { status: 403, headers: { 'content-type': 'application/json', ...headers } })
+  }
+
   const url = new URL(request.url)
   const page = Math.max(1, parseInt(url.searchParams.get('page') || '1', 10))
   const pageSize = Math.min(100, Math.max(1, parseInt(url.searchParams.get('pageSize') || '20', 10)))
@@ -27,8 +81,19 @@ export async function GET(request) {
   try { ({ env } = getRequestContext()) } catch {}
   const expected = String(env?.ADMIN_TOKEN || process.env.ADMIN_TOKEN || '').trim()
   if (!expected || token !== expected) {
-    return Response.json({ error: 'unauthorized' }, { status: 401 })
+    const prev = getFailInfo(request)
+    const curr = prev + 1
+    if (curr >= 3) {
+      const until = Date.now() + 60 * 60 * 1000 // 1 hour
+      const headers = buildLockHeaders(until)
+      return new Response(JSON.stringify({ error: 'unauthorized', until }), { status: 401, headers: { 'content-type': 'application/json', ...headers } })
+    }
+    const headers = buildFailHeaders(curr)
+    return new Response(JSON.stringify({ error: 'unauthorized', attemptsLeft: 3 - curr }), { status: 401, headers: { 'content-type': 'application/json', ...headers } })
   }
+
+  // Authorized: clear fail counter if any
+  const clearFailHeaders = buildClearFailHeaders()
 
   const db = env?.DB
   const useMock = !db || typeof db.prepare !== 'function'
