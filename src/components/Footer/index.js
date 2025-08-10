@@ -19,14 +19,14 @@ const Footer = () => {
   const { language, setLanguage, t } = useLanguage();
 
   return (
-    <footer className="mt-16 rounded-2xl bg-dark dark:bg-accentDark/90 m-2 sm:m-10 flex flex-col items-center text-light dark:text-dark">
+    <footer className="mt-16 rounded-2xl bg-dark m-2 sm:m-10 flex flex-col items-center text-light ">
       <div className="mt-16 w-full flex flex-col items-center justify-center gap-4 px-4">
         <Logo />
         <h3 className="font-medium dark:font-bold text-center capitalize text-2xl sm:text-3xl lg:text-4xl">
           {t('footer.title')}
         </h3>
       </div>
-      <p className="mt-5 px-4 text-center w-full sm:w-3/5 font-light dark:font-medium text-sm sm:text-base">
+      <p className="mt-5 px-4 text-center w-full sm:w-3/5 font-light  text-sm sm:text-base">
           {t('footer.description')}
       </p>
 
@@ -89,7 +89,7 @@ const Footer = () => {
           </span>
           <button
             onClick={() => setLanguage(language === 'zh' ? 'en' : 'zh')}
-            className="ml-2 px-3 py-1 rounded-full border border-solid border-light/60 dark:border-dark/60 text-sm bg-transparent"
+            className="ml-2 px-3 py-1 rounded-full border border-solid border-light/60  text-sm bg-transparent"
             aria-label="language-switcher-footer"
           >
             {language === 'zh' ? 'EN' : '中文'}
