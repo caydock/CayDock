@@ -33,6 +33,13 @@ function TextArea({ label, value, onChange, placeholder, rows=3 }) {
 }
 
 export default function AdminPage() {
+  // Hide global header/footer when entering admin
+  useEffect(() => {
+    if (typeof document !== 'undefined') {
+      document.body.classList.add('admin-mode')
+      return () => document.body.classList.remove('admin-mode')
+    }
+  }, [])
   const [token, setToken] = useState("");
   const [authed, setAuthed] = useState(false);
   const [loading, setLoading] = useState(false);

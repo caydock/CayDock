@@ -119,3 +119,9 @@ code[data-line-numbers-max-digits='3']>[data-line]::before {
 .dark .tech-bg {
   background-color: rgb(27 27 27 / var(--tw-bg-opacity, 1))
 }
+
+/* Admin page hides global header/footer */
+body.admin-mode header,
+body.admin-mode footer {
+  display: none !important;
+}

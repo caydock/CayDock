@@ -18,7 +18,8 @@ export default function PostByAbbrPage() {
   const [site, setSite] = useState(null)
   const router = useRouter()
   const params = useParams()
-  const abbr = typeof params?.abbr === 'string' ? params.abbr : Array.isArray(params?.abbr) ? params.abbr[0] : ''
+  const abbrRaw = typeof params?.abbr === 'string' ? params.abbr : Array.isArray(params?.abbr) ? params.abbr[0] : ''
+  const abbr = abbrRaw.replace(/\.html$/i, '')
   const [hideFab, setHideFab] = useState(false)
 
   const fetchByAbbr = useCallback(async () => {

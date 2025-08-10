@@ -28,6 +28,23 @@ function deriveId({ id, slug, abbrlink, link, title }) {
   return 'site-' + Math.random().toString(36).slice(2, 10)
 }
 
+async function generateAbbrlink({ link, title, id, salt = '' }) {
+  const base = (link || title || id || (Date.now() + Math.random().toString())) + String(salt)
+  const data = new TextEncoder().encode(base)
+  let hex = ''
+  try {
+    const digest = await crypto.subtle.digest('SHA-1', data)
+    const bytes = new Uint8Array(digest)
+    for (let i = 0; i < 4; i++) hex += bytes[i].toString(16).padStart(2, '0')
+  } catch {
+    // Fallback: simple hash
+    let h = 0
+    for (let i = 0; i < data.length; i++) h = (h * 31 + data[i]) >>> 0
+    hex = h.toString(16).padStart(8, '0')
+  }
+  return hex
+}
+
 export async function POST(request) {
   try {
     const payload = await request.json()
@@ -40,7 +57,7 @@ export async function POST(request) {
     const description = payload.description || payload.desc_en || payload.desc_zh || null
     const desc_zh = payload.desc_zh || null
     const desc_en = payload.desc_en || null
-    const abbrlink = payload.abbrlink || null
+    let abbrlink = payload.abbrlink || null
     const permalink = payload.permalink || null
     const date = payload.date || null
     const sub_title = payload.sub_title || null
@@ -52,13 +69,16 @@ export async function POST(request) {
 
     const slug = payload.slug || toSlug(title) || null
     const id = deriveId({ id: payload.id, slug, abbrlink, link, title })
+    if (!abbrlink) {
+      abbrlink = await generateAbbrlink({ link, title, id })
+    }
 
     // Try Cloudflare D1 (CF runtime). If not available, return dev-ok
     try {
       const { env } = getRequestContext()
       const db = env?.DB
       if (db && typeof db.prepare === 'function') {
-        await db.prepare(`
+        const sql = `
           INSERT INTO sites (id, abbrlink, slug, title, title_zh, title_en, description, desc_zh, desc_en, sub_title, icon, link, permalink, date, isShow)
           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0)
           ON CONFLICT(id) DO UPDATE SET
@@ -75,16 +95,32 @@ export async function POST(request) {
             link=excluded.link,
             permalink=excluded.permalink,
             date=excluded.date
-        `).bind(id, abbrlink, slug, title || link, title_zh, title_en, description, desc_zh, desc_en, sub_title, icon, link, permalink, date).run()
-
-        return Response.json({ ok: true, id, slug })
+        `
+        let attempts = 0
+        while (attempts < 3) {
+          try {
+            await db.prepare(sql).bind(
+              id, abbrlink, slug, title || link, title_zh, title_en, description, desc_zh, desc_en, sub_title, icon, link, permalink, date
+            ).run()
+            return Response.json({ ok: true, id, slug, abbrlink })
+          } catch (e) {
+            const msg = String(e?.message || e)
+            if (msg.includes('UNIQUE') && msg.includes('abbrlink')) {
+              attempts += 1
+              abbrlink = await generateAbbrlink({ link, title, id, salt: Date.now() + ':' + Math.random() })
+              continue
+            }
+            throw e
+          }
+        }
+        return Response.json({ error: 'abbrlink_conflict' }, { status: 409 })
       }
     } catch (_) {
       // ignore and fall back
     }
 
     // Local/dev fallback (no DB in runtime)
-    return Response.json({ ok: true, id, slug, note: 'Saved (dev fallback). Setup Cloudflare D1 in production.' })
+    return Response.json({ ok: true, id, slug, abbrlink, note: 'Saved (dev fallback). Setup Cloudflare D1 in production.' })
   } catch (e) {
     return Response.json({ error: 'Failed to submit site' }, { status: 500 })
   }

@@ -24,8 +24,9 @@ function normalizeRowToSite(row) {
   }
 }
 
-export async function GET(_req, { params }) {
-  const abbr = params?.abbr
+export async function GET(_req, ctx) {
+  const raw = (await ctx?.params)?.abbr
+  const abbr = typeof raw === 'string' ? raw.replace(/\.html$/i, '') : raw
   if (!abbr) {
     return Response.json({ error: 'abbrlink required' }, { status: 400 })
   }
