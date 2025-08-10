@@ -97,6 +97,7 @@ export default async function RootLayout({ children }) {
     document.documentElement.classList.remove('dark')
   }`}
         </Script>
+        <div className="tech-bg" aria-hidden="true" />
         <LanguageProvider initialLanguage={htmlLang.startsWith('zh') ? 'zh' : 'en'}>
           <Header />
           {children}

@@ -1,7 +1,7 @@
 "use client"
 import Link from "next/link";
 import Logo from "./Logo";
-import SiteLogo from "./SiteLogoBlack";
+import SiteLogo from "./SiteLogo";
 import { MoonIcon, SunIcon } from "../Icons";
 import { useThemeSwitch } from "../Hooks/useThemeSwitch";
 import { useLanguage } from "@/src/components/i18n/LanguageProvider";
@@ -61,16 +61,17 @@ const Header = () => {
       >
         <div className="flex items-center justify-between p-4 border-b border-dark/10 dark:border-light/10">
           <SiteLogo sizeClass="w-32" />
-          <button aria-label="close-menu" onClick={() => setOpen(false)} className="w-9 h-9 rounded-full border border-dark/70 flex items-center justify-center">
+          <button aria-label="close-menu" onClick={() => setOpen(false)} className="w-9 h-9 rounded-full border border-dark/70 flex items-center justify-center dark:text-light">
             ×
           </button>
         </div>
-        <nav className="flex flex-col p-4 gap-3 text-lg">
+        <nav className="flex flex-col p-4 gap-3 text-lg dark:text-light">
           <Link href="/" onClick={() => setOpen(false)}>{t('nav.home')}</Link>
           <Link href="/submit" onClick={() => setOpen(false)}>{t('nav.submit')}</Link>
+          <Link href="/contact" onClick={() => setOpen(false)}>{t('nav.contact')}</Link>
           <Link href="/about" onClick={() => setOpen(false)}>{t('nav.about')}</Link>
           {/* Contact hidden on mobile per earlier request */}
-          <button onClick={() => { setMode(mode === "light" ? "dark" : "light"); }} className={cx("mt-2 w-10 h-10 rounded-full flex items-center justify-center border", mode === "light" ? "bg-dark text-light" : "bg-light text-dark")} aria-label="theme-switcher">
+          <button onClick={() => { setMode(mode === "light" ? "dark" : "light"); }} className={cx("mt-2 w-6 h-6 rounded-full flex items-center justify-center border", mode === "light" ? "bg-dark text-light" : "bg-light text-dark")} aria-label="theme-switcher">
             {mode === "light" ? <MoonIcon className={"fill-current"} /> : <SunIcon className={"fill-current"} />}
           </button>
         </nav>

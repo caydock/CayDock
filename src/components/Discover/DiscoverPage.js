@@ -34,21 +34,6 @@ const styles = `
   :global(html.dark) .islands-bg {
     background: linear-gradient(120deg, #0f1226, #1b1d3a, #0d1f2e, #1e1030);
   }
-  /* 科技感网格 + 霓虹扫光背景层 */
-  .tech-bg {
-    position: fixed; inset: 0; z-index: -2; pointer-events: none;
-    background-image:
-      linear-gradient(rgba(99,102,241,0.22) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(99,102,241,0.22) 1px, transparent 1px),
-      radial-gradient(rgba(99,102,241,0.26) 1px, transparent 1px),
-      radial-gradient(rgba(16,185,129,0.26) 1px, transparent 1px);
-    background-size: 36px 36px, 36px 36px, 18px 18px, 18px 18px;
-    background-position: 0 0, 0 0, 12px 12px, 0 0;
-    animation: gridDrift 40s ease-in-out infinite;
-  }
-  .dark .tech-bg {
-      background-color: rgb(27 27 27 / var(--tw-bg-opacity, 1))
-  }
   .tech-bg::before {
     content: ""; position: absolute; inset: -20%; opacity: 0.9;
     background:
@@ -206,7 +191,6 @@ export default function DiscoverPage() {
       <style jsx>{styles}</style>
       <main className="main">
         <div className="islands-bg" aria-hidden="true" />
-        <div className="tech-bg" aria-hidden="true" />
         <div className="scanlines" aria-hidden="true" />
         <div className="card-wrap">
           {current ? (
@@ -235,10 +219,10 @@ export default function DiscoverPage() {
           style={{ bottom: 'calc(env(safe-area-inset-bottom, 0px) + 20px)' }}
         >
           <button
-            className="inline-flex items-center justify-center rounded-full bg-gradient-to-tr from-violet-600 to-blue-600 text-white font-extrabold px-5 py-3 shadow-md hover:brightness-105 active:brightness-95 transition flex-1 sm:flex-none"
+            className="inline-flex items-center justify-center rounded-full bg-gradient-to-tr from-violet-600 to-blue-600 text-white font-extrabold px-6 sm:px-8 py-3 shadow-md hover:brightness-105 active:brightness-95 transition flex-1 sm:flex-none sm:min-w-[160px]"
             onClick={fetchRandom}
           >
-            {t('discover.random')}
+            🎲 {t('discover.random')} 
           </button>
           {current ? (
             <a

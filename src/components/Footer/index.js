@@ -5,7 +5,7 @@ import { DribbbleIcon, GithubIcon, LinkedinIcon, TwitterIcon } from "../Icons";
 import Link from "next/link";
 import siteMetadata from "@/src/utils/siteMetaData";
 import { useLanguage } from "@/src/components/i18n/LanguageProvider";
-import Logo from "@/src/components/Header/SiteLogo";
+import Logo from "@/src/components/Header/SiteLogoBlack";
 
 const Footer = () => {
   const {
