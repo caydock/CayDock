@@ -63,13 +63,6 @@ function buildClearFailHeaders() {
 function likeWrap(v) { return `%${v || ''}%` }
 
 export async function GET(request) {
-  // Check lock status first
-  const lock = getLockInfo(request)
-  if (lock.locked) {
-    const headers = buildLockHeaders(lock.until)
-    return new Response(JSON.stringify({ error: 'locked', until: lock.until }), { status: 403, headers: { 'content-type': 'application/json', ...headers } })
-  }
-
   const url = new URL(request.url)
   const page = Math.max(1, parseInt(url.searchParams.get('page') || '1', 10))
   const pageSize = Math.min(100, Math.max(1, parseInt(url.searchParams.get('pageSize') || '20', 10)))
@@ -80,7 +73,19 @@ export async function GET(request) {
   let env
   try { ({ env } = getRequestContext()) } catch {}
   const expected = String(env?.ADMIN_TOKEN || process.env.ADMIN_TOKEN || '').trim()
-  if (!expected || token !== expected) {
+  if (expected && token === expected) {
+    // Authorized: clear fail counter and lock if any
+    const clearFailHeaders = buildClearFailHeaders()
+    const unlockHeaders = buildLockHeaders(Date.now()) // expires immediately
+    // Merge headers with later response below; store to include in success response
+    var successHeaders = { ...clearFailHeaders, ...unlockHeaders }
+  } else {
+    // Check lock status before counting a new failure
+    const lock = getLockInfo(request)
+    if (lock.locked) {
+      const headers = buildLockHeaders(lock.until)
+      return new Response(JSON.stringify({ error: 'locked', until: lock.until }), { status: 403, headers: { 'content-type': 'application/json', ...headers } })
+    }
     const prev = getFailInfo(request)
     const curr = prev + 1
     if (curr >= 3) {
@@ -91,9 +96,6 @@ export async function GET(request) {
     const headers = buildFailHeaders(curr)
     return new Response(JSON.stringify({ error: 'unauthorized', attemptsLeft: 3 - curr }), { status: 401, headers: { 'content-type': 'application/json', ...headers } })
   }
-
-  // Authorized: clear fail counter if any
-  const clearFailHeaders = buildClearFailHeaders()
 
   const db = env?.DB
   const useMock = !db || typeof db.prepare !== 'function'
@@ -114,7 +116,7 @@ export async function GET(request) {
 
   if (useMock) {
     const { items, total } = listMock({ q, isShow: (isShowParam==='0'||isShowParam==='1')?parseInt(isShowParam,10):undefined, page, pageSize })
-    return Response.json({ items, total, page, pageSize, mock: true })
+    return new Response(JSON.stringify({ items, total, page, pageSize, mock: true }), { status: 200, headers: { 'content-type': 'application/json', ...(successHeaders||{}) } })
   } else {
     // Count total
     const countRow = await db.prepare(`SELECT COUNT(*) AS c FROM sites ${whereSql}`).bind(...params).first()
@@ -127,6 +129,6 @@ export async function GET(request) {
     ).bind(...params, pageSize, offset).all()
 
     const items = Array.isArray(data?.results) ? data.results : []
-    return Response.json({ items, total, page, pageSize })
+    return new Response(JSON.stringify({ items, total, page, pageSize }), { status: 200, headers: { 'content-type': 'application/json', ...(successHeaders||{}) } })
   }
 }

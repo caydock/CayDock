@@ -53,7 +53,12 @@ export default function AdminPage() {
     }
   }, []);
 
-  const headers = useMemo(() => ({ "x-admin-token": token, accept: "application/json", "content-type": "application/json" }), [token]);
+  const headers = useMemo(() => ({
+    "x-admin-token": token,
+    authorization: token ? `Bearer ${token}` : undefined,
+    accept: "application/json",
+    "content-type": "application/json",
+  }), [token]);
 
   async function fetchList(p = page) {
     if (!token) return;
