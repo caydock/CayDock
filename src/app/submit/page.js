@@ -267,28 +267,28 @@ export default function SubmitPage() {
     <>
       <style jsx>{styles}</style>
       <main className="page">
-        <h1>{t('submit.title')}</h1>
-        <p className="tagline">{t('submit.tagline')}</p>
+        <h1 className="dark:text-light">{t('submit.title')}</h1>
+        <p className="tagline dark:text-light">{t('submit.tagline')}</p>
 
-        <form className="form" onSubmit={(e) => { e.preventDefault(); saveLocal() }}>
+        <form className="form dark:bg-dark dark:text-light" onSubmit={(e) => { e.preventDefault(); saveLocal() }}>
           <div className="field">
-            <label>{t('submit.urlLabel')}</label>
+            <label className="dark:text-light">{t('submit.urlLabel')}</label>
             <input type="url" placeholder={t('submit.urlPlaceholder')} value={url} onChange={(e) => setUrl(e.target.value)} required aria-invalid={!url ? undefined : (!isValidUrl(url) ? 'true' : undefined)} />
             {url && !isValidUrl(url) && <div style={{color:'#c00', marginTop:6, fontSize:'0.9rem'}}>{t('submit.urlInvalid')}</div>}
           </div>
           <div className="field">
-            <label>{t('submit.siteTitleLabel')}</label>
+            <label className="dark:text-light">{t('submit.siteTitleLabel')}</label>
             <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
           </div>
           <div className="field">
-            <label>{t('submit.pitchLabel')}</label>
+            <label className="dark:text-light">{t('submit.pitchLabel')}</label>
             <textarea rows={3} value={pitch} onChange={(e) => setPitch(e.target.value)} />
           </div>
 
           <div className="actions">
-            <button className="secondary" type="submit" onClick={(e)=>{e.preventDefault(); submitApi()}} disabled={requiredMissing}>{t('submit.submitBtn')}</button>
+            <button className="secondary dark:text-light" type="submit" onClick={(e)=>{e.preventDefault(); submitApi()}} disabled={requiredMissing}>{t('submit.submitBtn')}</button>
           </div>
-          <div className="hint">
+          <div className="hint dark:text-light">
             <span>{savedHint}</span>
           </div>
         </form>

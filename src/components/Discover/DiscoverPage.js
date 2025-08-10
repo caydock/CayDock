@@ -46,12 +46,8 @@ const styles = `
     background-position: 0 0, 0 0, 12px 12px, 0 0;
     animation: gridDrift 40s ease-in-out infinite;
   }
-  :global(html.dark) .tech-bg {
-    background-image:
-      linear-gradient(rgba(139,92,246,0.32) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(139,92,246,0.32) 1px, transparent 1px),
-      radial-gradient(rgba(139,92,246,0.36) 1px, transparent 1px),
-      radial-gradient(rgba(14,165,233,0.36) 1px, transparent 1px);
+  .dark .tech-bg {
+      background-color: rgb(27 27 27 / var(--tw-bg-opacity, 1))
   }
   .tech-bg::before {
     content: ""; position: absolute; inset: -20%; opacity: 0.9;
@@ -221,7 +217,6 @@ export default function DiscoverPage() {
                 reloadKey={reloadKey}
                 onUnembeddable={fetchRandom}
               />
-              {isOpened ? null : <div className="hint">{t('discover.hint')}</div>}
             </div>
           ) : (
             <div className="rounded-xl md:rounded-2xl p-2 md:p-8 text-center bg-white/90 dark:bg-zinc-900/80 backdrop-blur-md shadow-xl">

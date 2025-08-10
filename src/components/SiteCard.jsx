@@ -107,8 +107,8 @@ function SiteCard({ site, language, reloadKey = 0, onUnembeddable }) {
         .fallback { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(245,245,245,0.9); }
         .box { text-align: center; padding: 2rem; }
         .meta { text-align: left; }
-        .title { font-size: 1.5rem; font-weight: bold; margin-bottom: 0.5rem; color: #333; }
-        .pitch { color: #666; line-height: 1.6; }
+        .title { font-size: 1.5rem; font-weight: bold; margin-bottom: 0.5rem; }
+        .pitch { line-height: 1.6; }
         @media (prefers-color-scheme: dark) {
           .shot-wrap, .loading, .fallback { background: rgba(34, 34, 38, 0.85); }
           .title { color: #fff; }
@@ -151,8 +151,8 @@ function SiteCard({ site, language, reloadKey = 0, onUnembeddable }) {
         </button>
       </div>
       <div className="meta">
-        <h2 className="title">{title}</h2>
-        <p className="pitch">{pitch}</p>
+        <h2 className="title dark:text-light">{title}</h2>
+        <p className="pitch dark:text-light">{pitch}</p>
       </div>
     </div>
   )
