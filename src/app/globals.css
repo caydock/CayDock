@@ -90,4 +90,7 @@ code {
     color: #747474;
   }
 
+  .site-card {
+    min-height: 100vh;
+  }
 
