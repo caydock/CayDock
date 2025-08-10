@@ -18,6 +18,7 @@ gtag('config', 'G-GY58MNR1C0');
       y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
   })(window, document, "clarity", "script", "soy2grvr91");
  `}</Script>
+ <Script defer src="https://cloud.umami.is/script.js" data-website-id="c7ffa851-1275-406a-b593-78a51e851f87"></Script>
     </>
   )
 }
