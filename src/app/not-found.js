@@ -1,11 +1,21 @@
 "use client";
 import Link from "next/link";
 import { useLanguage } from "@/src/components/i18n/LanguageProvider";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export const runtime = 'edge';
 
 export default function NotFound() {
   const { t } = useLanguage()
+  const router = useRouter()
+
+  useEffect(() => {
+    setTimeout(() => {
+    router.replace('/');
+  }, 1000);
+  }, [router]);
+
   return (
     <main className="my-32 w-full dark:bg-dark flex justify-center font-mr">
       <div className="relative flex flex-col items-center justify-center">
@@ -13,10 +23,7 @@ export default function NotFound() {
         <h2 className={`inline-block text-dark dark:text-light text-3xl md:text-5xl font-bold w-full text-center mt-4 tracking-wide leading-snug`}>{t('notFound.title')}</h2>
         <Link
           href="/"
-          className="self-center mt-8 inline-block rounded-lg border-2 border-solid bg-dark px-4 py-2
-        font-semibold text-light hover:border-dark hover:bg-light hover:text-dark 
-        dark:bg-light dark:text-dark hover:dark:bg-dark hover:dark:text-light hover:dark:border-light
-        "
+          className="self-center mt-8 inline-block rounded-lg border-2 border-solid bg-dark px-4 py-2 font-semibold text-light hover:border-dark hover:bg-light hover:text-dark dark:bg-light dark:text-dark hover:dark:bg-dark hover:dark:text-light hover:dark:border-light"
         >
           {t('notFound.backHome')}
         </Link>
