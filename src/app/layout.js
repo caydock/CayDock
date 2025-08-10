@@ -4,6 +4,9 @@ import { Inter, Manrope } from "next/font/google";
 import Header from "@/src/components/Header";
 import Footer from "../components/Footer";
 import siteMetadata from "../utils/siteMetaData";
+import enTdk from "@/src/i18n/tdk/en.json";
+import zhTdk from "@/src/i18n/tdk/zh.json";
+import { headers, cookies } from "next/headers";
 import Script from "next/script";
 import { LanguageProvider } from "@/src/components/i18n/LanguageProvider";
 
@@ -19,40 +22,51 @@ const manrope = Manrope({
   variable: "--font-mr",
 });
 
-export const metadata = {
-  metadataBase: new URL(siteMetadata.siteUrl),
-  title: {
-    template: `%s | ${siteMetadata.title}`,
-    default: siteMetadata.title, // a default is required when creating a template
-  },
-  description: siteMetadata.description,
-  openGraph: {
-    title: siteMetadata.title,
-    description: siteMetadata.description,
-    url: siteMetadata.siteUrl,
-    siteName: siteMetadata.title,
-    images: [siteMetadata.socialBanner],
-    locale: "en_US",
-    type: "website",
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
+export async function generateMetadata() {
+  const cookieStore = await cookies();
+  const headerStore = await headers();
+  const langCookie = cookieStore.get("lang")?.value || "";
+  const acceptLang = headerStore.get("accept-language") || "";
+  const isZh = (langCookie || acceptLang).toLowerCase().startsWith("zh");
+  const lang = isZh ? "zh" : "en";
+  const tdk = lang === "zh" ? zhTdk : enTdk;
+  const base = new URL(siteMetadata.siteUrl);
+  return {
+    metadataBase: base,
+    title: {
+      template: `%s | ${tdk.title}`,
+      default: tdk.title,
+    },
+    description: tdk.description || siteMetadata.description,
+    keywords: tdk.keywords,
+    openGraph: {
+      title: tdk.title,
+      description: tdk.description || siteMetadata.description,
+      url: siteMetadata.siteUrl,
+      siteName: tdk.title,
+      images: [siteMetadata.socialBanner],
+      locale: lang === "zh" ? "zh_CN" : "en_US",
+      type: "website",
+    },
+    robots: {
       index: true,
       follow: true,
-      noimageindex: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
+      googleBot: {
+        index: true,
+        follow: true,
+        noimageindex: true,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
     },
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: siteMetadata.title,
-    images: [siteMetadata.socialBanner],
-  },
-};
+    twitter: {
+      card: "summary_large_image",
+      title: tdk.title,
+      images: [siteMetadata.socialBanner],
+    },
+  };
+}
 
 export const viewport = {
   width: 'device-width',
@@ -60,9 +74,15 @@ export const viewport = {
   viewportFit: 'cover',
 };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  const headerStore = await headers();
+  const cookieStore = await cookies();
+  const langCookie = cookieStore.get("lang")?.value || "";
+  const acceptLang = headerStore.get("accept-language") || "";
+  const isZh = (langCookie || acceptLang).toLowerCase().startsWith("zh");
+  const htmlLang = isZh ? "zh-CN" : "en";
   return (
-    <html lang="en">
+    <html lang={htmlLang}>
       <body
         className={cx(
           inter.variable,
@@ -77,7 +97,7 @@ export default function RootLayout({ children }) {
     document.documentElement.classList.remove('dark')
   }`}
         </Script>
-        <LanguageProvider>
+        <LanguageProvider initialLanguage={htmlLang.startsWith('zh') ? 'zh' : 'en'}>
           <Header />
           {children}
           <Footer />

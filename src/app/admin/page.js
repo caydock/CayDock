@@ -62,6 +62,8 @@ export default function AdminPage() {
       params.set("pageSize", String(pageSize));
       if (q.trim()) params.set("q", q.trim());
       if (isShow === "0" || isShow === "1") params.set("isShow", isShow);
+      // Fallback: also send token via query in case headers are stripped by edge proxies
+      params.set("token", token);
       const res = await fetch(`/api/admin/sites?${params}`, { headers });
       if (!res.ok) throw new Error("bad status");
       const data = await res.json();
@@ -80,13 +82,13 @@ export default function AdminPage() {
 
   async function approve(id) {
     if (!confirm("确认审核通过该站点？")) return;
-    await fetch(`/api/admin/sites/${encodeURIComponent(id)}`, { method: "PATCH", headers, body: JSON.stringify({ isShow: 1 }) });
+    await fetch(`/api/admin/sites/${encodeURIComponent(id)}?token=${encodeURIComponent(token)}`, { method: "PATCH", headers, body: JSON.stringify({ isShow: 1 }) });
     fetchList();
   }
 
   async function remove(id) {
     if (!confirm("确认删除该站点？此操作不可恢复")) return;
-    await fetch(`/api/admin/sites/${encodeURIComponent(id)}`, { method: "DELETE", headers });
+    await fetch(`/api/admin/sites/${encodeURIComponent(id)}?token=${encodeURIComponent(token)}`, { method: "DELETE", headers });
     fetchList();
   }
 
@@ -104,7 +106,7 @@ export default function AdminPage() {
 
   async function saveEdit() {
     const id = editingId;
-    await fetch(`/api/admin/sites/${encodeURIComponent(id)}`, { method: "PATCH", headers, body: JSON.stringify(editData) });
+    await fetch(`/api/admin/sites/${encodeURIComponent(id)}?token=${encodeURIComponent(token)}`, { method: "PATCH", headers, body: JSON.stringify(editData) });
     setEditingId(null);
     setEditData({});
     fetchList();

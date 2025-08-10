@@ -22,25 +22,36 @@ const styles = `
     }
   }
 
-  .main { position: relative;  display: flex; align-items: center; justify-content: center; overflow: hidden;  }
+  .main { position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
 
   .islands-bg { 
-    position: fixed; inset: 0; z-index: -2; 
+    position: fixed; inset: 0; z-index: -3; pointer-events: none;
     background: linear-gradient(120deg, var(--bg1), var(--bg2), var(--bg3), var(--bg4));
     background-size: 400% 400%;
     animation: bgShift 18s ease-in-out infinite;
   }
+  /* Adapt to Tailwind dark mode toggle (.dark on <html>) */
+  :global(html.dark) .islands-bg {
+    background: linear-gradient(120deg, #0f1226, #1b1d3a, #0d1f2e, #1e1030);
+  }
   /* 科技感网格 + 霓虹扫光背景层 */
   .tech-bg {
-    position: fixed; inset: 0; z-index: -1; pointer-events: none;
+    position: fixed; inset: 0; z-index: -2; pointer-events: none;
     background-image:
-      linear-gradient(rgba(99,102,241,0.18) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(99,102,241,0.18) 1px, transparent 1px),
-      radial-gradient(rgba(99,102,241,0.22) 1px, transparent 1px),
-      radial-gradient(rgba(16,185,129,0.22) 1px, transparent 1px);
-    background-size: 48px 48px, 48px 48px, 24px 24px, 24px 24px;
+      linear-gradient(rgba(99,102,241,0.22) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(99,102,241,0.22) 1px, transparent 1px),
+      radial-gradient(rgba(99,102,241,0.26) 1px, transparent 1px),
+      radial-gradient(rgba(16,185,129,0.26) 1px, transparent 1px);
+    background-size: 36px 36px, 36px 36px, 18px 18px, 18px 18px;
     background-position: 0 0, 0 0, 12px 12px, 0 0;
     animation: gridDrift 40s ease-in-out infinite;
+  }
+  :global(html.dark) .tech-bg {
+    background-image:
+      linear-gradient(rgba(139,92,246,0.32) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(139,92,246,0.32) 1px, transparent 1px),
+      radial-gradient(rgba(139,92,246,0.36) 1px, transparent 1px),
+      radial-gradient(rgba(14,165,233,0.36) 1px, transparent 1px);
   }
   .tech-bg::before {
     content: ""; position: absolute; inset: -20%; opacity: 0.9;
@@ -75,11 +86,27 @@ const styles = `
     background: repeating-linear-gradient( to bottom, rgba(255,255,255,0.06), rgba(255,255,255,0.06) 2px, transparent 2px, transparent 4px );
     animation: slMove 12s linear infinite; mix-blend-mode: overlay; }
   @media (prefers-color-scheme: dark) { .scanlines { background: repeating-linear-gradient( to bottom, rgba(255,255,255,0.05), rgba(255,255,255,0.05) 2px, transparent 2px, transparent 4px ); } }
+  :global(html.dark) .scanlines { background: repeating-linear-gradient( to bottom, rgba(255,255,255,0.05), rgba(255,255,255,0.05) 2px, transparent 2px, transparent 4px ); }
   @keyframes slMove { from { transform: translateY(0); } to { transform: translateY(4px); } }
   @keyframes bgShift {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
+  }
+
+  /* Force dark theme override at highest precedence */
+  :global(html.dark) :global(.islands-bg) {
+    background: linear-gradient(120deg, #0f1226, #1b1d3a, #0d1f2e, #1e1030);
+  }
+  :global(html.dark) :global(.tech-bg) {
+    background-image:
+      linear-gradient(rgba(139,92,246,0.32) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(139,92,246,0.32) 1px, transparent 1px),
+      radial-gradient(rgba(139,92,246,0.36) 1px, transparent 1px),
+      radial-gradient(rgba(14,165,233,0.36) 1px, transparent 1px);
+  }
+  :global(html.dark) :global(.scanlines) {
+    background: repeating-linear-gradient( to bottom, rgba(255,255,255,0.05), rgba(255,255,255,0.05) 2px, transparent 2px, transparent 4px );
   }
   @media (prefers-reduced-motion: reduce) {
     .islands-bg { animation: none; }

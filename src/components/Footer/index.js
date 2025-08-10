@@ -31,7 +31,7 @@ const Footer = () => {
       </p>
 
     
-      <div className="flex items-center mt-8">
+      {/* <div className="flex items-center mt-8">
         <a
           href={siteMetadata.linkedin}
           className="inline-block w-6 h-6 mr-4"
@@ -68,7 +68,7 @@ const Footer = () => {
         >
           <DribbbleIcon className="hover:scale-125 transition-all ease duration-200" />
         </a>
-      </div>
+      </div> */}
 
       <div className="w-full  mt-16 md:mt-24 relative font-medium border-t border-solid border-light py-6 px-8 flex  flex-col md:flex-row items-center justify-between">
         <span className="text-center">

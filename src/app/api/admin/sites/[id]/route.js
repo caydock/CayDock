@@ -11,14 +11,25 @@ function filterUpdatable(payload) {
   return updates
 }
 
+function getProvidedToken(request) {
+  const url = new URL(request.url)
+  const headerToken = request.headers.get('x-admin-token') || ''
+  const auth = request.headers.get('authorization') || ''
+  const queryToken = url.searchParams.get('token') || ''
+  let bearer = ''
+  if (auth.toLowerCase().startsWith('bearer ')) bearer = auth.slice(7)
+  const token = (headerToken || bearer || queryToken || '').trim()
+  return token
+}
+
 export async function PATCH(request, { params }) {
   const id = params?.id
   const url = new URL(request.url)
-  const token = request.headers.get('x-admin-token') || url.searchParams.get('token') || ''
+  const token = getProvidedToken(request)
 
   let env
   try { ({ env } = getRequestContext()) } catch {}
-  const expected = env?.ADMIN_TOKEN || process.env.ADMIN_TOKEN || ''
+  const expected = String(env?.ADMIN_TOKEN || process.env.ADMIN_TOKEN || '').trim()
   if (!expected || token !== expected) {
     return Response.json({ error: 'unauthorized' }, { status: 401 })
   }
@@ -47,11 +58,11 @@ export async function PATCH(request, { params }) {
 export async function DELETE(request, { params }) {
   const id = params?.id
   const url = new URL(request.url)
-  const token = request.headers.get('x-admin-token') || url.searchParams.get('token') || ''
+  const token = getProvidedToken(request)
 
   let env
   try { ({ env } = getRequestContext()) } catch {}
-  const expected = env?.ADMIN_TOKEN || process.env.ADMIN_TOKEN || ''
+  const expected = String(env?.ADMIN_TOKEN || process.env.ADMIN_TOKEN || '').trim()
   if (!expected || token !== expected) {
     return Response.json({ error: 'unauthorized' }, { status: 401 })
   }

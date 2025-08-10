@@ -217,7 +217,7 @@ const STRINGS = {
         "这是我持续创作的信念。W3Cay 专注于发现与分享有趣的网站、工具、游戏与 AI 体验，让灵感与快乐在日常里发生。保持学习、拥抱变化，用简单而美的方式传递价值。",
       aboutTitle: "关于本站",
       aboutDesc:
-        "你好，我是 Cay，欢迎来到 W3Cay！这里是一座充满好奇与乐趣的“兴趣小岛”，我们专注于收集并分享独特有趣的网站、工具、小游戏与 AI 相关体验，帮你在繁忙的日常里找到片刻的灵感与快乐。",
+        "你好，我是 Cay，欢迎来到 W3Cay(万趣岛)！这里是一座充满好奇与乐趣的“兴趣小岛”，我们专注于收集并分享独特有趣的网站、工具、小游戏与 AI 相关体验，帮你在繁忙的日常里找到片刻的灵感与快乐。",
       domainTitle: "域名由来",
       domainDesc:
         "“w3cay” 由 “w3”（Weird Wonder Web 的缩写）与 “cay”（小岛）组合而来。互联网像一片广阔海洋，埋藏着无数“有趣的小岛”。W3Cay 希望把它们串联起来，分享给同样热爱探索的你。",
@@ -258,10 +258,11 @@ const STRINGS = {
   },
 };
 
-export function LanguageProvider({ children }) {
-  const [language, setLanguage] = useState("en");
+export function LanguageProvider({ children, initialLanguage, initialStrings }) {
+  const [language, setLanguage] = useState(initialLanguage || "en");
 
   useEffect(() => {
+    if (initialLanguage) return; // SSR provided, skip client detection on first paint
     if (typeof window === "undefined") return;
     const saved = window.localStorage.getItem("lang");
     if (saved === "zh" || saved === "en") {
@@ -270,19 +271,28 @@ export function LanguageProvider({ children }) {
       const prefersZh = (navigator.language || navigator.userLanguage || "en").toLowerCase().startsWith("zh");
       setLanguage(prefersZh ? "zh" : "en");
     }
-  }, []);
+  }, [initialLanguage]);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
       window.localStorage.setItem("lang", language);
       document.documentElement.setAttribute("lang", language === "zh" ? "zh-CN" : "en");
+      try {
+        const sixMonths = 60 * 60 * 24 * 180
+        document.cookie = `lang=${language}; path=/; max-age=${sixMonths}`
+      } catch {}
     }
   }, [language]);
+
+  const effectiveStrings = useMemo(() => {
+    if (initialStrings && (initialLanguage === language)) return initialStrings
+    return STRINGS[language]
+  }, [initialStrings, initialLanguage, language])
 
   const t = useMemo(() => {
     return (key) => {
       const parts = key.split(".");
-      let curr = STRINGS[language];
+      let curr = effectiveStrings;
       for (const p of parts) {
         if (curr && typeof curr === "object" && p in curr) {
           curr = curr[p];
@@ -292,7 +302,7 @@ export function LanguageProvider({ children }) {
       }
       return typeof curr === "string" ? curr : key;
     };
-  }, [language]);
+  }, [effectiveStrings]);
 
   const value = useMemo(() => ({ language, setLanguage, t }), [language, t]);
 
