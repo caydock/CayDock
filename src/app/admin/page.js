@@ -88,6 +88,18 @@ export default function AdminPage() {
     fetchList();
   }
 
+  async function publish(id) {
+    if (!confirm("确认上线该站点？")) return;
+    await fetch(`/api/admin/sites/${encodeURIComponent(id)}?token=${encodeURIComponent(token)}`, { method: "PATCH", headers, body: JSON.stringify({ isShow: 1 }) });
+    fetchList();
+  }
+
+  async function unpublish(id) {
+    if (!confirm("确认下线该站点？下线后将不再展示")) return;
+    await fetch(`/api/admin/sites/${encodeURIComponent(id)}?token=${encodeURIComponent(token)}`, { method: "PATCH", headers, body: JSON.stringify({ isShow: 0 }) });
+    fetchList();
+  }
+
   async function remove(id) {
     if (!confirm("确认删除该站点？此操作不可恢复")) return;
     await fetch(`/api/admin/sites/${encodeURIComponent(id)}?token=${encodeURIComponent(token)}`, { method: "DELETE", headers });
@@ -97,10 +109,8 @@ export default function AdminPage() {
   function startEdit(item) {
     setEditingId(item.id);
     setEditData({
-      title: item.title || "",
       title_en: item.title_en || "",
       title_zh: item.title_zh || "",
-      description: item.description || "",
       desc_en: item.desc_en || "",
       desc_zh: item.desc_zh || "",
     });
@@ -152,7 +162,7 @@ export default function AdminPage() {
   return (
     <>
       <meta name="robots" content="noindex,nofollow" />
-      <main className="max-w-6xl mx-auto mt-8 p-4">
+      <main className="max-w-6xl mx-auto mt-8 p-4 bg-white dark:bg-zinc-900">
       <h1 className="text-2xl font-bold mb-4">站点管理</h1>
 
       <div className="flex flex-wrap gap-3 items-end mb-4">
@@ -188,10 +198,8 @@ export default function AdminPage() {
                 <td className="px-3 py-2 w-[420px]">
                   {editingId === item.id ? (
                     <div className="space-y-2">
-                      <TextInput label="title" value={editData.title} onChange={(v)=>setEditData(d=>({...d, title:v}))} />
                       <TextInput label="title_en" value={editData.title_en} onChange={(v)=>setEditData(d=>({...d, title_en:v}))} />
                       <TextInput label="title_zh" value={editData.title_zh} onChange={(v)=>setEditData(d=>({...d, title_zh:v}))} />
-                      <TextArea label="description" value={editData.description} onChange={(v)=>setEditData(d=>({...d, description:v}))} />
                       <TextArea label="desc_en" value={editData.desc_en} onChange={(v)=>setEditData(d=>({...d, desc_en:v}))} />
                       <TextArea label="desc_zh" value={editData.desc_zh} onChange={(v)=>setEditData(d=>({...d, desc_zh:v}))} />
                     </div>
@@ -219,8 +227,13 @@ export default function AdminPage() {
                     </>
                   ) : (
                     <>
-                      {!item.isShow && (
-                        <button className="px-3 py-1 rounded bg-violet-600 text-white" onClick={()=>approve(item.id)}>审核通过</button>
+                      {!item.isShow ? (
+                        <>
+                          <button className="px-3 py-1 rounded bg-violet-600 text-white" onClick={()=>approve(item.id)}>审核通过</button>
+                          <button className="px-3 py-1 rounded bg-emerald-600 text-white" onClick={()=>publish(item.id)}>上线</button>
+                        </>
+                      ) : (
+                        <button className="px-3 py-1 rounded bg-slate-600 text-white" onClick={()=>unpublish(item.id)}>下线</button>
                       )}
                       <button className="px-3 py-1 rounded bg-amber-600 text-white" onClick={()=>startEdit(item)}>编辑</button>
                       <button className="px-3 py-1 rounded bg-red-600 text-white" onClick={()=>remove(item.id)}>删除</button>

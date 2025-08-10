@@ -35,7 +35,6 @@ function SiteCard({ site, language, reloadKey = 0, onUnembeddable }) {
     const parentIsHttps = window.location.protocol === 'https:'
     return parentIsHttps && isHttpUrl
   }, [site?.url])
-  const [blockedEmbed, setBlockedEmbed] = useState(false)
   const notifiedRef = useRef("")
   const screenshotUrl = useMemo(() => {
     if (!site?.url) return ''
@@ -43,29 +42,17 @@ function SiteCard({ site, language, reloadKey = 0, onUnembeddable }) {
     return ''
   }, [site?.url])
 
-  useEffect(() => {
-    let ignore = false
-    async function check() {
-      if (!site?.url || isMixedContent) { setBlockedEmbed(isMixedContent); return }
-      try {
-        const resp = await fetch(`/api/can-embed?url=${encodeURIComponent(site.url)}`)
-        const data = await resp.json()
-        if (!ignore) setBlockedEmbed(!data?.canEmbed)
-      } catch { if (!ignore) setBlockedEmbed(false) }
-    }
-    check()
-    return () => { ignore = true }
-  }, [site?.url, isMixedContent])
+  // 移除自动 can-embed 检测，改由人工判定
 
   // If cannot embed (http or blocked), notify parent to skip
   useEffect(() => {
     const url = site?.url || ''
     if (!url) return
-    if ((isMixedContent || blockedEmbed) && onUnembeddable && notifiedRef.current !== url) {
+    if (isMixedContent && onUnembeddable && notifiedRef.current !== url) {
       notifiedRef.current = url
       onUnembeddable()
     }
-  }, [blockedEmbed, isMixedContent, onUnembeddable, site?.url])
+  }, [isMixedContent, onUnembeddable, site?.url])
 
   useEffect(() => {
     const handleFsChange = () => {
@@ -125,7 +112,7 @@ function SiteCard({ site, language, reloadKey = 0, onUnembeddable }) {
             <div className="spinner" />
           </div>
         )}
-        {(isMixedContent || blockedEmbed) ? (
+        {isMixedContent ? (
           <div className="loading" aria-hidden="true"><div className="spinner" /></div>
         ) : (
           <iframe
