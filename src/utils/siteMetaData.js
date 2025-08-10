@@ -8,7 +8,7 @@ const siteMetadata = {
     theme: 'system', // system, dark or light
     siteUrl: 'https://w3cay.com', // your website URL
     siteLogo: '/logo.webp',
-    socialBanner: '/social-banner.png', // add social banner in the public folder
+    socialBanner: '/logo.png', // add social banner in the public folder
     email: 'w3cay@hotmail.com', 
     locale: 'en-US',
   }
