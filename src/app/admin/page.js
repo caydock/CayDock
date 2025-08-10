@@ -213,10 +213,14 @@ export default function AdminPage() {
                     <div>
                       <div className="font-medium">{item.title}</div>
                       {(item.title_en || item.title_zh) && (
-                        <div className="text-xs text-zinc-500">EN: {item.title_en || '-'} | ZH: {item.title_zh || '-'}</div>
+                        <div className="text-xs text-zinc-500">
+                         英文标题: {item.title_en || '-'} <br/>
+                         中文标题: {item.title_zh || '-'}</div>
                       )}
                       {(item.description || item.desc_en || item.desc_zh) && (
-                        <div className="text-xs text-zinc-500 line-clamp-3">{item.description || item.desc_en || item.desc_zh}</div>
+                        <div className="text-xs text-zinc-500 line-clamp-3">
+                          英文描述: {item.desc_en || '-'} <br/> 
+                          中文描述: {item.desc_zh || '-'}</div>
                       )}
                     </div>
                   )}
