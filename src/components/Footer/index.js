@@ -19,12 +19,25 @@ const Footer = () => {
   const { language, setLanguage, t } = useLanguage();
 
   return (
-    <footer className="mt-16 rounded-2xl bg-dark m-2 sm:m-10 flex flex-col items-center text-light ">
+    <footer className="bg-dark flex flex-col items-center text-light relative">
+      {/* 锯齿分界线 */}
+      <div className="w-full h-8 relative overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-full bg-dark zigzag-border">
+        </div>
+      </div>
       <div className="mt-16 w-full flex flex-col items-center justify-center gap-4 px-4">
         <Logo />
         <h3 className="font-medium dark:font-bold text-center capitalize text-2xl sm:text-3xl lg:text-4xl">
           {t('footer.title')}
         </h3>
+        
+        {/* 导航菜单 */}
+        <nav className="mt-8 flex flex-wrap items-center justify-center gap-6 text-sm sm:text-base">
+          <Link href="/" className="hover:underline transition-colors">{t('nav.home')}</Link>
+          <Link href="/submit" className="hover:underline transition-colors">{t('nav.submit')}</Link>
+          <Link href="/about" className="hover:underline transition-colors">{t('nav.about')}</Link>
+          <Link href="/contact" className="hover:underline transition-colors">{t('nav.contact')}</Link>
+        </nav>
       </div>
       <p className="mt-5 px-4 text-center w-full sm:w-3/5 font-light  text-sm sm:text-base">
           {t('footer.description')}

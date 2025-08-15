@@ -1,7 +1,6 @@
 import "./globals.css";
 import { cx } from "@/src/utils";
 import { Inter, Manrope } from "next/font/google";
-import Header from "@/src/components/Header";
 import Footer from "../components/Footer";
 import Analytics from "@/src/components/Analytics";
 import siteMetadata from "../utils/siteMetaData";
@@ -94,16 +93,9 @@ export default async function RootLayout({ children }) {
           "font-mr bg-light dark:bg-dark"
         )}
       >
-        <Script id="theme-switcher" strategy="beforeInteractive">
-          {`if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-    document.documentElement.classList.add('dark')
-  } else {
-    document.documentElement.classList.remove('dark')
-  }`}
-        </Script>
+
         <div className="tech-bg" aria-hidden="true" />
         <LanguageProvider initialLanguage={htmlLang.startsWith('zh') ? 'zh' : 'en'}>
-          <Header />
           {children}
           <Footer />
         </LanguageProvider>

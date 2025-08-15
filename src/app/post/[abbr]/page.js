@@ -8,7 +8,7 @@ import { useLanguage } from '@/src/components/i18n/LanguageProvider'
 export const runtime = 'edge'
 
 const styles = `
-.page { max-width: 1200px; margin: 4rem auto 0; padding: 0 16px; }
+.page { width: 100%; height: 100vh; margin: 0; padding: 0; }
 .hint { margin-top: 0.75rem; color: #666; font-size: 0.95rem; }
 @media (prefers-color-scheme: dark) { .hint { color: #cfcfe1; } }
 `;
@@ -50,9 +50,9 @@ export default function PostByAbbrPage() {
   }, [])
 
   return (
-    <main className="page">
+    <main className="page preview-page">
       <style jsx>{styles}</style>
-      <div className="rounded-xl md:rounded-2xl p-2 md:p-8 text-center bg-white/90 dark:bg-zinc-900/80 backdrop-blur-md shadow-xl">
+      <div className="text-center bg-white/90 dark:bg-zinc-900/80 backdrop-blur-md shadow-xl h-full">
         {site ? (
           <SiteCard
             site={site}
@@ -70,7 +70,7 @@ export default function PostByAbbrPage() {
       {/* 底部悬浮操作栏：随机、打开 */}
       {site ? (
         <div
-          className={`fixed left-1/2 -translate-x-1/2 bottom-5 z-50 flex items-center gap-4 rounded-full border border-black/10 bg-white/90 dark:bg-zinc-900/80 backdrop-blur-md px-4 sm:px-3 py-2 shadow-xl w-[94vw] max-w-[680px] sm:w-auto sm:max-w-none transition-all duration-200 ${hideFab ? 'opacity-0 pointer-events-none translate-y-2' : 'opacity-100'}`}
+          className={`fixed left-1/2 -translate-x-1/2 bottom-5 z-50 flex items-center gap-4 rounded-full border border-black/10 bg-white/90 dark:bg-zinc-900/80 backdrop-blur-md px-4 sm:px-3 py-2 shadow-xl w-[94vw] max-w-[680px] sm:w-auto sm:max-w-none transition-all duration-200`}
           style={{ bottom: 'calc(env(safe-area-inset-bottom, 0px) + 20px)' }}
         >
           <button
@@ -87,6 +87,25 @@ export default function PostByAbbrPage() {
           >
             {t('discover.open')}
           </a>
+          <button
+            type="button"
+            onClick={() => {
+              const iframe = document.querySelector('.frame');
+              if (iframe) {
+                if (document.fullscreenElement || document.webkitFullscreenElement) {
+                  if (document.exitFullscreen) document.exitFullscreen();
+                  if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+                } else {
+                  if (iframe.requestFullscreen) iframe.requestFullscreen();
+                  if (iframe.webkitRequestFullscreen) iframe.webkitRequestFullscreen();
+                }
+              }
+            }}
+            aria-label="Toggle fullscreen"
+            className="inline-flex items-center justify-center rounded-full bg-black/60 text-white text-sm px-3 py-3 backdrop-blur hover:bg-black/70 active:opacity-90 transition"
+          >
+            {document.fullscreenElement || document.webkitFullscreenElement ? '✕' : '⛶'}
+          </button>
         </div>
       ) : null}
     </main>

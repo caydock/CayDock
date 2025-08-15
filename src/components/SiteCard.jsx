@@ -94,9 +94,9 @@ function SiteCard({ site, language, reloadKey = 0, onUnembeddable }) {
   return (
     <div className="site-card">
       <style jsx>{`
-        .site-card { margin-bottom: 2rem; }
-        .shot-wrap { position: relative; width: 100%; min-height: 680px; height: 680px; border-radius: 14px; overflow: hidden; margin-bottom: 1rem; background: rgba(245, 245, 245, 0.85); }
-        .frame { display:block; width: 100%; height: 100%; border: none; border-radius: 14px; }
+        .site-card { margin-bottom: 0; height: 100%; }
+        .shot-wrap { position: relative; width: 100%; height: 100vh; border-radius: 0; overflow: hidden; margin-bottom: 0; background: rgba(245, 245, 245, 0.85); }
+        .frame { display:block; width: 100%; height: 100%; border: none; border-radius: 0; }
         .loading { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(245, 245, 245, 0.85); }
         .spinner { width: 40px; height: 40px; border: 4px solid #e5e5e5; border-top: 4px solid #667eea; border-radius: 50%; animation: spin 1s linear infinite; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
@@ -111,8 +111,8 @@ function SiteCard({ site, language, reloadKey = 0, onUnembeddable }) {
           .pitch { color: #cfcfe1; }
         }
         @media (max-width: 640px) {
-          .shot-wrap { min-height: 480px; height: 60vh; border-radius: 10px; }
-          .frame { border-radius: 10px; }
+          .shot-wrap { height: 100vh; border-radius: 0; }
+          .frame { border-radius: 0; }
         }
       `}</style>
       <div className="shot-wrap" ref={containerRef}>
@@ -152,7 +152,8 @@ function SiteCard({ site, language, reloadKey = 0, onUnembeddable }) {
              }}
           />
         )}
-        {canFullscreen && !isMixedContent ? (
+        {/* 全屏按钮已移动到悬浮按钮区域 */}
+        {/* {canFullscreen && !isMixedContent ? (
           <button
             type="button"
             onClick={toggleFullscreen}
@@ -161,12 +162,13 @@ function SiteCard({ site, language, reloadKey = 0, onUnembeddable }) {
           >
             {isFullscreen ? '✕' : '⛶'}
           </button>
-        ) : null}
+        ) : null} */}
       </div>
-      <div className="meta">
+      {/* 全屏模式下隐藏元数据信息 */}
+      {/* <div className="meta">
         <h2 className="title dark:text-light">{title}</h2>
         <p className="pitch dark:text-light">{pitch}</p>
-      </div>
+      </div> */}
     </div>
   )
 }

@@ -22,7 +22,7 @@ const styles = `
     }
   }
 
-  .main { position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .main { position: relative; display: flex; align-items: flex-start; justify-content: center; overflow: hidden; }
 
   .islands-bg { 
     position: fixed; inset: 0; z-index: -3; pointer-events: none;
@@ -103,11 +103,11 @@ const styles = `
     mix-blend-mode: overlay;
   }
 
-  .card-wrap { position: relative; z-index: 10; max-width: 1200px; width: 96%; margin: 4rem auto 0; padding: 0 16px; }
+  .card-wrap { position: relative; z-index: 10; width: 100%; height: 100vh; margin: 0; padding: 0; }
 
-  :global(.site-card) { margin-bottom: 2rem; }
-  :global(.shot-wrap) { position: relative; width: 100%; min-height: 680px; height: 680px; border-radius: 14px; overflow: hidden; margin-bottom: 1rem; background: rgba(245, 245, 245, 0.85); }
-  :global(.frame) { display:block; width: 100%; height: 100%; border: none; border-radius: 14px; }
+  :global(.site-card) { margin-bottom: 0; height: 100%; }
+  :global(.shot-wrap) { position: relative; width: 100%; height: 100vh; border-radius: 0; overflow: hidden; margin-bottom: 0; background: rgba(245, 245, 245, 0.85); }
+  :global(.frame) { display:block; width: 100%; height: 100%; border: none; border-radius: 0; }
   :global(.loading) { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(245, 245, 245, 0.85); }
   :global(.spinner) { width: 40px; height: 40px; border: 4px solid #e5e5e5; border-top: 4px solid #667eea; border-radius: 50%; animation: spin 1s linear infinite; }
   @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
@@ -129,9 +129,9 @@ const styles = `
 
   @media (max-width: 640px) {
     .main {  }
-    .card-wrap { width: 95%; max-width: 100%; padding: 0; margin-top: 1.5rem; height: 88vh; }
-    :global(.shot-wrap) { min-height: 480px; height: 60vh; border-radius: 10px; }
-    :global(.frame) { border-radius: 10px; }
+    .card-wrap { width: 100%; max-width: 100%; padding: 0; margin-top: 0; height: 100vh; }
+    :global(.shot-wrap) { height: 100vh; border-radius: 0; }
+    :global(.frame) { border-radius: 0; }
   }
 `;
 
@@ -170,7 +170,7 @@ export default function DiscoverPage() {
     fetchRandom()
   }, [fetchRandom])
 
-  // Hide floating actions when footer enters viewport
+  // Hide floating actions when footer enters viewport (only for non-preview pages)
   useEffect(() => {
     if (typeof window === 'undefined') return
     const footer = document.querySelector('footer')
@@ -189,33 +189,33 @@ export default function DiscoverPage() {
   return (
     <>
       <style jsx>{styles}</style>
-      <main className="main">
-        <div className="islands-bg" aria-hidden="true" />
-        <div className="scanlines" aria-hidden="true" />
-        <div className="card-wrap">
-          {current ? (
-            <div className="rounded-xl md:rounded-2xl p-2 md:p-8 text-center bg-white/90 dark:bg-zinc-900/80 backdrop-blur-md shadow-xl">
+              <main className="main preview-page">
+          <div className="islands-bg" aria-hidden="true" />
+          <div className="scanlines" aria-hidden="true" />
+          <div className="card-wrap">
+            {current ? (
+              <div className="text-center bg-white/90 dark:bg-zinc-900/80 backdrop-blur-md shadow-xl h-full">
               <SiteCard
                 site={current}
                 language={language}
                 reloadKey={reloadKey}
                 onUnembeddable={fetchRandom}
               />
-            </div>
-          ) : (
-            <div className="rounded-xl md:rounded-2xl p-2 md:p-8 text-center bg-white/90 dark:bg-zinc-900/80 backdrop-blur-md shadow-xl">
-              <div className="site-card">
-                <div className="shot-wrap">
-                  <div className="loading" aria-hidden="true">
-                    <div className="spinner" />
+                          </div>
+            ) : (
+              <div className="text-center bg-white/90 dark:bg-zinc-900/80 backdrop-blur-md shadow-xl h-full">
+                <div className="site-card">
+                  <div className="shot-wrap">
+                    <div className="loading" aria-hidden="true">
+                      <div className="spinner" />
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          )}
+            )}
         </div>
         <div
-          className={`fixed left-1/2 -translate-x-1/2 bottom-5 z-50 flex items-center gap-4 rounded-full border border-black/10 bg-white/90 dark:bg-zinc-900/80 backdrop-blur-md px-4 sm:px-3 py-2 shadow-xl w-[94vw] max-w-[680px] sm:w-auto sm:max-w-none transition-all duration-200 ${hideFab ? 'opacity-0 pointer-events-none translate-y-2' : 'opacity-100'}`}
+          className={`fixed left-1/2 -translate-x-1/2 bottom-5 z-50 flex items-center gap-4 rounded-full border border-black/10 bg-white/90 dark:bg-zinc-900/80 backdrop-blur-md px-4 sm:px-3 py-2 shadow-xl w-[94vw] max-w-[680px] sm:w-auto sm:max-w-none transition-all duration-200`}
           style={{ bottom: 'calc(env(safe-area-inset-bottom, 0px) + 20px)' }}
         >
           <button
@@ -235,6 +235,27 @@ export default function DiscoverPage() {
               {t('discover.open')}
             </a>
           ) : null}
+          {current && (
+            <button
+              type="button"
+              onClick={() => {
+                const iframe = document.querySelector('.frame');
+                if (iframe) {
+                  if (document.fullscreenElement || document.webkitFullscreenElement) {
+                    if (document.exitFullscreen) document.exitFullscreen();
+                    if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+                  } else {
+                    if (iframe.requestFullscreen) iframe.requestFullscreen();
+                    if (iframe.webkitRequestFullscreen) iframe.webkitRequestFullscreen();
+                  }
+                }
+              }}
+              aria-label="Toggle fullscreen"
+              className="inline-flex items-center justify-center rounded-full bg-black/60 text-white text-sm px-3 py-3 backdrop-blur hover:bg-black/70 active:opacity-90 transition"
+            >
+              {document.fullscreenElement || document.webkitFullscreenElement ? '✕' : '⛶'}
+            </button>
+          )}
         </div>
       </main>
     </>

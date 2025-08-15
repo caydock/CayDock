@@ -1,5 +1,6 @@
 "use client"
 import Link from "next/link";
+import Image from "next/image";
 import Logo from "./Logo";
 import SiteLogo from "./SiteLogo";
 import { MoonIcon, SunIcon } from "../Icons";
@@ -7,6 +8,7 @@ import { useThemeSwitch } from "../Hooks/useThemeSwitch";
 import { useLanguage } from "@/src/components/i18n/LanguageProvider";
 import { useState } from "react";
 import { cx } from "@/src/utils";
+import logo from "@/public/logo.png";
 
 const Header = () => {
   const [mode, setMode] = useThemeSwitch();
@@ -14,22 +16,27 @@ const Header = () => {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="w-full p-4 sm:p-6 px-5 sm:px-10 flex items-center justify-center relative">
-      {/* Mobile top: centered Logo and hamburger */}
-      <div className="sm:hidden absolute left-4">
+    <header className="w-full px-5 sm:px-10 flex items-center justify-center relative">
+      {/* Mobile top: menu button with logo */}
+      <div className="sm:hidden absolute left-4 z-40">
         <button
           onClick={() => setOpen(true)}
           aria-label="open-menu"
-          className={cx("w-9 h-9 rounded-full flex items-center justify-center border border-dark/70 bg-light text-dark dark:bg-dark dark:text-light")}
+          className={cx("w-10 h-10 rounded-full flex items-center justify-center border border-dark/70 bg-light dark:bg-dark overflow-hidden shadow-sm")}
         >
-          <span className="block w-4 h-0.5 bg-current relative">
-            <span className="absolute -top-2 left-0 w-4 h-0.5 bg-current" />
-            <span className="absolute top-2 left-0 w-4 h-0.5 bg-current" />
-          </span>
+          <div className="w-6 h-6 rounded-full overflow-hidden">
+            <Image 
+              src={logo} 
+              alt="w3cay logo" 
+              className="w-full h-auto rounded-full" 
+              sizes="20vw"
+              onError={(e) => {
+                // 如果图片加载失败，隐藏图片元素
+                e.target.style.display = 'none';
+              }}
+            />
+          </div>
         </button>
-      </div>
-      <div className="sm:hidden">
-        <SiteLogo sizeClass="w-32" />
       </div>
 
       {/* Desktop top nav */}
