@@ -26,13 +26,13 @@ const Footer = () => {
         </div>
       </div>
       <div className="mt-16 w-full flex flex-col items-center justify-center gap-4 px-4">
-        <Logo />
+        <Logo sizeClass="w-40" />
         <h3 className="font-medium dark:font-bold text-center capitalize text-2xl sm:text-3xl lg:text-4xl">
           {t('footer.title')}
         </h3>
         
         {/* 导航菜单 */}
-        <nav className="mt-8 flex flex-wrap items-center justify-center gap-6 text-sm sm:text-base">
+        <nav className="mt-8 flex flex-wrap items-center justify-center gap-6 text-sm sm:text-xl">
           <Link href="/" className="hover:underline transition-colors">{t('nav.home')}</Link>
           <Link href="/submit" className="hover:underline transition-colors">{t('nav.submit')}</Link>
           <Link href="/about" className="hover:underline transition-colors">{t('nav.about')}</Link>

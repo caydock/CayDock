@@ -10,7 +10,7 @@ const SiteLogo = ({ sizeClass = "w-40 md:w-32" }) => {
           src={logoImg}
           alt="w3cay logo"
           className="w-full h-auto rounded-full"
-          sizes="20vw"
+          sizes="30vw"
           priority
         />
       </div>

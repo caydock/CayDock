@@ -170,7 +170,7 @@ export default function DiscoverPage() {
     fetchRandom()
   }, [fetchRandom])
 
-  // Hide floating actions when footer enters viewport (only for non-preview pages)
+  // Hide floating actions when footer enters viewport
   useEffect(() => {
     if (typeof window === 'undefined') return
     const footer = document.querySelector('footer')
@@ -178,7 +178,7 @@ export default function DiscoverPage() {
     const io = new IntersectionObserver((entries) => {
       const visible = entries.some(e => e.isIntersecting)
       setHideFab(visible)
-    }, { root: null, threshold: 0 })
+    }, { root: null, threshold: 0.1, rootMargin: '0px 0px -100px 0px' })
     io.observe(footer)
     return () => io.disconnect()
   }, [])
@@ -215,7 +215,7 @@ export default function DiscoverPage() {
             )}
         </div>
         <div
-          className={`fixed left-1/2 -translate-x-1/2 bottom-5 z-50 flex items-center gap-4 rounded-full border border-black/10 bg-white/90 dark:bg-zinc-900/80 backdrop-blur-md px-4 sm:px-3 py-2 shadow-xl w-[94vw] max-w-[680px] sm:w-auto sm:max-w-none transition-all duration-200`}
+          className={`fixed left-1/2 -translate-x-1/2 bottom-5 z-50 flex items-center gap-4 rounded-full border border-black/10 bg-white/90 dark:bg-zinc-900/80 backdrop-blur-md px-4 sm:px-3 py-2 shadow-xl w-[94vw] max-w-[680px] sm:w-auto sm:max-w-none transition-all duration-200 ${hideFab ? 'opacity-0 pointer-events-none' : ''}`}
           style={{ bottom: 'calc(env(safe-area-inset-bottom, 0px) + 20px)' }}
         >
           <button
