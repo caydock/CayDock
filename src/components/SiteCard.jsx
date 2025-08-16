@@ -144,7 +144,7 @@ function SiteCard({ site, language, reloadKey = 0, onUnembeddable }) {
         {isLoading && (
           <div className="loading flex flex-col items-center justify-center" aria-hidden="true">
             <div className="spinner mb-6" />
-            <div className="text-center px-6 py-8 bg-white/90 dark:bg-gray-900/90 rounded-xl shadow-lg backdrop-blur-sm">
+            <div className="text-center px-6 py-8 bg-white/90 dark:bg-gray-900/90 rounded-xl shadow-lg backdrop-blur-sm mx-4 max-w-sm w-full">
               <h2 className="text-2xl md:text-3xl font-bold text-gray-800 dark:text-gray-200 mb-3">
                 {title || 'Loading...'}
               </h2>
