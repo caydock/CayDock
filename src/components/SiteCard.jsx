@@ -10,18 +10,43 @@ function SiteCard({ site, language, reloadKey = 0, onUnembeddable }) {
   const [loadError, setLoadError] = useState(false)
   const [isFullscreen, setIsFullscreen] = useState(false)
   const [canFullscreen, setCanFullscreen] = useState(false)
+  const [iframeLoaded, setIframeLoaded] = useState(false)
   const containerRef = useRef(null)
+  const startTimeRef = useRef(null)
   
   useEffect(() => {
     setIsLoading(true)
     setTimedOut(false)
     setLoadError(false)
+    setIframeLoaded(false)
+    startTimeRef.current = Date.now()
+    
     let timer = setTimeout(() => {
       setTimedOut(true)
       setIsLoading(false)
     }, 8000)
-    return () => clearTimeout(timer)
+    
+    return () => {
+      clearTimeout(timer)
+    }
   }, [site?.url, reloadKey])
+  
+  // 监听 iframe 加载完成，确保在最小显示时间后立即隐藏 loading
+  useEffect(() => {
+    if (iframeLoaded && startTimeRef.current) {
+      const elapsed = Date.now() - startTimeRef.current
+      if (elapsed >= 3000) {
+        // 已经过了3秒，可以隐藏 loading
+        setIsLoading(false)
+      } else {
+        // 还没到3秒，等待剩余时间
+        const remainingTime = 3000 - elapsed
+        setTimeout(() => {
+          setIsLoading(false)
+        }, remainingTime)
+      }
+    }
+  }, [iframeLoaded])
   
   const src = useMemo(() => {
     if (!site?.url) return ''
@@ -117,8 +142,16 @@ function SiteCard({ site, language, reloadKey = 0, onUnembeddable }) {
       `}</style>
       <div className="shot-wrap" ref={containerRef}>
         {isLoading && (
-          <div className="loading" aria-hidden="true">
-            <div className="spinner" />
+          <div className="loading flex flex-col items-center justify-center" aria-hidden="true">
+            <div className="spinner mb-6" />
+            <div className="text-center px-6 py-8 bg-white/90 dark:bg-gray-900/90 rounded-xl shadow-lg backdrop-blur-sm">
+              <h2 className="text-2xl md:text-3xl font-bold text-gray-800 dark:text-gray-200 mb-3">
+                {title || 'Loading...'}
+              </h2>
+              <p className="text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-md mx-auto">
+                {pitch || 'Loading website content...'}
+              </p>
+            </div>
           </div>
         )}
         {(isMixedContent || loadError) ? (
@@ -141,7 +174,7 @@ function SiteCard({ site, language, reloadKey = 0, onUnembeddable }) {
             allow="fullscreen; autoplay; clipboard-read; clipboard-write"
             referrerPolicy="no-referrer"
             allowFullScreen
-             onLoad={() => setIsLoading(false)}
+             onLoad={() => setIframeLoaded(true)}
              onError={(e) => {
                setIsLoading(false);
                // 仅在常见被拒绝嵌入的错误信息时置为失败（部分浏览器会抛出此类跨域错误）
