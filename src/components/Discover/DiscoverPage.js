@@ -1,5 +1,6 @@
 "use client";
 import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
 import SiteCard from '@/src/components/SiteCard'
 import { useLanguage } from '@/src/components/i18n/LanguageProvider'
 
@@ -137,6 +138,8 @@ const styles = `
 
 export default function DiscoverPage() {
   const { language, t } = useLanguage()
+  const router = useRouter()
+  const searchParams = useSearchParams()
   const [current, setCurrent] = useState(null)
   const [openedIds, setOpenedIds] = useState(() => new Set())
   const [reloadKey, setReloadKey] = useState(0)
@@ -148,7 +151,8 @@ export default function DiscoverPage() {
       if (!res.ok) throw new Error('bad status')
       const data = await res.json()
       if (!data?.url) throw new Error('no url')
-      setCurrent({
+      
+      const siteData = {
         id: data.id || data.slug || data.abbrlink || data.url,
         url: data.url || data.link || data.permalink,
         title: {
@@ -159,16 +163,61 @@ export default function DiscoverPage() {
           en: data.pitch?.en || data.desc_en || data.description || '',
           zh: data.pitch?.zh || data.desc_zh || data.description || '',
         },
-      })
+      }
+      
+      setCurrent(siteData)
+      
+      // 更新 URL 参数
+      const abbr = data.abbrlink || data.slug || data.id
+      if (abbr) {
+        const newUrl = new URL(window.location)
+        newUrl.searchParams.set('site', abbr)
+        router.replace(newUrl.pathname + newUrl.search, { scroll: false })
+      }
     } catch {
       setCurrent(null)
     }
-  }, [])
+  }, [router])
 
-  // On mount, fetch one random site once on client
-  useEffect(() => {
-    fetchRandom()
+  // 加载指定网站的函数
+  const fetchSiteByAbbr = useCallback(async (abbr) => {
+    try {
+      const res = await fetch(`/api/site/${abbr}`, { headers: { accept: 'application/json' } })
+      if (!res.ok) throw new Error('bad status')
+      const data = await res.json()
+      if (!data?.url) throw new Error('no url')
+      
+      const siteData = {
+        id: data.id || data.slug || data.abbrlink || data.url,
+        url: data.url || data.link || data.permalink,
+        title: {
+          en: data.title?.en || data.title_en || data.title || '',
+          zh: data.title?.zh || data.title_zh || data.title || '',
+        },
+        pitch: {
+          en: data.pitch?.en || data.desc_en || data.description || '',
+          zh: data.pitch?.zh || data.desc_zh || data.description || '',
+        },
+      }
+      
+      setCurrent(siteData)
+    } catch {
+      // 如果加载失败，回退到随机网站
+      fetchRandom()
+    }
   }, [fetchRandom])
+
+  // 检查 URL 参数，如果有 site 参数则加载指定网站
+  useEffect(() => {
+    const siteParam = searchParams.get('site')
+    if (siteParam) {
+      // 如果有 site 参数，加载指定网站
+      fetchSiteByAbbr(siteParam)
+    } else {
+      // 否则加载随机网站
+      fetchRandom()
+    }
+  }, [searchParams, fetchSiteByAbbr, fetchRandom])
 
   // Hide floating actions when footer enters viewport
   useEffect(() => {
@@ -196,6 +245,7 @@ export default function DiscoverPage() {
             {current ? (
               <div className="text-center bg-white/90 dark:bg-zinc-900/80 backdrop-blur-md shadow-xl h-full">
               <SiteCard
+                key={`${current.id}-${reloadKey}`}
                 site={current}
                 language={language}
                 reloadKey={reloadKey}

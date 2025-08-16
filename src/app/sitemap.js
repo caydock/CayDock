@@ -7,7 +7,6 @@ export default async function sitemap() {
 
   const staticPaths = [
     '',
-    '/discover',
     '/submit',
     '/about',
     '/contact',

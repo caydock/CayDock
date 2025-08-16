@@ -1,5 +1,7 @@
 "use client";
 import { memo, useEffect, useMemo, useRef, useState } from 'react'
+import Image from "next/image"
+import logo from "@/public/logo.png"
 
 function SiteCard({ site, language, reloadKey = 0, onUnembeddable }) {
   
@@ -13,6 +15,11 @@ function SiteCard({ site, language, reloadKey = 0, onUnembeddable }) {
   const [iframeLoaded, setIframeLoaded] = useState(false)
   const containerRef = useRef(null)
   const startTimeRef = useRef(null)
+  
+  // 生成唯一的 iframe key，确保 URL 变化时 iframe 重新渲染
+  const iframeKey = useMemo(() => {
+    return `${site?.id || site?.url}-${reloadKey}-${Date.now()}`
+  }, [site?.id, site?.url, reloadKey])
   
   useEffect(() => {
     setIsLoading(true)
@@ -123,7 +130,7 @@ function SiteCard({ site, language, reloadKey = 0, onUnembeddable }) {
         .shot-wrap { position: relative; width: 100%; height: 100vh; border-radius: 0; overflow: hidden; margin-bottom: 0; background: rgba(245, 245, 245, 0.85); }
         .frame { display:block; width: 100%; height: 100%; border: none; border-radius: 0; }
         .loading { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(245, 245, 245, 0.85); }
-        .spinner { width: 40px; height: 40px; border: 4px solid #e5e5e5; border-top: 4px solid #667eea; border-radius: 50%; animation: spin 1s linear infinite; }
+        .spinner { width: 40px; height: 40px; border: 4px solid #e5e5e5; border-top: 4px solid #667eea; border-radius: 50%; animation: spin 1s linear infinite; margin: 1.5rem auto 2.5rem auto; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         .fallback { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(245,245,245,0.9); }
         .box { text-align: center; padding: 2rem; }
@@ -143,14 +150,21 @@ function SiteCard({ site, language, reloadKey = 0, onUnembeddable }) {
       <div className="shot-wrap" ref={containerRef}>
         {isLoading && (
           <div className="loading flex flex-col items-center justify-center" aria-hidden="true">
-            <div className="spinner mb-6" />
-            <div className="text-center px-6 py-8 bg-white/90 dark:bg-gray-900/90 rounded-xl shadow-lg backdrop-blur-sm mx-4 max-w-sm w-full">
-              <h2 className="text-2xl md:text-3xl font-bold text-gray-800 dark:text-gray-200 mb-3">
-                {title || 'Loading...'}
-              </h2>
-              <p className="text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-md mx-auto">
-                {pitch || 'Loading website content...'}
-              </p>
+            <div className="relative ">
+              <div className="absolute -top-8 md:-top-12 left-1/2 transform -translate-x-1/2 z-50">
+                <div className="w-12 h-12 md:w-16 md:h-16 rounded-full overflow-hidden bg-white/90 dark:bg-gray-900/90 shadow-lg">
+                  <Image src={logo} alt="w3cay logo" className="w-full h-auto rounded-full" sizes="20vw" priority />
+                </div>
+              </div>
+              <div className="text-center px-6 pt-8 pb-4 bg-white/90 dark:bg-gray-900/90 rounded-xl shadow-lg backdrop-blur-sm w-80 md:w-96">
+                <h2 className="text-2xl md:text-3xl font-bold text-gray-800 dark:text-gray-200 mb-3">
+                  {title || 'Loading...'}
+                </h2>
+                <p className="text-lg md:text-xl text-gray-600 dark:text-gray-400">
+                  {pitch || 'Loading website content...'}
+                </p>
+                <div className="spinner mb-10 text-center" />
+              </div>
             </div>
           </div>
         )}
@@ -165,7 +179,7 @@ function SiteCard({ site, language, reloadKey = 0, onUnembeddable }) {
           </div>
         ) : (
           <iframe
-            key={`${site?.id || site?.url}-${reloadKey}`}
+            key={iframeKey}
             title={title || site.url}
             className="frame"
             src={src}
@@ -206,4 +220,12 @@ function SiteCard({ site, language, reloadKey = 0, onUnembeddable }) {
   )
 }
 
-export default memo(SiteCard) 
+export default memo(SiteCard, (prevProps, nextProps) => {
+  // 只有当关键属性变化时才重新渲染
+  return (
+    prevProps.site?.url === nextProps.site?.url &&
+    prevProps.site?.id === nextProps.site?.id &&
+    prevProps.reloadKey === nextProps.reloadKey &&
+    prevProps.language === nextProps.language
+  )
+}) 
