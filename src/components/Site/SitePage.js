@@ -44,7 +44,7 @@ export default function SitePage({ siteId, language }) {
   // 随机加载网站的函数
   const fetchRandom = useCallback(async () => {
     setIsLoading(true)
-    setCurrent(null) // 立即清空当前内容，显示loading
+    // 不清空current，保持按钮显示
     
     try {
       const res = await fetch('/api/random', { headers: { accept: 'application/json' } })
