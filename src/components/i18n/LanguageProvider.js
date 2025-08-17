@@ -19,7 +19,7 @@ const STRINGS = {
     },
     footer: {
       title: "Weird Wonder Web Cay",
-      description: "W3Cay is a collection of weird and wonderful websites. It is a place to share and discover new and interesting websites.",
+      description: "W3Cay is a fun web cay collecting weird and useless websites. Discover random website and explore endless quirky wonders across the digital world.",
       sitemap: "Sitemap",
       allRights: "All rights reserved.",
       madeWithBy: "Made with \u2665 by",
@@ -143,7 +143,7 @@ const STRINGS = {
     },
     footer: {
       title: "一个发现有趣新奇网站的小岛",
-      description: "W3Cay 收集奇特有趣的网站，用于分享与发现新奇站点。",
+      description: "W3Cay是一个有趣的网络小岛，收集各种奇怪和无用的网站。发现随机网站，探索数字世界中无尽的奇妙奇观。",
       sitemap: "站点地图",
       allRights: "保留所有权利。",
       madeWithBy: "用 ❤️ 制作，开发者",
