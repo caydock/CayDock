@@ -10,16 +10,16 @@ module.exports = {
     },
     async redirects() {
       return [
-        // 重定向 /post/xxx.html 格式到新的 ?site=xxx 格式
+        // 重定向 /post/xxx.html 格式到新的 /site?id=xxx 格式
         {
           source: '/post/:slug.html',
-          destination: '/?site=:slug',
+          destination: '/site?id=:slug',
           permanent: true,
         },
-        // 重定向 /post/xxx 格式到新的 ?site=xxx 格式
+        // 重定向 /post/xxx 格式到新的 /site?id=xxx 格式
         {
           source: '/post/:slug',
-          destination: '/?site=:slug',
+          destination: '/site?id=:slug',
           permanent: true,
         },
       ]

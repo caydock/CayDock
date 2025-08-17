@@ -7,5 +7,5 @@ export default function PostPage({ params }) {
   const cleanSlug = slug.replace(/\.html$/, '')
   
   // 重定向到新的URL格式
-  redirect(`/?site=${cleanSlug}`)
+  redirect(`/site?id=${cleanSlug}`)
 } 

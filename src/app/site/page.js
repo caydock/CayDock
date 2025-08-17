@@ -1,9 +1,10 @@
-import HomePage from "@/src/components/Home/HomePage";
+import SitePage from "@/src/components/Site/SitePage";
 import { headers, cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 export const runtime = 'edge';
 
-export default async function Home() {
+export default async function SitePageRoute({ searchParams }) {
   const headerStore = await headers();
   const cookieStore = await cookies();
   const langCookie = cookieStore.get("lang")?.value || "";
@@ -11,5 +12,13 @@ export default async function Home() {
   const isZh = (langCookie || acceptLang).toLowerCase().startsWith("zh");
   const language = isZh ? "zh" : "en";
 
-  return <HomePage initialLanguage={language} />;
-}
+  // 获取id参数
+  const siteId = (await searchParams)?.id;
+
+  if (!siteId) {
+    // 如果没有id参数，重定向到首页
+    return redirect('/');
+  }
+
+  return <SitePage siteId={siteId} language={language} />;
+} 
