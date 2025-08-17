@@ -51,6 +51,9 @@ export default function AdminPage() {
   const [isShow, setIsShow] = useState("all"); // all | 0 | 1
   const [editingId, setEditingId] = useState(null);
   const [editData, setEditData] = useState({});
+  const [checkingIframe, setCheckingIframe] = useState(new Set()); // 正在检测的网站ID集合
+  const [bulkChecking, setBulkChecking] = useState(false); // 批量检测状态
+  const [selectedItems, setSelectedItems] = useState(new Set()); // 选中的项目
 
   useEffect(() => {
     const t = localStorage.getItem("admin_token") || "";
@@ -110,6 +113,180 @@ export default function AdminPage() {
     if (!confirm("确认删除该站点？此操作不可恢复")) return;
     await fetch(`/api/admin/sites/${encodeURIComponent(id)}?token=${encodeURIComponent(token)}`, { method: "DELETE", headers });
     fetchList();
+  }
+
+  // 检测iframe并自动下线
+  async function checkIframe(id) {
+    setCheckingIframe(prev => new Set(prev).add(id));
+    
+    try {
+      const res = await fetch('/api/admin/check-iframe', {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({ siteId: id })
+      });
+      
+      if (!res.ok) {
+        throw new Error('检测请求失败');
+      }
+      
+      const result = await res.json();
+      
+      if (result.checkResult.allowed === false) {
+        alert(`检测结果：${result.siteTitle}\n原因：${result.checkResult.reason}\n网站已自动下线！`);
+        fetchList(); // 刷新列表
+      } else if (result.checkResult.allowed === true) {
+        alert(`检测结果：${result.siteTitle}\n状态：允许iframe嵌入 ✅`);
+      } else {
+        alert(`检测结果：${result.siteTitle}\n状态：检测失败 ⚠️\n原因：${result.checkResult.reason}`);
+      }
+      
+    } catch (error) {
+      console.error('检测失败:', error);
+      alert(`检测失败：${error.message}`);
+    } finally {
+      setCheckingIframe(prev => {
+        const newSet = new Set(prev);
+        newSet.delete(id);
+        return newSet;
+      });
+    }
+  }
+
+  // 批量检测iframe
+  async function bulkCheckIframe() {
+    if (selectedItems.size === 0) {
+      alert('请先选择要检测的网站');
+      return;
+    }
+    
+    setBulkChecking(true);
+    
+    try {
+      const res = await fetch('/api/admin/check-iframe-bulk', {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({ 
+          siteIds: Array.from(selectedItems),
+          autoUnpublish: true
+        })
+      });
+      
+      if (!res.ok) {
+        throw new Error('批量检测请求失败');
+      }
+      
+      const result = await res.json();
+      
+      // 显示检测结果
+      const message = `批量检测完成！\n\n` +
+        `总计：${result.summary.total} 个网站\n` +
+        `允许iframe：${result.summary.allowed} 个 ✅\n` +
+        `不允许iframe：${result.summary.blocked} 个 ❌\n` +
+        `检测失败：${result.summary.failed} 个 ⚠️\n` +
+        `已下线：${result.summary.unpublished} 个\n\n` +
+        (result.unpublishIds.length > 0 ? 
+          `已下线的网站：${result.unpublishIds.join(', ')}` : 
+          '没有需要下线的网站');
+      
+      alert(message);
+      
+      // 刷新列表
+      fetchList();
+      
+      // 清空选择
+      setSelectedItems(new Set());
+      
+    } catch (error) {
+      console.error('批量检测失败:', error);
+      alert(`批量检测失败：${error.message}`);
+    } finally {
+      setBulkChecking(false);
+    }
+  }
+
+  // 批量上线
+  async function bulkPublish() {
+    if (selectedItems.size === 0) {
+      alert('请先选择要上线的网站');
+      return;
+    }
+    
+    try {
+      const promises = Array.from(selectedItems).map(id => 
+        fetch(`/api/admin/sites/${encodeURIComponent(id)}?token=${encodeURIComponent(token)}`, { 
+          method: "PATCH", 
+          headers, 
+          body: JSON.stringify({ isShow: 1 }) 
+        })
+      );
+      
+      await Promise.all(promises);
+      alert(`批量上线完成！已上线 ${selectedItems.size} 个网站`);
+      
+      // 刷新列表
+      fetchList();
+      
+      // 清空选择
+      setSelectedItems(new Set());
+      
+    } catch (error) {
+      console.error('批量上线失败:', error);
+      alert(`批量上线失败：${error.message}`);
+    }
+  }
+
+  // 批量下线
+  async function bulkUnpublish() {
+    if (selectedItems.size === 0) {
+      alert('请先选择要下线的网站');
+      return;
+    }
+    
+    try {
+      const promises = Array.from(selectedItems).map(id => 
+        fetch(`/api/admin/sites/${encodeURIComponent(id)}?token=${encodeURIComponent(token)}`, { 
+          method: "PATCH", 
+          headers, 
+          body: JSON.stringify({ isShow: 0 }) 
+        })
+      );
+      
+      await Promise.all(promises);
+      alert(`批量下线完成！已下线 ${selectedItems.size} 个网站`);
+      
+      // 刷新列表
+      fetchList();
+      
+      // 清空选择
+      setSelectedItems(new Set());
+      
+    } catch (error) {
+      console.error('批量下线失败:', error);
+      alert(`批量下线失败：${error.message}`);
+    }
+  }
+
+  // 全选/取消全选
+  function toggleSelectAll() {
+    if (selectedItems.size === items.length) {
+      setSelectedItems(new Set());
+    } else {
+      setSelectedItems(new Set(items.map(item => item.id)));
+    }
+  }
+
+  // 选择单个项目
+  function toggleSelectItem(id) {
+    setSelectedItems(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(id)) {
+        newSet.delete(id);
+      } else {
+        newSet.add(id);
+      }
+      return newSet;
+    });
   }
 
   function startEdit(item) {
@@ -184,12 +361,107 @@ export default function AdminPage() {
           </select>
         </label>
         <button className="px-4 py-2 rounded bg-zinc-200 dark:bg-zinc-700" onClick={()=>fetchList(1)} disabled={loading}>查询</button>
+        <button 
+          className="px-4 py-2 rounded bg-blue-600 text-white" 
+          onClick={() => {
+            if (items.length === 0) {
+              alert('当前页面没有网站数据');
+              return;
+            }
+            setSelectedItems(new Set(items.map(item => item.id)));
+          }}
+          disabled={loading || items.length === 0}
+        >
+          检测当前页 ({items.length})
+        </button>
       </div>
+
+      {/* 页面状态指示器 */}
+      {items.length > 0 && (
+        <div className="mb-4 p-2 bg-gray-50 dark:bg-gray-800 rounded text-sm text-gray-600 dark:text-gray-300">
+          <span>当前页：</span>
+          <span className="text-green-600 dark:text-green-400">
+            已展示 {items.filter(item => item.isShow).length}
+          </span>
+          <span className="mx-2">|</span>
+          <span className="text-orange-600 dark:text-orange-400">
+            待审核 {items.filter(item => !item.isShow).length}
+          </span>
+          <span className="mx-2">|</span>
+          <span className="text-blue-600 dark:text-blue-400">
+            总计 {items.length}
+          </span>
+        </div>
+      )}
+
+      {/* 批量操作区域 */}
+      {selectedItems.size > 0 && (
+        <div className="mb-4 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <span className="text-sm text-blue-700 dark:text-blue-300">
+                已选择 {selectedItems.size} 个网站
+              </span>
+              <div className="flex items-center gap-2 text-xs">
+                <button 
+                  className="text-blue-600 dark:text-blue-400 underline"
+                  onClick={() => setSelectedItems(new Set(items.filter(item => item.isShow).map(item => item.id)))}
+                >
+                  选择已展示
+                </button>
+                <span>|</span>
+                <button 
+                  className="text-blue-600 dark:text-blue-400 underline"
+                  onClick={() => setSelectedItems(new Set(items.filter(item => !item.isShow).map(item => item.id)))}
+                >
+                  选择待审核
+                </button>
+                <span>|</span>
+                <button 
+                  className="text-blue-600 dark:text-blue-400 underline"
+                  onClick={() => setSelectedItems(new Set())}
+                >
+                  取消选择
+                </button>
+              </div>
+            </div>
+            <div className="space-x-2">
+              <button 
+                className="px-3 py-1 rounded bg-blue-600 text-white text-sm"
+                onClick={bulkCheckIframe}
+                disabled={bulkChecking}
+              >
+                {bulkChecking ? '批量检测中...' : '批量检测iframe'}
+              </button>
+              <button 
+                className="px-3 py-1 rounded bg-green-600 text-white text-sm"
+                onClick={bulkPublish}
+              >
+                批量上线
+              </button>
+              <button 
+                className="px-3 py-1 rounded bg-red-600 text-white text-sm"
+                onClick={bulkUnpublish}
+              >
+                批量下线
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="overflow-x-auto">
         <table className="min-w-full text-sm border border-zinc-200 dark:border-zinc-800">
           <thead className="bg-zinc-100 dark:bg-zinc-800">
                           <tr>
+                <th className="px-3 py-2 text-left w-8">
+                  <input 
+                    type="checkbox" 
+                    checked={selectedItems.size === items.length && items.length > 0}
+                    onChange={toggleSelectAll}
+                    className="rounded border-gray-300 dark:border-gray-600"
+                  />
+                </th>
                 <th className="px-3 py-2 text-left">ID</th>
                 <th className="px-3 py-2 text-left">Abbrlink</th>
                 <th className="px-3 py-2 text-left">标题</th>
@@ -200,7 +472,15 @@ export default function AdminPage() {
           </thead>
           <tbody>
             {items.map(item => (
-              <tr key={item.id} className="border-t border-zinc-200 dark:border-zinc-800 align-top">
+              <tr key={item.id} className="border-t border-zinc-200 dark:border-zinc-800 align-top hover:bg-gray-50 dark:hover:bg-gray-800">
+                <td className="px-3 py-2 whitespace-nowrap">
+                  <input 
+                    type="checkbox" 
+                    checked={selectedItems.has(item.id)}
+                    onChange={() => toggleSelectItem(item.id)}
+                    className="rounded border-gray-300 dark:border-gray-600"
+                  />
+                </td>
                 <td className="px-3 py-2 whitespace-nowrap text-zinc-600 dark:text-zinc-300">{item.id}</td>
                 <td className="px-3 py-2 whitespace-nowrap text-zinc-600 dark:text-zinc-300">{item.abbrlink || '-'}</td>
                 <td className="px-3 py-2 w-[420px]">
@@ -244,6 +524,13 @@ export default function AdminPage() {
                       ) : (
                         <button className="px-3 py-1 rounded bg-slate-600 text-white" onClick={()=>unpublish(item.id)}>下线</button>
                       )}
+                      <button 
+                        className="px-3 py-1 rounded bg-blue-600 text-white" 
+                        onClick={()=>checkIframe(item.id)}
+                        disabled={checkingIframe.has(item.id)}
+                      >
+                        {checkingIframe.has(item.id) ? '检测中...' : '检测iframe'}
+                      </button>
                       <button className="px-3 py-1 rounded bg-amber-600 text-white" onClick={()=>startEdit(item)}>编辑</button>
                       <button className="px-3 py-1 rounded bg-red-600 text-white" onClick={()=>remove(item.id)}>删除</button>
                     </>
@@ -253,7 +540,7 @@ export default function AdminPage() {
             ))}
             {items.length === 0 && (
               <tr>
-                <td colSpan={6} className="px-3 py-6 text-center text-zinc-500">{loading ? '加载中...' : '暂无数据'}</td>
+                <td colSpan={7} className="px-3 py-6 text-center text-zinc-500">{loading ? '加载中...' : '暂无数据'}</td>
               </tr>
             )}
           </tbody>
