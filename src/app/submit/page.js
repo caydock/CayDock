@@ -210,7 +210,7 @@ const styles = `
 function isValidUrl(u) {
   try {
     const url = new URL(u)
-    return url.protocol === 'http:' || url.protocol === 'https:'
+    return url.protocol === 'https:'
   } catch { return false }
 }
 
@@ -222,9 +222,10 @@ function buildSubmission(url, title, pitch) {
   const id = idFromUrl(url)
   return {
     id: id || undefined,
-    url: clean(url),
+    link: clean(url), // 使用link字段而不是url
     title: clean(title) || undefined,
-    description: clean(pitch) || undefined
+    desc_en: clean(pitch) || undefined, // 使用desc_en字段
+    desc_zh: clean(pitch) || undefined  // 同时设置中文描述
   }
 }
 
@@ -234,6 +235,8 @@ export default function SubmitPage() {
   const [title, setTitle] = useState('')
   const [pitch, setPitch] = useState('')
   const [savedHint, setSavedHint] = useState('')
+  const [showSuccessModal, setShowSuccessModal] = useState(false)
+  const [submissionResult, setSubmissionResult] = useState(null)
   const submission = useMemo(() => buildSubmission(url, title, pitch), [url, title, pitch])
   const json = useMemo(() => JSON.stringify(submission, null, 2), [submission])
 
@@ -256,12 +259,20 @@ export default function SubmitPage() {
         headers: { 'content-type': 'application/json', 'accept': 'application/json' },
         body: JSON.stringify(submission)
       })
-      if (!res.ok) throw new Error('bad status')
-      await res.json()
-      setSavedHint(t('submit.saved'))
-      setTimeout(() => setSavedHint(''), 1500)
+      if (!res.ok) {
+        const errorData = await res.json()
+        throw new Error(errorData.error || '提交失败')
+      }
+      const result = await res.json()
+      setSubmissionResult(result)
+      setShowSuccessModal(true)
+      // 清空表单
+      setUrl('')
+      setTitle('')
+      setPitch('')
     } catch (e) {
-      saveLocal()
+      setSavedHint(e.message || '提交失败，已保存到本地')
+      setTimeout(() => setSavedHint(''), 3000)
     }
   }
 
@@ -294,6 +305,26 @@ export default function SubmitPage() {
             <span>{savedHint}</span>
           </div>
         </form>
+
+        {/* 成功弹层 */}
+        {showSuccessModal && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white dark:bg-zinc-900 rounded-xl p-8 max-w-md mx-4 text-center">
+              <div className="text-6xl mb-4">🎉</div>
+              <h2 className="text-2xl font-bold mb-4 dark:text-white">{t('submit.successTitle')}</h2>
+              <p className="text-gray-600 dark:text-gray-300 mb-6">
+                {t('submit.successMessage')}
+              </p>
+
+              <button 
+                className="px-6 py-2 bg-violet-600 text-white rounded-lg hover:bg-violet-700 transition-colors"
+                onClick={() => setShowSuccessModal(false)}
+              >
+                {t('submit.confirm')}
+              </button>
+            </div>
+          </div>
+        )}
       </main>
     </>
   )

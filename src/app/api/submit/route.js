@@ -67,6 +67,16 @@ export async function POST(request) {
       return Response.json({ error: 'link (or url) is required' }, { status: 400 })
     }
 
+    // 验证URL必须是HTTPS
+    try {
+      const url = new URL(link)
+      if (url.protocol !== 'https:') {
+        return Response.json({ error: 'URL must be HTTPS' }, { status: 400 })
+      }
+    } catch {
+      return Response.json({ error: 'Invalid URL format' }, { status: 400 })
+    }
+
     const slug = payload.slug || toSlug(title) || null
     const id = deriveId({ id: payload.id, slug, abbrlink, link, title })
     if (!abbrlink) {

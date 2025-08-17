@@ -189,18 +189,20 @@ export default function AdminPage() {
       <div className="overflow-x-auto">
         <table className="min-w-full text-sm border border-zinc-200 dark:border-zinc-800">
           <thead className="bg-zinc-100 dark:bg-zinc-800">
-            <tr>
-              <th className="px-3 py-2 text-left">ID</th>
-              <th className="px-3 py-2 text-left">标题</th>
-              <th className="px-3 py-2 text-left">链接</th>
-              <th className="px-3 py-2 text-left">状态</th>
-              <th className="px-3 py-2 text-left">操作</th>
-            </tr>
+                          <tr>
+                <th className="px-3 py-2 text-left">ID</th>
+                <th className="px-3 py-2 text-left">Abbrlink</th>
+                <th className="px-3 py-2 text-left">标题</th>
+                <th className="px-3 py-2 text-left">链接</th>
+                <th className="px-3 py-2 text-left">状态</th>
+                <th className="px-3 py-2 text-left">操作</th>
+              </tr>
           </thead>
           <tbody>
             {items.map(item => (
               <tr key={item.id} className="border-t border-zinc-200 dark:border-zinc-800 align-top">
                 <td className="px-3 py-2 whitespace-nowrap text-zinc-600 dark:text-zinc-300">{item.id}</td>
+                <td className="px-3 py-2 whitespace-nowrap text-zinc-600 dark:text-zinc-300">{item.abbrlink || '-'}</td>
                 <td className="px-3 py-2 w-[420px]">
                   {editingId === item.id ? (
                     <div className="space-y-2">
@@ -251,7 +253,7 @@ export default function AdminPage() {
             ))}
             {items.length === 0 && (
               <tr>
-                <td colSpan={5} className="px-3 py-6 text-center text-zinc-500">{loading ? '加载中...' : '暂无数据'}</td>
+                <td colSpan={6} className="px-3 py-6 text-center text-zinc-500">{loading ? '加载中...' : '暂无数据'}</td>
               </tr>
             )}
           </tbody>
