@@ -6,14 +6,15 @@ export default async function sitemap() {
   const base = siteMetadata.siteUrl?.replace(/\/$/, '') || 'https://w3cay.com'
 
   const staticPaths = [
-    '',
-    '/submit',
-    '/about',
-    '/contact',
-    '/privacy-policy',
-    '/terms-of-service',
-    '/disclaimer',
-  ].map((p) => ({ url: `${base}${p}`, changefreq: 'weekly', priority: 0.7 }))
+  '',
+  '/discover',
+  '/submit',
+  '/about',
+  '/contact',
+  '/privacy-policy',
+  '/terms-of-service',
+  '/disclaimer',
+].map((p) => ({ url: `${base}${p}`, changefreq: 'weekly', priority: 0.7 }))
 
   return [
     ...staticPaths,

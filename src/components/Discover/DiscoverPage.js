@@ -1,7 +1,8 @@
 "use client";
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import SiteCard from '@/src/components/SiteCard'
+import FloatingActionBar from './FloatingActionBar'
 import { useLanguage } from '@/src/components/i18n/LanguageProvider'
 
 const styles = `
@@ -139,7 +140,6 @@ const styles = `
 export default function DiscoverPage() {
   const { language, t } = useLanguage()
   const router = useRouter()
-  const searchParams = useSearchParams()
   const [current, setCurrent] = useState(null)
   const [openedIds, setOpenedIds] = useState(() => new Set())
   const [reloadKey, setReloadKey] = useState(0)
@@ -166,58 +166,24 @@ export default function DiscoverPage() {
       }
       
       setCurrent(siteData)
+      setReloadKey(prev => prev + 1)
       
-      // 更新 URL 参数
+      // 更新 URL 到 /site/[abbr] 格式，使用 push 避免闪烁
       const abbr = data.abbrlink || data.slug || data.id
       if (abbr) {
-        const newUrl = new URL(window.location)
-        newUrl.searchParams.set('site', abbr)
-        router.replace(newUrl.pathname + newUrl.search, { scroll: false })
+        router.push(`/site/${abbr}`, { scroll: false })
       }
     } catch {
       setCurrent(null)
     }
-  }, [router])
+  }, [])
 
-  // 加载指定网站的函数
-  const fetchSiteByAbbr = useCallback(async (abbr) => {
-    try {
-      const res = await fetch(`/api/site/${abbr}`, { headers: { accept: 'application/json' } })
-      if (!res.ok) throw new Error('bad status')
-      const data = await res.json()
-      if (!data?.url) throw new Error('no url')
-      
-      const siteData = {
-        id: data.id || data.slug || data.abbrlink || data.url,
-        url: data.url || data.link || data.permalink,
-        title: {
-          en: data.title?.en || data.title_en || data.title || '',
-          zh: data.title?.zh || data.title_zh || data.title || '',
-        },
-        pitch: {
-          en: data.pitch?.en || data.desc_en || data.description || '',
-          zh: data.pitch?.zh || data.desc_zh || data.description || '',
-        },
-      }
-      
-      setCurrent(siteData)
-    } catch {
-      // 如果加载失败，回退到随机网站
-      fetchRandom()
-    }
-  }, [fetchRandom])
 
-  // 检查 URL 参数，如果有 site 参数则加载指定网站
+
+  // 首页只加载随机网站
   useEffect(() => {
-    const siteParam = searchParams.get('site')
-    if (siteParam) {
-      // 如果有 site 参数，加载指定网站
-      fetchSiteByAbbr(siteParam)
-    } else {
-      // 否则加载随机网站
-      fetchRandom()
-    }
-  }, [searchParams, fetchSiteByAbbr, fetchRandom])
+    fetchRandom()
+  }, [fetchRandom])
 
   // Hide floating actions when footer enters viewport
   useEffect(() => {
@@ -235,6 +201,19 @@ export default function DiscoverPage() {
   const markOpened = useCallback(() => { setOpenedIds((prev) => new Set(prev).add(current?.id)) }, [current])
   const isOpened = current ? openedIds.has(current.id) : false
 
+  const handleFullscreenToggle = useCallback(() => {
+    const iframe = document.querySelector('.frame');
+    if (iframe) {
+      if (document.fullscreenElement || document.webkitFullscreenElement) {
+        if (document.exitFullscreen) document.exitFullscreen();
+        if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+      } else {
+        if (iframe.requestFullscreen) iframe.requestFullscreen();
+        if (iframe.webkitRequestFullscreen) iframe.webkitRequestFullscreen();
+      }
+    }
+  }, [])
+
   return (
     <>
       <style jsx>{styles}</style>
@@ -245,7 +224,7 @@ export default function DiscoverPage() {
             {current ? (
               <div className="text-center bg-white/90 dark:bg-zinc-900/80 backdrop-blur-md shadow-xl h-full">
               <SiteCard
-                key={`${current.id}-${reloadKey}`}
+                key={current.id}
                 site={current}
                 language={language}
                 reloadKey={reloadKey}
@@ -264,50 +243,13 @@ export default function DiscoverPage() {
               </div>
             )}
         </div>
-        <div
-          className={`fixed left-1/2 -translate-x-1/2 bottom-5 z-50 flex items-center gap-4 rounded-full border border-black/10 bg-white/90 dark:bg-zinc-900/80 backdrop-blur-md px-4 sm:px-3 py-2 shadow-xl w-[94vw] max-w-[680px] sm:w-auto sm:max-w-none transition-all duration-200 ${hideFab ? 'opacity-0 pointer-events-none' : ''}`}
-          style={{ bottom: 'calc(env(safe-area-inset-bottom, 0px) + 20px)' }}
-        >
-          {current ? (
-            <a
-              className="inline-flex items-center justify-center rounded-full border-2 border-violet-600/90 text-violet-700 bg-white/90 dark:bg-zinc-900/80 dark:text-violet-200 px-5 py-3 hover:bg-violet-50/40 active:opacity-95 transition flex-1 sm:flex-none"
-              href={current.url}
-              target="_blank"
-              rel="noreferrer"
-              onClick={markOpened}
-            >
-              {t('discover.open')}
-            </a>
-          ) : null}          
-          <button
-            className="inline-flex items-center justify-center rounded-full bg-gradient-to-tr from-violet-600 to-blue-600 text-white font-extrabold px-6 sm:px-8 py-3 shadow-md hover:brightness-105 active:brightness-95 transition flex-1 sm:flex-none sm:min-w-[160px]"
-            onClick={fetchRandom}
-          >
-             {t('discover.random')} 
-          </button>
-
-          {current && (
-            <button
-              type="button"
-              onClick={() => {
-                const iframe = document.querySelector('.frame');
-                if (iframe) {
-                  if (document.fullscreenElement || document.webkitFullscreenElement) {
-                    if (document.exitFullscreen) document.exitFullscreen();
-                    if (document.webkitExitFullscreen) document.webkitExitFullscreen();
-                  } else {
-                    if (iframe.requestFullscreen) iframe.requestFullscreen();
-                    if (iframe.webkitRequestFullscreen) iframe.webkitRequestFullscreen();
-                  }
-                }
-              }}
-              aria-label="Toggle fullscreen"
-              className="inline-flex items-center justify-center rounded-full bg-black/60 text-white text-sm px-3 py-3 backdrop-blur hover:bg-black/70 active:opacity-90 transition"
-            >
-              {document.fullscreenElement || document.webkitFullscreenElement ? '✕' : '⛶'}
-            </button>
-          )}
-        </div>
+        <FloatingActionBar
+          current={current}
+          hideFab={hideFab}
+          onRandom={fetchRandom}
+          onMarkOpened={markOpened}
+          onFullscreenToggle={handleFullscreenToggle}
+        />
       </main>
     </>
   )
