@@ -1,14 +1,12 @@
 "use client";
-import { useParams, useRouter } from 'next/navigation'
 import { useEffect, useState, useCallback } from 'react'
+import { useRouter } from 'next/navigation'
 import SiteCard from '@/src/components/SiteCard'
 import FloatingActionBar from '@/src/components/Discover/FloatingActionBar'
 import { useLanguage } from '@/src/components/i18n/LanguageProvider'
 
-export default function SiteByAbbrPage() {
-  const params = useParams()
+export default function SitePage({ siteId, language }) {
   const router = useRouter()
-  const { language } = useLanguage()
   const [current, setCurrent] = useState(null)
   const [reloadKey, setReloadKey] = useState(0)
   const [hideFab, setHideFab] = useState(false)
@@ -64,25 +62,24 @@ export default function SiteByAbbrPage() {
       }
       
       setCurrent(siteData)
-      // 更新 URL 到 /site/[abbr] 格式
+      // 更新 URL 到 ?site=xxx 格式
       const abbr = data.abbrlink || data.slug || data.id
       if (abbr) {
-        router.replace(`/site/${abbr}`, { scroll: false })
+        router.replace(`/?site=${abbr}`, { scroll: false })
       }
     } catch {
       setCurrent(null)
     }
   }, [router])
 
-  // 检查 URL 参数，如果有 abbr 参数则加载指定网站
+  // 检查 siteId 参数，如果有则加载指定网站
   useEffect(() => {
-    const abbr = params?.abbr
-    if (abbr) {
-      fetchSiteByAbbr(abbr)
+    if (siteId && siteId !== 'random') {
+      fetchSiteByAbbr(siteId)
     } else {
       fetchRandom()
     }
-  }, [params?.abbr, fetchSiteByAbbr, fetchRandom])
+  }, [siteId, fetchSiteByAbbr, fetchRandom])
 
   // Hide floating actions when footer enters viewport
   useEffect(() => {
