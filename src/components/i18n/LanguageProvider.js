@@ -12,6 +12,7 @@ const STRINGS = {
     nav: { home: "Home", blogs: "Blogs", submit: "Submit", about: "About", contact: "Contact" },
     discover: {
       random: "Random",
+      loading: "Loading...",
       open: "Open Site",
       retry: "Retry",
       hint: "It will be marked as visited after clicking \"Open Site\".",
@@ -140,6 +141,7 @@ const STRINGS = {
     nav: { home: "首页", submit: "推荐投稿", about: "关于本站", contact: "联系我们" },
     discover: {
       random: "随机",
+      loading: "加载中...",
       open: "打开网站",
       retry: "重试",
       hint: "点击“打开网站”后将标记为已访问。",

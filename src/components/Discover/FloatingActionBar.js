@@ -5,6 +5,7 @@ import { useLanguage } from '@/src/components/i18n/LanguageProvider'
 const FloatingActionBar = memo(({ 
   current, 
   hideFab, 
+  isLoading,
   onRandom, 
   onMarkOpened, 
   onFullscreenToggle 
@@ -28,10 +29,11 @@ const FloatingActionBar = memo(({
         </a>
       ) : null}          
       <button
-        className="inline-flex items-center justify-center rounded-full bg-gradient-to-tr from-violet-600 to-blue-600 text-white font-extrabold px-6 sm:px-8 py-3 shadow-md hover:brightness-105 active:brightness-95 transition flex-1 sm:flex-none sm:min-w-[160px]"
+        className={`inline-flex items-center justify-center rounded-full bg-gradient-to-tr from-violet-600 to-blue-600 text-white font-extrabold px-6 sm:px-8 py-3 shadow-md transition flex-1 sm:flex-none sm:min-w-[160px] ${isLoading ? 'opacity-50 cursor-not-allowed' : 'hover:brightness-105 active:brightness-95'}`}
         onClick={onRandom}
+        disabled={isLoading}
       >
-         {t('discover.random')} 
+         {isLoading ? t('discover.loading') : t('discover.random')} 
       </button>
 
       {current && (

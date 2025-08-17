@@ -11,6 +11,7 @@ export default function SitePage({ siteId, language }) {
   const [reloadKey, setReloadKey] = useState(0)
   const [hideFab, setHideFab] = useState(false)
   const [openedIds, setOpenedIds] = useState(new Set())
+  const [isLoading, setIsLoading] = useState(false)
 
   // 加载指定网站的函数
   const fetchSiteByAbbr = useCallback(async (abbr) => {
@@ -42,6 +43,9 @@ export default function SitePage({ siteId, language }) {
 
   // 随机加载网站的函数
   const fetchRandom = useCallback(async () => {
+    setIsLoading(true)
+    setCurrent(null) // 立即清空当前内容，显示loading
+    
     try {
       const res = await fetch('/api/random', { headers: { accept: 'application/json' } })
       if (!res.ok) throw new Error('bad status')
@@ -69,6 +73,8 @@ export default function SitePage({ siteId, language }) {
       }
     } catch {
       setCurrent(null)
+    } finally {
+      setIsLoading(false)
     }
   }, [router])
 
@@ -116,7 +122,7 @@ export default function SitePage({ siteId, language }) {
         <div className="islands-bg" aria-hidden="true" />
         <div className="scanlines" aria-hidden="true" />
         <div className="card-wrap">
-          {current ? (
+          {current && !isLoading ? (
             <div className="text-center bg-white/90 dark:bg-zinc-900/80 backdrop-blur-md shadow-xl h-full">
               <SiteCard
                 key={`${current.id}-${reloadKey}`}
@@ -141,6 +147,7 @@ export default function SitePage({ siteId, language }) {
         <FloatingActionBar
           current={current}
           hideFab={hideFab}
+          isLoading={isLoading}
           onRandom={() => {
             setReloadKey(prev => prev + 1)
             fetchRandom()
