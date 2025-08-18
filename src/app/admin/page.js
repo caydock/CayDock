@@ -54,6 +54,18 @@ export default function AdminPage() {
   const [checkingIframe, setCheckingIframe] = useState(new Set()); // 正在检测的网站ID集合
   const [bulkChecking, setBulkChecking] = useState(false); // 批量检测状态
   const [selectedItems, setSelectedItems] = useState(new Set()); // 选中的项目
+  const [showAddForm, setShowAddForm] = useState(false); // 显示添加表单
+  const [addFormData, setAddFormData] = useState({
+    link: '',
+    title: '',
+    title_en: '',
+    title_zh: '',
+    desc_en: '',
+    desc_zh: '',
+    abbrlink: '',
+    slug: ''
+  });
+  const [addingSite, setAddingSite] = useState(false); // 添加网站状态
 
   useEffect(() => {
     const t = localStorage.getItem("admin_token") || "";
@@ -236,35 +248,100 @@ export default function AdminPage() {
     }
   }
 
-  // 批量下线
+    // 批量下线
   async function bulkUnpublish() {
     if (selectedItems.size === 0) {
       alert('请先选择要下线的网站');
       return;
     }
-    
+
     try {
-      const promises = Array.from(selectedItems).map(id => 
-        fetch(`/api/admin/sites/${encodeURIComponent(id)}?token=${encodeURIComponent(token)}`, { 
-          method: "PATCH", 
-          headers, 
-          body: JSON.stringify({ isShow: 0 }) 
+      const promises = Array.from(selectedItems).map(id =>
+        fetch(`/api/admin/sites/${encodeURIComponent(id)}?token=${encodeURIComponent(token)}`, {
+          method: "PATCH",
+          headers,
+          body: JSON.stringify({ isShow: 0 })
         })
       );
-      
+
       await Promise.all(promises);
       alert(`批量下线完成！已下线 ${selectedItems.size} 个网站`);
-      
+
       // 刷新列表
       fetchList();
-      
+
       // 清空选择
       setSelectedItems(new Set());
-      
+
     } catch (error) {
       console.error('批量下线失败:', error);
       alert(`批量下线失败：${error.message}`);
     }
+  }
+
+  // 添加网站
+  async function addSite(e) {
+    e.preventDefault();
+    
+    if (!addFormData.link.trim()) {
+      alert('请输入网站链接');
+      return;
+    }
+
+    setAddingSite(true);
+    try {
+      const res = await fetch('/api/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(addFormData)
+      });
+
+      if (!res.ok) {
+        const error = await res.json();
+        throw new Error(error.error || '添加失败');
+      }
+
+      const result = await res.json();
+      alert(`网站添加成功！\nID: ${result.id}\nAbbrlink: ${result.abbrlink}`);
+      
+      // 重置表单
+      setAddFormData({
+        link: '',
+        title: '',
+        title_en: '',
+        title_zh: '',
+        desc_en: '',
+        desc_zh: '',
+        abbrlink: '',
+        slug: ''
+      });
+      setShowAddForm(false);
+      
+      // 刷新列表
+      fetchList();
+
+    } catch (error) {
+      console.error('添加网站失败:', error);
+      alert(`添加网站失败：${error.message}`);
+    } finally {
+      setAddingSite(false);
+    }
+  }
+
+  // 重置添加表单
+  function resetAddForm() {
+    setAddFormData({
+      link: '',
+      title: '',
+      title_en: '',
+      title_zh: '',
+      desc_en: '',
+      desc_zh: '',
+      abbrlink: '',
+      slug: ''
+    });
   }
 
   // 全选/取消全选
@@ -374,6 +451,12 @@ export default function AdminPage() {
         >
           检测当前页 ({items.length})
         </button>
+        <button 
+          className="px-4 py-2 rounded bg-green-600 text-white" 
+          onClick={() => setShowAddForm(!showAddForm)}
+        >
+          {showAddForm ? '取消添加' : '添加网站'}
+        </button>
       </div>
 
       {/* 页面状态指示器 */}
@@ -450,6 +533,89 @@ export default function AdminPage() {
         </div>
       )}
 
+      {/* 添加网站表单 */}
+      {showAddForm && (
+        <div className="mb-6 p-4 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-800">
+          <h3 className="text-lg font-semibold mb-4 text-green-800 dark:text-green-200">添加新网站</h3>
+          <form onSubmit={addSite} className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <TextInput 
+                label="网站链接 *" 
+                value={addFormData.link} 
+                onChange={(v) => setAddFormData(d => ({...d, link: v}))} 
+                placeholder="https://example.com"
+                required
+              />
+              <TextInput 
+                label="网站标题" 
+                value={addFormData.title} 
+                onChange={(v) => setAddFormData(d => ({...d, title: v}))} 
+                placeholder="网站标题"
+              />
+              <TextInput 
+                label="英文标题" 
+                value={addFormData.title_en} 
+                onChange={(v) => setAddFormData(d => ({...d, title_en: v}))} 
+                placeholder="English Title"
+              />
+              <TextInput 
+                label="中文标题" 
+                value={addFormData.title_zh} 
+                onChange={(v) => setAddFormData(d => ({...d, title_zh: v}))} 
+                placeholder="中文标题"
+              />
+              <TextInput 
+                label="英文描述" 
+                value={addFormData.desc_en} 
+                onChange={(v) => setAddFormData(d => ({...d, desc_en: v}))} 
+                placeholder="English description"
+              />
+              <TextInput 
+                label="中文描述" 
+                value={addFormData.desc_zh} 
+                onChange={(v) => setAddFormData(d => ({...d, desc_zh: v}))} 
+                placeholder="中文描述"
+              />
+              <TextInput 
+                label="Abbrlink (可选)" 
+                value={addFormData.abbrlink} 
+                onChange={(v) => setAddFormData(d => ({...d, abbrlink: v}))} 
+                placeholder="自定义短链接"
+              />
+              <TextInput 
+                label="Slug (可选)" 
+                value={addFormData.slug} 
+                onChange={(v) => setAddFormData(d => ({...d, slug: v}))} 
+                placeholder="自定义slug"
+              />
+            </div>
+            <div className="flex gap-2">
+              <button 
+                type="submit" 
+                className="px-4 py-2 rounded bg-green-600 text-white hover:bg-green-700 disabled:opacity-50"
+                disabled={addingSite}
+              >
+                {addingSite ? '添加中...' : '添加网站'}
+              </button>
+              <button 
+                type="button" 
+                className="px-4 py-2 rounded bg-gray-500 text-white hover:bg-gray-600"
+                onClick={resetAddForm}
+              >
+                重置表单
+              </button>
+              <button 
+                type="button" 
+                className="px-4 py-2 rounded bg-gray-400 text-white hover:bg-gray-500"
+                onClick={() => setShowAddForm(false)}
+              >
+                取消
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
+
       <div className="overflow-x-auto">
         <table className="min-w-full text-sm border border-zinc-200 dark:border-zinc-800">
           <thead className="bg-zinc-100 dark:bg-zinc-800">
@@ -482,7 +648,18 @@ export default function AdminPage() {
                   />
                 </td>
                 <td className="px-3 py-2 whitespace-nowrap text-zinc-600 dark:text-zinc-300">{item.id}</td>
-                <td className="px-3 py-2 whitespace-nowrap text-zinc-600 dark:text-zinc-300">{item.abbrlink || '-'}</td>
+                <td className="px-3 py-2 whitespace-nowrap text-zinc-600 dark:text-zinc-300">
+                  {item.abbrlink ? (
+                    <a 
+                      href={`/site?id=${item.abbrlink}`}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-blue-600 dark:text-blue-400 hover:underline cursor-pointer"
+                    >
+                      {item.abbrlink}
+                    </a>
+                  ) : '-'}
+                </td>
                 <td className="px-3 py-2 w-[420px]">
                   {editingId === item.id ? (
                     <div className="space-y-2">
