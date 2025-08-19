@@ -63,7 +63,6 @@ export default function HomePage({ initialLanguage = 'en' }) {
       const postMatch = pathname.match(/^\/post\/(.+)$/)
       if (postMatch) {
         const postId = postMatch[1]
-        console.log('检测到post URL:', postId)
         // 跳转到 /?site=xxx
         router.replace(`/?site=${postId}`)
         return
@@ -72,19 +71,22 @@ export default function HomePage({ initialLanguage = 'en' }) {
       // 处理 /?site=xxx 格式的URL
       const siteParam = searchParams.get('site')
       if (siteParam) {
-        console.log('检测到site参数:', siteParam)
-        
         // 查找对应的网站
         const site = sites.find(s => s.abbrlink === siteParam || s.id === siteParam)
         if (site) {
-          console.log('找到对应网站:', site)
           setRandomSiteId(site.abbrlink || site.id)
           setRecommendedSite(site)
           
           // 自动跳转到对应网站
           setTimeout(() => {
             if (site.url) {
-              console.log('自动跳转到网站:', site.url)
+              
+              // 发送 Umami 事件统计直接访问
+              if (typeof window !== 'undefined' && window.umami) {
+                const siteTitle = site.title?.en || site.title?.zh || 'Unknown'
+                window.umami.track(`direct_access`)
+              }
+              
               window.open(site.url, '_blank')
               
               // 跳转后清除查询条件
@@ -103,14 +105,16 @@ export default function HomePage({ initialLanguage = 'en' }) {
 
   // 调试状态变化
   useEffect(() => {
-    console.log('状态变化:', { isAnimating, showRecommendedSite, randomSiteId, language, currentLanguage })
+    // 移除调试日志
   }, [isAnimating, showRecommendedSite, randomSiteId, language, currentLanguage])
 
     // 处理开始探索按钮点击
   const handleStartExploring = async () => {
-    console.log('开始探索按钮被点击', { randomSiteId, isAnimating })
     if (!isAnimating) {
-      console.log('开始动画')
+      // 发送 Umami 事件统计点击次数
+      if (typeof window !== 'undefined' && window.umami) {
+        window.umami.track('start_exploring_click')
+      }
       
       // 随机选择360度方向角度
       const randomAngle = Math.random() * 360
@@ -139,7 +143,6 @@ export default function HomePage({ initialLanguage = 'en' }) {
           }
         }
       } catch (error) {
-        console.error('获取随机网站失败:', error)
         // 如果获取失败，使用默认的paper-planes
         setRandomSiteId('paper-planes')
         newSite = sites.find(s => s.abbrlink === 'paper-planes' || s.id === 'paper-planes')
@@ -151,21 +154,22 @@ export default function HomePage({ initialLanguage = 'en' }) {
       
       // 背景动画完成后显示推荐网站信息
       setTimeout(() => {
-        console.log('背景动画完成，显示推荐网站信息')
         setShowRecommendedSite(true) // 在背景动画完成后显示推荐信息
         setIsOpening(true) // 设置打开中状态
         
         // 显示推荐网站信息后跳转到真实网站
         setTimeout(() => {
-          console.log('跳转到网站:', newSite?.url)
-
           if (newSite && newSite.url) {
+            // 发送 Umami 事件统计网站跳转
+            if (typeof window !== 'undefined' && window.umami) {
+              const siteTitle = newSite.title?.en || newSite.title?.zh || 'Unknown'
+              window.umami.track('website_redirect')
+            }
             window.open(newSite.url, '_blank')
           }
           
           // 跳转后恢复初始状态
           setTimeout(() => {
-            console.log('恢复初始状态')
             setIsAnimating(false)
             setShowRecommendedSite(false)
             setRecommendedSite(null)
@@ -179,7 +183,6 @@ export default function HomePage({ initialLanguage = 'en' }) {
 
   // 重新获取随机网站
   const handleRefreshRecommendation = () => {
-    console.log('重新获取随机网站')
     setShowRecommendedSite(false)
     setRecommendedSite(null)
     fetchRandomSiteId()
@@ -272,10 +275,10 @@ export default function HomePage({ initialLanguage = 'en' }) {
             }`}
           >
             {isOpening 
-              ? (console.log('Opening text:', t('discover.opening')), t('discover.opening'))
+              ? t('discover.opening')
               : isAnimating 
-                ? (console.log('Exploring text:', t('discover.exploring')), t('discover.exploring'))
-                : (console.log('Start exploring text:', t('discover.startExploring')), t('discover.startExploring'))
+                ? t('discover.exploring')
+                : t('discover.startExploring')
             }
           </button>
         </div>
