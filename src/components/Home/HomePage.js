@@ -132,12 +132,18 @@ export default function HomePage({ initialLanguage = 'en' }) {
             const siteId = data.abbrlink || data.id
             setRandomSiteId(siteId)
             
-            // 找到对应的推荐网站数据（但不立即显示）
-            newSite = sites.find(s => s.abbrlink === siteId || s.id === siteId)
-            if (newSite) {
-              setRecommendedSite(newSite)
-              // 不立即显示，等背景动画完成后再显示
+            // 直接使用API返回的数据
+            newSite = {
+              id: data.id,
+              url: data.url,
+              title: data.title,
+              pitch: data.pitch,
+              abbrlink: data.abbrlink,
+              slug: data.slug
             }
+            
+            setRecommendedSite(newSite)
+            // 不立即显示，等背景动画完成后再显示
             
             // 不再更新URL hash
           }
