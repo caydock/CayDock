@@ -118,6 +118,22 @@ code[data-line-numbers-max-digits='3']>[data-line]::before {
   animation: gridDrift 40s ease-in-out infinite;
 }
 
+/* 可移动的网格背景 - 用于动画效果 */
+.tech-bg-movable {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(99, 102, 241, 0.22) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(99, 102, 241, 0.22) 1px, transparent 1px),
+    radial-gradient(rgba(99, 102, 241, 0.26) 1px, transparent 1px),
+    radial-gradient(rgba(16, 185, 129, 0.26) 1px, transparent 1px);
+  background-size: 36px 36px, 36px 36px, 18px 18px, 18px 18px;
+  background-position: 0 0, 0 0, 12px 12px, 0 0;
+  animation: gridDrift 40s ease-in-out infinite;
+}
+
 .dark .tech-bg {
   background-color: rgb(27 27 27 / var(--tw-bg-opacity, 1))
 }
@@ -210,4 +226,95 @@ body.admin-mode footer {
     transform: translateY(-2px);
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
   }
+}
+
+/* 背景移动动画相关样式 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+/* 背景移动动画 - 不同方向 */
+@keyframes slideDown {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+}
+
+@keyframes slideLeft {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+}
+
+@keyframes slideRight {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+.animate-slide-down {
+  animation: slideDown 1.5s ease-in-out forwards;
+}
+
+.animate-slide-up {
+  animation: slideUp 1.5s ease-in-out forwards;
+}
+
+.animate-slide-left {
+  animation: slideLeft 1.5s ease-in-out forwards;
+}
+
+.animate-slide-right {
+  animation: slideRight 1.5s ease-in-out forwards;
+}
+
+/* 内容缩放动画 */
+@keyframes scaleUp {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.1);
+  }
+}
+
+.animate-scale-up {
+  animation: scaleUp 1s ease-in-out forwards;
 }

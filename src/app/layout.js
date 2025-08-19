@@ -94,7 +94,6 @@ export default async function RootLayout({ children }) {
         )}
       >
 
-        <div className="tech-bg" aria-hidden="true" />
         <LanguageProvider initialLanguage={htmlLang.startsWith('zh') ? 'zh' : 'en'}>
           {children}
           <Footer />
