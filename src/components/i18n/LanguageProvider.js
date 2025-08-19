@@ -17,6 +17,9 @@ const STRINGS = {
       retry: "Retry",
       hint: "It will be marked as visited after clicking \"Open Site\".",
       empty: "Click \"Random\" to get a recommendation.",
+      opening: "Opening...",
+      exploring: "Exploring...",
+      startExploring: "Start Exploring",
     },
     footer: {
       title: "Weird Wonder Web Cay",
@@ -146,6 +149,9 @@ const STRINGS = {
       retry: "重试",
       hint: "点击“打开网站”后将标记为已访问。",
       empty: "点击“随机”按钮获取一个推荐。",
+      opening: "打开中...",
+      exploring: "探索中...",
+      startExploring: "开始探索",
     },
     footer: {
       title: "一个发现有趣新奇网站的小岛",

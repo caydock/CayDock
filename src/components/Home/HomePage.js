@@ -8,11 +8,13 @@ import { useLanguage } from '@/src/components/i18n/LanguageProvider'
 import { useState, useEffect } from 'react'
 import { sites } from '@/src/data/sites'
 import { motion } from 'framer-motion'
+import { useRouter } from 'next/navigation'
 
 export default function HomePage({ initialLanguage = 'en' }) {
-  const { language } = useLanguage()
+  const { language, t } = useLanguage()
   const currentLanguage = language || initialLanguage
   const isZh = currentLanguage?.startsWith('zh')
+  const router = useRouter()
   const [randomSiteId, setRandomSiteId] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
   const [isAnimating, setIsAnimating] = useState(false)
@@ -33,6 +35,15 @@ export default function HomePage({ initialLanguage = 'en' }) {
       // 使用abbrlink作为ID，如果没有则使用id
       const siteId = data.abbrlink || data.id
       setRandomSiteId(siteId)
+      
+      // 找到对应的推荐网站数据（但不显示）
+      const site = sites.find(s => s.abbrlink === siteId || s.id === siteId)
+      if (site) {
+        setRecommendedSite(site)
+        // 不设置 setShowRecommendedSite(true)，只在用户点击按钮时显示
+      }
+      
+      // 不再更新URL hash
     } catch (error) {
       console.error('获取随机网站失败:', error)
       // 如果获取失败，使用默认的paper-planes
@@ -42,20 +53,63 @@ export default function HomePage({ initialLanguage = 'en' }) {
     }
   }
 
-  // 组件加载时获取随机网站ID
+  // 组件加载时处理URL和获取随机网站ID
   useEffect(() => {
-    fetchRandomSiteId()
+    if (typeof window !== 'undefined') {
+      const pathname = window.location.pathname
+      const searchParams = new URLSearchParams(window.location.search)
+      
+      // 处理 /post/xxx 格式的URL
+      const postMatch = pathname.match(/^\/post\/(.+)$/)
+      if (postMatch) {
+        const postId = postMatch[1]
+        console.log('检测到post URL:', postId)
+        // 跳转到 /?site=xxx
+        router.replace(`/?site=${postId}`)
+        return
+      }
+      
+      // 处理 /?site=xxx 格式的URL
+      const siteParam = searchParams.get('site')
+      if (siteParam) {
+        console.log('检测到site参数:', siteParam)
+        
+        // 查找对应的网站
+        const site = sites.find(s => s.abbrlink === siteParam || s.id === siteParam)
+        if (site) {
+          console.log('找到对应网站:', site)
+          setRandomSiteId(site.abbrlink || site.id)
+          setRecommendedSite(site)
+          
+          // 自动跳转到对应网站
+          setTimeout(() => {
+            if (site.url) {
+              console.log('自动跳转到网站:', site.url)
+              window.open(site.url, '_blank')
+              
+              // 跳转后清除查询条件
+              router.replace('/')
+            }
+          }, 1000) // 延迟1秒跳转
+          return
+        }
+      }
+    }
+    
+    // 如果没有特殊URL参数，不调用random接口，保持初始状态
   }, [])
+
+  // 不再需要hash监听器
 
   // 调试状态变化
   useEffect(() => {
-    console.log('状态变化:', { isAnimating, showRecommendedSite, randomSiteId })
-  }, [isAnimating, showRecommendedSite, randomSiteId])
+    console.log('状态变化:', { isAnimating, showRecommendedSite, randomSiteId, language, currentLanguage })
+  }, [isAnimating, showRecommendedSite, randomSiteId, language, currentLanguage])
 
-  // 处理开始探索按钮点击
-  const handleStartExploring = () => {
+    // 处理开始探索按钮点击
+  const handleStartExploring = async () => {
     console.log('开始探索按钮被点击', { randomSiteId, isAnimating })
-    if (randomSiteId && !isAnimating) {
+    if (!isAnimating) {
       console.log('开始动画')
       
       // 随机选择360度方向角度
@@ -64,22 +118,49 @@ export default function HomePage({ initialLanguage = 'en' }) {
       
       setIsAnimating(true)
       
-      // 找到对应的推荐网站数据
-      const site = sites.find(s => s.abbrlink === randomSiteId || s.id === randomSiteId)
-      console.log('找到推荐网站:', site)
-      setRecommendedSite(site)
+      // 获取新的随机网站
+      let newSite = null
+      try {
+        const res = await fetch('/api/random', { headers: { accept: 'application/json' } })
+        if (res.ok) {
+          const data = await res.json()
+          if (data?.id) {
+            const siteId = data.abbrlink || data.id
+            setRandomSiteId(siteId)
+            
+            // 找到对应的推荐网站数据（但不立即显示）
+            newSite = sites.find(s => s.abbrlink === siteId || s.id === siteId)
+            if (newSite) {
+              setRecommendedSite(newSite)
+              // 不立即显示，等背景动画完成后再显示
+            }
+            
+            // 不再更新URL hash
+          }
+        }
+      } catch (error) {
+        console.error('获取随机网站失败:', error)
+        // 如果获取失败，使用默认的paper-planes
+        setRandomSiteId('paper-planes')
+        newSite = sites.find(s => s.abbrlink === 'paper-planes' || s.id === 'paper-planes')
+        if (newSite) {
+          setRecommendedSite(newSite)
+          // 不立即显示，等背景动画完成后再显示
+        }
+      }
       
-      // 动画结束后显示推荐网站信息
+      // 背景动画完成后显示推荐网站信息
       setTimeout(() => {
-        console.log('显示推荐网站信息')
-        setShowRecommendedSite(true)
+        console.log('背景动画完成，显示推荐网站信息')
+        setShowRecommendedSite(true) // 在背景动画完成后显示推荐信息
+        setIsOpening(true) // 设置打开中状态
         
         // 显示推荐网站信息后跳转到真实网站
         setTimeout(() => {
-          console.log('跳转到网站:', site?.url)
-          setIsOpening(true) // 设置打开中状态
-          if (site && site.url) {
-            window.open(site.url, '_blank')
+          console.log('跳转到网站:', newSite?.url)
+
+          if (newSite && newSite.url) {
+            window.open(newSite.url, '_blank')
           }
           
           // 跳转后恢复初始状态
@@ -96,16 +177,24 @@ export default function HomePage({ initialLanguage = 'en' }) {
     }
   }
 
+  // 重新获取随机网站
+  const handleRefreshRecommendation = () => {
+    console.log('重新获取随机网站')
+    setShowRecommendedSite(false)
+    setRecommendedSite(null)
+    fetchRandomSiteId()
+  }
+
   return (
     <section className='w-full min-h-[100vh] border-b-2 border-solid border-dark dark:border-light flex flex-col items-center justify-center text-dark dark:text-light relative overflow-hidden'>
       {/* 网格背景移动动画层 */}
       <motion.div 
         className="absolute"
         style={{
-          top: '-50%',
-          left: '-50%',
-          width: '200%',
-          height: '200%',
+          top: '-100%',
+          left: '-100%',
+          width: '300%',
+          height: '300%',
           backgroundImage: `
             linear-gradient(rgba(99, 102, 241, 0.22) 1px, transparent 1px),
             linear-gradient(90deg, rgba(99, 102, 241, 0.22) 1px, transparent 1px),
@@ -117,8 +206,8 @@ export default function HomePage({ initialLanguage = 'en' }) {
           zIndex: 0
         }}
         animate={isAnimating ? {
-          x: Math.cos(animationAngle * Math.PI / 180) * 300,
-          y: Math.sin(animationAngle * Math.PI / 180) * 300
+          x: Math.cos(animationAngle * Math.PI / 180) * 200,
+          y: Math.sin(animationAngle * Math.PI / 180) * 200
         } : {
           x: 0,
           y: 0
@@ -136,53 +225,59 @@ export default function HomePage({ initialLanguage = 'en' }) {
           <Image
             src={logo}
             alt="W3Cay"
-            className={`w-48 h-48 xs:w-56 xs:h-56 md:w-64 md:h-64 object-contain object-center transition-all duration-1000 ease-in-out ${isAnimating ? 'animate-float' : ''}`}
+            className={`w-48 h-48 xs:w-56 xs:h-56 md:w-64 md:h-64 object-contain object-center transition-all duration-1000 ease-in-out animate-float`}
             priority
             sizes="(max-width: 768px) 192px,(max-width: 1180px) 224px, 256px"
           />
         </div>
         {/* 推荐标题（纯文字，显示在 logo 正下方） */}
         {showRecommendedSite && recommendedSite && (
-          <p className="mt-4 text-xl font-semibold text-center">
-            {recommendedSite.title.zh || recommendedSite.title.en}
-          </p>
+          <motion.p 
+            className="mt-4 mb-10 text-xl font-semibold text-center bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent"
+            initial={{ opacity: 0, scale: 0.5, y: 30, rotateX: -90 }}
+            animate={{ opacity: 1, scale: 1, y: 0, rotateX: 0 }}
+            transition={{ 
+              duration: 0.8, 
+              ease: "easeOut",
+              type: "spring",
+              stiffness: 120,
+              damping: 12
+            }}
+            style={{
+              textShadow: '0 0 25px rgba(139, 92, 246, 0.4)',
+              filter: 'drop-shadow(0 0 15px rgba(168, 85, 247, 0.3))'
+            }}
+          >
+            {isZh ? recommendedSite.title.zh : recommendedSite.title.en}
+          </motion.p>
         )}
 
         <div className='w-full flex flex-col text-center items-center justify-center px-5 xs:p-10 pb-10 lg:px-16'>
-          <h2 className='font-bold text-4xl xs:text-5xl sxl:text-6xl text-center transition-all duration-1000 ease-in-out'>
+          <h1 className='font-bold text-4xl xs:text-5xl sxl:text-6xl text-center transition-all duration-1000 ease-in-out'>
             {isZh ? '探索有趣网站的宝藏小岛' : 'Weird Wonder Web Cay'}
-          </h2>
+          </h1>
           <p className='font-medium mt-4 text-base max-w-2xl transition-all duration-1000 ease-in-out'>
             {isZh ? zhTdk.description : enTdk.description}
           </p>
 
           {/* 原推荐网站信息卡片已移除 */}
 
-          {randomSiteId ? (
-            <button
-              onClick={handleStartExploring}
-              disabled={isAnimating || isOpening}
-              className={`mt-8 px-12 py-4 font-semibold text-lg rounded-lg transition-all duration-300 inline-block start-btn ${
-                isAnimating || isOpening
-                  ? 'bg-dark dark:bg-light text-light dark:text-dark opacity-50 cursor-not-allowed' 
-                  : 'bg-dark dark:bg-light text-light dark:text-dark hover:bg-opacity-80'
-              }`}
-            >
-              {isOpening 
-                ? '打开中...'
-                : isAnimating 
-                  ? '探索中...'
-                  : '开始探索'
-              }
-            </button>
-          ) : (
-            <button
-              className='mt-8 px-12 py-4 bg-dark dark:bg-light text-light dark:text-dark font-semibold text-lg rounded-lg opacity-50 cursor-not-allowed'
-              disabled
-            >
-              {isLoading ? '加载中...' : '开始探索'}
-            </button>
-          )}
+          <button
+            onClick={handleStartExploring}
+            disabled={isAnimating || isOpening}
+            className={`mt-8 px-12 py-4 font-semibold text-lg rounded-lg transition-all duration-300 inline-block start-btn ${
+              isAnimating || isOpening
+                ? 'bg-dark dark:bg-light text-light dark:text-dark opacity-50 cursor-not-allowed' 
+                : 'bg-dark dark:bg-light text-light dark:text-dark hover:bg-opacity-80'
+            }`}
+          >
+            {isOpening 
+              ? (console.log('Opening text:', t('discover.opening')), t('discover.opening'))
+              : isAnimating 
+                ? (console.log('Exploring text:', t('discover.exploring')), t('discover.exploring'))
+                : (console.log('Start exploring text:', t('discover.startExploring')), t('discover.startExploring'))
+            }
+          </button>
         </div>
       </div>
     </section>

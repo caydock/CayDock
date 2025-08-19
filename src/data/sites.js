@@ -5,7 +5,7 @@ export const sites = [
   {
     id: 'paper-planes',
     url: 'https://paperplanes.world',
-    abbrlink: '824079b',
+    abbrlink: '824079b14',
     title: {
       en: 'Paper Planes',
       zh: '纸飞机'
@@ -17,6 +17,7 @@ export const sites = [
   },
   {
     id: 'pointer-pointer',
+    abbrlink: '824079b13',
     url: 'https://pointerpointer.com',
     title: { en: 'Pointer Pointer', zh: '指针指针' },
     pitch: {
@@ -26,24 +27,28 @@ export const sites = [
   },
   {
     id: 'cat-bounce',
+    abbrlink: '824079b12',
     url: 'https://cat-bounce.com',
     title: { en: 'Cat Bounce', zh: '弹跳小猫' },
     pitch: { en: 'Bouncing cats. Need we say more?', zh: '弹跳的猫猫，还有什么好说的？' }
   },
   {
-    id: 'theuselessweb',
+    id: 'theuselessweb',  
+    abbrlink: '824079b11',
     url: 'https://theuselessweb.site',
     title: { en: 'Another Useless Web', zh: '另一个无用之网' },
     pitch: { en: 'Useless, but oddly satisfying.', zh: '无用，但奇妙地令人满足。' }
   },
   {
     id: 'heeeeeeeey',
+    abbrlink: '824079b10',
     url: 'https://heeeeeeeey.com',
     title: { en: 'Heeeeeeeey', zh: '嘿——' },
     pitch: { en: 'Say hey. That is it.', zh: '打个招呼，就这样。' }
   },
   {
     id: 'figure-game',
+    abbrlink: '824079b',
     url: 'https://figure.game',
     title: { en: 'Figure Game', zh: '消除挑战' },
     pitch: {
@@ -53,6 +58,7 @@ export const sites = [
   },
   {
     id: 'spaceis-cool',
+    abbrlink: '824079b9',
     url: 'http://spaceis.cool',
     title: { en: 'Spaceis Cool', zh: 'Emoji太阳系' },
     pitch: {
@@ -62,6 +68,7 @@ export const sites = [
   },
   {
     id: '996-icu',
+    abbrlink: '824079b8',
     url: 'https://996.icu',
     title: { en: '996 Icu', zh: '996.ICU' },
     pitch: {
@@ -71,6 +78,7 @@ export const sites = [
   },
   {
     id: 'kiomet-com',
+    abbrlink: '824079b7',
     url: 'https://kiomet.com',
     title: { en: 'Kiomet Com', zh: 'Kiomet' },
     pitch: {
@@ -80,6 +88,7 @@ export const sites = [
   },
   {
     id: 'missile-game-bwhmather-com',
+    abbrlink: '824079b6',
     url: 'https://missile-game.bwhmather.com',
     title: { en: 'Missile Game Bwhmather Com', zh: '躲避小游戏' },
     pitch: {
@@ -89,6 +98,7 @@ export const sites = [
   },
   {
     id: 'tank-war-top',
+    abbrlink: '824079b5',
     url: 'http://tank-war.top',
     title: { en: 'Tank War Top', zh: '坦克大战' },
     pitch: {
@@ -98,6 +108,7 @@ export const sites = [
   },
   {
     id: 'doge2048-com',
+    abbrlink: '824079b4',
     url: 'https://doge2048.com',
     title: { en: 'Doge2048 Com', zh: '狗头 2048' },
     pitch: {
@@ -107,6 +118,7 @@ export const sites = [
   },
   {
     id: 'richup-io',
+    abbrlink: '824079b3',
     url: 'https://richup.io',
     title: { en: 'Richup Io', zh: '在线大富翁游戏' },
     pitch: {
@@ -116,6 +128,7 @@ export const sites = [
   },
   {
     id: 'www-worldlicenseplates-com',
+    abbrlink: '824079b2',
     url: 'http://www.worldlicenseplates.com',
     title: { en: 'Www Worldlicenseplates Com', zh: '世界车牌大全' },
     pitch: {
@@ -125,6 +138,7 @@ export const sites = [
   },
   {
     id: 'mecabricks-com',
+    abbrlink: '824079b1',
     url: 'https://mecabricks.com',
     title: { en: 'Mecabricks Com', zh: '在线玩乐高积木' },
     pitch: {
