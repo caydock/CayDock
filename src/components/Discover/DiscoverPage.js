@@ -118,7 +118,7 @@ const styles = `
   :global(.box) { text-align: center; padding: 2rem; }
   :global(.meta) { text-align: left; }
   :global(.title) { font-size: 1.5rem; font-weight: bold; margin-bottom: 0.5rem; color: #333; }
-  :global(.pitch) { color: #666; line-height: 1.6; }
+
 
   .hint { margin-top: 0.75rem; color: #666; font-size: 0.95rem; }
   .empty { text-align: center; color: #666; font-size: 1.1rem; }
@@ -126,7 +126,7 @@ const styles = `
   @media (prefers-color-scheme: dark) {
     :global(.shot-wrap), :global(.loading), :global(.fallback) { background: rgba(34, 34, 38, 0.85); }
     :global(.title) { color: #fff; }
-    :global(.pitch) { color: #cfcfe1; }
+
   }
 
   @media (max-width: 640px) {
@@ -159,10 +159,7 @@ export default function DiscoverPage() {
           en: data.title?.en || data.title_en || data.title || '',
           zh: data.title?.zh || data.title_zh || data.title || '',
         },
-        pitch: {
-          en: data.pitch?.en || data.desc_en || data.description || '',
-          zh: data.pitch?.zh || data.desc_zh || data.description || '',
-        },
+
       }
       
       setCurrent(siteData)

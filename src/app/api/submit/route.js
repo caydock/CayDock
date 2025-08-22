@@ -54,9 +54,6 @@ export async function POST(request) {
     const title = payload.title || payload.title_en || payload.title_zh || ''
     const title_zh = payload.title_zh || null
     const title_en = payload.title_en || null
-    const description = payload.description || payload.desc_en || payload.desc_zh || null
-    const desc_zh = payload.desc_zh || null
-    const desc_en = payload.desc_en || null
     let abbrlink = payload.abbrlink || null
     const permalink = payload.permalink || null
     const date = payload.date || null
@@ -89,17 +86,14 @@ export async function POST(request) {
       const db = env?.DB
       if (db && typeof db.prepare === 'function') {
         const sql = `
-          INSERT INTO sites (id, abbrlink, slug, title, title_zh, title_en, description, desc_zh, desc_en, sub_title, icon, link, permalink, date, isShow)
-          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0)
+          INSERT INTO sites (id, abbrlink, slug, title, title_zh, title_en, sub_title, icon, link, permalink, date, isShow)
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0)
           ON CONFLICT(id) DO UPDATE SET
             abbrlink=excluded.abbrlink,
             slug=excluded.slug,
             title=excluded.title,
             title_zh=excluded.title_zh,
             title_en=excluded.title_en,
-            description=excluded.description,
-            desc_zh=excluded.desc_zh,
-            desc_en=excluded.desc_en,
             sub_title=excluded.sub_title,
             icon=excluded.icon,
             link=excluded.link,
@@ -110,7 +104,7 @@ export async function POST(request) {
         while (attempts < 3) {
           try {
             await db.prepare(sql).bind(
-              id, abbrlink, slug, title || link, title_zh, title_en, description, desc_zh, desc_en, sub_title, icon, link, permalink, date
+              id, abbrlink, slug, title || link, title_zh, title_en, sub_title, icon, link, permalink, date
             ).run()
             return Response.json({ ok: true, id, slug, abbrlink })
           } catch (e) {

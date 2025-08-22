@@ -137,7 +137,7 @@ export default function HomePage({ initialLanguage = 'en' }) {
               id: data.id,
               url: data.url,
               title: data.title,
-              pitch: data.pitch,
+  
               abbrlink: data.abbrlink,
               slug: data.slug
             }

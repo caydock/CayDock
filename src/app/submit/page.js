@@ -214,7 +214,7 @@ function isValidUrl(u) {
   } catch { return false }
 }
 
-function buildSubmission(url, title, pitch) {
+function buildSubmission(url, title) {
   const idFromUrl = (u) => {
     try { return new URL(u).hostname.replace(/^www\./, '').replace(/[^a-z0-9]+/gi, '-').replace(/(^-|-$)/g, '') } catch { return '' }
   }
@@ -223,9 +223,7 @@ function buildSubmission(url, title, pitch) {
   return {
     id: id || undefined,
     link: clean(url), // 使用link字段而不是url
-    title: clean(title) || undefined,
-    desc_en: clean(pitch) || undefined, // 使用desc_en字段
-    desc_zh: clean(pitch) || undefined  // 同时设置中文描述
+    title: clean(title) || undefined
   }
 }
 
@@ -233,11 +231,10 @@ export default function SubmitPage() {
   const { t } = useLanguage()
   const [url, setUrl] = useState('')
   const [title, setTitle] = useState('')
-  const [pitch, setPitch] = useState('')
   const [savedHint, setSavedHint] = useState('')
   const [showSuccessModal, setShowSuccessModal] = useState(false)
   const [submissionResult, setSubmissionResult] = useState(null)
-  const submission = useMemo(() => buildSubmission(url, title, pitch), [url, title, pitch])
+  const submission = useMemo(() => buildSubmission(url, title), [url, title])
   const json = useMemo(() => JSON.stringify(submission, null, 2), [submission])
 
   const requiredMissing = !url || !isValidUrl(url)
@@ -269,7 +266,7 @@ export default function SubmitPage() {
       // 清空表单
       setUrl('')
       setTitle('')
-      setPitch('')
+
     } catch (e) {
       setSavedHint(e.message || '提交失败，已保存到本地')
       setTimeout(() => setSavedHint(''), 3000)
@@ -293,10 +290,7 @@ export default function SubmitPage() {
             <label className="dark:text-light">{t('submit.siteTitleLabel')}</label>
             <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
           </div>
-          <div className="field">
-            <label className="dark:text-light">{t('submit.pitchLabel')}</label>
-            <textarea rows={3} value={pitch} onChange={(e) => setPitch(e.target.value)} />
-          </div>
+
 
           <div className="actions">
             <button className="secondary dark:text-light" type="submit" onClick={(e)=>{e.preventDefault(); submitApi()}} disabled={requiredMissing}>{t('submit.submitBtn')}</button>

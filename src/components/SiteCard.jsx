@@ -6,7 +6,6 @@ import logo from "@/public/logo.png"
 function SiteCard({ site, language, reloadKey = 0, onUnembeddable }) {
   
   const title = site.title?.[language] || site.title?.en || ''
-  const pitch = site.pitch?.[language] || site.pitch?.en || ''
   const [isLoading, setIsLoading] = useState(true)
   const [timedOut, setTimedOut] = useState(false)
   const [loadError, setLoadError] = useState(false)
@@ -136,11 +135,11 @@ function SiteCard({ site, language, reloadKey = 0, onUnembeddable }) {
         .box { text-align: center; padding: 2rem; }
         .meta { text-align: left; }
         .title { font-size: 1.5rem; font-weight: bold; margin-bottom: 0.5rem; }
-        .pitch { line-height: 1.6; }
+
         @media (prefers-color-scheme: dark) {
           .shot-wrap, .loading, .fallback { background: rgba(34, 34, 38, 0.85); }
           .title { color: #fff; }
-          .pitch { color: #cfcfe1; }
+
         }
         @media (max-width: 640px) {
           .shot-wrap { height: 100vh; border-radius: 0; }
@@ -161,7 +160,7 @@ function SiteCard({ site, language, reloadKey = 0, onUnembeddable }) {
                   {title || 'Loading...'}
                 </h2>
                 <p className="text-lg md:text-xl text-gray-600 dark:text-gray-400">
-                  {pitch || 'Loading website content...'}
+                  Loading website content...
                 </p>
                 <div className="spinner mb-10 text-center" />
               </div>
@@ -214,7 +213,7 @@ function SiteCard({ site, language, reloadKey = 0, onUnembeddable }) {
       {/* 全屏模式下隐藏元数据信息 */}
       {/* <div className="meta">
         <h2 className="title dark:text-light">{title}</h2>
-        <p className="pitch dark:text-light">{pitch}</p>
+
       </div> */}
     </div>
   )

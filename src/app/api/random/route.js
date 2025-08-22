@@ -15,7 +15,7 @@ function normalizeRowToSite(row) {
     id,
     url,
     title: { en: titleEn, zh: titleZh },
-    pitch: { en: descEn, zh: descZh },
+
     icon: row.icon || null,
     slug: row.slug || null,
     abbrlink: row.abbrlink || null,

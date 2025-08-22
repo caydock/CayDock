@@ -15,7 +15,7 @@ function normalizeRowToSite(row) {
     id,
     url,
     title: { en: titleEn, zh: titleZh },
-    pitch: { en: descEn, zh: descZh },
+
     icon: row.icon || null,
     slug: row.slug || null,
     abbrlink: row.abbrlink || null,
@@ -62,7 +62,7 @@ export async function GET(_req, ctx) {
         id: '824079b',
         url: 'https://w3cay.com',
         title: { en: 'Local Mock Demo', zh: '本地Mock演示' },
-        pitch: { en: 'This is a locally mocked post for development.', zh: '本地开发环境下的模拟站点，便于预览与调试。' },
+    
       })
     }
     const match = fallbackSites.find(s => s.id === abbr || s.slug === abbr)

@@ -28,10 +28,6 @@ export default function SitePage({ siteId, language }) {
           en: data.title?.en || data.title_en || data.title || '',
           zh: data.title?.zh || data.title_zh || data.title || '',
         },
-        pitch: {
-          en: data.pitch?.en || data.desc_en || data.description || '',
-          zh: data.pitch?.zh || data.desc_zh || data.description || '',
-        },
       }
       
       setCurrent(siteData)
@@ -58,10 +54,6 @@ export default function SitePage({ siteId, language }) {
         title: {
           en: data.title?.en || data.title_en || data.title || '',
           zh: data.title?.zh || data.title_zh || data.title || '',
-        },
-        pitch: {
-          en: data.pitch?.en || data.desc_en || data.description || '',
-          zh: data.pitch?.zh || data.desc_zh || data.description || '',
         },
       }
       
@@ -122,49 +114,29 @@ export default function SitePage({ siteId, language }) {
         <div className="islands-bg" aria-hidden="true" />
         <div className="scanlines" aria-hidden="true" />
         <div className="card-wrap">
-          {current && !isLoading ? (
-            <div className="text-center bg-white/90 dark:bg-zinc-900/80 backdrop-blur-md shadow-xl h-full">
-              <SiteCard
-                key={`${current.id}-${reloadKey}`}
-                site={current}
-                language={language}
-                reloadKey={reloadKey}
-                onUnembeddable={fetchRandom}
-              />
-            </div>
-          ) : (
-            <div className="text-center bg-white/90 dark:bg-zinc-900/80 backdrop-blur-md shadow-xl h-full">
-              <div className="site-card">
-                <div className="shot-wrap">
-                  <div className="loading" aria-hidden="true">
-                    <div className="spinner" />
-                  </div>
-                </div>
-              </div>
-            </div>
+          {current && (
+            <SiteCard
+              site={current}
+              language={language}
+              reloadKey={reloadKey}
+              onUnembeddable={() => {
+                // 如果网站无法嵌入，重新获取一个
+                setReloadKey(prev => prev + 1)
+                fetchRandom()
+              }}
+            />
           )}
         </div>
+        
         <FloatingActionBar
           current={current}
-          hideFab={hideFab}
-          isLoading={isLoading}
-          onRandom={() => {
+          isOpened={isOpened}
+          markOpened={markOpened}
+          onRefresh={() => {
             setReloadKey(prev => prev + 1)
             fetchRandom()
           }}
-          onMarkOpened={markOpened}
-          onFullscreenToggle={() => {
-            const iframe = document.querySelector('.frame');
-            if (iframe) {
-              if (document.fullscreenElement || document.webkitFullscreenElement) {
-                if (document.exitFullscreen) document.exitFullscreen();
-                if (document.webkitExitFullscreen) document.webkitExitFullscreen();
-              } else {
-                if (iframe.requestFullscreen) iframe.requestFullscreen();
-                if (iframe.webkitRequestFullscreen) iframe.webkitRequestFullscreen();
-              }
-            }
-          }}
+          hideFab={hideFab}
         />
       </main>
     </>

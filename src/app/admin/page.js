@@ -51,8 +51,7 @@ export default function AdminPage() {
   const [isShow, setIsShow] = useState("all"); // all | 0 | 1
   const [editingId, setEditingId] = useState(null);
   const [editData, setEditData] = useState({});
-  const [checkingIframe, setCheckingIframe] = useState(new Set()); // 正在检测的网站ID集合
-  const [bulkChecking, setBulkChecking] = useState(false); // 批量检测状态
+
   const [selectedItems, setSelectedItems] = useState(new Set()); // 选中的项目
   const [showAddForm, setShowAddForm] = useState(false); // 显示添加表单
   const [addFormData, setAddFormData] = useState({
@@ -60,8 +59,6 @@ export default function AdminPage() {
     title: '',
     title_en: '',
     title_zh: '',
-    desc_en: '',
-    desc_zh: '',
     abbrlink: '',
     slug: ''
   });
@@ -127,95 +124,7 @@ export default function AdminPage() {
     fetchList();
   }
 
-  // 检测iframe并自动下线
-  async function checkIframe(id) {
-    setCheckingIframe(prev => new Set(prev).add(id));
-    
-    try {
-      const res = await fetch('/api/admin/check-iframe', {
-        method: 'POST',
-        headers,
-        body: JSON.stringify({ siteId: id })
-      });
-      
-      if (!res.ok) {
-        throw new Error('检测请求失败');
-      }
-      
-      const result = await res.json();
-      
-      if (result.checkResult.allowed === false) {
-        alert(`检测结果：${result.siteTitle}\n原因：${result.checkResult.reason}\n网站已自动下线！`);
-        fetchList(); // 刷新列表
-      } else if (result.checkResult.allowed === true) {
-        alert(`检测结果：${result.siteTitle}\n状态：允许iframe嵌入 ✅`);
-      } else {
-        alert(`检测结果：${result.siteTitle}\n状态：检测失败 ⚠️\n原因：${result.checkResult.reason}`);
-      }
-      
-    } catch (error) {
-      console.error('检测失败:', error);
-      alert(`检测失败：${error.message}`);
-    } finally {
-      setCheckingIframe(prev => {
-        const newSet = new Set(prev);
-        newSet.delete(id);
-        return newSet;
-      });
-    }
-  }
 
-  // 批量检测iframe
-  async function bulkCheckIframe() {
-    if (selectedItems.size === 0) {
-      alert('请先选择要检测的网站');
-      return;
-    }
-    
-    setBulkChecking(true);
-    
-    try {
-      const res = await fetch('/api/admin/check-iframe-bulk', {
-        method: 'POST',
-        headers,
-        body: JSON.stringify({ 
-          siteIds: Array.from(selectedItems),
-          autoUnpublish: true
-        })
-      });
-      
-      if (!res.ok) {
-        throw new Error('批量检测请求失败');
-      }
-      
-      const result = await res.json();
-      
-      // 显示检测结果
-      const message = `批量检测完成！\n\n` +
-        `总计：${result.summary.total} 个网站\n` +
-        `允许iframe：${result.summary.allowed} 个 ✅\n` +
-        `不允许iframe：${result.summary.blocked} 个 ❌\n` +
-        `检测失败：${result.summary.failed} 个 ⚠️\n` +
-        `已下线：${result.summary.unpublished} 个\n\n` +
-        (result.unpublishIds.length > 0 ? 
-          `已下线的网站：${result.unpublishIds.join(', ')}` : 
-          '没有需要下线的网站');
-      
-      alert(message);
-      
-      // 刷新列表
-      fetchList();
-      
-      // 清空选择
-      setSelectedItems(new Set());
-      
-    } catch (error) {
-      console.error('批量检测失败:', error);
-      alert(`批量检测失败：${error.message}`);
-    } finally {
-      setBulkChecking(false);
-    }
-  }
 
   // 批量上线
   async function bulkPublish() {
@@ -427,7 +336,7 @@ export default function AdminPage() {
 
       <div className="flex flex-wrap gap-3 items-end mb-4">
         <div className="w-72">
-          <TextInput label="搜索" value={q} onChange={setQ} placeholder="标题/描述/链接/ID" />
+          <TextInput label="搜索" value={q} onChange={setQ} placeholder="标题/链接/ID" />
         </div>
         <label className="block">
           <div className="text-sm text-zinc-600 dark:text-zinc-300 mb-1">状态</div>
@@ -438,19 +347,7 @@ export default function AdminPage() {
           </select>
         </label>
         <button className="px-4 py-2 rounded bg-zinc-200 dark:bg-zinc-700" onClick={()=>fetchList(1)} disabled={loading}>查询</button>
-        <button 
-          className="px-4 py-2 rounded bg-blue-600 text-white" 
-          onClick={() => {
-            if (items.length === 0) {
-              alert('当前页面没有网站数据');
-              return;
-            }
-            setSelectedItems(new Set(items.map(item => item.id)));
-          }}
-          disabled={loading || items.length === 0}
-        >
-          检测当前页 ({items.length})
-        </button>
+
         <button 
           className="px-4 py-2 rounded bg-green-600 text-white" 
           onClick={() => setShowAddForm(!showAddForm)}
@@ -509,13 +406,7 @@ export default function AdminPage() {
               </div>
             </div>
             <div className="space-x-2">
-              <button 
-                className="px-3 py-1 rounded bg-blue-600 text-white text-sm"
-                onClick={bulkCheckIframe}
-                disabled={bulkChecking}
-              >
-                {bulkChecking ? '批量检测中...' : '批量检测iframe'}
-              </button>
+
               <button 
                 className="px-3 py-1 rounded bg-green-600 text-white text-sm"
                 onClick={bulkPublish}
@@ -564,18 +455,7 @@ export default function AdminPage() {
                 onChange={(v) => setAddFormData(d => ({...d, title_zh: v}))} 
                 placeholder="中文标题"
               />
-              <TextInput 
-                label="英文描述" 
-                value={addFormData.desc_en} 
-                onChange={(v) => setAddFormData(d => ({...d, desc_en: v}))} 
-                placeholder="English description"
-              />
-              <TextInput 
-                label="中文描述" 
-                value={addFormData.desc_zh} 
-                onChange={(v) => setAddFormData(d => ({...d, desc_zh: v}))} 
-                placeholder="中文描述"
-              />
+
               <TextInput 
                 label="Abbrlink (可选)" 
                 value={addFormData.abbrlink} 
@@ -665,8 +545,7 @@ export default function AdminPage() {
                     <div className="space-y-2">
                       <TextInput label="title_en" value={editData.title_en} onChange={(v)=>setEditData(d=>({...d, title_en:v}))} />
                       <TextInput label="title_zh" value={editData.title_zh} onChange={(v)=>setEditData(d=>({...d, title_zh:v}))} />
-                      <TextArea label="desc_en" value={editData.desc_en} onChange={(v)=>setEditData(d=>({...d, desc_en:v}))} />
-                      <TextArea label="desc_zh" value={editData.desc_zh} onChange={(v)=>setEditData(d=>({...d, desc_zh:v}))} />
+
                     </div>
                   ) : (
                     <div>
@@ -676,11 +555,7 @@ export default function AdminPage() {
                          英文标题: {item.title_en || '-'} <br/>
                          中文标题: {item.title_zh || '-'}</div>
                       )}
-                      {(item.description || item.desc_en || item.desc_zh) && (
-                        <div className="text-xs text-zinc-500 line-clamp-3">
-                          英文描述: {item.desc_en || '-'} <br/> 
-                          中文描述: {item.desc_zh || '-'}</div>
-                      )}
+
                     </div>
                   )}
                 </td>
@@ -701,13 +576,7 @@ export default function AdminPage() {
                       ) : (
                         <button className="px-3 py-1 rounded bg-slate-600 text-white" onClick={()=>unpublish(item.id)}>下线</button>
                       )}
-                      <button 
-                        className="px-3 py-1 rounded bg-blue-600 text-white" 
-                        onClick={()=>checkIframe(item.id)}
-                        disabled={checkingIframe.has(item.id)}
-                      >
-                        {checkingIframe.has(item.id) ? '检测中...' : '检测iframe'}
-                      </button>
+
                       <button className="px-3 py-1 rounded bg-amber-600 text-white" onClick={()=>startEdit(item)}>编辑</button>
                       <button className="px-3 py-1 rounded bg-red-600 text-white" onClick={()=>remove(item.id)}>删除</button>
                     </>
