@@ -275,7 +275,7 @@ export default function HomePage({ initialLanguage = 'en' }) {
             className={`mt-8 px-12 py-4 font-semibold text-lg rounded-lg transition-all duration-300 inline-block start-btn ${
               isAnimating || isOpening
                 ? 'bg-dark dark:bg-light text-light dark:text-dark opacity-50 cursor-not-allowed' 
-                : 'bg-dark dark:bg-light text-light dark:text-dark hover:bg-opacity-80'
+                : 'bg-dark dark:bg-light text-light dark:text-dark'
             }`}
           >
             {isOpening 
