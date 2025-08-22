@@ -54,11 +54,11 @@ export default function AdminPage() {
 
   const [selectedItems, setSelectedItems] = useState(new Set()); // 选中的项目
   const [showAddForm, setShowAddForm] = useState(false); // 显示添加表单
+  const [fetchingTitle, setFetchingTitle] = useState(null); // 抓取标题的loading状态
   const [addFormData, setAddFormData] = useState({
     link: '',
     title: '',
     title_en: '',
-    title_zh: '',
     abbrlink: '',
     slug: ''
   });
@@ -186,6 +186,98 @@ export default function AdminPage() {
       console.error('批量下线失败:', error);
       alert(`批量下线失败：${error.message}`);
     }
+  }
+
+  // 抓取单个网站标题并填充到编辑框
+  async function fetchTitle(id) {
+    try {
+      setFetchingTitle(id);
+      const site = items.find(item => item.id === id);
+      if (!site || !site.link) {
+        console.error('网站链接不存在');
+        return;
+      }
+
+      const res = await fetch('/api/admin/fetch-title', {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({ url: site.link })
+      });
+
+      if (!res.ok) {
+        throw new Error('抓取失败');
+      }
+
+      const result = await res.json();
+      
+      if (result.title) {
+        // 直接填充到编辑框
+        setEditData(prev => ({ ...prev, title_en: result.title }));
+      }
+    } catch (error) {
+      console.error('抓取标题失败:', error);
+    } finally {
+      setFetchingTitle(null);
+    }
+  }
+
+  // 批量抓取标题
+  async function bulkFetchTitles() {
+    if (selectedItems.size === 0) {
+      alert('请先选择要抓取标题的网站');
+      return;
+    }
+
+    if (!confirm(`确认抓取 ${selectedItems.size} 个网站的标题？\n注意：抓取结果将显示在控制台，需要手动编辑保存。`)) {
+      return;
+    }
+
+    const results = [];
+    let successCount = 0;
+    let failCount = 0;
+
+    for (const id of selectedItems) {
+      try {
+        const site = items.find(item => item.id === id);
+        if (!site || !site.link) {
+          results.push({ id, title: null, error: '链接不存在' });
+          failCount++;
+          continue;
+        }
+
+        const res = await fetch('/api/admin/fetch-title', {
+          method: 'POST',
+          headers,
+          body: JSON.stringify({ url: site.link })
+        });
+
+        if (res.ok) {
+          const result = await res.json();
+          if (result.title) {
+            results.push({ id, title: result.title, error: null });
+            successCount++;
+          } else {
+            results.push({ id, title: null, error: '未抓取到标题' });
+            failCount++;
+          }
+        } else {
+          results.push({ id, title: null, error: '请求失败' });
+          failCount++;
+        }
+
+        // 添加延迟避免请求过快
+        await new Promise(resolve => setTimeout(resolve, 500));
+      } catch (error) {
+        results.push({ id, title: null, error: error.message });
+        failCount++;
+      }
+    }
+
+    alert(`批量抓取完成！\n成功：${successCount} 个\n失败：${failCount} 个\n\n抓取结果已显示在控制台，请查看后手动编辑保存。`);
+    console.log('批量抓取结果:', results);
+    
+    // 清空选择
+    setSelectedItems(new Set());
   }
 
   // 添加网站
@@ -405,14 +497,19 @@ export default function AdminPage() {
                 </button>
               </div>
             </div>
-            <div className="space-x-2">
-
-              <button 
-                className="px-3 py-1 rounded bg-green-600 text-white text-sm"
-                onClick={bulkPublish}
-              >
-                批量上线
-              </button>
+                          <div className="space-x-2">
+                <button 
+                  className="px-3 py-1 rounded bg-blue-600 text-white text-sm"
+                  onClick={bulkFetchTitles}
+                >
+                  批量抓取标题
+                </button>
+                <button 
+                  className="px-3 py-1 rounded bg-green-600 text-white text-sm"
+                  onClick={bulkPublish}
+                >
+                  批量上线
+                </button>
               <button 
                 className="px-3 py-1 rounded bg-red-600 text-white text-sm"
                 onClick={bulkUnpublish}
@@ -449,12 +546,7 @@ export default function AdminPage() {
                 onChange={(v) => setAddFormData(d => ({...d, title_en: v}))} 
                 placeholder="English Title"
               />
-              <TextInput 
-                label="中文标题" 
-                value={addFormData.title_zh} 
-                onChange={(v) => setAddFormData(d => ({...d, title_zh: v}))} 
-                placeholder="中文标题"
-              />
+              
 
               <TextInput 
                 label="Abbrlink (可选)" 
@@ -508,7 +600,7 @@ export default function AdminPage() {
                     className="rounded border-gray-300 dark:border-gray-600"
                   />
                 </th>
-                <th className="px-3 py-2 text-left">ID</th>
+
                 <th className="px-3 py-2 text-left">Abbrlink</th>
                 <th className="px-3 py-2 text-left">标题</th>
                 <th className="px-3 py-2 text-left">链接</th>
@@ -527,11 +619,11 @@ export default function AdminPage() {
                     className="rounded border-gray-300 dark:border-gray-600"
                   />
                 </td>
-                <td className="px-3 py-2 whitespace-nowrap text-zinc-600 dark:text-zinc-300">{item.id}</td>
+
                 <td className="px-3 py-2 whitespace-nowrap text-zinc-600 dark:text-zinc-300">
                   {item.abbrlink ? (
                     <a 
-                      href={`/site?id=${item.abbrlink}`}
+                      href={`/?site=${item.abbrlink}`}
                       target="_blank"
                       rel="noreferrer"
                       className="text-blue-600 dark:text-blue-400 hover:underline cursor-pointer"
@@ -540,23 +632,16 @@ export default function AdminPage() {
                     </a>
                   ) : '-'}
                 </td>
-                <td className="px-3 py-2 w-[420px]">
+                <td className="px-3 py-2 w-[600px]">
                   {editingId === item.id ? (
                     <div className="space-y-2">
-                      <TextInput label="title_en" value={editData.title_en} onChange={(v)=>setEditData(d=>({...d, title_en:v}))} />
-                      <TextInput label="title_zh" value={editData.title_zh} onChange={(v)=>setEditData(d=>({...d, title_zh:v}))} />
-
+                      <TextInput label="" value={editData.title_en} onChange={(v)=>setEditData(d=>({...d, title_en:v}))} />
+                      
                     </div>
                   ) : (
-                    <div>
-                      <div className="font-medium">{item.title}</div>
-                      {(item.title_en || item.title_zh) && (
-                        <div className="text-xs text-zinc-500">
-                         英文标题: {item.title_en || '-'} <br/>
-                         中文标题: {item.title_zh || '-'}</div>
-                      )}
-
-                    </div>
+                                          <div>
+                        <div className="font-medium">{item.title_en || item.title || '-'}</div>
+                      </div>
                   )}
                 </td>
                 <td className="px-3 py-2 max-w-[320px] truncate">
@@ -566,6 +651,26 @@ export default function AdminPage() {
                 <td className="px-3 py-2 whitespace-nowrap space-x-2">
                   {editingId === item.id ? (
                     <>
+                      <button 
+                        className={`p-2 rounded transition-colors ${
+                          fetchingTitle === item.id 
+                            ? 'bg-gray-400 cursor-not-allowed' 
+                            : 'bg-blue-600 text-white hover:bg-blue-700'
+                        }`}
+                        onClick={() => fetchTitle(item.id)}
+                        disabled={fetchingTitle === item.id}
+                        title="抓取标题"
+                      >
+                        {fetchingTitle === item.id ? (
+                          <svg className="w-4 h-4 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                          </svg>
+                        ) : (
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                          </svg>
+                        )}
+                      </button>
                       <button className="px-3 py-1 rounded bg-green-600 text-white" onClick={saveEdit}>保存</button>
                       <button className="px-3 py-1 rounded bg-zinc-400 text-white" onClick={cancelEdit}>取消</button>
                     </>
@@ -586,7 +691,7 @@ export default function AdminPage() {
             ))}
             {items.length === 0 && (
               <tr>
-                <td colSpan={7} className="px-3 py-6 text-center text-zinc-500">{loading ? '加载中...' : '暂无数据'}</td>
+                <td colSpan={6} className="px-3 py-6 text-center text-zinc-500">{loading ? '加载中...' : '暂无数据'}</td>
               </tr>
             )}
           </tbody>

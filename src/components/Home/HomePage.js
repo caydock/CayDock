@@ -254,7 +254,7 @@ export default function HomePage({ initialLanguage = 'en' }) {
             }}
             style={{}}
           >
-            {isZh ? recommendedSite.title.zh : recommendedSite.title.en}
+            {recommendedSite.title.en}
           </motion.p>
         )}
 

@@ -2,15 +2,13 @@ import { sites as fallbackSites } from '@/src/data/sites'
 
 function mapSiteToRow(s) {
   const titleEn = s?.title_en || s?.title?.en || ''
-  const titleZh = s?.title_zh || s?.title?.zh || ''
   
   return {
     id: s.id || s.slug || s.abbrlink || (s.url || s.link),
     abbrlink: s.abbrlink || null,
     slug: s.slug || null,
-    title: titleEn || titleZh || '',
+    title: titleEn || '',
     title_en: s.title_en || titleEn || null,
-    title_zh: s.title_zh || titleZh || null,
 
     sub_title: s.sub_title || null,
     icon: s.icon || null,
@@ -38,7 +36,6 @@ export function listMock({ q, isShow, page, pageSize }) {
     rows = rows.filter(r => (
       (r.title || '').toLowerCase().includes(lc) ||
       (r.title_en || '').toLowerCase().includes(lc) ||
-      (r.title_zh || '').toLowerCase().includes(lc) ||
 
       (r.link || '').toLowerCase().includes(lc) ||
       (r.id || '').toLowerCase().includes(lc) ||
@@ -59,10 +56,9 @@ export function updateMock(id, updates) {
   if (idx === -1) return false
   const next = { ...mockRows[idx], ...updates }
   // Normalize title fields to plain strings to avoid React rendering objects
-  next.title_en = typeof next.title_en === 'object' ? (next.title_en?.en || next.title_en?.zh || '') : next.title_en
-  next.title_zh = typeof next.title_zh === 'object' ? (next.title_zh?.zh || next.title_zh?.en || '') : next.title_zh
+  next.title_en = typeof next.title_en === 'object' ? (next.title_en?.en || '') : next.title_en
 
-  next.title = next.title_en || next.title_zh || next.title || ''
+  next.title = next.title_en || next.title || ''
   mockRows[idx] = next
   return true
 }

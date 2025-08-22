@@ -26,7 +26,6 @@ export default function SitePage({ siteId, language }) {
         url: data.url || data.link || data.permalink,
         title: {
           en: data.title?.en || data.title_en || data.title || '',
-          zh: data.title?.zh || data.title_zh || data.title || '',
         },
       }
       
@@ -53,7 +52,6 @@ export default function SitePage({ siteId, language }) {
         url: data.url || data.link || data.permalink,
         title: {
           en: data.title?.en || data.title_en || data.title || '',
-          zh: data.title?.zh || data.title_zh || data.title || '',
         },
       }
       

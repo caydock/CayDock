@@ -51,8 +51,7 @@ export async function POST(request) {
 
     // Normalize inputs and fallbacks
     const link = payload.link || payload.url || ''
-    const title = payload.title || payload.title_en || payload.title_zh || ''
-    const title_zh = payload.title_zh || null
+    const title = payload.title || payload.title_en || ''
     const title_en = payload.title_en || null
     let abbrlink = payload.abbrlink || null
     const permalink = payload.permalink || null
@@ -86,13 +85,12 @@ export async function POST(request) {
       const db = env?.DB
       if (db && typeof db.prepare === 'function') {
         const sql = `
-          INSERT INTO sites (id, abbrlink, slug, title, title_zh, title_en, sub_title, icon, link, permalink, date, isShow)
-          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0)
+          INSERT INTO sites (id, abbrlink, slug, title, title_en, sub_title, icon, link, permalink, date, isShow)
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0)
           ON CONFLICT(id) DO UPDATE SET
             abbrlink=excluded.abbrlink,
             slug=excluded.slug,
             title=excluded.title,
-            title_zh=excluded.title_zh,
             title_en=excluded.title_en,
             sub_title=excluded.sub_title,
             icon=excluded.icon,
@@ -104,7 +102,7 @@ export async function POST(request) {
         while (attempts < 3) {
           try {
             await db.prepare(sql).bind(
-              id, abbrlink, slug, title || link, title_zh, title_en, sub_title, icon, link, permalink, date
+              id, abbrlink, slug, title || link, title_en, sub_title, icon, link, permalink, date
             ).run()
             return Response.json({ ok: true, id, slug, abbrlink })
           } catch (e) {

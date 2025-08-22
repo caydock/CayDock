@@ -5,7 +5,7 @@ import logo from "@/public/logo.png"
 
 function SiteCard({ site, language, reloadKey = 0, onUnembeddable }) {
   
-  const title = site.title?.[language] || site.title?.en || ''
+  const title = site.title?.en || ''
   const [isLoading, setIsLoading] = useState(true)
   const [timedOut, setTimedOut] = useState(false)
   const [loadError, setLoadError] = useState(false)

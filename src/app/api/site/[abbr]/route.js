@@ -14,7 +14,7 @@ function normalizeRowToSite(row) {
   return {
     id,
     url,
-    title: { en: titleEn, zh: titleZh },
+    title: { en: titleEn },
 
     icon: row.icon || null,
     slug: row.slug || null,
@@ -61,7 +61,7 @@ export async function GET(_req, ctx) {
       return Response.json({
         id: '824079b',
         url: 'https://w3cay.com',
-        title: { en: 'Local Mock Demo', zh: '本地Mock演示' },
+                  title: { en: 'Local Mock Demo' },
     
       })
     }

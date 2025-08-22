@@ -14,7 +14,7 @@ function normalizeRowToSite(row) {
   return {
     id,
     url,
-    title: { en: titleEn, zh: titleZh },
+    title: { en: titleEn },
 
     icon: row.icon || null,
     slug: row.slug || null,
