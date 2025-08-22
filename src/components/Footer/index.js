@@ -24,7 +24,8 @@ const Footer = () => {
       <div className="mt-10 w-full flex flex-col items-center justify-center gap-4 px-4">
         <Logo sizeClass="w-40" />
 
-        
+
+
         {/* 导航菜单 */}
         <nav className="mt-4 flex flex-wrap items-center justify-center gap-6 text-lg sm:text-xl">
           <Link href="/" className="hover:underline transition-colors">{t('nav.home')}</Link>
@@ -34,8 +35,13 @@ const Footer = () => {
         </nav>
       </div>
 
+             {/* 副标题 */}
+       <p className='font-medium mt-10 text-base max-w-2xl text-center text-light/80 transition-all duration-1000 ease-in-out px-4'>
+         {t('footer.description')}
+       </p>
 
-    
+
+
       {/* <div className="flex items-center mt-8">
         <a
           href={siteMetadata.linkedin}

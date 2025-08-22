@@ -252,10 +252,7 @@ export default function HomePage({ initialLanguage = 'en' }) {
               stiffness: 120,
               damping: 12
             }}
-            style={{
-              textShadow: '0 0 25px rgba(139, 92, 246, 0.4)',
-              filter: 'drop-shadow(0 0 15px rgba(168, 85, 247, 0.3))'
-            }}
+            style={{}}
           >
             {isZh ? recommendedSite.title.zh : recommendedSite.title.en}
           </motion.p>
@@ -265,8 +262,9 @@ export default function HomePage({ initialLanguage = 'en' }) {
           <h1 className='font-bold text-4xl xs:text-5xl sxl:text-6xl text-center transition-all duration-1000 ease-in-out'>
             {isZh ? '探索有趣网站的宝藏小岛' : 'Weird Wonder Web Cay'}
           </h1>
-          <p className='font-medium mt-4 text-base max-w-2xl transition-all duration-1000 ease-in-out'>
-            {isZh ? zhTdk.description : enTdk.description}
+
+          <p className='font-medium mt-4 text-base max-w-2xl text-center  transition-all duration-1000 ease-in-out'>
+            {t('subtitle')}
           </p>
 
           {/* 原推荐网站信息卡片已移除 */}

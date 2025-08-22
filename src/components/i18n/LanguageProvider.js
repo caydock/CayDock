@@ -28,6 +28,7 @@ const STRINGS = {
       allRights: "All rights reserved.",
       madeWithBy: "Made with \u2665 by",
     },
+    subtitle: "Click the button below to start exploring weird and useless websites",
     legal: {
       terms: "Terms",
       privacy: "Privacy",
@@ -160,6 +161,7 @@ const STRINGS = {
       allRights: "保留所有权利。",
       madeWithBy: "用 ❤️ 制作，开发者",
     },
+    subtitle: "点击下方按钮，开始探索有趣网站",
     legal: {
       terms: "服务条款",
       privacy: "隐私政策",
