@@ -23,6 +23,7 @@ export default function HomePage({ initialLanguage = 'en', searchParams = {}, in
   const [animationAngle, setAnimationAngle] = useState(0)
   const [isOpening, setIsOpening] = useState(false)
   const [isDirectAccess, setIsDirectAccess] = useState(false)
+  const [countdown, setCountdown] = useState(0)
 
   // 获取随机网站ID
   const fetchRandomSiteId = async () => {
@@ -75,28 +76,38 @@ export default function HomePage({ initialLanguage = 'en', searchParams = {}, in
           setIsDirectAccess(true)
           setIsOpening(true)
           
-          // 自动跳转到对应网站
-          setTimeout(() => {
-            if (site.url) {
+          // 开始倒计时
+          let countdownValue = 3
+          setCountdown(countdownValue)
+          
+          const countdownInterval = setInterval(() => {
+            countdownValue -= 1
+            setCountdown(countdownValue)
+            
+            if (countdownValue <= 0) {
+              clearInterval(countdownInterval)
               
-              // 发送 Umami 事件统计直接访问
-              if (typeof window !== 'undefined' && window.umami) {
-                const siteTitle = site.title_en || site.title || 'Unknown'
-                window.umami.track(`direct_access`)
+              if (site.url) {
+                // 发送 Umami 事件统计直接访问
+                if (typeof window !== 'undefined' && window.umami) {
+                  const siteTitle = site.title_en || site.title || 'Unknown'
+                  window.umami.track(`direct_access`)
+                }
+                
+                window.open(site.url, '_blank')
+                
+                // 延迟清除状态
+                setTimeout(() => {
+                  setIsOpening(false)
+                  setIsDirectAccess(false)
+                  setShowRecommendedSite(false)
+                  setCountdown(0)
+                  // 跳转后清除查询条件
+                  router.replace('/')
+                }, 2000) // 延迟2秒清除状态
               }
-              
-              window.open(site.url, '_blank')
-              
-              // 延迟清除状态
-              setTimeout(() => {
-                setIsOpening(false)
-                setIsDirectAccess(false)
-                setShowRecommendedSite(false)
-                // 跳转后清除查询条件
-                router.replace('/')
-              }, 2000) // 延迟2秒清除状态
             }
-          }, 1000) // 延迟1秒跳转
+          }, 1000)
           return
         }
       } catch (error) {
@@ -117,28 +128,38 @@ export default function HomePage({ initialLanguage = 'en', searchParams = {}, in
       setIsDirectAccess(true)
       setIsOpening(true)
       
-      // 自动跳转到对应网站
-      setTimeout(() => {
-        if (initialSite.url) {
+      // 开始倒计时
+      let countdownValue = 3
+      setCountdown(countdownValue)
+      
+      const countdownInterval = setInterval(() => {
+        countdownValue -= 1
+        setCountdown(countdownValue)
+        
+        if (countdownValue <= 0) {
+          clearInterval(countdownInterval)
           
-          // 发送 Umami 事件统计直接访问
-          if (typeof window !== 'undefined' && window.umami) {
-            const siteTitle = initialSite.title_en || initialSite.title || 'Unknown'
-            window.umami.track(`direct_access`)
+          if (initialSite.url) {
+            // 发送 Umami 事件统计直接访问
+            if (typeof window !== 'undefined' && window.umami) {
+              const siteTitle = initialSite.title_en || initialSite.title || 'Unknown'
+              window.umami.track(`direct_access`)
+            }
+            
+            window.open(initialSite.url, '_blank')
+            
+            // 延迟清除状态
+            setTimeout(() => {
+              setIsOpening(false)
+              setIsDirectAccess(false)
+              setShowRecommendedSite(false)
+              setCountdown(0)
+              // 跳转后清除查询条件
+              router.replace('/')
+            }, 2000) // 延迟2秒清除状态
           }
-          
-          window.open(initialSite.url, '_blank')
-          
-          // 延迟清除状态
-          setTimeout(() => {
-            setIsOpening(false)
-            setIsDirectAccess(false)
-            setShowRecommendedSite(false)
-            // 跳转后清除查询条件
-            router.replace('/')
-          }, 2000) // 延迟2秒清除状态
         }
-      }, 1000) // 延迟1秒跳转
+      }, 1000)
     } else {
       // 如果没有服务端传入的网站信息，处理URL参数
       handleUrlParams()
@@ -311,7 +332,7 @@ export default function HomePage({ initialLanguage = 'en', searchParams = {}, in
             }}
             style={{}}
           >
-            {(recommendedSite || initialSite)?.title?.en}
+            {(recommendedSite || initialSite)?.title?.en || (recommendedSite || initialSite)?.title}
           </motion.p>
         )}
 
@@ -336,7 +357,9 @@ export default function HomePage({ initialLanguage = 'en', searchParams = {}, in
             }`}
           >
             {isOpening || initialSite
-              ? t('discover.opening')
+              ? countdown > 0 
+                ? `${t('discover.opening')} (${countdown}s)`
+                : t('discover.opening')
               : isAnimating 
                 ? t('discover.exploring')
                 : t('discover.startExploring')

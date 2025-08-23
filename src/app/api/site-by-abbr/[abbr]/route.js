@@ -55,8 +55,8 @@ export async function GET(request, { params }) {
           id: site.id,
           abbrlink: site.abbrlink,
           title: {
-            en: site.title_en,
-            zh: site.title
+            en: site.title?.en || site.title,
+            zh: site.title?.zh || site.title
           },
           url: site.url,
           isShow: 1
