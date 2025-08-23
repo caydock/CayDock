@@ -56,11 +56,6 @@ export default function SitePage({ siteId, language }) {
       }
       
       setCurrent(siteData)
-      // 更新 URL 到 /site?id=xxx 格式
-      const abbr = data.abbrlink || data.slug || data.id
-      if (abbr) {
-        router.replace(`/site?id=${abbr}`, { scroll: false })
-      }
     } catch {
       setCurrent(null)
     } finally {

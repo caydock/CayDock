@@ -3,7 +3,7 @@ import { headers, cookies } from "next/headers";
 
 export const runtime = 'edge';
 
-export default async function Home() {
+export default async function Home({ searchParams }) {
   const headerStore = await headers();
   const cookieStore = await cookies();
   const langCookie = cookieStore.get("lang")?.value || "";
@@ -11,5 +11,26 @@ export default async function Home() {
   const isZh = (langCookie || acceptLang).toLowerCase().startsWith("zh");
   const language = isZh ? "zh" : "en";
 
-  return <HomePage initialLanguage={language} />;
+  // 等待 searchParams
+  const params = await searchParams;
+
+  // 如果有site参数，在服务端获取网站信息
+  let initialSite = null;
+  if (params?.site) {
+    try {
+      const baseUrl = process.env.NODE_ENV === 'production' 
+        ? 'https://w3cay.com' 
+        : 'http://localhost:3000';
+      const res = await fetch(`${baseUrl}/api/site-by-abbr/${encodeURIComponent(params.site)}`, {
+        headers: { accept: 'application/json' }
+      });
+      if (res.ok) {
+        initialSite = await res.json();
+      }
+    } catch (error) {
+      console.error('服务端获取网站信息失败:', error);
+    }
+  }
+
+  return <HomePage initialLanguage={language} searchParams={params} initialSite={initialSite} />;
 }

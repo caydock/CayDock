@@ -10,16 +10,22 @@ module.exports = {
     },
     async redirects() {
       return [
-        // 重定向 /post/xxx.html 格式到新的 /site?id=xxx 格式
+        // 重定向 /post/xxx.html 格式到 /?site=xxx 格式
         {
           source: '/post/:slug.html',
-          destination: '/site?id=:slug',
+          destination: '/?site=:slug',
           permanent: true,
         },
-        // 重定向 /post/xxx 格式到新的 /site?id=xxx 格式
+        // 重定向 /site?id=xxx 格式到 /?site=xxx 格式
         {
-          source: '/post/:slug',
-          destination: '/site?id=:slug',
+          source: '/site',
+          has: [
+            {
+              type: 'query',
+              key: 'id',
+            },
+          ],
+          destination: '/?site=:id',
           permanent: true,
         },
       ]

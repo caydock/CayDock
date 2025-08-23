@@ -163,12 +163,6 @@ export default function DiscoverPage() {
       
       setCurrent(siteData)
       setReloadKey(prev => prev + 1)
-      
-      // 更新 URL 到 /site?id=xxx 格式，使用 push 避免闪烁
-      const abbr = data.abbrlink || data.slug || data.id
-      if (abbr) {
-        router.push(`/site?id=${abbr}`, { scroll: false })
-      }
     } catch {
       setCurrent(null)
     }

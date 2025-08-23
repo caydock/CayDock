@@ -6,11 +6,11 @@ import enTdk from '@/src/i18n/tdk/en.json'
 import zhTdk from '@/src/i18n/tdk/zh.json'
 import { useLanguage } from '@/src/components/i18n/LanguageProvider'
 import { useState, useEffect } from 'react'
-import { sites } from '@/src/data/sites'
+
 import { motion } from 'framer-motion'
 import { useRouter } from 'next/navigation'
 
-export default function HomePage({ initialLanguage = 'en' }) {
+export default function HomePage({ initialLanguage = 'en', searchParams = {}, initialSite = null }) {
   const { language, t } = useLanguage()
   const currentLanguage = language || initialLanguage
   const isZh = currentLanguage?.startsWith('zh')
@@ -22,6 +22,7 @@ export default function HomePage({ initialLanguage = 'en' }) {
   const [recommendedSite, setRecommendedSite] = useState(null)
   const [animationAngle, setAnimationAngle] = useState(0)
   const [isOpening, setIsOpening] = useState(false)
+  const [isDirectAccess, setIsDirectAccess] = useState(false)
 
   // 获取随机网站ID
   const fetchRandomSiteId = async () => {
@@ -36,12 +37,8 @@ export default function HomePage({ initialLanguage = 'en' }) {
       const siteId = data.abbrlink || data.id
       setRandomSiteId(siteId)
       
-      // 找到对应的推荐网站数据（但不显示）
-      const site = sites.find(s => s.abbrlink === siteId || s.id === siteId)
-      if (site) {
-        setRecommendedSite(site)
-        // 不设置 setShowRecommendedSite(true)，只在用户点击按钮时显示
-      }
+      // 直接使用API返回的数据作为推荐网站
+      setRecommendedSite(data)
       
       // 不再更新URL hash
     } catch (error) {
@@ -53,29 +50,30 @@ export default function HomePage({ initialLanguage = 'en' }) {
     }
   }
 
-  // 组件加载时处理URL和获取随机网站ID
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const pathname = window.location.pathname
-      const searchParams = new URLSearchParams(window.location.search)
-      
-      // 处理 /post/xxx 格式的URL
-      const postMatch = pathname.match(/^\/post\/(.+)$/)
-      if (postMatch) {
-        const postId = postMatch[1]
-        // 跳转到 /?site=xxx
-        router.replace(`/?site=${postId}`)
-        return
-      }
-      
-      // 处理 /?site=xxx 格式的URL
-      const siteParam = searchParams.get('site')
-      if (siteParam) {
-        // 查找对应的网站
-        const site = sites.find(s => s.abbrlink === siteParam || s.id === siteParam)
-        if (site) {
+  // 处理URL参数的异步函数
+  const handleUrlParams = async () => {
+    // 优先使用传入的searchParams（服务端）
+    let siteParam = searchParams?.site
+    
+    // 如果没有传入的searchParams，则从客户端URL获取
+    if (!siteParam && typeof window !== 'undefined') {
+      const urlSearchParams = new URLSearchParams(window.location.search)
+      siteParam = urlSearchParams.get('site')
+    }
+    
+    if (siteParam) {
+      // 从数据库查询网站
+      try {
+        const res = await fetch(`/api/site-by-abbr/${encodeURIComponent(siteParam)}`, { 
+          headers: { accept: 'application/json' } 
+        })
+        if (res.ok) {
+          const site = await res.json()
           setRandomSiteId(site.abbrlink || site.id)
           setRecommendedSite(site)
+          setShowRecommendedSite(true)
+          setIsDirectAccess(true)
+          setIsOpening(true)
           
           // 自动跳转到对应网站
           setTimeout(() => {
@@ -83,23 +81,82 @@ export default function HomePage({ initialLanguage = 'en' }) {
               
               // 发送 Umami 事件统计直接访问
               if (typeof window !== 'undefined' && window.umami) {
-                const siteTitle = site.title?.en || site.title?.zh || 'Unknown'
+                const siteTitle = site.title_en || site.title || 'Unknown'
                 window.umami.track(`direct_access`)
               }
               
               window.open(site.url, '_blank')
               
-              // 跳转后清除查询条件
-              router.replace('/')
+              // 延迟清除状态
+              setTimeout(() => {
+                setIsOpening(false)
+                setIsDirectAccess(false)
+                setShowRecommendedSite(false)
+                // 跳转后清除查询条件
+                router.replace('/')
+              }, 2000) // 延迟2秒清除状态
             }
           }, 1000) // 延迟1秒跳转
           return
         }
+      } catch (error) {
+        console.error('查询网站失败:', error)
       }
     }
     
-    // 如果没有特殊URL参数，不调用random接口，保持初始状态
-  }, [])
+    // 如果没有特殊URL参数，获取随机网站ID
+    fetchRandomSiteId()
+  }
+
+  // 初始化时处理服务端传入的网站信息
+  useEffect(() => {
+    if (initialSite) {
+      setRandomSiteId(initialSite.abbrlink || initialSite.id)
+      setRecommendedSite(initialSite)
+      setShowRecommendedSite(true)
+      setIsDirectAccess(true)
+      setIsOpening(true)
+      
+      // 自动跳转到对应网站
+      setTimeout(() => {
+        if (initialSite.url) {
+          
+          // 发送 Umami 事件统计直接访问
+          if (typeof window !== 'undefined' && window.umami) {
+            const siteTitle = initialSite.title_en || initialSite.title || 'Unknown'
+            window.umami.track(`direct_access`)
+          }
+          
+          window.open(initialSite.url, '_blank')
+          
+          // 延迟清除状态
+          setTimeout(() => {
+            setIsOpening(false)
+            setIsDirectAccess(false)
+            setShowRecommendedSite(false)
+            // 跳转后清除查询条件
+            router.replace('/')
+          }, 2000) // 延迟2秒清除状态
+        }
+      }, 1000) // 延迟1秒跳转
+    } else {
+      // 如果没有服务端传入的网站信息，处理URL参数
+      handleUrlParams()
+    }
+  }, [initialSite])
+
+  // 服务端渲染时也处理URL参数
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const searchParams = new URLSearchParams(window.location.search)
+      const siteParam = searchParams.get('site')
+      if (siteParam && !recommendedSite && !initialSite) {
+        // 立即设置状态，避免闪烁
+        setIsDirectAccess(true)
+        setIsOpening(true)
+      }
+    }
+  }, [recommendedSite, initialSite])
 
   // 不再需要hash监听器
 
@@ -240,7 +297,7 @@ export default function HomePage({ initialLanguage = 'en' }) {
           />
         </div>
         {/* 推荐标题（纯文字，显示在 logo 正下方） */}
-        {showRecommendedSite && recommendedSite && (
+        {(showRecommendedSite || isDirectAccess || initialSite) && (recommendedSite || initialSite) && (
           <motion.p 
             className="mt-4 mb-10 text-xl font-semibold text-center bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent"
             initial={{ opacity: 0, scale: 0.5, y: 30, rotateX: -90 }}
@@ -254,7 +311,7 @@ export default function HomePage({ initialLanguage = 'en' }) {
             }}
             style={{}}
           >
-            {recommendedSite.title.en}
+            {(recommendedSite || initialSite)?.title?.en}
           </motion.p>
         )}
 
@@ -271,14 +328,14 @@ export default function HomePage({ initialLanguage = 'en' }) {
 
           <button
             onClick={handleStartExploring}
-            disabled={isAnimating || isOpening}
+            disabled={isAnimating || isOpening || initialSite}
             className={`mt-8 px-12 py-4 font-semibold text-lg rounded-lg transition-all duration-300 inline-block start-btn ${
-              isAnimating || isOpening
+              isAnimating || isOpening || initialSite
                 ? 'bg-dark dark:bg-light text-light dark:text-dark opacity-50 cursor-not-allowed' 
                 : 'bg-dark dark:bg-light text-light dark:text-dark'
             }`}
           >
-            {isOpening 
+            {isOpening || initialSite
               ? t('discover.opening')
               : isAnimating 
                 ? t('discover.exploring')
@@ -289,4 +346,4 @@ export default function HomePage({ initialLanguage = 'en' }) {
       </div>
     </section>
   )
-} 
+}
