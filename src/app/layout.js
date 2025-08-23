@@ -100,6 +100,15 @@ export default async function RootLayout({ children }) {
           <Footer />
         </LanguageProvider>
         <Analytics />
+        
+        {/* Google AdSense 脚本 */}
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2011896129037768"
+          crossOrigin="anonymous"
+          strategy="beforeInteractive"
+          id="google-adsense"
+        />
       </body>
     </html>
   );
