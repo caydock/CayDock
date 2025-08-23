@@ -31,19 +31,20 @@ export async function generateMetadata() {
   const lang = isZh ? "zh" : "en";
   const tdk = lang === "zh" ? zhTdk : enTdk;
   const base = new URL(siteMetadata.siteUrl);
+
   return {
     metadataBase: base,
     title: {
-      template: `%s | ${tdk.title}`,
-      default: tdk.title,
+      template: `%s | W3Cay`,
+      default: tdk.home.title,
     },
-    description: tdk.description || siteMetadata.description,
-    keywords: tdk.keywords,
+    description: tdk.home.description || siteMetadata.description,
+    keywords: tdk.home.keywords,
     openGraph: {
-      title: tdk.title,
-      description: tdk.description || siteMetadata.description,
+      title: tdk.home.title,
+      description: tdk.home.description || siteMetadata.description,
       url: siteMetadata.siteUrl,
-      siteName: tdk.title,
+      siteName: 'W3Cay',
       images: [siteMetadata.socialBanner],
       locale: lang === "zh" ? "zh_CN" : "en_US",
       type: "website",
@@ -62,7 +63,7 @@ export async function generateMetadata() {
     },
     twitter: {
       card: "summary",
-      title: tdk.title,
+      title: tdk.home.title,
       site: '@w3cay_com',
       images: [siteMetadata.socialBanner],
     },

@@ -1,13 +1,26 @@
 import AboutCoverSection from "@/src/components/About/AboutCoverSection";
 import AboutBodyClient from "./AboutBodyClient";
-
-export const metadata = {
-  title: "About W3Cay",
-  description:
-    "W3Cay 是一个收集与分享有趣网站、工具、游戏与 AI 体验的“兴趣小岛”，致力于为你带来灵感与快乐。",
-};
+import { headers, cookies } from "next/headers";
+import { getTdk } from "@/src/utils/tdk";
 
 export const runtime = 'edge';
+
+export async function generateMetadata() {
+  const headerStore = await headers();
+  const cookieStore = await cookies();
+  const langCookie = cookieStore.get("lang")?.value || "";
+  const acceptLang = headerStore.get("accept-language") || "";
+  const isZh = (langCookie || acceptLang).toLowerCase().startsWith("zh");
+  const language = isZh ? "zh" : "en";
+  
+  const tdk = getTdk('about', language);
+  
+  return {
+    title: tdk.title,
+    description: tdk.description,
+    keywords: tdk.keywords,
+  };
+}
 
 export default function About() {
   return (
