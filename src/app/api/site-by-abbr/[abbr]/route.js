@@ -52,8 +52,10 @@ export async function GET(request, { params }) {
         return Response.json({
           id: site.id,
           abbrlink: site.abbrlink,
-          title: site.title,
-          title_en: site.title?.en || site.title,
+          title: {
+            en: site.title_en,
+            zh: site.title
+          },
           url: site.url,
           isShow: 1
         })
