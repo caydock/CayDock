@@ -29,8 +29,10 @@ export async function GET(request, { params }) {
           id: result.id,
           abbrlink: result.abbrlink,
           slug: result.slug,
-          title: result.title,
-          title_en: result.title_en,
+          title: {
+            en: result.title_en || result.title,
+            zh: result.title_zh || result.title
+          },
           sub_title: result.sub_title,
           icon: result.icon,
           url: result.link || result.permalink,
