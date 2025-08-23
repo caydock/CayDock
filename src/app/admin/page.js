@@ -374,6 +374,7 @@ export default function AdminPage() {
       title_zh: item.title_zh || "",
       desc_en: item.desc_en || "",
       desc_zh: item.desc_zh || "",
+      link: item.link || "",
     });
   }
 
@@ -634,18 +635,21 @@ export default function AdminPage() {
                 </td>
                 <td className="px-3 py-2 w-[600px]">
                   {editingId === item.id ? (
-                    <div className="space-y-2">
-                      <TextInput label="" value={editData.title_en} onChange={(v)=>setEditData(d=>({...d, title_en:v}))} />
-                      
-                    </div>
+                    <TextInput label="" value={editData.title_en} onChange={(v)=>setEditData(d=>({...d, title_en:v}))} placeholder="网站标题" />
                   ) : (
-                                          <div>
-                        <div className="font-medium">{item.title_en || item.title || '-'}</div>
-                      </div>
+                    <div>
+                      <div className="font-medium">{item.title_en || item.title || '-'}</div>
+                    </div>
                   )}
                 </td>
-                <td className="px-3 py-2 max-w-[320px] truncate">
-                  <a href={item.link} target="_blank" rel="noreferrer" className="text-blue-600 underline break-all">{item.link}</a>
+                <td className="px-3 py-2 max-w-[320px]">
+                  {editingId === item.id ? (
+                    <TextInput label="" value={editData.link} onChange={(v)=>setEditData(d=>({...d, link:v}))} placeholder="https://example.com" />
+                  ) : (
+                    <div className="truncate">
+                      <a href={item.link} target="_blank" rel="noreferrer" className="text-blue-600 underline break-all">{item.link}</a>
+                    </div>
+                  )}
                 </td>
                 <td className="px-3 py-2 whitespace-nowrap">{item.isShow ? '已展示' : '待审核'}</td>
                 <td className="px-3 py-2 whitespace-nowrap space-x-2">

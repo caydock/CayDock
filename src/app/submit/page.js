@@ -288,7 +288,7 @@ export default function SubmitPage() {
           </div>
           <div className="field">
             <label className="dark:text-light">{t('submit.siteTitleLabel')}</label>
-            <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="网站标题（英文）" />
+            <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder={t('submit.siteTitlePlaceholder')} />
           </div>
 
 
