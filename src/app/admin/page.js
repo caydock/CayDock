@@ -1,6 +1,33 @@
 "use client";
 import { useEffect, useMemo, useState } from "react";
 
+// Toast 组件
+function Toast({ message, type = 'success', onClose }) {
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      onClose();
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, [onClose]);
+
+  const bgColor = type === 'success' ? 'bg-green-500' : 'bg-red-500';
+  const icon = type === 'success' ? '✓' : '✕';
+
+  return (
+    <div className={`fixed top-4 right-4 z-50 ${bgColor} text-white px-6 py-3 rounded-lg shadow-lg flex items-center space-x-2 min-w-[300px]`}>
+      <span className="text-lg font-bold">{icon}</span>
+      <span className="flex-1">{message}</span>
+      <button 
+        onClick={onClose}
+        className="text-white hover:text-gray-200 text-lg font-bold"
+      >
+        ×
+      </button>
+    </div>
+  );
+}
+
 export const runtime = 'edge';
 
 function TextInput({ label, value, onChange, placeholder }) {
@@ -63,6 +90,7 @@ export default function AdminPage() {
     slug: ''
   });
   const [addingSite, setAddingSite] = useState(false); // 添加网站状态
+  const [toast, setToast] = useState(null); // Toast 状态
 
   useEffect(() => {
     const t = localStorage.getItem("admin_token") || "";
@@ -285,7 +313,7 @@ export default function AdminPage() {
     e.preventDefault();
     
     if (!addFormData.link.trim()) {
-      alert('请输入网站链接');
+      setToast({ message: '请输入网站链接', type: 'error' });
       return;
     }
 
@@ -305,7 +333,10 @@ export default function AdminPage() {
       }
 
       const result = await res.json();
-      alert(`网站添加成功！\nID: ${result.id}\nAbbrlink: ${result.abbrlink}`);
+      setToast({ 
+        message: `网站添加成功！ID: ${result.id}, Abbrlink: ${result.abbrlink}`, 
+        type: 'success' 
+      });
       
       // 重置表单
       setAddFormData({
@@ -325,7 +356,7 @@ export default function AdminPage() {
 
     } catch (error) {
       console.error('添加网站失败:', error);
-      alert(`添加网站失败：${error.message}`);
+      setToast({ message: `添加网站失败：${error.message}`, type: 'error' });
     } finally {
       setAddingSite(false);
     }
@@ -424,6 +455,13 @@ export default function AdminPage() {
   return (
     <>
       <meta name="robots" content="noindex,nofollow" />
+      {toast && (
+        <Toast 
+          message={toast.message} 
+          type={toast.type} 
+          onClose={() => setToast(null)} 
+        />
+      )}
       <main className="max-w-6xl mx-auto mt-8 p-4 bg-white dark:bg-zinc-900">
       <h1 className="text-2xl font-bold mb-4">站点管理</h1>
 
