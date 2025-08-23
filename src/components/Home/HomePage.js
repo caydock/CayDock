@@ -299,7 +299,7 @@ export default function HomePage({ initialLanguage = 'en', searchParams = {}, in
         {/* 推荐标题（纯文字，显示在 logo 正下方） */}
         {(showRecommendedSite || isDirectAccess || initialSite) && (recommendedSite || initialSite) && (
           <motion.p 
-            className="mt-4 mb-10 text-xl font-semibold text-center bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent"
+            className="mt-4 mb-10 md:mb-1 text-xl font-semibold text-center bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent"
             initial={{ opacity: 0, scale: 0.5, y: 30, rotateX: -90 }}
             animate={{ opacity: 1, scale: 1, y: 0, rotateX: 0 }}
             transition={{ 
