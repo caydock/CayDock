@@ -51,7 +51,7 @@ export default defineConfig({
   output: {
     data: '.velite/generated',
     assets: 'public/blogs',
-    clean: true,
+    clean: false, // 改为 false 避免清理图片文件
   },
   // Add MDX plugins
   mdx: {
@@ -59,7 +59,24 @@ export default defineConfig({
     rehypePlugins: [
       rehypeSlug,
       [rehypeAutolinkHeadings, { behavior: "append" }],
-      [rehypePrettyCode, codeOptions]
+      [rehypePrettyCode, codeOptions],
+      // Custom plugin to transform image paths in MDX content
+      () => (tree) => {
+        const visit = (node) => {
+          if (node.type === 'element' && node.tagName === 'img') {
+            if (node.properties && node.properties.src) {
+              const src = node.properties.src;
+              if (src.startsWith('/static/')) {
+                node.properties.src = src.replace('/static/', '/blogs/');
+              }
+            }
+          }
+          if (node.children) {
+            node.children.forEach(visit);
+          }
+        };
+        visit(tree);
+      }
     ]
   }
 })
