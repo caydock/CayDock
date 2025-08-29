@@ -1,4 +1,4 @@
-import { blogs } from '@/.velite/generated'
+import blogs from '@/.velite/generated/blogs.json'
 import BlogLayoutThree from "@/src/components/Blog/BlogLayoutThree";
 import Categories from "@/src/components/Blog/Categories";
 import { slug } from "github-slugger";
@@ -42,8 +42,8 @@ export async function generateMetadata({ params }) {
   }
 }
 
-export default function CategoryPage({ params }) {
-  const { slug: categorySlug } = params;
+export default async function CategoryPage({ params }) {
+  const { slug: categorySlug } = await params;
   
   // Separating logic to create list of categories from all blogs
   const allCategories = ["all"]; // Initialize with 'all' category
