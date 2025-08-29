@@ -33,5 +33,14 @@
     "title": "免责声明",
     "description": "W3Cay免责声明。了解我们关于第三方内容的免责声明。我们致力于提供准确和合法的网站信息。",
     "keywords": "免责声明,法律声明,第三方内容,免责条款,W3Cay,法律信息"
+  },
+  "blogs": {
+    "title": "博客文章",
+    "description": "阅读关于编程、技术和更多主题的博客文章。分享我的想法、教程和故事。",
+    "keywords": "博客,技术文章,编程教程,开发经验,技术分享,W3Cay博客",
+    "featuredPosts": "精选文章",
+    "recentPosts": "最新文章",
+    "viewAll": "查看全部",
+    "readMore": "阅读更多"
   }
 }

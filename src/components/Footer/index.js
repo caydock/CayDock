@@ -27,6 +27,7 @@ const Footer = () => {
         {/* 导航菜单 */}
         <nav className="mt-4 flex flex-wrap items-center justify-center gap-6 text-lg sm:text-xl">
           <Link href="/" className="hover:underline transition-colors">{t('nav.home')}</Link>
+          <Link href="/blogs" className="hover:underline transition-colors">{t('blogs.title')}</Link>
           <Link href="/submit" className="hover:underline transition-colors">{t('nav.submit')}</Link>
           <Link href="/about" className="hover:underline transition-colors">{t('nav.about')}</Link>
           <Link href="/contact" className="hover:underline transition-colors">{t('nav.contact')}</Link>

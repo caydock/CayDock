@@ -10,6 +10,14 @@ const LanguageContext = createContext({
 const STRINGS = {
   en: {
     nav: { home: "Home", blogs: "Blogs", submit: "Submit", about: "About", contact: "Contact" },
+    blogs: {
+      title: "Blogs",
+      description: "Read blog posts about programming, technology and more topics. Share my thoughts, tutorials and stories.",
+      featuredPosts: "Featured Posts",
+      recentPosts: "Recent Posts",
+      viewAll: "view all",
+      readMore: "Read More"
+    },
     discover: {
       random: "Random",
       loading: "Loading...",
@@ -142,7 +150,15 @@ const STRINGS = {
     },
   },
   zh: {
-    nav: { home: "首页", submit: "推荐投稿", about: "关于本站", contact: "联系我们" },
+    nav: { home: "首页", blogs: "博客文章", submit: "推荐投稿", about: "关于本站", contact: "联系我们" },
+    blogs: {
+      title: "博客文章",
+      description: "阅读关于编程、技术和更多主题的博客文章。分享我的想法、教程和故事。",
+      featuredPosts: "精选文章",
+      recentPosts: "最新文章",
+      viewAll: "查看全部",
+      readMore: "阅读更多"
+    },
     discover: {
       random: "随机",
       loading: "加载中...",

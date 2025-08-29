@@ -33,5 +33,14 @@
     "title": "Disclaimer",
     "description": "W3Cay Disclaimer. Learn about our disclaimers regarding third-party content. We are committed to providing accurate and legal website information.",
     "keywords": "disclaimer, legal notice, third-party content, disclaimers, W3Cay, legal information"
+  },
+  "blogs": {
+    "title": "Blog Posts",
+    "description": "Read blog posts about programming, technology and more topics. Share my thoughts, tutorials and stories.",
+    "keywords": "blog, tech articles, programming tutorials, development experience, tech sharing, W3Cay blog",
+    "featuredPosts": "Featured Posts",
+    "recentPosts": "Recent Posts",
+    "viewAll": "view all",
+    "readMore": "Read More"
   }
 }
