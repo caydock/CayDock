@@ -13,8 +13,34 @@ const CustomImage = (props) => {
   );
 };
 
+// 自定义 Link 组件，外部链接在新标签页打开
+const CustomLink = (props) => {
+  const { href, children, ...rest } = props;
+  
+  // 检查是否为外部链接
+  const isExternal = href && (href.startsWith('http://') || href.startsWith('https://'));
+  
+  if (isExternal) {
+    return (
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-accent dark:text-accentDark hover:underline"
+        {...rest}
+      >
+        {children}
+      </a>
+    );
+  }
+  
+  // 内部链接保持原样
+  return <a href={href} {...rest}>{children}</a>;
+};
+
 const sharedComponents = {
-  Image: CustomImage
+  Image: CustomImage,
+  a: CustomLink
 }
 
 const useMDXComponent = (code) => {
