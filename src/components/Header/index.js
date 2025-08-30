@@ -44,7 +44,7 @@ const Header = () => {
       <nav className="w-max py-3 px-6 sm:px-8 border border-solid border-dark rounded-full font-medium capitalize items-center hidden sm:flex fixed top-6 right-1/2 translate-x-1/2 bg-light/80 backdrop-blur-sm z-50">
         <Logo />
         <Link href="/" className="mx-2">{t('nav.home')}</Link>
-        <Link href="/blogs" className="mx-2">{t('blogs.title')}</Link>
+        <Link href="/blog" className="mx-2">{t('blogs.title')}</Link>
         <Link href="/submit" className="mx-2">{t('nav.submit')}</Link>
         <Link href="/about" className="mx-2">{t('nav.about')}</Link>
         <Link href="/contact" className="mx-2">{t('nav.contact')}</Link>
@@ -76,7 +76,7 @@ const Header = () => {
         </div>
         <nav className="flex flex-col p-4 gap-3 text-lg dark:text-light">
           <Link href="/" onClick={() => setOpen(false)}>{t('nav.home')}</Link>
-          <Link href="/blogs" onClick={() => setOpen(false)}>{t('blogs.title')}</Link>
+          <Link href="/blog" onClick={() => setOpen(false)}>{t('blogs.title')}</Link>
           <Link href="/submit" onClick={() => setOpen(false)}>{t('nav.submit')}</Link>
           <Link href="/contact" onClick={() => setOpen(false)}>{t('nav.contact')}</Link>
           <Link href="/about" onClick={() => setOpen(false)}>{t('nav.about')}</Link>

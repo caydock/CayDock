@@ -11,7 +11,7 @@ const STRINGS = {
   en: {
     nav: { home: "Home", blogs: "Blogs", submit: "Submit", about: "About", contact: "Contact" },
     blogs: {
-      title: "Blogs",
+      title: "Blog",
       description: "Read blog posts about programming, technology and more topics. Share my thoughts, tutorials and stories.",
       featuredPosts: "Featured Posts",
       recentPosts: "Recent Posts",

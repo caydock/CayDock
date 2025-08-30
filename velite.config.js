@@ -29,12 +29,12 @@ const blog = s
   .transform(data => {
     return {
       ...data,
-      url: `/blogs/${data.slug}`,
+      url: `/blog/${data.slug}`,
       readingTime: readingTime(data.body),
     //   toc: headings,
       image: {
         ...data.image,
-        src: data.image.src.replace("/static", "/blogs"),
+        src: data.image.src.replace("/static", "/blog"),
       },
     }
   })
@@ -50,7 +50,7 @@ export default defineConfig({
   },
   output: {
     data: '.velite/generated',
-    assets: 'public/blogs',
+    assets: 'public/blog',
     clean: false, // 改为 false 避免清理图片文件
   },
   // Add MDX plugins
@@ -67,7 +67,7 @@ export default defineConfig({
             if (node.properties && node.properties.src) {
               const src = node.properties.src;
               if (src.startsWith('/static/')) {
-                node.properties.src = src.replace('/static/', '/blogs/');
+                node.properties.src = src.replace('/static/', '/blog/');
               }
             }
           }
