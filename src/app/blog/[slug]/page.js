@@ -2,6 +2,7 @@ import RenderMdx from "@/src/components/Blog/RenderMdx";
 import Tag from "@/src/components/Elements/Tag";
 import BreadcrumbServer from "@/src/components/Blog/BreadcrumbServer";
 import ExploreButton from "@/src/components/Elements/ExploreButton";
+import ShareButtons from "@/src/components/Elements/ShareButtons";
 import siteMetadata from "@/src/utils/siteMetaData";
 import { blogs } from '@/.velite/generated'
 import { slug as slugify } from "github-slugger";
@@ -226,6 +227,16 @@ export default async function BlogPage({ params }) {
       <div className="mb-10 grid grid-cols-12 gap-y-8 lg:gap-8 sxl:gap-16 mt-8 px-5 md:px-10">
         <div className="col-span-12 lg:col-span-8 lg:col-start-3">
           <RenderMdx blog={blog} />
+          
+          {/* 分享按钮 */}
+          <div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
+            <ShareButtons 
+              url={`${siteMetadata.siteUrl}${blog.url}`}
+              title={blog.title}
+              description={blog.description}
+              hashtags="weirdwebsites,webdiscovery,blog"
+            />
+          </div>
         </div>
       </div>
       

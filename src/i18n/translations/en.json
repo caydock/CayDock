@@ -57,7 +57,7 @@
       "viewAll": "view all",
       "readMore": "Read More",
       "categorySubtitle": "Explore more categories and discover weird websites!",
-      "exploreMore": "Explore More Weird Websites"
+      "exploreMore": "More Weird Websites"
     },
     "discover": {
       "random": "Random",
@@ -87,6 +87,11 @@
       "blog": "Blog",
       "categories": "Categories",
       "allCategories": "All Categories"
+    },
+    "share": {
+      "share": "Share:",
+      "defaultDescription": "Discover amazing weird websites on W3Cay!",
+      "linkCopied": "Link copied to clipboard!"
     },
     "terms": {
       "title": "Terms of Service",

@@ -88,6 +88,11 @@
       "categories": "分类",
       "allCategories": "全部分类"
     },
+    "share": {
+      "share": "分享：",
+      "defaultDescription": "在W3Cay发现令人惊叹的有趣网站！",
+      "linkCopied": "链接已复制到剪贴板！"
+    },
     "terms": {
       "title": "服务条款",
       "intro": "欢迎使用 W3Cay。访问或使用本网站即表示你同意遵守本服务条款。",
