@@ -222,6 +222,16 @@ export default async function BlogPage({ params }) {
           <RenderMdx blog={blog} />
         </div>
       </div>
+      
+      {/* 探索更多按钮 */}
+      <div className="w-full flex justify-center mt-16 sm:mt-24 md:mt-32 px-5 sm:px-10 md:px-24 sxl:px-32 mb-10">
+        <Link
+          href="/"
+          className="inline-block py-3 px-8 bg-dark text-light dark:bg-light dark:text-dark rounded-full font-semibold hover:scale-105 transition-all duration-200 text-lg"
+        >
+          {tdk.blog.exploreMore}
+        </Link>
+      </div>
     </article>
     </>
   );
