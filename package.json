@@ -4,8 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "build": "npm run cf:build",
     "lint": "next lint",
     "content": "velite --clean",
     "copy-images": "./scripts/copy-images.sh",
