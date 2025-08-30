@@ -8,6 +8,15 @@ import { useLanguage } from "@/src/components/i18n/LanguageProvider";
 const FeaturedPosts = ({ blogs }) => {
   const { t } = useLanguage();
   const sortedBlogs = sortBlogs(blogs);
+  
+  // 检查是否有足够的特色文章数据
+  const hasFeaturedPosts = sortedBlogs[1] || sortedBlogs[2] || sortedBlogs[3];
+  
+  // 如果没有数据，不渲染组件
+  if (!hasFeaturedPosts) {
+    return null;
+  }
+  
   return <section className="w-full mt-16 sm:mt-24  md:mt-32 px-5 sm:px-10 md:px-24  sxl:px-32 flex flex-col items-center justify-center">
     <h2 className="w-full inline-block font-bold capitalize text-2xl md:text-4xl text-dark dark:text-light">{t('blog.featuredPosts')}</h2>
 

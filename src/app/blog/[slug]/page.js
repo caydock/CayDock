@@ -200,6 +200,13 @@ export default async function BlogPage({ params }) {
           >
             {blog.title}
           </h1>
+          <div className="mt-4 text-light/80 text-sm md:text-base">
+            {new Date(blog.publishedAt).toLocaleDateString(isZh ? 'zh-CN' : 'en-US', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric'
+            })}
+          </div>
         </div>
         <div className="absolute top-0 left-0 right-0 bottom-0 h-full bg-dark/60 dark:bg-dark/40" />
         <Image
