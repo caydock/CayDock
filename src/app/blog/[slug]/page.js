@@ -1,11 +1,16 @@
 import BlogDetails from "@/src/components/Blog/BlogDetails";
 import RenderMdx from "@/src/components/Blog/RenderMdx";
 import Tag from "@/src/components/Elements/Tag";
+import BreadcrumbServer from "@/src/components/Blog/BreadcrumbServer";
 import siteMetadata from "@/src/utils/siteMetaData";
 import { blogs } from '@/.velite/generated'
 import { slug as slugify } from "github-slugger";
 import Image from "next/image";
+import Link from "next/link";
 import { notFound } from "next/navigation";
+import { headers, cookies } from "next/headers";
+import enTdk from "@/src/i18n/tdk/en.json";
+import zhTdk from "@/src/i18n/tdk/zh.json";
 
 export async function generateStaticParams() {
   return blogs.map((blog) => ({ slug: blog.slug }));
@@ -124,6 +129,30 @@ export default async function BlogPage({ params }) {
       }]
   }
 
+  // 获取翻译
+  const cookieStore = await cookies();
+  const headerStore = await headers();
+  const langCookie = cookieStore.get("lang")?.value || "";
+  const acceptLang = headerStore.get("accept-language") || "";
+  const isZh = (langCookie || acceptLang).toLowerCase().startsWith("zh");
+  const lang = isZh ? "zh" : "en";
+  const tdk = lang === "zh" ? zhTdk : enTdk;
+
+  const breadcrumbItems = [
+    {
+      label: tdk.breadcrumb.blog,
+      href: "/blog"
+    },
+    {
+      label: tdk.breadcrumb.categories,
+      href: "/categories/all"
+    },
+    {
+      label: blog.title,
+      href: blog.url
+    }
+  ];
+
   return (
     <>
     <script
@@ -132,6 +161,36 @@ export default async function BlogPage({ params }) {
       />
        <article>
       <div className="mb-8 text-center relative w-full h-[70vh] bg-dark">
+        {/* 悬浮面包屑导航 */}
+        <div className="absolute top-8 left-0 right-0 z-20">
+          <nav className="flex items-center space-x-2 text-sm text-light mb-6 px-5 sm:px-10 md:px-24 sxl:px-32">
+            <Link 
+              href="/" 
+              className="hover:text-accent transition-colors"
+            >
+              {tdk.nav.home}
+            </Link>
+            
+            {breadcrumbItems.map((item, index) => (
+              <div key={index} className="flex items-center space-x-2">
+                <span className="text-light/60">/</span>
+                {index === breadcrumbItems.length - 1 ? (
+                  <span className="text-light font-medium">
+                    {item.label}
+                  </span>
+                ) : (
+                  <Link 
+                    href={item.href} 
+                    className="hover:text-accent transition-colors"
+                  >
+                    {item.label}
+                  </Link>
+                )}
+              </div>
+            ))}
+          </nav>
+        </div>
+        
         <div className="w-full z-10 flex flex-col items-center justify-center absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
           <Tag
             name={blog.tags[0]}

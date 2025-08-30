@@ -1,7 +1,11 @@
 import blogs from '@/.velite/generated/blogs.json'
 import BlogLayoutThree from "@/src/components/Blog/BlogLayoutThree";
 import Categories from "@/src/components/Blog/Categories";
+import BreadcrumbServer from "@/src/components/Blog/BreadcrumbServer";
 import { slug } from "github-slugger";
+import { headers, cookies } from "next/headers";
+import enTdk from "@/src/i18n/tdk/en.json";
+import zhTdk from "@/src/i18n/tdk/zh.json";
 
 export async function generateStaticParams() {
   const categories = [];
@@ -28,16 +32,16 @@ export async function generateMetadata({ params }) {
   const { slug: categorySlug } = await params;
   if (categorySlug === "all") {
     return {
-      title: `All Blogs`,
-      description: `Learn web development through our collection of free, practical blogs.`,
+      title: `All Blog Posts`,
+      description: `Learn web development through our collection of free, practical blog posts.`,
     };
   } else {
     return {
-      title: `${categorySlug.replaceAll("-", " ")} Blogs`,
+      title: `${categorySlug.replaceAll("-", " ")} Blog Posts`,
       description: `Learn about ${categorySlug.replaceAll(
         "-",
         " "
-      )} through our collection of free, practical blogs.`,
+      )} through our collection of free, practical blog posts.`,
     };
   }
 }
@@ -45,7 +49,7 @@ export async function generateMetadata({ params }) {
 export default async function CategoryPage({ params }) {
   const { slug: categorySlug } = await params;
   
-  // Separating logic to create list of categories from all blogs
+  // Separating logic to create list of categories from all blog posts
   const allCategories = ["all"]; // Initialize with 'all' category
   blogs.forEach(blog => {
     blog.tags.forEach(tag => {
@@ -59,16 +63,41 @@ export default async function CategoryPage({ params }) {
   // Sort allCategories to ensure they are in alphabetical order
   allCategories.sort();
 
-  // Step 2: Filter blogs based on the current category (params.slug)
+  // Step 2: Filter blog posts based on the current category (params.slug)
   const filteredBlogs = blogs.filter(blog => {
     if (categorySlug === "all") {
-      return blog.isPublished; // Include all published blogs if 'all' category is selected
+      return blog.isPublished; // Include all published blog posts if 'all' category is selected
     }
     return blog.isPublished && blog.tags.some(tag => slug(tag) === categorySlug);
   });
 
+  // 获取翻译
+  const cookieStore = await cookies();
+  const headerStore = await headers();
+  const langCookie = cookieStore.get("lang")?.value || "";
+  const acceptLang = headerStore.get("accept-language") || "";
+  const isZh = (langCookie || acceptLang).toLowerCase().startsWith("zh");
+  const lang = isZh ? "zh" : "en";
+  const tdk = lang === "zh" ? zhTdk : enTdk;
+
+      const breadcrumbItems = [
+      {
+        label: tdk.breadcrumb.blog,
+        href: "/blog"
+      },
+      {
+        label: tdk.breadcrumb.categories,
+        href: "/categories/all"
+      },
+      {
+        label: categorySlug === "all" ? tdk.breadcrumb.allCategories : categorySlug.replaceAll("-", " "),
+        href: `/categories/${categorySlug}`
+      }
+    ];
+
   return (
     <article className="mt-12 flex flex-col text-dark dark:text-light">
+      <BreadcrumbServer items={breadcrumbItems} homeLabel={tdk.nav.home} />
       <div className="px-5 sm:px-10 md:px-24 sxl:px-32 flex flex-col">
         <h1 className="mt-6 font-semibold text-2xl md:text-4xl lg:text-5xl">#{categorySlug}</h1>
         <span className="mt-2 inline-block">

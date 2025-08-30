@@ -17,16 +17,25 @@ export async function generateMetadata() {
   const tdk = lang === "zh" ? zhTdk : enTdk;
 
   return {
-    title: tdk.blogs.title,
-    description: tdk.blogs.description,
+    title: tdk.blog.title,
+    description: tdk.blog.description,
   };
 }
 
-export default function Blogs() {
+export default async function Blog() {
   const allBlogs = blogs;
   const filteredBlogs = allBlogs.filter((blog) => {
     return blog.isPublished;
   });
+
+  // 获取翻译
+  const cookieStore = await cookies();
+  const headerStore = await headers();
+  const langCookie = cookieStore.get("lang")?.value || "";
+  const acceptLang = headerStore.get("accept-language") || "";
+  const isZh = (langCookie || acceptLang).toLowerCase().startsWith("zh");
+  const lang = isZh ? "zh" : "en";
+  const tdk = lang === "zh" ? zhTdk : enTdk;
 
   return (
     <main className="flex flex-col items-center justify-center mb-10">

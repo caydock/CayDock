@@ -9,8 +9,8 @@ const LanguageContext = createContext({
 
 const STRINGS = {
   en: {
-    nav: { home: "Home", blogs: "Blogs", submit: "Submit", about: "About", contact: "Contact" },
-    blogs: {
+    nav: { home: "Home", blog: "Blog", submit: "Submit", about: "About", contact: "Contact" },
+    blog: {
       title: "Blog",
       description: "Read blog posts about programming, technology and more topics. Share my thoughts, tutorials and stories.",
       featuredPosts: "Featured Posts",
@@ -150,8 +150,8 @@ const STRINGS = {
     },
   },
   zh: {
-    nav: { home: "首页", blogs: "博客文章", submit: "推荐投稿", about: "关于本站", contact: "联系我们" },
-    blogs: {
+    nav: { home: "首页", blog: "博客文章", submit: "推荐投稿", about: "关于本站", contact: "联系我们" },
+    blog: {
       title: "博客文章",
       description: "阅读关于编程、技术和更多主题的博客文章。分享我的想法、教程和故事。",
       featuredPosts: "精选文章",
