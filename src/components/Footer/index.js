@@ -39,6 +39,24 @@ const Footer = () => {
          {t('footer.description')}
        </p>
 
+       {/* Product Hunt Badge */}
+       <div className="mt-8 flex justify-center">
+         <a 
+           href="https://www.producthunt.com/products/w3cay?embed=true&utm_source=badge-featured&utm_medium=badge&utm_source=badge-w3cay" 
+           target="_blank"
+           rel="noopener noreferrer"
+           className="hover:scale-105 transition-transform duration-200"
+         >
+           <img 
+             src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1009668&theme=light&t=1756549588428" 
+             alt="W3CAY - Weird Wonder Web Cay — your island of quirky web discoveries | Product Hunt" 
+             style={{ width: '200px', height: '43px' }} 
+             width="200" 
+             height="43" 
+           />
+         </a>
+       </div>
+
 
 
       {/* <div className="flex items-center mt-8">
