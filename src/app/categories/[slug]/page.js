@@ -2,10 +2,10 @@ import blogs from '@/.velite/generated/blogs.json'
 import BlogLayoutThree from "@/src/components/Blog/BlogLayoutThree";
 import Categories from "@/src/components/Blog/Categories";
 import BreadcrumbServer from "@/src/components/Blog/BreadcrumbServer";
+import ExploreButton from "@/src/components/Elements/ExploreButton";
 import { slug } from "github-slugger";
 import { headers, cookies } from "next/headers";
 import { getServerTranslation } from "@/src/i18n";
-import Link from "next/link";
 
 export async function generateStaticParams() {
   const categories = [];
@@ -114,15 +114,9 @@ export default async function CategoryPage({ params }) {
         ))}
       </div>
       
-      {/* 探索更多按钮 */}
-      <div className="w-full flex justify-center mt-16 sm:mt-24 md:mt-32 px-5 sm:px-10 md:px-24 sxl:px-32 mb-10">
-        <Link
-          href="/"
-          className="inline-block py-3 px-8 bg-dark text-light dark:bg-light dark:text-dark rounded-full font-semibold hover:scale-105 transition-all duration-200 text-lg"
-        >
-          {tdk.blog.exploreMore}
-        </Link>
-      </div>
+      <ExploreButton>
+        {tdk.blog.exploreMore}
+      </ExploreButton>
     </article>
   );
 }
