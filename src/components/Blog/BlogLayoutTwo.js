@@ -7,7 +7,7 @@ const BlogLayoutTwo = ({ blog }) => {
   if (!blog) return null;
   
   return (
-    <div className="group grid grid-cols-12 gap-4 items-center text-dark dark:text-light">
+    <div className="group grid grid-cols-12 gap-4 items-center text-dark dark:text-light h-full">
       <Link
         href={blog.url || '#'}
         className="col-span-12 lg:col-span-4 h-32 rounded-xl overflow-hidden"
@@ -24,7 +24,7 @@ const BlogLayoutTwo = ({ blog }) => {
         />
       </Link>
 
-      <div className="col-span-12  lg:col-span-8 w-full">
+      <div className="col-span-12 lg:col-span-8 w-full flex flex-col justify-center">
         <span className="inline-block w-full capitalize text-accent dark:text-accentDark font-semibold text-xs sm:text-sm">
           {blog.tags[0]}
         </span>
@@ -39,7 +39,7 @@ const BlogLayoutTwo = ({ blog }) => {
           </h2>
         </Link>
 
-        <span className="inline-block w-full capitalize text-gray dark:text-light/50 font-semibold  text-xs sm:text-base">
+        <span className="inline-block w-full capitalize text-gray dark:text-light/50 font-semibold text-xs sm:text-base">
           {format(new Date(blog.publishedAt), "MMMM dd, yyyy")}
         </span>
       </div>
