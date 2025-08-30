@@ -2,8 +2,7 @@
 import Link from 'next/link'
 import Image from "next/image"
 import logo from "@/public/about-logo.webp"
-import enTdk from '@/src/i18n/tdk/en.json'
-import zhTdk from '@/src/i18n/tdk/zh.json'
+
 import { useLanguage } from '@/src/components/i18n/LanguageProvider'
 import { useState, useEffect } from 'react'
 

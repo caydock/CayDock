@@ -4,8 +4,7 @@ import FeaturedPosts from "@/src/components/Home/FeaturedPosts";
 import RecentPosts from "@/src/components/Home/RecentPosts";
 import Categories from "@/src/components/Blog/Categories";
 import { headers, cookies } from "next/headers";
-import enTdk from "@/src/i18n/tdk/en.json";
-import zhTdk from "@/src/i18n/tdk/zh.json";
+import { getServerTranslation } from "@/src/i18n";
 
 export async function generateMetadata() {
   const cookieStore = await cookies();
@@ -14,7 +13,7 @@ export async function generateMetadata() {
   const acceptLang = headerStore.get("accept-language") || "";
   const isZh = (langCookie || acceptLang).toLowerCase().startsWith("zh");
   const lang = isZh ? "zh" : "en";
-  const tdk = lang === "zh" ? zhTdk : enTdk;
+  const tdk = getServerTranslation(lang, "meta");
 
   return {
     title: tdk.blog.title,
@@ -35,7 +34,7 @@ export default async function Blog() {
   const acceptLang = headerStore.get("accept-language") || "";
   const isZh = (langCookie || acceptLang).toLowerCase().startsWith("zh");
   const lang = isZh ? "zh" : "en";
-  const tdk = lang === "zh" ? zhTdk : enTdk;
+  const tdk = getServerTranslation(lang, "ui");
 
   return (
     <main className="flex flex-col items-center justify-center mb-10">

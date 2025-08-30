@@ -4,8 +4,7 @@ import { Inter, Manrope } from "next/font/google";
 import Footer from "../components/Footer";
 import Analytics from "@/src/components/Analytics";
 import siteMetadata from "../utils/siteMetaData";
-import enTdk from "@/src/i18n/tdk/en.json";
-import zhTdk from "@/src/i18n/tdk/zh.json";
+import { getServerTranslation } from "@/src/i18n";
 import { headers, cookies } from "next/headers";
 import Script from "next/script";
 import { LanguageProvider } from "@/src/components/i18n/LanguageProvider";
@@ -29,7 +28,7 @@ export async function generateMetadata() {
   const acceptLang = headerStore.get("accept-language") || "";
   const isZh = (langCookie || acceptLang).toLowerCase().startsWith("zh");
   const lang = isZh ? "zh" : "en";
-  const tdk = lang === "zh" ? zhTdk : enTdk;
+  const tdk = getServerTranslation(lang, "meta");
   const base = new URL(siteMetadata.siteUrl);
 
   return {

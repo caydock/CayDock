@@ -1,6 +1,6 @@
 import { headers, cookies } from "next/headers";
 import DisclaimerContent from "./DisclaimerContent";
-import { getTdk } from "@/src/utils/tdk";
+import { getServerTranslation } from "@/src/i18n";
 
 export const runtime = 'edge';
 
@@ -12,7 +12,7 @@ export async function generateMetadata() {
   const isZh = (langCookie || acceptLang).toLowerCase().startsWith("zh");
   const language = isZh ? "zh" : "en";
   
-  const tdk = getTdk('disclaimer', language);
+  const tdk = getServerTranslation(language, "meta");
   
   return {
     title: tdk.title,

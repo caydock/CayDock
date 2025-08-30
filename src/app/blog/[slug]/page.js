@@ -9,8 +9,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { headers, cookies } from "next/headers";
-import enTdk from "@/src/i18n/tdk/en.json";
-import zhTdk from "@/src/i18n/tdk/zh.json";
+import { getServerTranslation } from "@/src/i18n";
 
 export async function generateStaticParams() {
   return blogs.map((blog) => ({ slug: blog.slug }));
@@ -136,7 +135,7 @@ export default async function BlogPage({ params }) {
   const acceptLang = headerStore.get("accept-language") || "";
   const isZh = (langCookie || acceptLang).toLowerCase().startsWith("zh");
   const lang = isZh ? "zh" : "en";
-  const tdk = lang === "zh" ? zhTdk : enTdk;
+  const tdk = getServerTranslation(lang, "ui");
 
   const breadcrumbItems = [
     {

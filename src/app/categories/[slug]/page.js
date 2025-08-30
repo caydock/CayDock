@@ -4,8 +4,7 @@ import Categories from "@/src/components/Blog/Categories";
 import BreadcrumbServer from "@/src/components/Blog/BreadcrumbServer";
 import { slug } from "github-slugger";
 import { headers, cookies } from "next/headers";
-import enTdk from "@/src/i18n/tdk/en.json";
-import zhTdk from "@/src/i18n/tdk/zh.json";
+import { getServerTranslation } from "@/src/i18n";
 
 export async function generateStaticParams() {
   const categories = [];
@@ -78,7 +77,7 @@ export default async function CategoryPage({ params }) {
   const acceptLang = headerStore.get("accept-language") || "";
   const isZh = (langCookie || acceptLang).toLowerCase().startsWith("zh");
   const lang = isZh ? "zh" : "en";
-  const tdk = lang === "zh" ? zhTdk : enTdk;
+  const tdk = getServerTranslation(lang, "ui");
 
       const breadcrumbItems = [
       {
