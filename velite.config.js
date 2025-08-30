@@ -34,7 +34,8 @@ const blog = s
     //   toc: headings,
       image: {
         ...data.image,
-        src: data.image.src, // 保持原始路径，不进行转换
+        // 保持velite的默认图片路径处理
+        src: data.image.src,
       },
     }
   })
@@ -50,7 +51,7 @@ export default defineConfig({
   },
   output: {
     data: '.velite/generated',
-    assets: 'public/blog',
+    assets: 'public/static',
     clean: false, // 改为 false 避免清理图片文件
   },
   // Add MDX plugins
@@ -60,24 +61,6 @@ export default defineConfig({
       rehypeSlug,
       [rehypeAutolinkHeadings, { behavior: "append" }],
       [rehypePrettyCode, codeOptions],
-      // Custom plugin to transform image paths in MDX content
-      () => (tree) => {
-        const visit = (node) => {
-          if (node.type === 'element' && node.tagName === 'img') {
-            if (node.properties && node.properties.src) {
-              const src = node.properties.src;
-              // 将 /static/ 路径转换为 /blog/ 路径
-              if (src.startsWith('/static/')) {
-                node.properties.src = src.replace('/static/', '/blog/');
-              }
-            }
-          }
-          if (node.children) {
-            node.children.forEach(visit);
-          }
-        };
-        visit(tree);
-      }
     ]
   }
 })
