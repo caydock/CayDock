@@ -90,7 +90,7 @@ export default async function CategoryPage({ params }) {
         href: "/categories/all"
       },
       {
-        label: categorySlug === "all" ? tdk.breadcrumb.allCategories : categorySlug.replaceAll("-", " "),
+        label: categorySlug === "all" ? tdk.breadcrumb.allCategories : categorySlug.replaceAll("-", " ").replace(/\b\w/g, l => l.toUpperCase()),
         href: `/categories/${categorySlug}`
       }
     ];
@@ -99,7 +99,7 @@ export default async function CategoryPage({ params }) {
     <article className="mt-12 flex flex-col text-dark dark:text-light">
       <BreadcrumbServer items={breadcrumbItems} homeLabel={tdk.nav.home} />
       <div className="px-5 sm:px-10 md:px-24 sxl:px-32 flex flex-col">
-        <h1 className="mt-6 font-semibold text-2xl md:text-4xl lg:text-5xl">#{categorySlug}</h1>
+        <h1 className="mt-6 font-semibold text-2xl md:text-4xl lg:text-5xl capitalize">#{categorySlug}</h1>
         <span className="mt-10 inline-block">
           {tdk.blog.categorySubtitle}
         </span>

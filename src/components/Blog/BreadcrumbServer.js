@@ -14,7 +14,7 @@ const BreadcrumbServer = ({ items, homeLabel }) => {
         <div key={index} className="flex items-center space-x-2">
           <span className="text-gray-400 dark:text-gray-600">/</span>
           {index === items.length - 1 ? (
-            <span className="text-dark dark:text-light font-medium">
+            <span className="text-dark dark:text-light font-medium capitalize">
               {item.label}
             </span>
           ) : (
