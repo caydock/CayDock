@@ -50,7 +50,7 @@ export default defineConfig({
   },
   output: {
     data: '.velite/generated',
-    assets: 'public/static',
+    assets: 'public/blog',
     clean: false, // 改为 false 避免清理图片文件
   },
   // Add MDX plugins
@@ -66,8 +66,9 @@ export default defineConfig({
           if (node.type === 'element' && node.tagName === 'img') {
             if (node.properties && node.properties.src) {
               const src = node.properties.src;
+              // 将 /static/ 路径转换为 /blog/ 路径
               if (src.startsWith('/static/')) {
-                node.properties.src = src; // 保持原始路径，不进行转换
+                node.properties.src = src.replace('/static/', '/blog/');
               }
             }
           }
