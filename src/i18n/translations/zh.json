@@ -1,0 +1,193 @@
+{
+  "meta": {
+    "home": {
+      "title": "W3Cay - 奇妙网络小岛",
+      "description": "W3Cay是一个有趣的网络小岛，收集各种奇怪和无用的网站。发现随机网站，探索数字世界中无尽的奇妙之处。",
+      "keywords": "奇怪网站,有趣网站,无聊按钮,无用网站,随机网站,W3Cay"
+    },
+    "about": {
+      "title": "关于我们",
+      "description": "W3Cay是一个\"兴趣小岛\"，致力于收集和分享有趣的网站、工具、游戏和AI体验，为您的日常生活带来灵感和快乐。",
+      "keywords": "关于我们,网站介绍,团队介绍,网站理念,W3Cay,兴趣小岛"
+    },
+    "contact": {
+      "title": "联系我们",
+      "description": "联系W3Cay团队获取支持、反馈或合作机会。我们致力于为您提供最佳的网站发现体验。",
+      "keywords": "联系我们,网站反馈,合作,技术支持,W3Cay,网站发现"
+    },
+    "submit": {
+      "title": "提交网站",
+      "description": "向W3Cay提交有趣、奇怪或无用的网站。分享您发现的精彩网站，让更多人探索数字世界的有趣角落。",
+      "keywords": "提交网站,推荐网站,分享网站,有趣网站,W3Cay,网站分享"
+    },
+    "terms": {
+      "title": "服务条款",
+      "description": "W3Cay服务条款。了解使用我们网站时的权利和义务。我们致力于提供透明和公平的服务体验。",
+      "keywords": "服务条款,使用条款,网站条款,法律条款,W3Cay,网站使用"
+    },
+    "privacy": {
+      "title": "隐私政策",
+      "description": "W3Cay隐私政策。了解我们如何收集、使用和保护您的个人信息。我们重视您的隐私权利。",
+      "keywords": "隐私政策,数据保护,个人信息,隐私权利,W3Cay,数据安全"
+    },
+    "disclaimer": {
+      "title": "免责声明",
+      "description": "W3Cay免责声明。了解我们关于第三方内容的免责声明。我们致力于提供准确和合法的网站信息。",
+      "keywords": "免责声明,法律声明,第三方内容,免责条款,W3Cay,法律信息"
+    },
+    "blog": {
+      "title": "博客",
+      "description": "阅读关于编程、技术和更多主题的博客文章。分享我的想法、教程和故事。",
+      "keywords": "博客,技术文章,编程教程,开发经验,技术分享,W3Cay博客"
+    }
+  },
+  "ui": {
+    "nav": {
+      "home": "首页",
+      "blog": "博客",
+      "submit": "推荐投稿",
+      "about": "关于本站",
+      "contact": "联系我们"
+    },
+    "blog": {
+      "title": "博客",
+      "description": "阅读关于编程、技术和更多主题的博客文章。分享我的想法、教程和故事。",
+      "featuredPosts": "精选文章",
+      "recentPosts": "最新文章",
+      "viewAll": "查看全部",
+      "readMore": "阅读更多",
+      "categorySubtitle": "探索更多分类，发现精彩网站！"
+    },
+    "discover": {
+      "random": "随机",
+      "loading": "加载中...",
+      "open": "打开网站",
+      "retry": "重试",
+      "hint": "点击\"打开网站\"后将标记为已访问。",
+      "empty": "点击\"随机\"按钮获取一个推荐。",
+      "opening": "打开中...",
+      "exploring": "探索中...",
+      "startExploring": "开始探索"
+    },
+    "footer": {
+      "title": "一个发现有趣新奇网站的小岛",
+      "description": "W3Cay是一个有趣的网络小岛，收集各种奇怪和无用的网站。发现随机网站，探索数字世界中无尽的奇妙奇观。",
+      "sitemap": "站点地图",
+      "allRights": "保留所有权利。",
+      "madeWithBy": "用 ❤️ 制作，开发者"
+    },
+    "subtitle": "点击下方按钮，开始探索有趣网站",
+    "legal": {
+      "terms": "服务条款",
+      "privacy": "隐私政策",
+      "disclaimer": "免责声明"
+    },
+    "breadcrumb": {
+      "blog": "博客",
+      "categories": "分类",
+      "allCategories": "全部分类"
+    },
+    "terms": {
+      "title": "服务条款",
+      "intro": "欢迎使用 W3Cay。访问或使用本网站即表示你同意遵守本服务条款。",
+      "useTitle": "服务使用",
+      "use1": "W3Cay 仅整理与分享第三方网站的链接，不托管也不控制外部内容。",
+      "use2": "你承诺不将 W3Cay 用于任何违法或未授权的目的。",
+      "use3": "我们可能会在不通知的情况下更新或移除内容。",
+      "ipTitle": "知识产权",
+      "ipText": "W3Cay 上的商标、标识与图片归其权利人所有，第三方内容仅用于识别与评论。",
+      "linksTitle": "第三方链接",
+      "linksText": "W3Cay 可能包含由第三方提供或维护的外部网站链接，我们不保证其准确性或完整性。",
+      "liabilityTitle": "责任限制",
+      "liabilityText": "W3Cay 按\"现状\"和\"可用性\"提供，对任何形式的担保与由此产生的损害概不负责。",
+      "changesTitle": "条款变更",
+      "changesText": "我们可能随时修改本条款，继续使用即表示接受变更后的条款。",
+      "contactTitle": "联系",
+      "contactText": "关于本条款的问题，请联系："
+    },
+    "privacy": {
+      "title": "隐私政策",
+      "intro": "我们重视你的隐私。本政策说明我们收集哪些信息以及如何使用。",
+      "infoTitle": "我们收集的信息",
+      "info1": "用于改进站点体验的基础分析与使用数据。",
+      "info2": "你自愿提供的信息（例如提交网站时）。",
+      "cookiesTitle": "Cookies",
+      "cookiesText": "我们可能使用 Cookies 记住偏好并分析流量，你可在浏览器中进行管理。",
+      "thirdTitle": "第三方服务",
+      "thirdText": "W3Cay 链接到的外部服务有其各自的隐私政策，我们不对其做法负责。",
+      "securityTitle": "数据安全",
+      "securityText": "我们采取合理措施保护数据，但任何传输或存储方式都无法保证 100% 安全。",
+      "changesTitle": "政策变更",
+      "changesText": "我们可能不时更新本政策，继续使用即表示接受变更。",
+      "contactTitle": "联系",
+      "contactText": "关于本隐私政策的问题，请联系："
+    },
+    "disclaimerPage": {
+      "title": "免责声明",
+      "intro": "W3Cay 是一个精选网站目录。我们不拥有、控制或背书任何外部链接网站的内容。",
+      "thirdTitle": "第三方内容责任",
+      "thirdText": "所有外链仅为便利与探索之用，我们不保证其内容的准确性、合法性或可用性。",
+      "fairTitle": "合理使用与署名",
+      "fairText": "商标、标识与图片归其权利人所有，任何使用仅用于识别、评论或点评目的。",
+      "adviceTitle": "非专业建议",
+      "adviceText": "W3Cay 上的内容仅供信息与娱乐，不构成任何专业建议。",
+      "contactTitle": "联系我们",
+      "contactText": "若你认为权利受侵害或内容不当，请发送邮件："
+    },
+    "submit": {
+      "title": "推荐一个网站",
+      "tagline": "分享你觉得很酷的网站，我们会审核后择优收录。",
+      "urlLabel": "网站链接",
+      "urlPlaceholder": "https://w3cay.com",
+      "urlInvalid": "请输入有效的HTTPS链接",
+      "siteTitleLabel": "标题（可选）",
+      "siteTitlePlaceholder": "网站标题（英文）",
+      "submitBtn": "提交",
+      "saved": "已保存",
+      "successTitle": "提交成功！",
+      "successMessage": "感谢您的提交！我们会尽快审核您的网站。审核通过后，您的网站将会在W3Cay上展示。",
+      "submissionInfo": "提交信息：",
+      "confirm": "确定"
+    },
+    "about": {
+      "heroTitle": "保持好奇，热爱分享，探索有趣的网络世界",
+      "heroDesc": "这是我持续创作的信念。W3Cay 专注于发现与分享有趣的网站、工具、游戏与 AI 体验，让灵感与快乐在日常里发生。保持学习、拥抱变化，用简单而美的方式传递价值。",
+      "aboutTitle": "关于本站",
+      "aboutDesc": "你好，我是 Cay，欢迎来到 W3Cay(万趣岛)！这里是一座充满好奇与乐趣的\"兴趣小岛\"，我们专注于收集并分享独特有趣的网站、工具、小游戏与 AI 相关体验，帮你在繁忙的日常里找到片刻的灵感与快乐。",
+      "domainTitle": "域名由来",
+      "domainDesc": "\"w3cay\" 由 \"w3\"（Weird Wonder Web 的缩写）与 \"cay\"（小岛）组合而来。互联网像一片广阔海洋，埋藏着无数\"有趣的小岛\"。W3Cay 希望把它们串联起来，分享给同样热爱探索的你。",
+      "contactTitle": "联系与投稿",
+      "contactEmailPrefix": "商务合作、媒体报道、友情链接等事宜，请发送邮件至：",
+      "contactSubmitPrefix": "推荐新网站请前往",
+      "contactSubmitLink": "提交页面",
+      "contactSubmitSuffix": "，我们会定期审核与收录。",
+      "outro": "无论你是寻找灵感、解压放松，还是单纯想笑一笑，都希望你能在 W3Cay 的\"兴趣小岛 🏝️\"里，找到独属于你的那一处惊喜。"
+    },
+    "notFound": {
+      "title": "页面不存在",
+      "backHome": "返回首页"
+    },
+    "contactPage": {
+      "title": "联系我们",
+      "subtitle": "与 W3Cay 取得联系",
+      "thank": "感谢你访问 W3Cay！如有任何问题、建议或合作意向，欢迎随时联系。",
+      "emailTitle": "邮箱",
+      "emailPrimary": "主要联系方式：",
+      "feedbackTitle": "反馈建议",
+      "feedbackBullets1": "网站链接失效",
+      "feedbackBullets2": "内容有误",
+      "feedbackBullets3": "推荐有趣的网站",
+      "feedbackBullets4": "功能建议",
+      "bizTitle": "商务合作",
+      "bizBullets1": "网站开发者",
+      "bizBullets2": "内容创作者",
+      "bizBullets3": "广告主",
+      "bizBullets4": "其他合作伙伴",
+      "slaTitle": "回复时间",
+      "slaWeekday": "工作日：24 小时内回复",
+      "slaWeekend": "周末：48 小时内回复",
+      "slaHoliday": "节假日：可能会延迟",
+      "thanksEnd": "感谢你的支持与理解！"
+    }
+  }
+}

@@ -1,0 +1,193 @@
+{
+  "meta": {
+    "home": {
+      "title": "W3Cay - Weird Wonder Web Cay",
+      "description": "W3Cay is a fun web cay collecting weird and useless websites. Discover random website and explore endless quirky wonders across the digital world.",
+      "keywords": "weird websites, fun websites, bored button, useless website, random website, W3Cay"
+    },
+    "about": {
+      "title": "About Us",
+      "description": "W3Cay is an \"island of interests\" dedicated to collecting and sharing interesting websites, tools, games and AI experiences, bringing inspiration and joy to your daily life.",
+      "keywords": "about us, website introduction, team introduction, website philosophy, W3Cay, island of interests"
+    },
+    "contact": {
+      "title": "Contact Us",
+      "description": "Contact the W3Cay team for support, feedback, or collaboration opportunities. We are committed to providing you with the best website discovery experience.",
+      "keywords": "contact us, website feedback, collaboration, technical support, W3Cay, website discovery"
+    },
+    "submit": {
+      "title": "Submit Website",
+      "description": "Submit interesting, weird or useless websites to W3Cay. Share the amazing websites you discovered and let more people explore the interesting corners of the digital world.",
+      "keywords": "submit website, recommend site, share website, interesting websites, W3Cay, website sharing"
+    },
+    "terms": {
+      "title": "Terms of Service",
+      "description": "W3Cay Terms of Service. Learn about your rights and obligations when using our website. We are committed to providing a transparent and fair service experience.",
+      "keywords": "terms of service, terms of use, website terms, legal terms, W3Cay, website usage"
+    },
+    "privacy": {
+      "title": "Privacy Policy",
+      "description": "W3Cay Privacy Policy. Learn how we collect, use, and protect your personal information. We value your privacy rights.",
+      "keywords": "privacy policy, data protection, personal information, privacy rights, W3Cay, data security"
+    },
+    "disclaimer": {
+      "title": "Disclaimer",
+      "description": "W3Cay Disclaimer. Learn about our disclaimers regarding third-party content. We are committed to providing accurate and legal website information.",
+      "keywords": "disclaimer, legal notice, third-party content, disclaimers, W3Cay, legal information"
+    },
+    "blog": {
+      "title": "Blog",
+      "description": "Read blog posts about programming, technology and more topics. Share my thoughts, tutorials and stories.",
+      "keywords": "blog, tech articles, programming tutorials, development experience, tech sharing, W3Cay blog"
+    }
+  },
+  "ui": {
+    "nav": {
+      "home": "Home",
+      "blog": "Blog",
+      "submit": "Submit",
+      "about": "About",
+      "contact": "Contact"
+    },
+    "blog": {
+      "title": "Blog",
+      "description": "Read blog posts about programming, technology and more topics. Share my thoughts, tutorials and stories.",
+      "featuredPosts": "Featured Posts",
+      "recentPosts": "Recent Posts",
+      "viewAll": "view all",
+      "readMore": "Read More",
+      "categorySubtitle": "Explore more categories and discover amazing websites!"
+    },
+    "discover": {
+      "random": "Random",
+      "loading": "Loading...",
+      "open": "Open Site",
+      "retry": "Retry",
+      "hint": "It will be marked as visited after clicking \"Open Site\".",
+      "empty": "Click \"Random\" to get a recommendation.",
+      "opening": "Opening...",
+      "exploring": "Exploring...",
+      "startExploring": "Start Exploring"
+    },
+    "footer": {
+      "title": "Weird Wonder Web Cay",
+      "description": "W3Cay is a fun web cay collecting weird and useless websites. Discover random website and explore endless quirky wonders across the digital world.",
+      "sitemap": "Sitemap",
+      "allRights": "All rights reserved.",
+      "madeWithBy": "Made with ❤️ by"
+    },
+    "subtitle": "Click the button below to start exploring weird and useless websites",
+    "legal": {
+      "terms": "Terms",
+      "privacy": "Privacy",
+      "disclaimer": "Disclaimer"
+    },
+    "breadcrumb": {
+      "blog": "Blog",
+      "categories": "Categories",
+      "allCategories": "All Categories"
+    },
+    "terms": {
+      "title": "Terms of Service",
+      "intro": "Welcome to W3Cay. By accessing or using our website, you agree to be bound by these Terms of Service.",
+      "useTitle": "Use of the Service",
+      "use1": "W3Cay curates and shares links to third‑party websites. We do not host or control external content.",
+      "use2": "You agree not to use W3Cay for any illegal or unauthorized purpose.",
+      "use3": "We may update or remove content at our discretion without notice.",
+      "ipTitle": "Intellectual Property",
+      "ipText": "All trademarks, logos, and images on W3Cay belong to their respective owners. Any third‑party content is used for identification and review purposes.",
+      "linksTitle": "Links to Third‑Party Sites",
+      "linksText": "W3Cay may contain links to external sites not provided or maintained by us. We do not guarantee the accuracy or completeness of information on those sites.",
+      "liabilityTitle": "Limitation of Liability",
+      "liabilityText": "W3Cay is provided on an 'as is' and 'as available' basis. We disclaim all warranties and are not liable for any damages arising from the use of W3Cay or linked sites.",
+      "changesTitle": "Changes to Terms",
+      "changesText": "We may modify these Terms at any time. Continued use of the site constitutes acceptance of the new Terms.",
+      "contactTitle": "Contact",
+      "contactText": "For questions about these Terms, contact:"
+    },
+    "privacy": {
+      "title": "Privacy Policy",
+      "intro": "We value your privacy. This policy explains what information we collect and how we use it.",
+      "infoTitle": "Information We Collect",
+      "info1": "Basic analytics and usage data to improve the site experience.",
+      "info2": "Information you provide voluntarily (e.g., when submitting a website).",
+      "cookiesTitle": "Cookies",
+      "cookiesText": "We may use cookies to remember preferences and analyze traffic. You can control cookies through your browser settings.",
+      "thirdTitle": "Third‑Party Services",
+      "thirdText": "External services linked from W3Cay have their own privacy policies. We are not responsible for their practices.",
+      "securityTitle": "Data Security",
+      "securityText": "We take reasonable measures to protect data, but no method of transmission or storage is 100% secure.",
+      "changesTitle": "Changes",
+      "changesText": "We may update this policy from time to time. Continued use indicates acceptance of any changes.",
+      "contactTitle": "Contact",
+      "contactText": "If you have questions about this Privacy Policy, contact:"
+    },
+    "disclaimerPage": {
+      "title": "Disclaimer",
+      "intro": "W3Cay is a curated directory of interesting websites. We do not own, control, or endorse the content of external sites linked on W3Cay.",
+      "thirdTitle": "No Responsibility for Third‑Party Content",
+      "thirdText": "All external links are provided for convenience and exploration. We do not guarantee the accuracy, legality, or availability of any external site.",
+      "fairTitle": "Fair Use & Attribution",
+      "fairText": "Trademarks, logos, and images belong to their respective owners. Any use is for identification, review, or commentary purposes.",
+      "adviceTitle": "No Professional Advice",
+      "adviceText": "Content on W3Cay is for informational and entertainment purposes only and should not be considered professional advice.",
+      "contactTitle": "Contact",
+      "contactText": "If you believe your rights are infringed or content is inappropriate, please email:"
+    },
+    "submit": {
+      "title": "Recommend a Website",
+      "tagline": "Share a cool site. We will review and curate.",
+      "urlLabel": "Website URL",
+      "urlPlaceholder": "https://example.com",
+      "urlInvalid": "Please enter a valid HTTPS URL",
+      "siteTitleLabel": "Title (optional)",
+      "siteTitlePlaceholder": "Website title (English)",
+      "submitBtn": "Submit",
+      "saved": "Saved",
+      "successTitle": "Submission Successful!",
+      "successMessage": "Thank you for your submission! We will review your website as soon as possible. Once approved, your website will be displayed on W3Cay.",
+      "submissionInfo": "Submission Info:",
+      "confirm": "OK"
+    },
+    "about": {
+      "heroTitle": "Stay Curious, Share with Passion, Explore the Interesting Web",
+      "heroDesc": "This is the belief behind my continuous creation. W3Cay focuses on discovering and sharing interesting websites, tools, games and AI experiences, bringing inspiration and joy to everyday life. Keep learning, embrace changes, and deliver value in a simple and beautiful way.",
+      "aboutTitle": "About This Site",
+      "aboutDesc": "Hi, I'm Cay. W3Cay is a joyful 'island of interests' dedicated to collecting and sharing unique websites, tools, mini games and AI experiences, helping you find a little inspiration and fun in daily life.",
+      "domainTitle": "Domain Origin",
+      "domainDesc": "\"w3cay\" combines \"w3\" (short for Weird Wonder Web) and \"cay\" (a small island). The internet is like a vast ocean full of interesting 'islands'. W3Cay hopes to connect them and share with explorers like you.",
+      "contactTitle": "Contact & Submit",
+      "contactEmailPrefix": "For collaboration, media, or partnership inquiries, email:",
+      "contactSubmitPrefix": "To recommend a website, go to",
+      "contactSubmitLink": "Submit",
+      "contactSubmitSuffix": ". We review regularly and curate the best.",
+      "outro": "Whether you're seeking inspiration, relaxing, or just want a laugh, we hope you find your own surprise on W3Cay's 'island of interests' 🏝️."
+    },
+    "notFound": {
+      "title": "Page Not Found",
+      "backHome": "Go To Home"
+    },
+    "contactPage": {
+      "title": "Contact Us",
+      "subtitle": "Get in touch with W3Cay",
+      "thank": "Thank you for visiting W3Cay! If you have any questions, suggestions, or cooperation intentions, feel free to reach out.",
+      "emailTitle": "Email",
+      "emailPrimary": "Primary: ",
+      "feedbackTitle": "Feedback",
+      "feedbackBullets1": "Broken links",
+      "feedbackBullets2": "Incorrect content",
+      "feedbackBullets3": "Recommend an interesting site",
+      "feedbackBullets4": "Feature suggestions",
+      "bizTitle": "Business",
+      "bizBullets1": "Developers",
+      "bizBullets2": "Creators",
+      "bizBullets3": "Advertisers",
+      "bizBullets4": "Partners",
+      "slaTitle": "Response Time",
+      "slaWeekday": "Weekdays: within 24 hours",
+      "slaWeekend": "Weekends: within 48 hours",
+      "slaHoliday": "Holidays: responses may be delayed",
+      "thanksEnd": "Thanks for your support and understanding!"
+    }
+  }
+}
