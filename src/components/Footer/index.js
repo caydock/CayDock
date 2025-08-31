@@ -117,8 +117,8 @@ const Footer = () => {
         <div className="text-center flex items-center gap-3 text-base sm:text-base">
           <span>
             {t('footer.madeWithBy')}{" "}
-            <a href="https://blog.w3cay.com" className="underline" target="_blank">
-              Cay
+            <a href="https://caydock.com" className="underline" target="_blank">
+              Cayden
             </a>
           </span>
           <button
