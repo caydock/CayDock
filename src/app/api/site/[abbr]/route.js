@@ -1,28 +1,8 @@
 import { getRequestContext } from '@cloudflare/next-on-pages'
 import { sites as fallbackSites } from '@/src/data/sites'
+import { normalizeRowToSite } from '@/src/utils/siteUtils'
 
 export const runtime = 'edge'
-
-function normalizeRowToSite(row) {
-  if (!row) return null
-  const id = row.id || row.slug || row.abbrlink || row.link || row.permalink
-  const url = row.link || row.permalink
-  const titleEn = row.title_en || row.title || ''
-  const titleZh = row.title_zh || row.title || ''
-  const descEn = row.desc_en || row.description || row.sub_title || ''
-  const descZh = row.desc_zh || row.description || row.sub_title || ''
-  return {
-    id,
-    url,
-    title: { en: titleEn },
-
-    icon: row.icon || null,
-    slug: row.slug || null,
-    abbrlink: row.abbrlink || null,
-    permalink: row.permalink || null,
-    date: row.date || null,
-  }
-}
 
 export async function GET(_req, ctx) {
   const raw = (await ctx?.params)?.abbr
