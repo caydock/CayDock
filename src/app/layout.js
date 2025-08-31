@@ -8,6 +8,7 @@ import { getServerTranslation } from "@/src/i18n";
 import { headers, cookies } from "next/headers";
 import Script from "next/script";
 import { LanguageProvider } from "@/src/components/i18n/LanguageProvider";
+import { shouldEnableAdSense } from "@/src/utils/env";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -34,7 +35,7 @@ export async function generateMetadata() {
   return {
     metadataBase: base,
     title: {
-      template: `%s | W3Cay`,
+      template: '%s | W3Cay',
       default: tdk.home.title,
     },
     description: tdk.home.description || siteMetadata.description,
@@ -100,14 +101,16 @@ export default async function RootLayout({ children }) {
         </LanguageProvider>
         <Analytics />
         
-        {/* Google AdSense 脚本 */}
-        <Script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2011896129037768"
-          crossOrigin="anonymous"
-          strategy="beforeInteractive"
-          id="google-adsense"
-        />
+        {/* Google AdSense 脚本（仅在生产环境） */}
+        {shouldEnableAdSense && (
+          <Script
+            async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2011896129037768"
+            crossOrigin="anonymous"
+            strategy="beforeInteractive"
+            id="google-adsense"
+          />
+        )}
       </body>
     </html>
   );

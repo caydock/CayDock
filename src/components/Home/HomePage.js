@@ -87,8 +87,8 @@ export default function HomePage({ initialLanguage = 'en', searchParams = {}, in
               clearInterval(countdownInterval)
               
               if (site.url) {
-                // 发送 Umami 事件统计直接访问
-                if (typeof window !== 'undefined' && window.umami) {
+                // 发送 Umami 事件统计直接访问（仅在生产环境）
+                if (typeof window !== 'undefined' && window.umami && shouldEnableAnalytics) {
                   const siteTitle = site.title_en || site.title || 'Unknown'
                   window.umami.track(`direct_access`)
                 }
@@ -139,8 +139,8 @@ export default function HomePage({ initialLanguage = 'en', searchParams = {}, in
           clearInterval(countdownInterval)
           
           if (initialSite.url) {
-            // 发送 Umami 事件统计直接访问
-            if (typeof window !== 'undefined' && window.umami) {
+            // 发送 Umami 事件统计直接访问（仅在生产环境）
+            if (typeof window !== 'undefined' && window.umami && shouldEnableAnalytics) {
               const siteTitle = initialSite.title_en || initialSite.title || 'Unknown'
               window.umami.track(`direct_access`)
             }
@@ -188,8 +188,8 @@ export default function HomePage({ initialLanguage = 'en', searchParams = {}, in
     // 处理开始探索按钮点击
   const handleStartExploring = async () => {
     if (!isAnimating) {
-      // 发送 Umami 事件统计点击次数
-      if (typeof window !== 'undefined' && window.umami) {
+      // 发送 Umami 事件统计点击次数（仅在生产环境）
+      if (typeof window !== 'undefined' && window.umami && shouldEnableAnalytics) {
         window.umami.track('start_exploring_click')
       }
       
@@ -243,8 +243,8 @@ export default function HomePage({ initialLanguage = 'en', searchParams = {}, in
         // 显示推荐网站信息后跳转到真实网站
         setTimeout(() => {
           if (newSite && newSite.url) {
-            // 发送 Umami 事件统计网站跳转
-            if (typeof window !== 'undefined' && window.umami) {
+            // 发送 Umami 事件统计网站跳转（仅在生产环境）
+            if (typeof window !== 'undefined' && window.umami && shouldEnableAnalytics) {
               const siteTitle = newSite.title?.en || newSite.title?.zh || 'Unknown'
               window.umami.track('website_redirect')
             }
