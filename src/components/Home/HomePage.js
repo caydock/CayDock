@@ -5,6 +5,8 @@ import logo from "@/public/about-logo.webp"
 
 import { useLanguage } from '@/src/components/i18n/LanguageProvider'
 import { useState, useEffect } from 'react'
+import { shouldEnableAnalytics } from '@/src/utils/env'
+import { sites } from '@/src/data/sites'
 
 import { motion } from 'framer-motion'
 import { useRouter } from 'next/navigation'
