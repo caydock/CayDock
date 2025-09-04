@@ -22,7 +22,7 @@ const blog = s
     isPublished: s.boolean().default(true),
     author: s.string(),
     tags: s.array(s.string()),
-    body: s.mdx(),
+    body: s.markdown(),
     toc: s.toc(),
     slug: s.string(),
   })
@@ -61,6 +61,9 @@ export default defineConfig({
       rehypeSlug,
       [rehypeAutolinkHeadings, { behavior: "append" }],
       [rehypePrettyCode, codeOptions],
-    ]
+    ],
+    // 生成 HTML 而不是 JavaScript 代码
+    compile: false,
+    outputFormat: 'html'
   }
 })
