@@ -118,7 +118,7 @@ const Footer = () => {
           <span>
             {t('footer.madeWithBy')}{" "}
             <a href="https://caydock.com" className="underline" target="_blank">
-              Cayden
+              CayDock
             </a>
           </span>
           <button
