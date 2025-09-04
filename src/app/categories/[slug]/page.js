@@ -36,12 +36,10 @@ export async function generateMetadata({ params }) {
       description: `Learn web development through our collection of free, practical blog posts.`,
     };
   } else {
+    const categoryTitle = categorySlug.replaceAll("-", " ").replace(/\b\w/g, l => l.toUpperCase());
     return {
-      title: `${categorySlug.replaceAll("-", " ")} Blog Posts`,
-      description: `Learn about ${categorySlug.replaceAll(
-        "-",
-        " "
-      )} through our collection of free, practical blog posts.`,
+      title: `${categoryTitle} Blog Posts`,
+      description: `Learn about ${categoryTitle} through our collection of free, practical blog posts.`,
     };
   }
 }
