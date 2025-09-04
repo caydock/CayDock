@@ -1,4 +1,4 @@
-import * as runtime from 'react/jsx-runtime'
+import { useMemo } from 'react'
 import Image from 'next/image'
 
 // 自定义 Image 组件，处理字符串类型的 width 和 height
@@ -7,6 +7,7 @@ const CustomImage = (props) => {
   return (
     <Image
       {...rest}
+      alt={rest.alt || ''}
       width={typeof width === 'string' ? parseInt(width) : width}
       height={typeof height === 'string' ? parseInt(height) : height}
     />
@@ -43,13 +44,32 @@ const sharedComponents = {
   a: CustomLink
 }
 
-const useMDXComponent = (code) => {
-  const fn = new Function(code)
-  return fn({ ...runtime }).default
-}
+const MDXContent = ({ code, components, ...props }) => {
+  // 使用 useMemo 来缓存组件，避免重复创建
+  const Component = useMemo(() => {
+    // 如果 code 是一个函数，直接使用
+    if (typeof code === 'function') {
+      return code;
+    }
+    
+    // 如果 code 是字符串，直接渲染为 HTML
+    if (typeof code === 'string') {
+      const HtmlRenderer = () => (
+        <div 
+          className="prose prose-lg max-w-none"
+          dangerouslySetInnerHTML={{ __html: code }}
+        />
+      );
+      HtmlRenderer.displayName = 'HtmlRenderer';
+      return HtmlRenderer;
+    }
+    
+    // 默认返回空组件
+    const EmptyComponent = () => null;
+    EmptyComponent.displayName = 'EmptyComponent';
+    return EmptyComponent;
+  }, [code]);
 
- const MDXContent = ({ code, components, ...props }) => {
-  const Component = useMDXComponent(code)
   return <Component components={{ ...sharedComponents, ...components }} {...props} />
 }
 
