@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>数据结构 on CayDock</title>
+    <link>http://localhost:1313/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</link>
+    <description>Recent content in 数据结构 on CayDock</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <managingEditor>cayden@caydock.com (Cayden)</managingEditor>
+    <webMaster>cayden@caydock.com (Cayden)</webMaster>
+    <copyright>© 2025 Cayden</copyright>
+    <lastBuildDate>Sat, 15 Dec 2018 16:58:09 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Set集合与Map集合比较</title>
+      <link>http://localhost:1313/posts/set%E9%9B%86%E5%90%88%E4%B8%8Emap%E9%9B%86%E5%90%88%E6%AF%94%E8%BE%83/</link>
+      <pubDate>Sat, 15 Dec 2018 16:58:09 +0800</pubDate>
+      <author>cayden@caydock.com (Cayden)</author>
+      <guid>http://localhost:1313/posts/set%E9%9B%86%E5%90%88%E4%B8%8Emap%E9%9B%86%E5%90%88%E6%AF%94%E8%BE%83/</guid>
+      <description></description>
+      
+    </item>
+    
+  </channel>
+</rss>

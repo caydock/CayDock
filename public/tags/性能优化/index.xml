@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>性能优化 on CayDock</title>
+    <link>http://localhost:1313/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/</link>
+    <description>Recent content in 性能优化 on CayDock</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <managingEditor>cayden@caydock.com (Cayden)</managingEditor>
+    <webMaster>cayden@caydock.com (Cayden)</webMaster>
+    <copyright>© 2025 Cayden</copyright>
+    <lastBuildDate>Sat, 01 Sep 2018 15:57:23 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Web加载速度优化清单</title>
+      <link>http://localhost:1313/posts/web%E5%8A%A0%E8%BD%BD%E9%80%9F%E5%BA%A6%E4%BC%98%E5%8C%96%E6%B8%85%E5%8D%95/</link>
+      <pubDate>Sat, 01 Sep 2018 15:57:23 +0800</pubDate>
+      <author>cayden@caydock.com (Cayden)</author>
+      <guid>http://localhost:1313/posts/web%E5%8A%A0%E8%BD%BD%E9%80%9F%E5%BA%A6%E4%BC%98%E5%8C%96%E6%B8%85%E5%8D%95/</guid>
+      <description></description>
+      
+    </item>
+    
+  </channel>
+</rss>

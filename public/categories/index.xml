@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on CayDock</title>
+    <link>http://localhost:1313/categories/</link>
+    <description>Recent content in Categories on CayDock</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <managingEditor>cayden@caydock.com (Cayden)</managingEditor>
+    <webMaster>cayden@caydock.com (Cayden)</webMaster>
+    <copyright>© 2025 Cayden</copyright>
+    <lastBuildDate>Sat, 15 Dec 2018 16:58:09 +0800</lastBuildDate><atom:link href="http://localhost:1313/categories/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>前端开发</title>
+      <link>http://localhost:1313/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/</link>
+      <pubDate>Sat, 15 Dec 2018 16:58:09 +0800</pubDate>
+      <author>cayden@caydock.com (Cayden)</author>
+      <guid>http://localhost:1313/categories/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>个人成长</title>
+      <link>http://localhost:1313/categories/%E4%B8%AA%E4%BA%BA%E6%88%90%E9%95%BF/</link>
+      <pubDate>Wed, 28 Dec 2016 15:32:00 +0800</pubDate>
+      <author>cayden@caydock.com (Cayden)</author>
+      <guid>http://localhost:1313/categories/%E4%B8%AA%E4%BA%BA%E6%88%90%E9%95%BF/</guid>
+      <description></description>
+      
+    </item>
+    
+  </channel>
+</rss>

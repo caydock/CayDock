@@ -1,0 +1,29 @@
+disabled = false
+languageCode = "zh"
+languageName = "中文"
+weight = 1
+title = "CayDock"
+
+[params]
+  displayName = "中文"
+  isoCode = "zh"
+  rtl = false
+  dateFormat = "2006年1月2日"
+  description = "CayDock is my personal product navigation website, recording the challenges, experiences, and growth I encountered in independent development, hoping to provide some inspiration and help for other independent developers"
+  # logo = "img/logo.png"
+  # secondaryLogo = "img/secondary-logo.png"
+  # description = "My awesome website"
+  # copyright = "Copy, _right?_ :thinking_face:"
+
+[params.author]
+  name = "Cayden"
+  email = "cayden@caydock.com"
+  image = "/images/cay.webp"
+  imageQuality = 96
+  headline = "I am Cay"
+  bio = "My goal is to be a free independent developer, sharing my thoughts, experiences, and growth journey here"
+  links = [
+    { email = "mailto:w3cay@hotmail.com" },
+    { github = "https://github.com/w3cay" },
+    { x-twitter = "https://x.com/caydock" },
+  ]
