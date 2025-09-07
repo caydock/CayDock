@@ -3,7 +3,7 @@ title: "Vibe Coding 一个二维码生成工具"
 date: 2025-08-03 15:17:33
 draft: false
 featureimage: "/images/bffe4d37/cover.jpg"
-lang: zh-CN
+lang: zh
 translationKey: "vibe-coding-qr-generator"
 ---
 

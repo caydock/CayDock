@@ -2,7 +2,7 @@
 title: "this的指向问题"
 date: 2015-08-25 17:53:55
 draft: false
-lang: zh-CN
+lang: zh
 translationKey: "javascript-this-binding"
 ---
 

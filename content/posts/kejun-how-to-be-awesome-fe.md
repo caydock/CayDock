@@ -2,7 +2,7 @@
 title: "和团队谈个人成长-克军 [转载]"
 date: 2019-11-22 22:29:11
 draft: false
-lang: zh-CN
+lang: zh
 translationKey: "kejun-personal-growth"
 ---
 
