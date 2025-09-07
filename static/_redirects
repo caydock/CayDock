@@ -1,0 +1,62 @@
+# Cloudflare Pages 重定向规则
+# 参考: https://developers.cloudflare.com/pages/platform/redirects/
+
+# 处理旧的URL格式重定向
+/posts/* /posts/:splat/ 301
+
+# 处理多语言重定向
+/zh/posts/* /zh/posts/:splat/ 301
+/en/posts/* /en/posts/:splat/ 301
+
+# 处理分类和标签页面的重定向
+/categories/* /categories/:splat/ 301
+/tags/* /tags/:splat/ 301
+/authors/* /authors/:splat/ 301
+/series/* /series/:splat/ 301
+
+# 处理多语言分类和标签
+/zh/categories/* /zh/categories/:splat/ 301
+/zh/tags/* /zh/tags/:splat/ 301
+/zh/authors/* /zh/authors/:splat/ 301
+/zh/series/* /zh/series/:splat/ 301
+
+/en/categories/* /en/categories/:splat/ 301
+/en/tags/* /en/tags/:splat/ 301
+/en/authors/* /en/authors/:splat/ 301
+/en/series/* /en/series/:splat/ 301
+
+# 处理页面重定向
+/pages/* /pages/:splat/ 301
+/zh/pages/* /zh/pages/:splat/ 301
+/en/pages/* /en/pages/:splat/ 301
+
+# 处理分页重定向
+/posts/page/* /posts/page/:splat/ 301
+/categories/*/page/* /categories/:splat/page/:splat2/ 301
+/tags/*/page/* /tags/:splat/page/:splat2/ 301
+
+# 处理多语言分页
+/zh/posts/page/* /zh/posts/page/:splat/ 301
+/zh/categories/*/page/* /zh/categories/:splat/page/:splat2/ 301
+/zh/tags/*/page/* /zh/tags/:splat/page/:splat2/ 301
+
+/en/posts/page/* /en/posts/page/:splat/ 301
+/en/categories/*/page/* /en/categories/:splat/page/:splat2/ 301
+/en/tags/*/page/* /en/tags/:splat/page/:splat2/ 301
+
+# 处理RSS和sitemap
+/sitemap.xml /sitemap.xml 200
+/zh/sitemap.xml /zh/sitemap.xml 200
+/en/sitemap.xml /en/sitemap.xml 200
+
+# 处理robots.txt
+/robots.txt /robots.txt 200
+
+# 处理favicon和静态资源
+/favicon.ico /favicon.ico 200
+/android-chrome-*.png /android-chrome-192x192.png 200
+/apple-touch-icon.png /apple-touch-icon.png 200
+/site.webmanifest /site.webmanifest 200
+
+# 处理404页面
+/* /404.html 404

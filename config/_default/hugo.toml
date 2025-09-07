@@ -79,3 +79,30 @@ enableEmoji = true
 # URL重写规则 - 恢复原来的 posts/ 格式
 [permalinks]
   posts = "/posts/:slug/"
+
+# Cloudflare Pages 优化配置
+[build]
+  writeStats = true
+
+# 压缩和优化
+[minify]
+  disableXML = false
+  minifyOutput = true
+
+# 缓存控制（CF Pages 会自动处理）
+[caches]
+  [caches.getjson]
+    dir = ":cacheDir"
+    maxAge = -1
+  [caches.getcsv]
+    dir = ":cacheDir"
+    maxAge = -1
+  [caches.images]
+    dir = ":resourceDir/_gen"
+    maxAge = -1
+  [caches.assets]
+    dir = ":resourceDir/_gen"
+    maxAge = -1
+  [caches.modules]
+    dir = ":cacheDir/modules"
+    maxAge = -1

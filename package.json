@@ -1,0 +1,40 @@
+{
+  "name": "caydock-hugo",
+  "version": "1.0.0",
+  "description": "CayDock Hugo site - Personal project showcase website",
+  "private": true,
+  "scripts": {
+    "build": "hugo --minify",
+    "build:preview": "hugo --minify --baseURL /",
+    "dev": "hugo server -D",
+    "dev:preview": "hugo server -D --baseURL /",
+    "clean": "hugo --cleanDestinationDir",
+    "deploy": "wrangler pages deploy public",
+    "deploy:preview": "wrangler pages deploy public --compatibility-date=2024-01-01",
+    "new:post": "hugo new posts/",
+    "new:page": "hugo new pages/",
+    "lint": "hugo --quiet --templateMetrics --templateMetricsHints",
+    "check": "hugo --quiet --templateMetrics --templateMetricsHints --gc"
+  },
+  "keywords": [
+    "hugo",
+    "static-site",
+    "blog",
+    "portfolio",
+    "caydock"
+  ],
+  "author": "Cayden",
+  "license": "MIT",
+  "devDependencies": {
+    "@cloudflare/wrangler": "^3.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "hugo": ">=0.121.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/w3cay/CayDock-Hugo.git"
+  },
+  "homepage": "https://caydock.com"
+}

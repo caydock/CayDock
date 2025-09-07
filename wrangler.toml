@@ -1,0 +1,28 @@
+name = "caydock-hugo"
+compatibility_date = "2024-01-01"
+
+[env.production]
+name = "caydock-hugo"
+
+[env.preview]
+name = "caydock-hugo-preview"
+
+# 构建配置
+[build]
+command = "hugo --minify"
+publish = "public"
+
+# 环境变量
+[vars]
+HUGO_VERSION = "0.121.0"
+NODE_VERSION = "18"
+
+# 重定向规则
+[[redirects]]
+from = "/posts/*"
+to = "/posts/:splat/"
+status = 301
+
+# 自定义域名（如果需要）
+# [env.production.vars]
+# CUSTOM_DOMAIN = "caydock.com"

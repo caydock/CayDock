@@ -1,0 +1,40 @@
+# Cloudflare Pages 生产环境配置
+# 继承默认配置并添加生产环境特定设置
+
+# 确保在生产环境中使用正确的baseURL
+baseURL = "https://caydock.com/"
+
+# 生产环境优化
+[build]
+  writeStats = true
+
+# 启用压缩
+[minify]
+  disableXML = false
+  minifyOutput = true
+
+# 生产环境缓存配置
+[caches]
+  [caches.getjson]
+    dir = ":cacheDir"
+    maxAge = -1
+  [caches.getcsv]
+    dir = ":cacheDir"
+    maxAge = -1
+  [caches.images]
+    dir = ":resourceDir/_gen"
+    maxAge = -1
+  [caches.assets]
+    dir = ":resourceDir/_gen"
+    maxAge = -1
+  [caches.modules]
+    dir = ":cacheDir/modules"
+    maxAge = -1
+
+# 生产环境输出配置
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+  page = ["HTML"]
+  section = ["HTML", "RSS"]
+  taxonomy = ["HTML", "RSS"]
+  taxonomyTerm = ["HTML", "RSS"]
