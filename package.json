@@ -25,9 +25,7 @@
   ],
   "author": "Cayden",
   "license": "MIT",
-  "devDependencies": {
-    "@cloudflare/wrangler": "^3.0.0"
-  },
+  "devDependencies": {},
   "engines": {
     "node": ">=18.0.0",
     "hugo": ">=0.121.0"
