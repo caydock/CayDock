@@ -56,3 +56,4 @@ CayDock-Hugo/
 - `params.toml` - 主题参数
 - `languages.zh.toml` - 中文语言配置
 - `menus.zh.toml` - 中文菜单配置
+

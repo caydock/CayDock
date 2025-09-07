@@ -1,0 +1,2 @@
+pagination:
+  page: "第{{ .PageNumber }}页"
