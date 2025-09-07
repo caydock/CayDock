@@ -8,7 +8,8 @@ categories: ["前端开发"]
 featured: true
 featuredImage: "cover-react.svg"
 toc: true
-lang: zh
+lang: zh-CN
+translationKey: "react-city-selector-component"
 ---
 
 

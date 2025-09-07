@@ -2,7 +2,8 @@
 title: "Web前端测试和监控的探索和实践"
 date: 2016-11-08 15:52:29
 draft: false
-lang: zh
+lang: zh-CN
+translationKey: "web-frontend-testing-monitoring"
 ---
 
 

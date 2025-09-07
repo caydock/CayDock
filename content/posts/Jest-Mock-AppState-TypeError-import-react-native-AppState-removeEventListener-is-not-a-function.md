@@ -2,7 +2,8 @@
 title: "Jest Mock AppState TypeError"
 date: 2023-09-23 11:18:21
 draft: false
-lang: zh
+lang: zh-CN
+translationKey: "jest-mock-appstate-typeerror"
 ---
 
 

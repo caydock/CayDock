@@ -305,3 +305,48 @@
     border-color: rgba(99, 102, 241, 0.3);
   }
 }
+
+/* 博客卡片封面优化 */
+.thumbnail_card {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: all 0.3s ease;
+}
+
+.thumbnail_card:hover {
+  transform: scale(1.02);
+}
+
+/* 文字截断样式 */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* 博客卡片整体优化 */
+.group-hover-card {
+  transition: all 0.3s ease;
+}
+
+.group-hover-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* 移动端博客卡片优化 */
+@media (max-width: 768px) {
+  .thumbnail_card {
+    height: 12rem !important;
+  }
+  
+  .group-hover-card:hover {
+    transform: translateY(-2px);
+  }
+  
+  .line-clamp-2 {
+    -webkit-line-clamp: 3;
+  }
+}

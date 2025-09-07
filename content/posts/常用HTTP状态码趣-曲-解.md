@@ -2,7 +2,7 @@
 title: "常用HTTP状态码趣(曲)解"
 date: 2018-07-08 19:56:00
 draft: false
-lang: zh
+lang: zh-CN
 ---
 
 

@@ -1,42 +1,43 @@
 <footer id="site-footer" class="py-10 print:hidden">
-  {{/* Footer menu */}}
-  {{ if .Site.Params.footer.showMenu | default true }}
-    {{ if .Site.Menus.footer }}
-      {{ $onlyIcon := true }}
-      {{ range .Site.Menus.footer }}
-        {{ if .Name }}
-          {{ $onlyIcon = false }}
-          {{ break }}
-        {{ end }}
-      {{ end }}
-      {{ $navClass := printf "flex flex-row pb-4 text-base font-medium text-neutral-500 dark:text-neutral-400 %s" (cond $onlyIcon "overflow-x-auto py-2" "") }}
-      {{ $ulClass := printf "flex list-none %s" (cond $onlyIcon "flex-row" "flex-col sm:flex-row") }}
-      {{ $liClass := printf "flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0 %s" (cond $onlyIcon "ltr:mr-4 rtl:ml-4" "") }}
-      <nav class="{{ $navClass }}">
-        <ul class="{{ $ulClass }}">
-          {{ range .Site.Menus.footer }}
-            <li class=" {{ $liClass }}">
-              <a
-                class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center"
-                href="{{ .URL }}"
-                title="{{ .Title }}">
-                {{ if .Pre }}
-                  <span {{ if and .Pre .Name }}class="mr-1"{{ end }}>
-                    {{ partial "icon.html" .Pre }}
-                  </span>
-                {{ end }}
-                {{ .Name | markdownify }}
-              </a>
-            </li>
+  <div class="flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-0">
+    {{/* Footer menu - mobile first, then copyright */}}
+    {{ if .Site.Params.footer.showMenu | default true }}
+      {{ if .Site.Menus.footer }}
+        {{ $onlyIcon := true }}
+        {{ range .Site.Menus.footer }}
+          {{ if .Name }}
+            {{ $onlyIcon = false }}
+            {{ break }}
           {{ end }}
-        </ul>
-      </nav>
+        {{ end }}
+        {{ $navClass := printf "flex flex-row text-base font-medium text-neutral-500 dark:text-neutral-400 %s" (cond $onlyIcon "overflow-x-auto py-2" "") }}
+        {{ $ulClass := printf "flex list-none flex-row gap-1 sm:gap-0 justify-center sm:justify-start" (cond $onlyIcon "flex-row" "") }}
+        {{ $liClass := printf "flex justify-center sm:justify-start mb-0 ltr:mr-2 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:ml-2 rtl:sm:ml-7 rtl:sm:last:ml-0 %s" (cond $onlyIcon "ltr:mr-4 rtl:ml-4" "") }}
+        <nav class="{{ $navClass }}">
+          <ul class="{{ $ulClass }}">
+            {{ range .Site.Menus.footer }}
+              <li class=" {{ $liClass }}">
+                <a
+                  class="text-sm decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center justify-center sm:justify-start px-2 py-2 sm:px-3 rounded-lg hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-colors min-h-[44px] whitespace-nowrap"
+                  href="{{ .URL }}"
+                  title="{{ .Title }}">
+                  {{ if .Pre }}
+                    <span {{ if and .Pre .Name }}class="mr-0 sm:mr-2"{{ end }}>
+                      {{ partial "icon.html" .Pre }}
+                    </span>
+                  {{ end }}
+                  <span class="hidden sm:inline">{{ .Name | markdownify }}</span>
+                </a>
+              </li>
+            {{ end }}
+          </ul>
+        </nav>
+      {{ end }}
     {{ end }}
-  {{ end }}
-  <div class="flex items-center justify-between">
+
     {{/* Copyright */}}
     {{ if .Site.Params.footer.showCopyright | default true }}
-      <p class="text-sm text-neutral-500 dark:text-neutral-400">
+      <p class="text-sm text-neutral-500 dark:text-neutral-400 text-center sm:text-left">
         {{- with replace .Site.Params.copyright "{ year }" now.Year }}
           {{ . | markdownify }}
         {{- else }}
@@ -49,7 +50,7 @@
 
     {{/* Theme attribution */}}
     {{ if .Site.Params.footer.showThemeAttribution | default true }}
-      <p class="text-xs text-neutral-500 dark:text-neutral-400">
+      <p class="text-xs text-neutral-500 dark:text-neutral-400 text-center sm:text-right">
         {{ $hugo := printf `<a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
           href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a>`
         }}

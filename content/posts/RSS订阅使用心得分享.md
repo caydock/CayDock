@@ -2,7 +2,8 @@
 title: "RSS订阅使用心得分享"
 date: 2022-02-19 14:40:16
 draft: false
-lang: zh
+lang: zh-CN
+translationKey: "rss-subscription-experience"
 ---
 
 

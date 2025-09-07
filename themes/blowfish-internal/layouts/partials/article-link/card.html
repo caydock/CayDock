@@ -58,6 +58,10 @@
         {{ end }}
       {{ end }}
     {{- else -}}
+      {{/* 使用默认封面图片 */}}
+      {{ with .Site.Params.defaultFeaturedImage }}
+        <div class="thumbnail_card nozoom w-full h-48" style="background-image:url({{ . }}); background-size: cover; background-position: center; background-repeat: no-repeat;"></div>
+      {{ end }}
       {{- with $.Site.Params.images }}
         <meta property="og:image" content="{{ index . 0 | absURL }}">
       {{ end -}}

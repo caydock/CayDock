@@ -4,7 +4,7 @@ subtitle: "Share some projects and works I developed"
 
 items:
   - title: "W3Cay"
-    description: "W3Cay is an interesting website collection platform that collects various interesting websites"
+    description: "W3Cay is an interesting website collection platform"
     link: "https://w3cay.com"
     icon: "/images/w3cay-logo.webp"
     
