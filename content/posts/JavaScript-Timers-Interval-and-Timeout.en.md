@@ -2,7 +2,7 @@
 title: "JavaScript Timers - Interval and Timeout"
 date: 2015-09-21 17:53:55
 draft: false
-lang: en
+language: en
 translationKey: "javascript-timers-interval-timeout"
 ---
 

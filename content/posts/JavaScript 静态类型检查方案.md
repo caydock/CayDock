@@ -2,7 +2,7 @@
 title: "' JavaScript 静态类型检查方案'"
 date: 2017-06-10T20:50:00+08:00
 draft: false
-lang: zh
+language: zh-CN
 translationKey: "javascript-static-type-checking"
 ---
 

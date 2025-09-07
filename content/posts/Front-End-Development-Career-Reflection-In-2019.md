@@ -2,7 +2,7 @@
 title: "成为一名优秀的前端工程师"
 date: 2019-11-23 22:29:33
 draft: false
-lang: zh
+language: zh-CN
 translationKey: "becoming-excellent-frontend-engineer"
 ---
 

@@ -2,7 +2,7 @@
 title: "Async/Await Advantages and Disadvantages [Translation]"
 date: 2017-08-05 17:16:51
 draft: false
-lang: en
+language: en
 translationKey: "async-await-advantages-disadvantages"
 ---
 

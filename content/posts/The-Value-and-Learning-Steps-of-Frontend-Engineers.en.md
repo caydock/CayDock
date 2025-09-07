@@ -2,7 +2,7 @@
 title: "The Value and Learning Steps of Frontend Engineers"
 date: 2022-03-25 20:06:21
 draft: false
-lang: en
+language: en
 translationKey: "frontend-engineer-value"
 ---
 

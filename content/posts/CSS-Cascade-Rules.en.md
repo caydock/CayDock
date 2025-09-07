@@ -2,7 +2,7 @@
 title: "CSS Cascade Rules"
 date: 2015-09-21 17:53:55
 draft: false
-lang: en
+language: en
 translationKey: "css-cascade-rules"
 ---
 

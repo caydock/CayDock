@@ -2,7 +2,7 @@
 title: "CSS样式表的层叠规则"
 date: 2015-09-21 17:53:55
 draft: false
-lang: zh
+language: zh-CN
 translationKey: "css-cascade-rules"
 ---
 

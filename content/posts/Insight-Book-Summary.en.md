@@ -2,7 +2,7 @@
 title: "Insight Book Summary"
 date: 2020-02-07 00:05:45
 draft: false
-lang: en
+language: en
 translationKey: "insight-book-summary"
 ---
 

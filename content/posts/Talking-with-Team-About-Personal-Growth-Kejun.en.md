@@ -2,7 +2,7 @@
 title: "Talking with Team About Personal Growth - Kejun [Repost]"
 date: 2019-11-22 22:29:11
 draft: false
-lang: en
+language: en
 translationKey: "kejun-personal-growth"
 ---
 

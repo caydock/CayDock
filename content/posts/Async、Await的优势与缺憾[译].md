@@ -2,7 +2,7 @@
 title: "'Async/Await的优势与缺憾[译]'"
 date: 2017-08-05 17:16:51
 draft: false
-lang: zh
+language: zh-CN
 translationKey: "async-await-advantages-disadvantages"
 ---
 

@@ -2,7 +2,7 @@
 title: "My Git Common Commands Collection"
 date: 2015-10-11 15:52:30
 draft: false
-lang: en
+language: en
 translationKey: "git-common-commands"
 ---
 

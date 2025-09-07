@@ -2,7 +2,7 @@
 title: "基于Express+Vue+Webpack的聊天室项目搭建"
 date: 2016-09-20 18:26:32
 draft: false
-lang: zh
+language: zh-CN
 ---
 
 

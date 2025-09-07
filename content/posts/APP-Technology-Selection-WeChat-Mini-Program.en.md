@@ -2,7 +2,7 @@
 title: "APP Technology Selection - WeChat Mini Program"
 date: 2018-07-01 23:24:29
 draft: false
-lang: en
+language: en
 translationKey: "app-technology-selection-mini-program"
 ---
 

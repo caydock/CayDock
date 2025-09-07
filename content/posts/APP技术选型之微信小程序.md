@@ -2,7 +2,7 @@
 title: "APP技术选型之微信小程序"
 date: 2018-07-01 23:24:29
 draft: false
-lang: zh
+language: zh-CN
 translationKey: "app-technology-selection-mini-program"
 ---
 

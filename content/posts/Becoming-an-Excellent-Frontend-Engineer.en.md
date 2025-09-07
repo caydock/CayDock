@@ -2,7 +2,7 @@
 title: "Becoming an Excellent Frontend Engineer"
 date: 2019-11-23 22:29:33
 draft: false
-lang: en
+language: en
 translationKey: "becoming-excellent-frontend-engineer"
 ---
 

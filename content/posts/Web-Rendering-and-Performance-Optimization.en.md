@@ -2,7 +2,7 @@
 title: "Web Rendering and Performance Optimization"
 date: 2018-06-23 16:21:35
 draft: false
-lang: en
+language: en
 translationKey: "web-rendering-performance-optimization"
 ---
 

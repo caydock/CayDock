@@ -2,7 +2,7 @@
 title: "我的Git常用命令整理"
 date: 2015-10-11 15:52:30
 draft: false
-lang: zh
+language: zh-CN
 translationKey: "git-common-commands"
 ---
 
