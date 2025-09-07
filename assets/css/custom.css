@@ -72,31 +72,29 @@
 }
 
 /* 深色模式适配 */
-@media (prefers-color-scheme: dark) {
-  .product-card-home {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.1);
-  }
-  
-  .product-card-home:hover {
-    border-color: rgba(59, 130, 246, 0.3);
-  }
-  
-  .product-title-home {
-    color: #f9fafb;
-  }
-  
-  .product-description-home {
-    color: #d1d5db;
-  }
-  
-  .product-link-home {
-    color: #60a5fa;
-  }
-  
-  .product-link-home:hover {
-    color: #93c5fd;
-  }
+.dark .product-card-home {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark .product-card-home:hover {
+  border-color: rgba(59, 130, 246, 0.3);
+}
+
+.dark .product-title-home {
+  color: #f9fafb;
+}
+
+.dark .product-description-home {
+  color: #d1d5db;
+}
+
+.dark .product-link-home {
+  color: #60a5fa;
+}
+
+.dark .product-link-home:hover {
+  color: #93c5fd;
 }
 
 /* 响应式设计 */

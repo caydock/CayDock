@@ -18,7 +18,7 @@ title = "CayDock"
   # copyright = "Copy, _right?_ :thinking_face:"
 
 [params.author]
-  name = "Cayden"
+  name = "CayDock"
   email = "contact@caydock.com"
   image = "images/cay.webp"
   imageQuality = 96
