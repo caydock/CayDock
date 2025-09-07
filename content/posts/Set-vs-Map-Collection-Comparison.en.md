@@ -7,7 +7,8 @@ tags: ["JavaScript", "Set", "Map", "data structures"]
 categories: ["Frontend Development"]
 featured: true
 featuredImage: "cover-js.svg"
-language: en
+lang: en
+translationKey: "set-vs-map-comparison"
 ---
 
 | Feature Comparison | Set| WeakSet | Map  | WeakMap 

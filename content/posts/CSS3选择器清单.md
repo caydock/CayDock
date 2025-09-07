@@ -7,7 +7,8 @@ tags: ["CSS", "CSS3", "选择器", "前端"]
 categories: ["前端开发"]
 featured: true
 featuredImage: "cover-css.svg"
-language: zh
+lang: zh
+translationKey: "css3-selector-checklist"
 ---
 
 

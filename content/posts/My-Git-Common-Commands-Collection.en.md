@@ -2,7 +2,8 @@
 title: "My Git Common Commands Collection"
 date: 2015-10-11 15:52:30
 draft: false
-language: en
+lang: en
+translationKey: "git-common-commands"
 ---
 
 Git version control (GitHub) plays a very important role in my actual development process, making the development process more efficient. Through Git, you can record every change in the project's code and "travel through time" to return to any past state. In development, I mainly use Git command line to commit each change and clone online projects. I feel that Git commands are very important, so today I'll summarize some Git commands I usually use.

@@ -7,7 +7,8 @@ tags: ["CSS", "CSS3", "selectors", "frontend"]
 categories: ["Frontend Development"]
 featured: true
 featuredImage: "cover-css.svg"
-language: en
+lang: en
+translationKey: "css3-selector-checklist"
 ---
 
 Selectors are a very important part of CSS. Using selectors can improve work efficiency when modifying stylesheets during development and make CSS writing structure clearer and simpler. CSS3 has added some new selectors based on previous versions, so today I'll summarize the features and usage of CSS3 selectors.

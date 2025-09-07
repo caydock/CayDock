@@ -2,7 +2,8 @@
 title: "React Event Callback Function bind(this) Analysis"
 date: 2018-07-27 18:23:25
 draft: false
-language: en
+lang: en
+translationKey: "react-event-callback-bind-this"
 ---
 
 When using React (under ES6 Class syntax), I've always been puzzled by one thing: event binding. For example, event handlers for onClick and onChange must be written like this:

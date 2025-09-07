@@ -2,7 +2,7 @@
 title: "《见识》文摘"
 date: 2020-02-07 00:05:45
 draft: false
-language: zh
+lang: zh
 ---
 
 

@@ -7,7 +7,8 @@ tags: ["knowledge management", "learning methods", "technical growth", "tool rec
 categories: ["Personal Growth"]
 featured: true
 featuredImage: "cover-knowledge.svg"
-language: en
+lang: en
+translationKey: "personal-knowledge-management"
 ---
 
 > Life is finite, but knowledge is infinite. To pursue the infinite with the finite is dangerous. — Zhuangzi, "The Way of Life"

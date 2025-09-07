@@ -7,7 +7,8 @@ tags: ["JavaScript", "Set", "Map", "数据结构"]
 categories: ["前端开发"]
 featured: true
 featuredImage: "cover-js.svg"
-language: zh
+lang: zh
+translationKey: "set-vs-map-comparison"
 ---
 
 

@@ -7,7 +7,8 @@ tags: ["Web optimization", "performance optimization", "loading speed", "fronten
 categories: ["Frontend Development"]
 featured: true
 featuredImage: "cover-web.svg"
-language: en
+lang: en
+translationKey: "web-loading-speed-optimization"
 ---
 
 Web page loading speed is an important standard for measuring the quality of a web page. The abandonment rate of web pages increases with the increase of web page loading time. It is said that nearly half of users hope that web page loading time does not exceed 2s, and generally abandon the web page if it exceeds 3s. Time is life, who is willing to wait for no reason +1s, so today I'll organize how to speed up web pages specifically.
