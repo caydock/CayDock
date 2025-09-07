@@ -6,6 +6,11 @@ theme = "blowfish-internal"
 baseURL = "https://caydock.com/"
 defaultContentLanguage = "en"
 
+# Global TDK settings
+title = "CayDock"
+description = "CayDock is my personal project showcase website, recording the challenges, experiences, and growth I encountered in independent development and overseas ventures"
+keywords = ["CayDock", "independent development", "overseas", "independent developer", "independent developer overseas", "independent developer diary", "independent developer blog"]
+
 # pluralizeListTitles = "true" # hugo function useful for non-english languages, find out more in  https://gohugo.io/getting-started/configuration/#pluralizelisttitles
 
 enableRobotsTXT = true
@@ -67,3 +72,7 @@ enableEmoji = true
       name = 'fragmentrefs'
       type = 'fragments'
       weight = 10
+
+# URL重写规则 - 恢复原来的 posts/ 格式
+[permalinks]
+  posts = "/posts/:slug/"
