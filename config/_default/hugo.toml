@@ -5,6 +5,9 @@
 theme = "blowfish-internal"
 baseURL = "https://caydock.com/"
 defaultContentLanguage = "en"
+defaultContentLanguageInSubdir = false
+disableLanguages = []
+disablePathToLower = false
 
 # Global TDK settings
 title = "CayDock"

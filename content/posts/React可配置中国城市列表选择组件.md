@@ -8,6 +8,7 @@ categories: ["前端开发"]
 featured: true
 featuredImage: "cover-react.svg"
 toc: true
+language: zh
 ---
 
 
@@ -19,7 +20,6 @@ toc: true
 
 ![](https://tva1.sinaimg.cn/large/008i3skNgy1gz8ur1zrpvj30hh0vbabp.jpg)
 
-demo: https://blog.caydock.com/react-city-select/example/
 
 ## 安装
 ```

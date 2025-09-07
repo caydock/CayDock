@@ -12,6 +12,7 @@ title = "CayDock"
   description = "CayDock 是我的个人产品导航网站，记录了我在独立开发过程中遇到的挑战、经验和成长，希望能为其他独立开发者提供一些启发和帮助"
   keywords = ["CayDock", "独立开发", "独立开发者", "独立开发者日记", "独立开发者博客", "出海开发"]
   pageTitle = "CayDock - 我的独立开发者出海日记"
+  mainSections = ["posts"]
   # logo = "img/logo.png"
   # secondaryLogo = "img/secondary-logo.png"
   # description = "My awesome website"

@@ -2,6 +2,7 @@
 title: "React事件回调函数bind(this)解析"
 date: 2018-07-27 18:23:25
 draft: false
+language: zh
 ---
 
 
