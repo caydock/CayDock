@@ -1,0 +1,19 @@
+# Product showcase configuration
+title: "My Products"
+subtitle: "Share some projects and works I developed"
+
+items:
+  - title: "W3Cay"
+    description: "W3Cay is an interesting website collection platform that collects various interesting websites"
+    link: "https://w3cay.com"
+    icon: "/images/w3cay-logo.webp"
+    
+  - title: "QrCay"
+    description: "QrCay is a QR code generation and management tool"
+    link: "https://qrcay.com"
+    icon: "https://qrcay.com/vite.svg"
+    
+  - title: "TimeCay"
+    description: "Time recording tool, supports countdown, anniversaries, etc."
+    link: "https://timecay.com"
+    icon: "https://timecay.com/favicon.ico"

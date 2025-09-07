@@ -2,25 +2,24 @@ disabled = false
 languageCode = "en"
 languageName = "English"
 weight = 1
-title = "Blowfish"
+title = "CayDock"
 
 [params]
   displayName = "EN"
   isoCode = "en"
   rtl = false
   dateFormat = "2 January 2006"
+  description = "CayDock is my personal product navigation website, recording the challenges, experiences and growth I encountered in independent development, hoping to provide some inspiration and help for other independent developers"
   # logo = "img/logo.png"
   # secondaryLogo = "img/secondary-logo.png"
-  # description = "My awesome website"
   # copyright = "Copy, _right?_ :thinking_face:"
 
-# [params.author]
-#   name = "Your name here"
-#   email = "youremail@example.com"
-#   image = "img/blowfish_logo.png"
-#   imageQuality = 96
-#   headline = "I'm only human"
-#   bio = "A little bit about you"
+[params.author]
+  name = "Cayden"
+  email = "contact@caydock.com"
+  image = "images/cay.webp"
+  imageQuality = 96
+  bio = "Focus on front-end development, love technology sharing, record every bit of growth on the road"
 #   links = [
 #     { email = "mailto:hello@your_domain.com" },
 #     { link = "https://link-to-some-website.com/" },

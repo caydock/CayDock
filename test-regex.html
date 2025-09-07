@@ -1,0 +1,11 @@
+{{ $content := "![](/images/万趣岛：一个打工人必备的摸鱼网站/cover.jpg)" }}
+{{ $imageRegex := `!\[.*?\]\((.*?)\)` }}
+{{ $matches := findRE $imageRegex $content }}
+{{ if $matches }}
+  {{ $firstMatch := index $matches 0 }}
+  {{ $imagePath := replaceRE `!\[.*?\]\((.*?)\)` `$1` $firstMatch }}
+  First match: {{ $firstMatch }}
+  Image path: {{ $imagePath }}
+{{ else }}
+  No matches found
+{{ end }}

@@ -25,7 +25,7 @@ CayDock 不仅仅是一个博客，更是我技术成长的见证。在这里，
 
 如果你有任何问题或建议，欢迎通过以下方式联系我：
 
-- 邮箱：cayden@caydock.com
-- GitHub：[@cayden](https://github.com/cayden)
+- 邮箱：contact@caydock.com
+- GitHub：[@caydock](https://github.com/caydock)
 
 感谢你的访问！
