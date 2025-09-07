@@ -1,0 +1,19 @@
+# 产品展示配置
+title: "我的产品"
+subtitle: "分享一些我开发的项目和作品"
+
+items:
+  - title: "W3Cay"
+    description: "W3Cay 是一个有趣的网站收集平台，收集各种有趣的网站"
+    link: "https://w3cay.com"
+    icon: "/images/w3cay-logo.webp"
+    
+  - title: "QrCay"
+    description: "QrCay 是一个二维码生成和管理工具"
+    link: "https://qrcay.com"
+    icon: "https://qrcay.com/vite.svg"
+    
+  - title: "TimeCay"
+    description: "时间记录工具，支持倒计时、纪念日等"
+    link: "https://timecay.com"
+    icon: "https://timecay.com/favicon.ico"

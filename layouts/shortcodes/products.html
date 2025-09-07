@@ -1,0 +1,18 @@
+{{ $products := .Site.Data.products }}
+{{ if $products }}
+<div class="products-grid-home">
+  {{ range $products.items }}
+  <a href="{{ .link }}" target="_blank" class="product-card-home">
+    <div class="product-content-home">
+      <div class="product-header-home">
+        <img src="{{ .icon }}" alt="{{ .title }} icon" class="product-icon-home" 
+             onerror="this.onerror=null; this.src='{{ .link }}/favicon.ico'; this.onerror=function(){this.style.display='none'}">
+        <h3 class="product-title-home">{{ .title }}</h3>
+      </div>
+      <p class="product-description-home">{{ .description }}</p>
+      <p class="product-link-home">{{ .link }}</p>
+    </div>
+  </a>
+  {{ end }}
+</div>
+{{ end }}

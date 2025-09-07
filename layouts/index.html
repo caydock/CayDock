@@ -1,0 +1,35 @@
+{{ define "main" }}
+  {{ $partial := print "home/" .Site.Params.homepage.layout ".html" }}
+  {{ if templates.Exists ( printf "partials/%s" $partial ) }}
+    {{ partial $partial . }}
+  {{ else }}
+    {{ partial "home/profile.html" . }}
+  {{ end }}
+  
+  {{ if .Site.Data.products }}
+  <section class="products-section">
+    <div class="container">
+      <div class="text-center mb-8">
+        <h2 class="text-3xl font-bold mb-4">{{ .Site.Data.products.title }}</h2>
+        <p class="text-gray-600">{{ .Site.Data.products.subtitle }}</p>
+      </div>
+      
+      <div class="products-grid-home">
+        {{ range .Site.Data.products.items }}
+        <a href="{{ .link }}" target="_blank" class="product-card-home">
+          <div class="product-content-home">
+            <div class="product-header-home">
+              <img src="{{ .icon }}" alt="{{ .title }} icon" class="product-icon-home" 
+                   onerror="this.onerror=null; this.src='{{ .link }}/favicon.ico'; this.onerror=function(){this.style.display='none'}">
+              <h3 class="product-title-home">{{ .title }}</h3>
+            </div>
+            <p class="product-description-home">{{ .description }}</p>
+            <p class="product-link-home">{{ .link }}</p>
+          </div>
+        </a>
+        {{ end }}
+      </div>
+    </div>
+  </section>
+  {{ end }}
+{{ end }}
