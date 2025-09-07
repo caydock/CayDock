@@ -18,11 +18,8 @@ pages_build_output_dir = "public"
 HUGO_VERSION = "0.121.0"
 NODE_VERSION = "18"
 
-# 重定向规则
-[[redirects]]
-from = "/posts/*"
-to = "/posts/:splat/"
-status = 301
+# 重定向规则已移除，因为Hugo已经生成正确的URL格式
+# 避免重定向循环
 
 # 自定义域名（如果需要）
 # [env.production.vars]
