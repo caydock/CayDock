@@ -73,6 +73,12 @@
   weight = 10
 
 [[footer]]
+  name = "RSS"
+  url = "/index.xml"
+  pre = "rss"
+  weight = 15
+
+[[footer]]
   name = "GitHub"
   url = "https://github.com/caydock"
   pre = "github"
