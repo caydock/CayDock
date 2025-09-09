@@ -18,7 +18,7 @@ So in the current environment, to avoid being abandoned by the times and take co
 
 ## How to Become an Excellent Frontend Engineer
 
-This topic actually has many people's own summaries, including the industry expert Kejun's internal sharing ["Talking with Team About Personal Growth"](/post/d15c2efd.html). I've read it several times, and each time I gain deep insights. Speaking of becoming an excellent frontend engineer, I very much agree with the description about growth, which includes **objective factors** and **subjective factors**. Below, I'll share my thoughts on these two aspects.
+This topic actually has many people's own summaries, including the industry expert Kejun's internal sharing ["Talking with Team About Personal Growth"](/posts/talking-with-team-about-personal-growth-kejun-repost/). I've read it several times, and each time I gain deep insights. Speaking of becoming an excellent frontend engineer, I very much agree with the description about growth, which includes **objective factors** and **subjective factors**. Below, I'll share my thoughts on these two aspects.
 
 ### Objective Factors
 

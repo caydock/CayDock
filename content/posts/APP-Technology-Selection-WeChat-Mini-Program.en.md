@@ -12,7 +12,9 @@ As a developer, before choosing to develop a product, we will definitely conduct
 
 First, currently there are roughly 5 mainstream development modes for developing a product, including Native APP native applications, WebAPP web applications, Hybrid App hybrid development, ReactNative, and lightweight mini-programs. So what are the differences between these development modes? How have development modes evolved? As shown in the figure:
 
-![APP Development Mode Evolution](../images/app-development-evolution.png)
+> **图片说明**: APP开发模式演进图 - 展示从原生应用到小程序的技术发展历程
+> 
+> *注：原始图片文件 app-development-evolution.png 在迁移过程中丢失，建议重新添加相关图片*
 
 First, to develop an APP, if you focus on performance and don't need too much dynamic content, you can choose to develop with native applications. If performance requirements are not high and you just need to open and use it, then WebAPP can meet the needs. If both requirements must be met, then Hybrid App hybrid development is a compromise method that combines the advantages of both to meet most needs. In recent years, deeply customized development modes like ReactNative and mini-programs have emerged. Developers only need to write JavaScript to produce products with performance comparable to native applications. They use scripting languages for developers but actually run native components.
 
@@ -20,7 +22,9 @@ First, to develop an APP, if you focus on performance and don't need too much dy
 
 Currently, mini-programs and ReactNative technologies are hot and favored by developers in the frontend development community. Now it's 2018, and if you ask me what my first choice is for developing an APP, I would definitely consider WeChat mini-programs first. Below I'll analyze some unique advantages of mini-programs.
 
-![Unique Advantages of WeChat Mini Programs](../images/mini-program-advantages.png)
+> **图片说明**: 微信小程序的独特优势 - 展示小程序相比其他开发模式的优势
+> 
+> *注：原始图片文件 mini-program-advantages.png 在迁移过程中丢失，建议重新添加相关图片*
 
 As developers, we definitely hope that a new development mode can use our current knowledge for development rather than learning new languages. Mini-program development doesn't create new languages - you can get started with frontend development knowledge. The mini-program official provides detailed development documentation and materials, and provides a set of development tools for developers to use, which has been continuously iterating, maintaining, and upgrading. Mini-programs provide rich interfaces to help us quickly develop business, reducing a lot of development costs.
 

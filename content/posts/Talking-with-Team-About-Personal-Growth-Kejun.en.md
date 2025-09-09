@@ -6,11 +6,15 @@ lang: en
 translationKey: "kejun-personal-growth"
 ---
 
-![Personal Growth Slides 1-14](../images/kejun-growth-slides.jpg)
+> **图片说明**: 个人成长幻灯片 1-14 页 - 展示个人成长的关键概念和策略
+> 
+> *注：原始图片文件 kejun-growth-slides.jpg 在迁移过程中丢失，建议重新添加相关图片*
 
 Position yourself, focus on your current stage accumulation, focus on inflection points, and develop in a balanced way. Some abilities must have maturity formed through time and repeated practice. Don't try to jump, don't rush for quick success, don't ignore comprehensive and balanced development. Don't become a workplace "bean sprout."
 
-![Personal Growth Slide 15](../images/kejun-growth-slide15.jpg)
+> **图片说明**: 个人成长幻灯片第15页 - 关于培养元能力的重要性
+> 
+> *注：原始图片文件 kejun-growth-slide15.jpg 在迁移过程中丢失，建议重新添加相关图片*
 
 Impatience is only focusing on the means to solve problems without truly improving problem-solving abilities. Cultivate your meta-abilities.
 

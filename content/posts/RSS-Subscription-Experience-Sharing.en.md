@@ -3,10 +3,11 @@ title: "RSS Subscription Experience Sharing"
 date: 2022-02-19 14:40:16
 draft: false
 lang: en
+featureimage: "/images/e6c9d24egy1gziqhlratdj211c0n842o.jpg"
 translationKey: "rss-subscription-experience"
 ---
 
-![My RSS Subscription App Interface](../images/e6c9d24egy1gziqhlratdj211c0n842o.jpg)
+![My RSS Subscription App Interface](/images/e6c9d24egy1gziqhlratdj211c0n842o.jpg)
 
 > RSS (English full name: RDF Site Summary or Really Simple Syndication), Chinese translation: Simple Information Aggregation, also known as aggregated content, is a message source format specification used to aggregate content updates from multiple websites and automatically notify website subscribers. After using RSS, website subscribers no longer need to manually check whether websites have new content. At the same time, RSS can integrate content updates from multiple websites and present them in summary form, helping subscribers quickly obtain important information and selectively click to view.
 > <font size=2>-- *Wikipedia https://zh.wikipedia.org/wiki/RSS*</font>
