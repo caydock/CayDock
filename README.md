@@ -58,3 +58,4 @@ CayDock-Hugo/
 - `menus.zh.toml` - 中文菜单配置
 
 
+

@@ -155,6 +155,9 @@ forgejoDefaultServer = "https://v11.next.forgejo.org"
   # token = "XXXXXX"
   # enableTrackEvent = true
 
+[clarityAnalytics]
+  projectId = "sp27h402gc"
+
 [buymeacoffee]
   # identifier = ""
   # globalWidget = true

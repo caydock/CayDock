@@ -10,3 +10,6 @@
 {{ with site.Params.selineAnalytics.token }}
   {{ partial "analytics/seline.html" }}
 {{ end }}
+{{ with site.Params.clarityAnalytics.projectId }}
+  {{ partial "analytics/clarity.html" }}
+{{ end }}

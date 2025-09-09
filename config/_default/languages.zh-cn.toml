@@ -19,11 +19,11 @@ title = "CayDock"
   # copyright = "Copy, _right?_ :thinking_face:"
 
 [params.author]
-  name = "CayDock"
+  name = "Cayden"
   email = "contact@caydock.com"
   image = "images/cay.webp"
   imageQuality = 96
-  bio = "专注于前端开发，热爱技术分享，记录成长路上的点点滴滴"
+  bio = "独立开发者，分享产品开发过程中的日常体验、挑战与成长"
 #   links = [
 #     { email = "mailto:hello@your_domain.com" },
 #     { link = "https://link-to-some-website.com/" },
