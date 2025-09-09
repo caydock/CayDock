@@ -1,4 +1,7 @@
-{{ $products := .Site.Data.products }}
+{{ $products := index .Site.Data (printf "products.%s" .Site.Language.Lang) }}
+{{ if not $products }}
+  {{ $products = .Site.Data.products }}
+{{ end }}
 {{ if $products }}
 <div class="products-grid-home">
   {{ range $products.items }}

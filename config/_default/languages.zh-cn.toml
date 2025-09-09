@@ -1,12 +1,12 @@
 disabled = false
-languageCode = "zh"
+languageCode = "zh-CN"
 languageName = "中文"
 weight = 2
 title = "CayDock"
 
 [params]
   displayName = "中文"
-  isoCode = "zh"
+  isoCode = "zh-CN"
   rtl = false
   dateFormat = "2006年1月2日"
   description = "CayDock 是我的个人产品导航网站，记录了我在独立开发过程中遇到的挑战、经验和成长，希望能为其他独立开发者提供一些启发和帮助"

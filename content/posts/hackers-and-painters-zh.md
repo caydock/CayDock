@@ -2,7 +2,7 @@
 title: "《黑客与画家》文摘"
 date: 2023-08-19 19:55:35
 draft: false
-lang: zh
+lang: zh-CN
 translationKey: "hackers-and-painters"
 ---
 

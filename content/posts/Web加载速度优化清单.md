@@ -7,7 +7,7 @@ tags: ["Web优化", "性能优化", "加载速度", "前端"]
 categories: ["前端开发"]
 featured: true
 featuredImage: "cover-web.svg"
-lang: zh
+lang: zh-CN
 translationKey: "web-loading-speed-optimization"
 ---
 

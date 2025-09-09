@@ -11,6 +11,7 @@ disablePathToLower = false
 
 # Global TDK settings
 title = "CayDock"
+titleSeparator = " - "
 description = "CayDock is my personal project showcase website, recording the challenges, experiences, and growth I encountered in independent development and overseas ventures"
 keywords = ["CayDock", "independent development", "overseas", "independent developer", "independent developer overseas", "independent developer diary", "independent developer blog"]
 
@@ -79,6 +80,7 @@ enableEmoji = true
 # URL重写规则 - 恢复原来的 posts/ 格式
 [permalinks]
   posts = "/posts/:slug/"
+  pages = "/:slug/"
 
 # Cloudflare Pages 优化配置
 [build]

@@ -2,7 +2,7 @@
 title: "关于CSS选择器权重计算的疑惑"
 date: 2016-11-28T16:43:00+08:00
 draft: false
-lang: zh
+lang: zh-CN
 ---
 
 

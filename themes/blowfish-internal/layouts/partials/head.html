@@ -13,8 +13,8 @@
     <title>{{ $pageTitle | emojify }}</title>
     <meta name="title" content="{{ $pageTitle | emojify }}">
   {{- else -}}
-    <title>{{ .Title | emojify }} &middot; {{ .Site.Title | emojify }}</title>
-    <meta name="title" content="{{ .Title | emojify }} &middot; {{ .Site.Title | emojify }}">
+    <title>{{ .Title | emojify }} - {{ .Site.Title | emojify }}</title>
+    <meta name="title" content="{{ .Title | emojify }} - {{ .Site.Title | emojify }}">
   {{- end }}
 
   {{/* Metadata */}}

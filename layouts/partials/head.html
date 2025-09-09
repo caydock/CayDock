@@ -13,13 +13,8 @@
     <title>{{ $pageTitle | emojify }}</title>
     <meta name="title" content="{{ $pageTitle | emojify }}">
   {{- else -}}
-    {{ $title := .Title | emojify }}
-    {{ if and (eq .Kind "section") .Paginator (gt .Paginator.TotalPages 1) (ne .Paginator.PageNumber 1) }}
-      {{ $pageText := i18n "pagination.page" .Paginator }}
-      {{ $title = printf "%s - %s" $title $pageText }}
-    {{ end }}
-    <title>{{ $title }} &middot; {{ .Site.Title | emojify }}</title>
-    <meta name="title" content="{{ $title }} &middot; {{ .Site.Title | emojify }}">
+    <title>{{ .Title | emojify }} - {{ .Site.Title | emojify }}</title>
+    <meta name="title" content="{{ .Title | emojify }} - {{ .Site.Title | emojify }}">
   {{- end }}
 
   {{/* Metadata */}}
