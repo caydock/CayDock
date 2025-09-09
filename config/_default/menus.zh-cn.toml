@@ -70,6 +70,7 @@
 [[footer]]
   name = "网站地图"
   url = "/sitemap.xml"
+  pre = "globe"
   weight = 10
 
 [[footer]]

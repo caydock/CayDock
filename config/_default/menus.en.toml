@@ -70,6 +70,7 @@
 [[footer]]
   name = "Sitemap"
   url = "/sitemap.xml"
+  pre = "globe"
   weight = 10
 
 [[footer]]
