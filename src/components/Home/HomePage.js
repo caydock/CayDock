@@ -25,6 +25,7 @@ export default function HomePage({ initialLanguage = 'en', searchParams = {}, in
   const [isOpening, setIsOpening] = useState(false)
   const [isDirectAccess, setIsDirectAccess] = useState(false)
   const [countdown, setCountdown] = useState(0)
+  const [isSiteNotFound, setIsSiteNotFound] = useState(false)
 
   // 获取随机网站ID
   const fetchRandomSiteId = async () => {
@@ -76,6 +77,7 @@ export default function HomePage({ initialLanguage = 'en', searchParams = {}, in
           setShowRecommendedSite(true)
           setIsDirectAccess(true)
           setIsOpening(true)
+          setIsSiteNotFound(false) // 重置未找到状态
           
           // 开始倒计时
           let countdownValue = 3
@@ -110,9 +112,24 @@ export default function HomePage({ initialLanguage = 'en', searchParams = {}, in
             }
           }, 1000)
           return
+        } else {
+          // 网站不存在，显示未找到状态
+          console.log('网站不存在，设置未找到状态')
+          setIsSiteNotFound(true)
+          setShowRecommendedSite(true)
+          setIsDirectAccess(true)
+          setIsOpening(false)
+          setCountdown(0)
         }
       } catch (error) {
         console.error('查询网站失败:', error)
+        // 查询失败，也显示未找到状态
+        console.log('查询失败，设置未找到状态')
+        setIsSiteNotFound(true)
+        setShowRecommendedSite(true)
+        setIsDirectAccess(true)
+        setIsOpening(false)
+        setCountdown(0)
       }
     }
     
@@ -190,6 +207,18 @@ export default function HomePage({ initialLanguage = 'en', searchParams = {}, in
     // 处理开始探索按钮点击
   const handleStartExploring = async () => {
     if (!isAnimating) {
+      // 如果当前是未找到状态，先清除状态
+      if (isSiteNotFound) {
+        setIsSiteNotFound(false)
+        setShowRecommendedSite(false)
+        setIsDirectAccess(false)
+        // 清除URL参数
+        router.replace('/')
+        // 开始随机探索
+        fetchRandomSiteId()
+        return
+      }
+      
       // 发送 Umami 事件统计点击次数（仅在生产环境）
       if (typeof window !== 'undefined' && window.umami && shouldEnableAnalytics) {
         window.umami.track('start_exploring_click')
@@ -319,9 +348,9 @@ export default function HomePage({ initialLanguage = 'en', searchParams = {}, in
           />
         </div>
         {/* 推荐标题（纯文字，显示在 logo 正下方） */}
-        {(showRecommendedSite || isDirectAccess || initialSite) && (recommendedSite || initialSite) && (
-          <motion.p 
-            className="mt-4 mb-10 md:mb-1 text-xl font-semibold text-center bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent"
+        {(showRecommendedSite || isDirectAccess || initialSite) && (
+          <motion.div 
+            className="mt-4 mb-10 md:mb-1 text-center"
             initial={{ opacity: 0, scale: 0.5, y: 30, rotateX: -90 }}
             animate={{ opacity: 1, scale: 1, y: 0, rotateX: 0 }}
             transition={{ 
@@ -331,10 +360,22 @@ export default function HomePage({ initialLanguage = 'en', searchParams = {}, in
               stiffness: 120,
               damping: 12
             }}
-            style={{}}
           >
-            {(recommendedSite || initialSite)?.title?.en || (recommendedSite || initialSite)?.title}
-          </motion.p>
+            {isSiteNotFound ? (
+              <>
+                <p className="text-xl font-semibold text-center bg-gradient-to-r from-red-500 via-orange-500 to-yellow-500 bg-clip-text text-transparent">
+                  {t('meta.discover.notFound')}
+                </p>
+                <p className="mt-2 text-sm text-gray-600 dark:text-gray-400 max-w-md mx-auto">
+                  {t('meta.discover.notFoundDesc')}
+                </p>
+              </>
+            ) : (recommendedSite || initialSite) && (
+              <p className="text-xl font-semibold text-center bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent">
+                {(recommendedSite || initialSite)?.title?.en || (recommendedSite || initialSite)?.title}
+              </p>
+            )}
+          </motion.div>
         )}
 
         <div className='w-full flex flex-col text-center items-center justify-center px-5 xs:p-10 pb-10 lg:px-16'>
@@ -350,20 +391,22 @@ export default function HomePage({ initialLanguage = 'en', searchParams = {}, in
 
           <button
             onClick={handleStartExploring}
-            disabled={isAnimating || isOpening || initialSite}
+            disabled={isAnimating || (isOpening && !isSiteNotFound) || (initialSite && !isSiteNotFound)}
             className={`mt-8 px-12 py-4 font-semibold text-lg rounded-lg transition-all duration-300 inline-block start-btn ${
-              isAnimating || isOpening || initialSite
+              isAnimating || (isOpening && !isSiteNotFound) || (initialSite && !isSiteNotFound)
                 ? 'bg-dark dark:bg-light text-light dark:text-dark opacity-50 cursor-not-allowed' 
                 : 'bg-dark dark:bg-light text-light dark:text-dark'
             }`}
           >
-            {isOpening || initialSite
-              ? countdown > 0 
-                ? `${t('discover.opening')} (${countdown}s)`
-                : t('discover.opening')
-              : isAnimating 
-                ? t('discover.exploring')
-                : t('discover.startExploring')
+            {isSiteNotFound
+              ? t('discover.startExploring')
+              : isOpening || initialSite
+                ? countdown > 0 
+                  ? `${t('discover.opening')} (${countdown}s)`
+                  : t('discover.opening')
+                : isAnimating 
+                  ? t('discover.exploring')
+                  : t('discover.startExploring')
             }
           </button>
         </div>

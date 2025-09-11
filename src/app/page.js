@@ -28,9 +28,8 @@ export async function generateMetadata({ searchParams }) {
         const site = await res.json();
         const siteTitle = language === 'zh' ? site.title?.zh : site.title?.en;
         if (siteTitle) {
-          const description = language === 'zh' 
-            ? `在 W3Cay 发现有趣网站：${siteTitle}。探索数字世界中的奇妙网站，发现更多有趣内容。`
-            : `Discover interesting website ${siteTitle} on W3Cay. Explore weird and wonderful websites in the digital world.`;
+          const tdk = getServerTranslation(language, "meta");
+          const description = tdk.discover.siteDescription.replace('{title}', siteTitle);
           
           return {
             title: `${siteTitle} - W3Cay`,
@@ -41,6 +40,20 @@ export async function generateMetadata({ searchParams }) {
             },
           };
         }
+      } else {
+        // 网站不存在，返回未找到的标题
+        const tdk = getServerTranslation(language, "meta");
+        const notFoundTitle = `${tdk.discover.notFound} - W3Cay`;
+        const notFoundDescription = tdk.discover.notFoundDesc;
+        
+        return {
+          title: notFoundTitle,
+          description: notFoundDescription,
+          openGraph: {
+            title: notFoundTitle,
+            description: notFoundDescription,
+          },
+        };
       }
     } catch (error) {
       console.error('生成动态标题失败:', error);
