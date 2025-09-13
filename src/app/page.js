@@ -1,7 +1,72 @@
 import HomePage from "@/src/components/Home/HomePage";
 import { headers, cookies } from "next/headers";
+import { getServerTranslation } from "@/src/i18n";
 
 export const runtime = 'edge';
+
+export async function generateMetadata({ searchParams }) {
+  const cookieStore = await cookies();
+  const headerStore = await headers();
+  const langCookie = cookieStore.get("lang")?.value || "";
+  const acceptLang = headerStore.get("accept-language") || "";
+  const isZh = (langCookie || acceptLang).toLowerCase().startsWith("zh");
+  const language = isZh ? "zh" : "en";
+  
+  // 等待 searchParams
+  const params = await searchParams;
+  
+  // 如果有 site 参数，获取网站信息并生成动态标题
+  if (params?.site) {
+    try {
+      const baseUrl = process.env.NODE_ENV === 'production' 
+        ? 'https://w3cay.com' 
+        : 'http://localhost:3000';
+      const res = await fetch(`${baseUrl}/api/site-by-abbr/${encodeURIComponent(params.site)}`, {
+        headers: { accept: 'application/json' }
+      });
+      if (res.ok) {
+        const site = await res.json();
+        const siteTitle = language === 'zh' ? site.title?.zh : site.title?.en;
+        if (siteTitle) {
+          const tdk = getServerTranslation(language, "meta");
+          const description = tdk.discover.siteDescription.replace('{title}', siteTitle);
+          
+          return {
+            title: `${siteTitle} - W3Cay`,
+            description: description,
+            openGraph: {
+              title: `${siteTitle} - W3Cay`,
+              description: description,
+            },
+          };
+        }
+      } else {
+        // 网站不存在，返回未找到的标题
+        const tdk = getServerTranslation(language, "meta");
+        const notFoundTitle = `${tdk.discover.notFound} - W3Cay`;
+        const notFoundDescription = tdk.discover.notFoundDesc;
+        
+        return {
+          title: notFoundTitle,
+          description: notFoundDescription,
+          openGraph: {
+            title: notFoundTitle,
+            description: notFoundDescription,
+          },
+        };
+      }
+    } catch (error) {
+      console.error('生成动态标题失败:', error);
+    }
+  }
+  
+  // 默认标题
+  const tdk = getServerTranslation(language, "meta");
+  return {
+    title: tdk.home.title,
+    description: tdk.home.description,
+  };
+}
 
 export default async function Home({ searchParams }) {
   const headerStore = await headers();

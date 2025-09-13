@@ -39,11 +39,20 @@ export function LanguageProvider({ children, initialLanguage, initialStrings }) 
     return TRANSLATIONS[language]?.ui || TRANSLATIONS.en.ui
   }, [initialStrings, initialLanguage, language])
 
+  const allTranslations = useMemo(() => {
+    return TRANSLATIONS[language] || TRANSLATIONS.en
+  }, [language])
+
   const t = useMemo(() => {
     return (key) => {
+      // 如果键以 meta. 开头，使用完整的翻译数据
+      if (key.startsWith('meta.')) {
+        return getTranslationKey(allTranslations, key);
+      }
+      // 否则使用UI部分的翻译数据
       return getTranslationKey(effectiveStrings, key);
     };
-  }, [effectiveStrings]);
+  }, [effectiveStrings, allTranslations]);
 
   const value = useMemo(() => ({ language, setLanguage, t }), [language, t]);
 
