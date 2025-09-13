@@ -14,7 +14,7 @@ const CustomImage = (props) => {
   );
 };
 
-// 自定义 Link 组件，外部链接在新标签页打开
+// 自定义 Link 组件，所有链接都在新标签页打开
 const CustomLink = (props) => {
   const { href, children, ...rest } = props;
   
@@ -27,7 +27,10 @@ const CustomLink = (props) => {
         href={href}
         target="_blank"
         rel="noopener noreferrer"
-        className="text-accent dark:text-accentDark hover:underline"
+        className="text-accent dark:text-accentDark"
+        style={{ textDecoration: 'underline' }}
+        onMouseEnter={(e) => e.target.style.textDecoration = 'none'}
+        onMouseLeave={(e) => e.target.style.textDecoration = 'underline'}
         {...rest}
       >
         {children}
@@ -35,8 +38,20 @@ const CustomLink = (props) => {
     );
   }
   
-  // 内部链接保持原样
-  return <a href={href} {...rest}>{children}</a>;
+  // 内部链接也在新标签页打开
+  return (
+    <a 
+      href={href} 
+      target="_blank"
+      className="text-accent dark:text-accentDark"
+      style={{ textDecoration: 'underline' }}
+      onMouseEnter={(e) => e.target.style.textDecoration = 'none'}
+      onMouseLeave={(e) => e.target.style.textDecoration = 'underline'}
+      {...rest}
+    >
+      {children}
+    </a>
+  );
 };
 
 const sharedComponents = {
@@ -56,8 +71,18 @@ const MDXContent = ({ code, components, ...props }) => {
     if (typeof code === 'string') {
       const HtmlRenderer = () => (
         <div 
-          className="prose prose-lg max-w-none"
-          dangerouslySetInnerHTML={{ __html: code }}
+          className="prose prose-lg max-w-none prose-a:underline prose-a:text-blue-600 hover:prose-a:no-underline hover:prose-a:text-blue-800"
+          dangerouslySetInnerHTML={{ 
+            __html: code.replace(
+              /<a\s+([^>]*?)href="([^"]*?)"([^>]*?)>/g,
+              (match, before, href, after) => {
+                const isExternal = href.startsWith('http://') || href.startsWith('https://');
+                return isExternal 
+                  ? `<a ${before}href="${href}"${after} target="_blank" rel="noopener noreferrer">`
+                  : `<a ${before}href="${href}"${after} target="_blank">`;
+              }
+            )
+          }}
         />
       );
       HtmlRenderer.displayName = 'HtmlRenderer';
