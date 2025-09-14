@@ -67,6 +67,7 @@ forgejoDefaultServer = "https://v11.next.forgejo.org"
   showAuthor = true
   # showAuthorBottom = false
   showHero = true
+  showComments = true
   heroStyle = "background" # valid options: basic, big, background, thumbAndBackground
   layoutBackgroundBlur = true # only used when heroStyle equals background or thumbAndBackground
   layoutBackgroundHeaderSpace = true # only used when heroStyle equals background
@@ -178,4 +179,20 @@ forgejoDefaultServer = "https://v11.next.forgejo.org"
 
 [advertisement]
   # adsense = ""
+
+# 评论系统配置
+[comments]
+  [comments.giscus]
+    enable = true
+    repo = "caydock/CayDock"
+    repoId = "R_kgDOPPGM_g"
+    category = "Announcements"
+    categoryId = "DIC_kwDOPPGM_s4Cvark"
+    mapping = "pathname"
+    strict = "0"
+    reactionsEnabled = "1"
+    emitMetadata = "0"
+    inputPosition = "bottom"
+    theme = "preferred_color_scheme"
+    loading = "lazy"
 

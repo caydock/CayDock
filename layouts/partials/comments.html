@@ -1,0 +1,65 @@
+{{ if .Site.Params.comments.giscus.enable }}
+<div id="giscus-comments" class="giscus"></div>
+
+<style>
+.giscus, .giscus-frame {
+  width: 100%;
+  min-height: 150px;
+}
+
+.giscus-frame {
+  border: none;
+  color-scheme: light dark;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.giscus-frame--loading {
+  opacity: 0;
+}
+
+.giscus {
+  margin-top: 2rem;
+}
+
+/* 修复夜间模式下 Giscus 底部信息的显示问题 */
+@media (prefers-color-scheme: dark) {
+  .giscus-frame {
+    color-scheme: dark;
+  }
+}
+
+/* 确保 Giscus 在暗色主题下正确显示 */
+[data-theme="dark"] .giscus-frame,
+.dark .giscus-frame {
+  color-scheme: dark;
+}
+
+/* 修复 Giscus 底部链接的对比度 */
+.giscus-frame a {
+  color: inherit !important;
+}
+
+/* 确保 Giscus 内容在暗色模式下可见 */
+.giscus-frame {
+  background: transparent;
+}
+</style>
+
+<script src="https://giscus.app/client.js"
+        data-repo="{{ .Site.Params.comments.giscus.repo }}"
+        data-repo-id="{{ .Site.Params.comments.giscus.repoId }}"
+        data-category="{{ .Site.Params.comments.giscus.category }}"
+        data-category-id="{{ .Site.Params.comments.giscus.categoryId }}"
+        data-mapping="{{ .Site.Params.comments.giscus.mapping | default "pathname" }}"
+        data-strict="{{ .Site.Params.comments.giscus.strict | default "0" }}"
+        data-reactions-enabled="{{ .Site.Params.comments.giscus.reactionsEnabled | default "1" }}"
+        data-emit-metadata="{{ .Site.Params.comments.giscus.emitMetadata | default "0" }}"
+        data-input-position="{{ .Site.Params.comments.giscus.inputPosition | default "bottom" }}"
+        data-theme="{{ .Site.Params.comments.giscus.theme | default "preferred_color_scheme" }}"
+        data-lang="{{ .Site.LanguageCode | default "en" }}"
+        data-loading="{{ .Site.Params.comments.giscus.loading | default "lazy" }}"
+        crossorigin="anonymous"
+        async>
+</script>
+{{ end }}
