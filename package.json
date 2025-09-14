@@ -11,7 +11,7 @@
     "clean": "hugo --cleanDestinationDir",
     "deploy": "wrangler pages deploy public",
     "deploy:preview": "wrangler pages deploy public --compatibility-date=2024-01-01",
-    "new:post": "hugo new posts/",
+    "new:post": "node -e \"const name = process.argv[1] || 'new-post'; const date = new Date().toISOString().split('T')[0]; console.log('hugo new posts/' + date + '-' + name + '.md'); require('child_process').execSync('hugo new posts/' + date + '-' + name + '.md', {stdio: 'inherit'});\"",
     "new:page": "hugo new pages/",
     "lint": "hugo --quiet --templateMetrics --templateMetricsHints",
     "check": "hugo --quiet --templateMetrics --templateMetricsHints --gc"
