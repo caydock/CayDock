@@ -21,6 +21,11 @@
   weight = 20
 
 [[main]]
+  name = "订阅"
+  pageRef = "subscribe"
+  weight = 25
+
+[[main]]
   name = "标签"
   pageRef = "tags"
   weight = 30
@@ -69,30 +74,22 @@
 
 [[footer]]
   name = "网站地图"
-  url = "/sitemap.xml"
-  pre = "globe"
+  url = "/zh-cn/sitemap.xml"
   weight = 10
 
-[[footer]]
-  name = "RSS"
-  url = "/zh-cn/feed.xml"
-  pre = "rss"
-  weight = 15
+
 
 [[footer]]
-  name = "GitHub"
-  url = "https://github.com/caydock"
-  pre = "github"
+  name = "服务条款"
+  url = "/zh-cn/服务条款/"
   weight = 20
 
 [[footer]]
-  name = "Twitter"
-  url = "https://twitter.com/caydock"
-  pre = "twitter"
+  name = "隐私政策"
+  url = "/zh-cn/隐私政策/"
   weight = 30
 
 [[footer]]
-  name = "邮箱"
-  url = "mailto:cay.dev@hotmail.com"
-  pre = "email"
+  name = "免责声明"
+  url = "/zh-cn/免责声明/"
   weight = 40

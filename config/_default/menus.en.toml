@@ -21,6 +21,11 @@
   weight = 20
 
 [[main]]
+  name = "Subscribe"
+  pageRef = "subscribe"
+  weight = 25
+
+[[main]]
   name = "Tags"
   pageRef = "tags"
   weight = 30
@@ -70,29 +75,22 @@
 [[footer]]
   name = "Sitemap"
   url = "/sitemap.xml"
-  pre = "globe"
   weight = 10
 
-[[footer]]
-  name = "RSS"
-  url = "/feed.xml"
-  pre = "rss"
-  weight = 15
+
+
 
 [[footer]]
-  name = "GitHub"
-  url = "https://github.com/caydock"
-  pre = "github"
+  name = "Terms of Service"
+  url = "/terms-of-service/"
   weight = 20
 
 [[footer]]
-  name = "Twitter"
-  url = "https://twitter.com/caydock"
-  pre = "twitter"
+  name = "Privacy Policy"
+  url = "/privacy-policy/"
   weight = 30
 
 [[footer]]
-  name = "Email"
-  url = "mailto:cay.dev@hotmail.com"
-  pre = "email"
+  name = "Disclaimer"
+  url = "/disclaimer/"
   weight = 40

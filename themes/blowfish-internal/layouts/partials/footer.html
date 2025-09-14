@@ -10,9 +10,9 @@
             {{ break }}
           {{ end }}
         {{ end }}
-        {{ $navClass := printf "flex flex-row text-base font-medium text-neutral-500 dark:text-neutral-400 %s" (cond $onlyIcon "overflow-x-auto py-2" "") }}
+        {{ $navClass := printf "flex flex-row text-base text-neutral-500 dark:text-neutral-400 %s" (cond $onlyIcon "overflow-x-auto py-2" "") }}
         {{ $ulClass := printf "flex list-none flex-row gap-1 sm:gap-0 justify-center sm:justify-start" (cond $onlyIcon "flex-row" "") }}
-        {{ $liClass := printf "flex justify-center sm:justify-start mb-0 ltr:mr-2 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:ml-2 rtl:sm:ml-7 rtl:sm:last:ml-0 %s" (cond $onlyIcon "ltr:mr-4 rtl:ml-4" "") }}
+        {{ $liClass := printf "flex justify-center sm:justify-start mb-0 ltr:mr-2 ltr:sm:mr-2 ltr:sm:last:mr-0 rtl:ml-2 rtl:sm:ml-2 rtl:sm:last:ml-0 %s" (cond $onlyIcon "ltr:mr-4 rtl:ml-4" "") }}
         <nav class="{{ $navClass }}">
           <ul class="{{ $ulClass }}">
             {{ range .Site.Menus.footer }}
