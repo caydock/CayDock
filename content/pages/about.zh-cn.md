@@ -20,4 +20,4 @@ CayDock 是我的个人项目展示网站，Cay 是我的名字，Dock 意思是
 
 不定时更新，如果分享的内容对你有帮助，欢迎订阅并留言与我交流
 
-**邮箱：contact@caydock.com**
+**邮箱：cay.dev@hotmail.com**

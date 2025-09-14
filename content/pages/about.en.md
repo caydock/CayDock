@@ -19,4 +19,4 @@ I also share some good books I have read, as well as some life trivia
 
 Updated irregularly, if the content I share is helpful to you, welcome to subscribe and leave a message to communicate with me
 
-**Email: contact@caydock.com**
+**Email: cay.dev@hotmail.com**
