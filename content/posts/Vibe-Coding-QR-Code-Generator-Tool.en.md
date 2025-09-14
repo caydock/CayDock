@@ -3,6 +3,7 @@ title: "Vibe Coding QR Code Generator Tool"
 date: 2025-08-03 15:17:33
 draft: false
 featureimage: "/images/bffe4d37/cover.jpg"
+tags: ["qr code", "qr code generator", "qr code tool"]
 translationKey: "vibe-coding-qr-generator"
 ---
 

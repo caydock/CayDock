@@ -2,6 +2,7 @@
 title: "《黑客与画家》文摘"
 date: 2023-08-19 19:55:35
 draft: false
+tags: ["读书笔记", "黑客文化", "创业", "编程思维"]
 translationKey: "hackers-and-painters"
 ---
 

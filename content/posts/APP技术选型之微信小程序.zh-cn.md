@@ -2,6 +2,7 @@
 title: "APP技术选型之微信小程序"
 date: 2018-07-01 23:24:29
 draft: false
+tags: ["技术选型", "微信小程序", "移动开发", "APP开发"]
 translationKey: "app-technology-selection-mini-program"
 ---
 

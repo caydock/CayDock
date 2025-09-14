@@ -2,6 +2,7 @@
 title: "CSS样式表的层叠规则"
 date: 2015-09-21 17:53:55
 draft: false
+tags: ["CSS", "层叠规则", "选择器", "样式优先级"]
 translationKey: "css-cascade-rules"
 ---
 

@@ -2,6 +2,7 @@
 title: "常用HTTP状态码趣(曲)解"
 date: 2018-07-08 19:56:00
 draft: false
+tags: ["HTTP", "状态码", "Web开发", "基础知识"]
 ---
 
 

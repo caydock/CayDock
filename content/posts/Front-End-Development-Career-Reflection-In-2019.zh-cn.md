@@ -2,6 +2,7 @@
 title: "成为一名优秀的前端工程师"
 date: 2019-11-23 22:29:33
 draft: false
+tags: ["前端工程师", "职业发展", "技术成长", "个人反思"]
 translationKey: "becoming-excellent-frontend-engineer"
 ---
 

@@ -2,6 +2,7 @@
 title: "《见识》文摘"
 date: 2020-02-07 00:05:45
 draft: false
+tags: ["读书笔记", "见识", "个人成长", "人生感悟"]
 translationKey: "insight-book-summary"
 ---
 

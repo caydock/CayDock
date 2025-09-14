@@ -2,6 +2,7 @@
 title: "Jest Mock AppState TypeError"
 date: 2023-09-23 11:18:21
 draft: false
+tags: ["Jest", "React Native", "单元测试", "Mock", "AppState"]
 translationKey: "jest-mock-appstate-typeerror"
 ---
 

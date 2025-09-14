@@ -2,6 +2,7 @@
 title: "My 2018 Personal Book List"
 date: 2019-01-06 20:51:35
 draft: false
+tags: ["读书笔记", "个人成长", "书单", "学习"]
 translationKey: "2018-personal-book-list"
 ---
 

@@ -2,6 +2,7 @@
 title: "和团队谈个人成长-克军 [转载]"
 date: 2019-11-22 22:29:11
 draft: false
+tags: ["个人成长", "前端工程师", "职业发展", "技术管理"]
 translationKey: "kejun-personal-growth"
 ---
 
