@@ -2,6 +2,132 @@ function css(name) {
   return "rgb(" + getComputedStyle(document.documentElement).getPropertyValue(name) + ")";
 }
 
+// 添加自定义样式
+function addMermaidStyles() {
+  const style = document.createElement('style');
+  style.textContent = `
+    /* Mermaid 图表容器样式 */
+    .mermaid {
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      border-radius: 12px;
+      padding: 20px;
+      margin: 20px 0;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+    
+    .mermaid:hover {
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      transform: translateY(-2px);
+    }
+    
+    /* SVG 样式优化 */
+    .mermaid svg {
+      border-radius: 8px;
+      background: white;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* 节点样式 */
+    .mermaid .node rect,
+    .mermaid .node circle,
+    .mermaid .node ellipse,
+    .mermaid .node polygon {
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+      transition: all 0.2s ease;
+    }
+    
+    .mermaid .node:hover rect,
+    .mermaid .node:hover circle,
+    .mermaid .node:hover ellipse,
+    .mermaid .node:hover polygon {
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+      transform: scale(1.02);
+    }
+    
+    /* 文字样式 */
+    .mermaid .nodeLabel,
+    .mermaid .edgeLabel {
+      font-weight: 500;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* 连接线样式 */
+    .mermaid .edgePath path {
+      stroke-width: 2;
+      filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+    }
+    
+    .mermaid .edgePath:hover path {
+      stroke-width: 3;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+    }
+    
+    /* 箭头样式 */
+    .mermaid .arrowheadPath {
+      filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+    }
+    
+    /* 集群样式 */
+    .mermaid .cluster rect {
+      fill: rgba(255, 255, 255, 0.8);
+      stroke: rgba(0, 0, 0, 0.1);
+      stroke-width: 1;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+    }
+    
+    /* 模态框中的图表样式 */
+    .mermaid-modal .mermaid {
+      background: white;
+      box-shadow: none;
+      border-radius: 0;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .mermaid-modal .mermaid:hover {
+      transform: none;
+      box-shadow: none;
+    }
+    
+    .mermaid-modal svg {
+      background: white;
+      border-radius: 0;
+      box-shadow: none;
+    }
+    
+    /* 响应式设计 */
+    @media (max-width: 768px) {
+      .mermaid {
+        padding: 15px;
+        margin: 15px 0;
+      }
+      
+      .mermaid svg {
+        max-width: 100%;
+        height: auto;
+      }
+    }
+    
+    /* 深色模式支持 */
+    @media (prefers-color-scheme: dark) {
+      .mermaid {
+        background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%);
+      }
+      
+      .mermaid svg {
+        background: #2d3748;
+      }
+      
+      .mermaid .nodeLabel,
+      .mermaid .edgeLabel {
+        fill: #e2e8f0;
+      }
+    }
+  `;
+  document.head.appendChild(style);
+}
+
 // 简单的缩放和拖拽功能
 function addZoomAndPanToSvg(svg) {
   let scale = 1;
@@ -60,6 +186,53 @@ function addZoomAndPanToSvg(svg) {
   return resetTransform;
 }
 
+// 自动应用节点样式
+function applyNodeStyles(svg) {
+  // 定义样式类
+  const styleClasses = {
+    rootNode: { fill: '#e3f2fd', stroke: '#1976d2', strokeWidth: '3px', color: '#1565c0' },
+    investmentNode: { fill: '#f3e5f5', stroke: '#8e24aa', strokeWidth: '2px', color: '#7b1fa2' },
+    systemNode: { fill: '#e8f5e8', stroke: '#388e3c', strokeWidth: '2px', color: '#2e7d32' },
+    ipNode: { fill: '#fff3e0', stroke: '#f57c00', strokeWidth: '2px', color: '#ef6c00' },
+    leafNode: { fill: '#fafafa', stroke: '#616161', strokeWidth: '1px', color: '#424242' }
+  };
+  
+  // 获取所有节点
+  const nodes = svg.querySelectorAll('.node');
+  
+  nodes.forEach(node => {
+    const textElement = node.querySelector('.nodeLabel');
+    if (textElement) {
+      const text = textElement.textContent;
+      
+      // 根据文本内容判断节点类型
+      let nodeType = 'leafNode';
+      
+      if (text.includes('被动收入')) {
+        nodeType = 'rootNode';
+      } else if (text.includes('投资') || text.includes('股息') || text.includes('债券') || text.includes('基金') || text.includes('加密货币')) {
+        nodeType = 'investmentNode';
+      } else if (text.includes('系统') || text.includes('公司') || text.includes('机器') || text.includes('SaaS') || text.includes('应用') || text.includes('API') || text.includes('连锁') || text.includes('教育') || text.includes('服务') || text.includes('硬件') || text.includes('软件') || text.includes('售卖机') || text.includes('共享')) {
+        nodeType = 'systemNode';
+      } else if (text.includes('IP') || text.includes('内容') || text.includes('创作') || text.includes('数字') || text.includes('产品') || text.includes('授权') || text.includes('课程') || text.includes('小说') || text.includes('音乐') || text.includes('游戏') || text.includes('平台') || text.includes('版权')) {
+        nodeType = 'ipNode';
+      }
+      
+      // 应用样式
+      const style = styleClasses[nodeType];
+      const rect = node.querySelector('rect, circle, ellipse, polygon');
+      if (rect) {
+        rect.setAttribute('fill', style.fill);
+        rect.setAttribute('stroke', style.stroke);
+        rect.setAttribute('stroke-width', style.strokeWidth);
+      }
+      
+      // 设置文字颜色
+      textElement.setAttribute('fill', style.color);
+    }
+  });
+}
+
 // 增强 Mermaid 图表功能
 function enhanceMermaidDiagrams() {
   const mermaidDivs = document.querySelectorAll("div.mermaid");
@@ -79,6 +252,9 @@ function enhanceMermaidDiagrams() {
       const svg = div.querySelector('svg');
       if (svg && !div.hasAttribute('data-enhanced')) {
         div.setAttribute('data-enhanced', 'true');
+        
+        // 应用自动样式
+        applyNodeStyles(svg);
         
         // 添加点击放大功能
         div.style.cursor = 'pointer';
@@ -277,6 +453,9 @@ function enhanceMermaidDiagrams() {
   }, 2000);
 }
 
+// 添加样式
+addMermaidStyles();
+
 // 等待 DOM 加载完成后再执行
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', enhanceMermaidDiagrams);
@@ -287,24 +466,118 @@ if (document.readyState === 'loading') {
 mermaid.initialize({
   theme: "base",
   themeVariables: {
-    background: css("--color-neutral"),
-    primaryColor: css("--color-primary-200"),
-    secondaryColor: css("--color-secondary-200"),
-    tertiaryColor: css("--color-neutral-100"),
-    primaryBorderColor: css("--color-primary-400"),
-    secondaryBorderColor: css("--color-secondary-400"),
-    tertiaryBorderColor: css("--color-neutral-400"),
-    lineColor: css("--color-neutral-600"),
-    fontFamily:
-      "ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,segoe ui,Roboto,helvetica neue,Arial,noto sans,sans-serif",
-    fontSize: "16px",
+    // 背景色 - 使用更柔和的颜色
+    background: "#fafafa",
+    // 主要颜色 - 使用渐变色系
+    primaryColor: "#e3f2fd",
+    primaryTextColor: "#1565c0",
+    primaryBorderColor: "#1976d2",
+    // 次要颜色
+    secondaryColor: "#f3e5f5",
+    secondaryTextColor: "#7b1fa2",
+    secondaryBorderColor: "#8e24aa",
+    // 第三级颜色
+    tertiaryColor: "#e8f5e8",
+    tertiaryTextColor: "#2e7d32",
+    tertiaryBorderColor: "#388e3c",
+    // 线条颜色
+    lineColor: "#424242",
+    // 字体设置
+    fontFamily: "ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif",
+    fontSize: "14px",
+    // 节点样式
+    nodeBkg: "#ffffff",
+    nodeTextColor: "#333333",
+    clusterBkg: "#f5f5f5",
+    clusterTextColor: "#666666",
+    // 边线样式
+    edgeLabelBackground: "#ffffff",
+    edgeLabelColor: "#333333",
+    // 激活状态
+    activeTaskBkgColor: "#e1f5fe",
+    activeTaskBorderColor: "#0277bd",
+    // 网格线
+    gridColor: "#e0e0e0"
   },
   // 启用交互功能
   securityLevel: 'loose',
-  // 启用点击事件
+  // 流程图配置
   flowchart: {
     useMaxWidth: true,
-    htmlLabels: true
+    htmlLabels: true,
+    curve: 'basis', // 使用更平滑的曲线
+    padding: 20, // 增加内边距
+    nodeSpacing: 50, // 节点间距
+    rankSpacing: 50, // 层级间距
+    diagramPadding: 20 // 图表内边距
+  },
+  // 序列图配置
+  sequence: {
+    useMaxWidth: true,
+    wrap: true,
+    width: 150,
+    height: 65,
+    boxMargin: 10,
+    boxTextMargin: 5,
+    noteMargin: 10,
+    messageMargin: 35,
+    messageAlign: 'center',
+    mirrorActors: true,
+    bottomMarginAdj: 1,
+    actorFontSize: 14,
+    actorFontFamily: 'ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif',
+    actorFontWeight: '400',
+    actorFontColor: '#333',
+    signalFontSize: 12,
+    signalFontFamily: 'ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif',
+    signalFontWeight: '400',
+    signalFontColor: '#333',
+    labelFontSize: 12,
+    labelFontFamily: 'ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif',
+    labelFontWeight: '400',
+    labelFontColor: '#333',
+    activationWidth: 10,
+    activationWidth: 10,
+    width: 150,
+    height: 65,
+    boxMargin: 10,
+    boxTextMargin: 5,
+    noteMargin: 10,
+    messageMargin: 35,
+    messageAlign: 'center',
+    mirrorActors: true,
+    bottomMarginAdj: 1,
+    actorFontSize: 14,
+    actorFontFamily: 'ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif',
+    actorFontWeight: '400',
+    actorFontColor: '#333',
+    signalFontSize: 12,
+    signalFontFamily: 'ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif',
+    signalFontWeight: '400',
+    signalFontColor: '#333',
+    labelFontSize: 12,
+    labelFontFamily: 'ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif',
+    labelFontWeight: '400',
+    labelFontColor: '#333',
+    activationWidth: 10
+  },
+  // 甘特图配置
+  gantt: {
+    useMaxWidth: true,
+    leftPadding: 75,
+    gridLineStartPadding: 35,
+    fontSize: 11,
+    fontFamily: 'ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif',
+    sectionFontSize: 24,
+    sectionFontFamily: 'ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif',
+    numberSectionStyles: 4,
+    axisFormat: '%m/%d',
+    topAxis: false
+  },
+  // 饼图配置
+  pie: {
+    useMaxWidth: true,
+    textPosition: 0.75
   },
   // 确保图表正确渲染
   startOnLoad: true
