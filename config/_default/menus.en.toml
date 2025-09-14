@@ -81,12 +81,12 @@
 
 
 [[footer]]
-  name = "Terms of Service"
+  name = "Terms"
   url = "/terms-of-service/"
   weight = 20
 
 [[footer]]
-  name = "Privacy Policy"
+  name = "Privacy"
   url = "/privacy-policy/"
   weight = 30
 
