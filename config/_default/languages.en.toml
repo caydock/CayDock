@@ -4,6 +4,7 @@ languageName = "English"
 weight = 1
 title = "CayDock"
 
+
 [params]
   displayName = "EN"
   isoCode = "en"

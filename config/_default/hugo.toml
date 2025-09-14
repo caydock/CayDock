@@ -50,6 +50,12 @@ googleAnalytics = "G-R79DZ5MNVW"
 [outputs]
   home = ["HTML", "RSS", "JSON"]
 
+# RSS 配置
+[outputFormats]
+  [outputFormats.RSS]
+    baseName = "feed"
+    mediaType = "application/rss+xml"
+
 [related]
   threshold = 0
   toLower = false

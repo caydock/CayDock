@@ -2,7 +2,6 @@
 title: "Web Frontend Testing and Monitoring Exploration and Practice"
 date: 2016-11-08 15:52:29
 draft: false
-lang: en
 translationKey: "web-frontend-testing-monitoring"
 ---
 

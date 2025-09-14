@@ -2,7 +2,6 @@
 title: "RSS Subscription Experience Sharing"
 date: 2022-02-19 14:40:16
 draft: false
-lang: en
 featureimage: "/images/e6c9d24egy1gziqhlratdj211c0n842o.jpg"
 translationKey: "rss-subscription-experience"
 ---

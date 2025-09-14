@@ -28,13 +28,16 @@ function addMermaidStyles() {
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
     
-    /* 节点样式 */
+    /* 节点样式 - 手绘效果 */
     .mermaid .node rect,
     .mermaid .node circle,
     .mermaid .node ellipse,
     .mermaid .node polygon {
       filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
       transition: all 0.2s ease;
+      stroke-dasharray: 2, 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
     }
     
     .mermaid .node:hover rect,
@@ -45,17 +48,22 @@ function addMermaidStyles() {
       transform: scale(1.02);
     }
     
-    /* 文字样式 */
+    /* 文字样式 - 手绘字体效果 */
     .mermaid .nodeLabel,
     .mermaid .edgeLabel {
       font-weight: 500;
       text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+      font-family: 'Comic Sans MS', 'Marker Felt', 'Bradley Hand', cursive;
+      font-style: italic;
     }
     
-    /* 连接线样式 */
+    /* 连接线样式 - 手绘效果 */
     .mermaid .edgePath path {
       stroke-width: 2;
       filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+      stroke-dasharray: 3, 3;
+      stroke-linecap: round;
+      stroke-linejoin: round;
     }
     
     .mermaid .edgePath:hover path {
@@ -63,9 +71,12 @@ function addMermaidStyles() {
       filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
     }
     
-    /* 箭头样式 */
+    /* 箭头样式 - 手绘效果 */
     .mermaid .arrowheadPath {
       filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+      stroke-dasharray: 2, 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
     }
     
     /* 集群样式 */
@@ -186,6 +197,40 @@ function addZoomAndPanToSvg(svg) {
   return resetTransform;
 }
 
+// 应用手绘样式
+function applyHandDrawnStyles(svg) {
+  // 为所有节点添加手绘效果
+  const nodes = svg.querySelectorAll('.node rect, .node circle, .node ellipse, .node polygon');
+  nodes.forEach(node => {
+    // 添加轻微的不规则性
+    const randomOffset = () => (Math.random() - 0.5) * 2;
+    const currentTransform = node.getAttribute('transform') || '';
+    const newTransform = currentTransform + ` translate(${randomOffset()}, ${randomOffset()})`;
+    node.setAttribute('transform', newTransform);
+    
+    // 添加手绘边框效果
+    node.setAttribute('stroke-dasharray', '2,2');
+    node.setAttribute('stroke-linecap', 'round');
+    node.setAttribute('stroke-linejoin', 'round');
+  });
+  
+  // 为连接线添加手绘效果
+  const paths = svg.querySelectorAll('.edgePath path');
+  paths.forEach(path => {
+    path.setAttribute('stroke-dasharray', '3,3');
+    path.setAttribute('stroke-linecap', 'round');
+    path.setAttribute('stroke-linejoin', 'round');
+  });
+  
+  // 为箭头添加手绘效果
+  const arrows = svg.querySelectorAll('.arrowheadPath');
+  arrows.forEach(arrow => {
+    arrow.setAttribute('stroke-dasharray', '2,2');
+    arrow.setAttribute('stroke-linecap', 'round');
+    arrow.setAttribute('stroke-linejoin', 'round');
+  });
+}
+
 // 自动应用节点样式
 function applyNodeStyles(svg) {
   // 定义样式类
@@ -231,6 +276,9 @@ function applyNodeStyles(svg) {
       textElement.setAttribute('fill', style.color);
     }
   });
+  
+  // 应用手绘样式
+  applyHandDrawnStyles(svg);
 }
 
 // 增强 Mermaid 图表功能
@@ -501,15 +549,19 @@ mermaid.initialize({
   },
   // 启用交互功能
   securityLevel: 'loose',
-  // 流程图配置
+  // 流程图配置 - 手绘样式
   flowchart: {
     useMaxWidth: true,
     htmlLabels: true,
     curve: 'basis', // 使用更平滑的曲线
     padding: 20, // 增加内边距
-    nodeSpacing: 50, // 节点间距
-    rankSpacing: 50, // 层级间距
-    diagramPadding: 20 // 图表内边距
+    nodeSpacing: 60, // 节点间距
+    rankSpacing: 80, // 层级间距
+    diagramPadding: 20, // 图表内边距
+    // 手绘样式配置
+    nodeSpacing: 60,
+    rankSpacing: 80,
+    padding: 20
   },
   // 序列图配置
   sequence: {

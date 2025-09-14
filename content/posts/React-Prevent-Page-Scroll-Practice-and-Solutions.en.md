@@ -3,7 +3,6 @@ title: "React Prevent Page Scroll Practice and Solutions"
 date: 2018-07-02 23:09:08
 draft: false
 featureimage: "/images/scroll-issue/2250902-8418da4d28a9107e.png"
-lang: en
 translationKey: "react-prevent-page-scroll"
 ---
 

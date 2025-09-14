@@ -2,7 +2,6 @@
 title: "React Event Callback Function bind(this) Analysis"
 date: 2018-07-27 18:23:25
 draft: false
-lang: en
 translationKey: "react-event-callback-bind-this"
 ---
 

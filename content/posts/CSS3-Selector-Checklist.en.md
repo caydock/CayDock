@@ -7,7 +7,6 @@ tags: ["CSS", "CSS3", "Selectors", "Frontend"]
 categories: ["Frontend Development"]
 featured: true
 featuredImage: "cover-css.svg"
-lang: en
 translationKey: "css3-selector-checklist"
 ---
 

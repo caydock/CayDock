@@ -7,7 +7,6 @@ tags: ["JavaScript", "Set", "Map", "data structures"]
 categories: ["Frontend Development"]
 featured: true
 featuredImage: "cover-js.svg"
-lang: en
 translationKey: "set-vs-map-comparison"
 ---
 

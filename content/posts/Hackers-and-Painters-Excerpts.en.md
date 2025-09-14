@@ -2,7 +2,6 @@
 title: "Hackers and Painters - Excerpts"
 date: 2023-08-19 19:55:35
 draft: false
-lang: en
 translationKey: "hackers-and-painters"
 ---
 

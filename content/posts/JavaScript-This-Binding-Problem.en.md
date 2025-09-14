@@ -2,7 +2,6 @@
 title: "JavaScript This Binding Problem"
 date: 2015-08-25 17:53:55
 draft: false
-lang: en
 translationKey: "javascript-this-binding"
 ---
 

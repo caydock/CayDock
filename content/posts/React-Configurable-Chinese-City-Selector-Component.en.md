@@ -8,7 +8,6 @@ categories: ["Frontend Development"]
 featured: true
 featuredImage: "cover-react.svg"
 toc: true
-lang: en
 translationKey: "react-city-selector-component"
 ---
 

@@ -7,7 +7,6 @@ tags: ["Web optimization", "performance optimization", "loading speed", "fronten
 categories: ["Frontend Development"]
 featured: true
 featuredImage: "cover-web.svg"
-lang: en
 translationKey: "web-loading-speed-optimization"
 ---
 

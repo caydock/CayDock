@@ -4,6 +4,7 @@ languageName = "中文"
 weight = 2
 title = "CayDock"
 
+
 [params]
   displayName = "中文"
   isoCode = "zh-CN"

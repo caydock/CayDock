@@ -75,7 +75,7 @@
 
 [[footer]]
   name = "RSS"
-  url = "/index.xml"
+  url = "/zh-cn/feed.xml"
   pre = "rss"
   weight = 15
 

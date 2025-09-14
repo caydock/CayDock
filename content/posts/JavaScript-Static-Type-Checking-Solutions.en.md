@@ -2,7 +2,6 @@
 title: "JavaScript Static Type Checking Solutions"
 date: 2017-06-10T20:50:00+08:00
 draft: false
-lang: en
 translationKey: "javascript-static-type-checking"
 ---
 

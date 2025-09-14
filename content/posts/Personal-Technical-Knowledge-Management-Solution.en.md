@@ -7,7 +7,6 @@ tags: ["knowledge management", "learning methods", "technical growth", "tool rec
 categories: ["Personal Growth"]
 featured: true
 featuredImage: "cover-knowledge.svg"
-lang: en
 translationKey: "personal-knowledge-management"
 ---
 
