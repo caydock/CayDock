@@ -25,6 +25,9 @@ buildFuture = false
 
 enableEmoji = true
 
+# 启用 CJK 语言支持，用于正确统计中文字数
+hasCJKLanguage = true
+
 googleAnalytics = "G-R79DZ5MNVW"
 
 [pagination]
