@@ -144,11 +144,27 @@
   {{/* Social */}}
   {{ template "_internal/opengraph.html" . }}
   {{ template "_internal/twitter_cards.html" . }}
+  
+  {{/* Twitter Site */}}
+  {{ with .Site.Language.Params.twitter }}
+    <meta name="twitter:site" content="{{ . }}">
+  {{ end }}
 
   {{- /* Main page always uses this; fallback elsewhere if no feature image */ -}}
   {{- /* See https://gohugo.io/templates/embedded/#open-graph */ -}}
   {{- $images := .Resources.ByType "image" -}}
   {{- $socialImage := $images.GetMatch "*feature*" -}}
+  {{- if not $socialImage }}{{ $socialImage = $images.GetMatch "{*cover*,*thumbnail*}" }}{{ end -}}
+
+  {{- /* Check for featureimage parameter */ -}}
+  {{- if and .Params.featureimage (not $socialImage) -}}
+    {{- $url := .Params.featureimage -}}
+    {{- if hasPrefix $url "/" -}}
+      {{- $socialImage = $url -}}
+    {{- else -}}
+      {{- $socialImage = resources.GetRemote $url -}}
+    {{- end -}}
+  {{- end -}}
 
   {{- if not $socialImage -}}
     {{- with .Site.Params.defaultSocialImage -}}
@@ -161,8 +177,13 @@
   {{- end -}}
 
   {{- with $socialImage -}}
-    <meta name="twitter:image" content="{{ .RelPermalink | absURL }}">
-    <meta property="og:image" content="{{ .RelPermalink | absURL }}">
+    {{- if eq (printf "%T" .) "string" -}}
+      <meta name="twitter:image" content="{{ . | absURL }}">
+      <meta property="og:image" content="{{ . | absURL }}">
+    {{- else -}}
+      <meta name="twitter:image" content="{{ .RelPermalink | absURL }}">
+      <meta property="og:image" content="{{ .RelPermalink | absURL }}">
+    {{- end -}}
   {{- end -}}
 
   {{/* Schema */}}
