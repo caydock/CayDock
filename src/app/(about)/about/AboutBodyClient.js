@@ -15,7 +15,7 @@ export default function AboutBodyClient() {
       <h3 className="mt-8 text-xl md:text-2xl font-semibold">{t('about.contactTitle')}</h3>
       <p className="mt-3 text-base md:text-lg">
         {t('about.contactEmailPrefix')}
-        <a className="underline underline-offset-2 ml-1" href="mailto:w3cay@hotmail.com">w3cay@hotmail.com</a>
+        <a className="underline underline-offset-2 ml-1" href="mailto:cay.dev@hotmail.com">cay.dev@hotmail.com</a>
         。 {t('about.contactSubmitPrefix')}
         <Link href="/submit" className="mx-1 underline underline-offset-2">{t('about.contactSubmitLink')}</Link>
         {t('about.contactSubmitSuffix')}

@@ -29,7 +29,7 @@ export default function TermsContent({ initialLanguage }) {
 
       <h2 className="text-2xl font-semibold mt-8 mb-4 text-dark dark:text-light">{t('terms.contactTitle')}</h2>
       <p className="text-lg leading-relaxed mb-6 text-dark dark:text-light">
-        {t('terms.contactText')} <a className="underline text-blue-600 dark:text-blue-400" href="mailto:w3cay@hotmail.com">w3cay@hotmail.com</a>.
+        {t('terms.contactText')} <a className="underline text-blue-600 dark:text-blue-400" href="mailto:cay.dev@hotmail.com">cay.dev@hotmail.com</a>.
       </p>
     </main>
   )

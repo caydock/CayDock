@@ -9,7 +9,7 @@ const siteMetadata = {
     siteUrl: 'https://w3cay.com', // your website URL
     siteLogo: '/logo.webp',
     socialBanner: '/logo.png', // add social banner in the public folder
-    email: 'w3cay@hotmail.com', 
+    email: 'cay.dev@hotmail.com', 
     locale: 'en-US',
   }
   
