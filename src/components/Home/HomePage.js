@@ -380,7 +380,7 @@ export default function HomePage({ initialLanguage = 'en', searchParams = {}, in
 
         <div className='w-full flex flex-col text-center items-center justify-center px-5 xs:p-10 pb-10 lg:px-16'>
           <h1 className='font-bold text-4xl xs:text-5xl sxl:text-6xl text-center transition-all duration-1000 ease-in-out'>
-            {isZh ? '探索有趣网站的宝藏小岛' : 'Weird Wonder Web Cay'}
+            {isZh ? '探索有趣网站的宝藏小岛' : 'Weird Web Wonders Cay'}
           </h1>
 
           <p className='font-medium mt-4 text-base max-w-2xl text-center  transition-all duration-1000 ease-in-out'>

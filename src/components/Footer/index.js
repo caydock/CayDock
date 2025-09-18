@@ -50,7 +50,7 @@ const Footer = () => {
          >
            <img 
              src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1009668&theme=light&t=1756549588428" 
-             alt="W3CAY - Weird Wonder Web Cay — your island of quirky web discoveries | Product Hunt" 
+             alt="W3CAY - Weird Web Wonders Cay — your island of quirky web discoveries | Product Hunt" 
              style={{ width: '160px', height: '34px' }} 
              width="160" 
              height="34" 

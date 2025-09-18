@@ -1,6 +1,6 @@
 // please update required information
 const siteMetadata = {
-    title: 'W3Cay - Weird Wonder Web Cay',
+    title: 'W3Cay - Weird Web Wonders Cay',
     author: 'Cay',  
     headerTitle: 'W3Cay',
     description: '',
