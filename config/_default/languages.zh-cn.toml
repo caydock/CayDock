@@ -15,6 +15,9 @@ title = "CayDock"
   pageTitle = "CayDock - 我的独立开发者出海日记"
   mainSections = ["posts"]
   twitter = "@caydock"  # Twitter handle for twitter:site meta tag
+  
+  [params.article]
+    sharingLinks = [ "twitter", "facebook", "linkedin", "email", "whatsapp", "telegram", "line"]
   # logo = "img/logo.png"
   # secondaryLogo = "img/secondary-logo.png"
   # description = "My awesome website"
