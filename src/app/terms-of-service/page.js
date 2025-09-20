@@ -15,9 +15,9 @@ export async function generateMetadata() {
   const tdk = getServerTranslation(language, "meta");
   
   return {
-    title: tdk.title,
-    description: tdk.description,
-    keywords: tdk.keywords,
+    title: tdk.terms.title,
+    description: tdk.terms.description,
+    keywords: tdk.terms.keywords,
   };
 }
 
