@@ -3,6 +3,9 @@ title: "About"
 subtitle: "Recording my thoughts, experiences and growth"
 date: 2024-01-01T00:00:00+08:00
 draft: false
+showHero: true
+heroStyle: "background"
+featureimage: "/images/about-bg.jpg"
 ---
 
 # About
