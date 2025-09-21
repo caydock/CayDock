@@ -5,12 +5,8 @@ import { getServerTranslation } from "@/src/i18n";
 export const runtime = 'edge';
 
 export async function generateMetadata({ searchParams }) {
-  const cookieStore = await cookies();
-  const headerStore = await headers();
-  const langCookie = cookieStore.get("lang")?.value || "";
-  const acceptLang = headerStore.get("accept-language") || "";
-  const isZh = (langCookie || acceptLang).toLowerCase().startsWith("zh");
-  const language = isZh ? "zh" : "en";
+  // 无语言前缀的URL默认是英文
+  const language = "en";
   
   // 等待 searchParams
   const params = await searchParams;
@@ -69,12 +65,8 @@ export async function generateMetadata({ searchParams }) {
 }
 
 export default async function Home({ searchParams }) {
-  const headerStore = await headers();
-  const cookieStore = await cookies();
-  const langCookie = cookieStore.get("lang")?.value || "";
-  const acceptLang = headerStore.get("accept-language") || "";
-  const isZh = (langCookie || acceptLang).toLowerCase().startsWith("zh");
-  const language = isZh ? "zh" : "en";
+  // 无语言前缀的URL默认是英文
+  const language = "en";
 
   // 等待 searchParams
   const params = await searchParams;

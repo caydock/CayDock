@@ -12,30 +12,48 @@ export function LanguageProvider({ children, initialLanguage, initialStrings }) 
   const [language, setLanguage] = useState(initialLanguage || "en");
 
   useEffect(() => {
-    if (initialLanguage) return; // SSR provided, skip client detection on first paint
     if (typeof window === "undefined") return;
     
     // 只从 URL 中检测语言信息
     const updateLanguageFromURL = () => {
       const currentPath = window.location.pathname;
+      console.log('LanguageProvider: URL检测', { currentPath, initialLanguage });
       if (currentPath.startsWith('/zh-cn')) {
+        console.log('LanguageProvider: 设置为中文');
         setLanguage("zh");
       } else {
+        console.log('LanguageProvider: 设置为英文');
         setLanguage("en");
       }
     };
     
-    // 初始检测
+    // 总是从URL检测语言，忽略initialLanguage
     updateLanguageFromURL();
     
-    // 监听URL变化（通过popstate事件）
+    // 监听URL变化（通过popstate事件和pushstate/replacestate）
     window.addEventListener('popstate', updateLanguageFromURL);
+    
+    // 监听pushState和replaceState（用于router.push导航）
+    const originalPushState = window.history.pushState;
+    const originalReplaceState = window.history.replaceState;
+    
+    window.history.pushState = function(...args) {
+      originalPushState.apply(this, args);
+      setTimeout(updateLanguageFromURL, 0); // 异步执行，确保URL已更新
+    };
+    
+    window.history.replaceState = function(...args) {
+      originalReplaceState.apply(this, args);
+      setTimeout(updateLanguageFromURL, 0); // 异步执行，确保URL已更新
+    };
     
     // 清理事件监听器
     return () => {
       window.removeEventListener('popstate', updateLanguageFromURL);
+      window.history.pushState = originalPushState;
+      window.history.replaceState = originalReplaceState;
     };
-  }, [initialLanguage]);
+  }, []);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
