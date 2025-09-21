@@ -378,7 +378,7 @@ export default function HomePage({ initialLanguage = 'en', searchParams = {}, in
           </motion.div>
         )}
 
-        <div className='w-full flex flex-col text-center items-center justify-center px-5 xs:p-10 pb-10 lg:px-16'>
+        <div className='w-full flex flex-col text-center items-center justify-center px-5 sm:px-10 md:px-10 pb-10'>
           <h1 className='font-bold text-4xl xs:text-5xl sxl:text-6xl text-center transition-all duration-1000 ease-in-out'>
             {t('heroTitle')}
           </h1>
@@ -392,7 +392,7 @@ export default function HomePage({ initialLanguage = 'en', searchParams = {}, in
           <button
             onClick={handleStartExploring}
             disabled={isAnimating || (isOpening && !isSiteNotFound) || (initialSite && !isSiteNotFound)}
-            className={`mt-8 px-12 py-4 font-semibold text-lg rounded-lg transition-all duration-300 inline-block start-btn ${
+            className={`mt-8 px-16 py-4 font-semibold text-lg rounded-lg transition-all duration-300 inline-block start-btn ${
               isAnimating || (isOpening && !isSiteNotFound) || (initialSite && !isSiteNotFound)
                 ? 'bg-dark dark:bg-light text-light dark:text-dark opacity-50 cursor-not-allowed' 
                 : 'bg-dark dark:bg-light text-light dark:text-dark'

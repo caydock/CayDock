@@ -180,18 +180,14 @@ export default async function LangCategoryPage({ params }) {
 
   return (
     <article className="mt-8">
-      <div className="px-5 md:px-10">
-        <BreadcrumbServer items={breadcrumbItems} homeLabel={tdk.nav.home} />
-      </div>
-      <div className="px-5 md:px-10">
-        <Categories 
-          categories={allCategories} 
-          currentSlug={decodedCategorySlug} 
-          lang={lang} 
-          getCategoryLabel={getCategoryLabel}
-        />
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-5 px-5 md:px-10">
+      <BreadcrumbServer items={breadcrumbItems} homeLabel={tdk.nav.home} />
+      <Categories 
+        categories={allCategories} 
+        currentSlug={decodedCategorySlug} 
+        lang={lang} 
+        getCategoryLabel={getCategoryLabel}
+      />
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-5 px-5 sm:px-10 md:px-10">
         {filteredBlogs.map((blog, index) => (
           <article key={index} className="col-span-1 row-span-1 relative">
             <BlogLayoutThree blog={blog} lang={lang} />

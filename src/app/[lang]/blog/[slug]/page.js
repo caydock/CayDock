@@ -194,7 +194,7 @@ export default async function LangBlogPage({ params }) {
         />
       </div>
 
-      <div className="mb-10 grid grid-cols-12 gap-y-8 lg:gap-8 sxl:gap-16 mt-8 px-5 md:px-10">
+      <div className="mb-10 grid grid-cols-12 gap-y-8 lg:gap-8 sxl:gap-16 mt-8 px-5 sm:px-10 md:px-10">
         <div className="col-span-12 lg:col-span-8 lg:col-start-3">
           <RenderMdx blog={blog} />
           
