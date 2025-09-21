@@ -1,4 +1,3 @@
-import { format } from "date-fns";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -41,7 +40,11 @@ const BlogLayoutThree = ({ blog, lang }) => {
         </Link>
 
         <span className="capitalize text-gray dark:text-light/50 font-semibold text-sm  sm:text-base">
-          {format(new Date(blog.publishedAt), "MMMM dd, yyyy")}
+          {new Date(blog.publishedAt).toLocaleDateString(lang === 'zh-cn' ? 'zh-CN' : 'en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+          })}
         </span>
       </div>
     </div>
