@@ -205,17 +205,17 @@ export default async function CategoryPage({ params, searchParams }) {
   ];
 
   return (
-    <article className="mt-12 flex flex-col text-dark dark:text-light">
+    <article className="mt-6 flex flex-col text-dark dark:text-light">
       <BreadcrumbServer items={breadcrumbItems} homeLabel={tdk.nav.home} />
       <div className="px-5 sm:px-10 md:px-10 flex flex-col">
-        <h1 className="mt-6 font-semibold text-2xl md:text-4xl lg:text-5xl capitalize">#{getCategoryLabel(categorySlug)}</h1>
-        <span className="mt-10 inline-block">
+        <h1 className="mt-3 font-semibold text-2xl md:text-4xl lg:text-5xl capitalize">#{getCategoryLabel(categorySlug)}</h1>
+        <span className="mt-5 inline-block">
           {tdk.blog.categorySubtitle}
         </span>
       </div>
       <Categories categories={allCategories} currentSlug={categorySlug} lang={language === 'zh' ? 'zh-cn' : undefined} getCategoryLabel={getCategoryLabel} />
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-16 mt-5 sm:mt-10 md:mt-24 sxl:mt-32 px-5 sm:px-10 md:px-24 sxl:px-32 mb-10">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-16 mt-3 sm:mt-5 md:mt-10 sxl:mt-16 px-5 sm:px-10 md:px-10 sxl:px-10 mb-10">
         {filteredBlogs.map((blog, index) => (
           <article key={index} className="col-span-1 relative">
             <BlogLayoutThree blog={blog} lang={language === 'zh' ? 'zh-cn' : undefined} />
