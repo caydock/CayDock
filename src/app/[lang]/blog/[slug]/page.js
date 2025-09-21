@@ -23,7 +23,7 @@ export async function generateMetadata({ params }) {
   const { lang, slug } = await params;
   const language = lang === 'zh-cn' ? 'zh' : 'en';
   
-  const blog = blogs.find((blog) => blog.slug === slug);
+  const blog = blogs.find((blog) => blog.slug === slug && blog.language === language);
   if (!blog) {
     return;
   }
@@ -105,7 +105,7 @@ export default async function LangBlogPage({ params }) {
   const language = lang === 'zh-cn' ? 'zh' : 'en';
   
   const blog = blogs.find((blog) => {
-    return blog.slug === slug
+    return blog.slug === slug && blog.language === language
   });
 
   if(!blog){
@@ -210,7 +210,7 @@ export default async function LangBlogPage({ params }) {
         </div>
       </div>
       
-      <ExploreButton>
+      <ExploreButton href={`/${lang}`}>
         {tdk.blog.exploreMore}
       </ExploreButton>
     </article>

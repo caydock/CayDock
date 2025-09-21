@@ -113,7 +113,7 @@ export default async function LangCategoryPage({ params }) {
           </article>
         ))}
       </div>
-      <ExploreButton>
+      <ExploreButton href={`/${lang}`}>
         {tdk.blog.exploreMore}
       </ExploreButton>
     </article>

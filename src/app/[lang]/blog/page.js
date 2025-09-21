@@ -36,7 +36,7 @@ export default async function LangBlog({ params }) {
       <FeaturedPosts blogs={filteredBlogs} lang={lang} />
       <RecentPosts blogs={filteredBlogs} lang={lang} />
       
-      <ExploreButton>
+      <ExploreButton href={`/${lang}`}>
         {tdk.blog.exploreMore}
       </ExploreButton>
     </main>
