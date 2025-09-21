@@ -13,6 +13,7 @@ export async function generateStaticParams() {
   // 只为中文博客文章生成分类（英文使用无前缀URL）
   const zhBlogs = blogs.filter(blog => blog.language === 'zh');
   zhBlogs.forEach((blog) => {
+    // 只使用tagKeys作为分类，移除中文标签分类
     if (blog.tagKeys && blog.tagKeys.length > 0) {
       blog.tagKeys.forEach(tagKey => {
         if (!allCategories.includes(tagKey)) {
@@ -20,6 +21,7 @@ export async function generateStaticParams() {
         }
       });
     } else {
+      // 如果没有tagKeys，使用slugified的英文标签作为fallback
       blog.tags.forEach((tag) => {
         const slugified = slug(tag);
         if (!allCategories.includes(slugified)) {
@@ -75,6 +77,7 @@ export default async function LangCategoryPage({ params }) {
   // Separating logic to create list of categories from blog posts of current language using tagKeys
   const allCategories = ["all"]; // Initialize with 'all' category
   blogs.filter(blog => blog.language === language).forEach(blog => {
+    // 只使用tagKeys作为分类，移除中文标签分类
     if (blog.tagKeys && blog.tagKeys.length > 0) {
       blog.tagKeys.forEach(tagKey => {
         if (!allCategories.includes(tagKey)) {
@@ -82,8 +85,8 @@ export default async function LangCategoryPage({ params }) {
         }
       });
     } else {
-      // Fallback to original tags if tagKeys not available
-      blog.tags.forEach(tag => {
+      // 如果没有tagKeys，使用slugified的英文标签作为fallback
+      blog.tags.forEach((tag) => {
         const slugified = slug(tag);
         if (!allCategories.includes(slugified)) {
           allCategories.push(slugified);
@@ -120,8 +123,9 @@ export default async function LangCategoryPage({ params }) {
     
     // 只查找当前语言的博客文章来获取原始标签名称
     const currentLanguageBlogs = blogs.filter(blog => blog.language === language);
+    
+    // 查找tagKeys匹配的博客，获取对应的中文标签
     const matchingBlog = currentLanguageBlogs.find(blog => {
-      // 优先使用tagKeys进行匹配
       if (blog.tagKeys && blog.tagKeys.length > 0) {
         return blog.tagKeys.includes(categorySlug);
       } else {
@@ -180,7 +184,12 @@ export default async function LangCategoryPage({ params }) {
         <BreadcrumbServer items={breadcrumbItems} homeLabel={tdk.nav.home} />
       </div>
       <div className="px-5 md:px-10">
-        <Categories categories={allCategories} currentSlug={categorySlug} lang={lang} />
+        <Categories 
+          categories={allCategories} 
+          currentSlug={decodedCategorySlug} 
+          lang={lang} 
+          getCategoryLabel={getCategoryLabel}
+        />
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-5 px-5 md:px-10">
         {filteredBlogs.map((blog, index) => (
