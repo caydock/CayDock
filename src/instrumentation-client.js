@@ -2,6 +2,8 @@
 // The added config here will be used whenever a users loads a page in their browser.
 // https://docs.sentry.io/platforms/javascript/guides/nextjs/
 
+let onRouterTransitionStart;
+
 try {
   const Sentry = require("@sentry/nextjs");
 
@@ -30,9 +32,11 @@ try {
     debug: false,
   });
 
-  export const onRouterTransitionStart = Sentry.captureRouterTransitionStart;
+  onRouterTransitionStart = Sentry.captureRouterTransitionStart;
 } catch (error) {
   // Sentry不可用时提供fallback
   console.warn("Sentry initialization failed:", error);
-  export const onRouterTransitionStart = () => {};
+  onRouterTransitionStart = () => {};
 }
+
+export { onRouterTransitionStart };

@@ -3,7 +3,9 @@ import { NextResponse } from 'next/server'
 export function middleware(request) {
   const { pathname } = request.nextUrl
   
-  // 检查是否是 /zh-cn/ 开头的路径
+  // 多语言分类页面直接通过路由处理，不需要中间件重写
+  
+  // 检查是否是 /zh-cn/ 开头的其他路径
   if (pathname.startsWith('/zh-cn')) {
     // 重写到 /zh-cn 路由
     const newPath = pathname.replace('/zh-cn', '') || '/'
@@ -16,7 +18,7 @@ export function middleware(request) {
     return NextResponse.rewrite(url)
   }
   
-  // 检查是否是 /en/ 开头的路径（可选，保持一致性）
+  // 检查是否是 /en/ 开头的其他路径（可选，保持一致性）
   if (pathname.startsWith('/en')) {
     const newPath = pathname.replace('/en', '') || '/'
     const rewritePath = `/en${newPath}`
