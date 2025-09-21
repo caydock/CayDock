@@ -27,6 +27,6 @@ CayDock 名字由来：Cay 是我的名字，Dock 既有程序启动器的意思
 
 欢迎关注我的微信公众号，获取更多技术分享和独立开发经验：
 
-<img src="/images/wechat_banner.png" alt="微信公众号Banner" style="width: 400px; height: auto;">
+<img src="/images/wechat_banner.jpg" alt="微信公众号Banner" style="width: 400px; height: auto;">
 
 **邮箱：cay.dev@hotmail.com**
