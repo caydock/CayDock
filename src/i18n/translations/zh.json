@@ -1,7 +1,7 @@
 {
   "meta": {
     "home": {
-      "title": "W3Cay - 探索有趣网站的宝藏小岛",
+      "title": "W3Cay - 探索全球有趣网站的宝藏小岛",
       "description": "W3Cay是一个有趣的网络小岛，收集各种奇怪和无用的网站。发现随机网站，探索数字世界中无尽的奇妙之处。",
       "keywords": "奇怪网站,有趣网站,无聊按钮,无用网站,随机网站,W3Cay"
     },
@@ -76,13 +76,14 @@
       "startExploring": "开始探索"
     },
     "footer": {
-      "title": "探索有趣网站的宝藏小岛",
+      "title": "探索全球有趣网站的宝藏小岛",
       "description": "W3Cay是一个有趣的网络小岛，收集各种奇怪和无用的网站。发现随机网站，探索数字世界中无尽的奇妙奇观。",
       "sitemap": "站点地图",
       "allRights": "保留所有权利。",
       "madeWithBy": "用 ❤️ 制作，开发者"
     },
     "subtitle": "点击下方按钮，开始探索有趣网站",
+    "heroTitle": "探索全球有趣网站的宝藏小岛",
     "legal": {
       "terms": "服务条款",
       "privacy": "隐私政策",
@@ -172,6 +173,8 @@
       "contactSubmitPrefix": "推荐新网站请前往",
       "contactSubmitLink": "提交页面",
       "contactSubmitSuffix": "，我们会定期审核与收录。",
+      "wechatTitle": "微信公众号",
+      "wechatDesc": "关注我们的微信公众号「W3Cay」，获取最新网站推荐和有趣内容。我们会定期推送精选网站，让你不错过任何精彩内容。",
       "outro": "无论你是寻找灵感、解压放松，还是单纯想笑一笑，都希望你能在 W3Cay 的\"兴趣小岛 🏝️\"里，找到独属于你的那一处惊喜。"
     },
     "notFound": {

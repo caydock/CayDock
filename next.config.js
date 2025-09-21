@@ -29,6 +29,20 @@ module.exports = {
           permanent: true,
         },
       ]
+    },
+    async rewrites() {
+      return [
+        // 重写 /zh-cn/* 到 /[lang]/* 路由
+        {
+          source: '/zh-cn/:path*',
+          destination: '/zh-cn/:path*',
+        },
+        // 重写 /en/* 到 /[lang]/* 路由
+        {
+          source: '/en/:path*',
+          destination: '/en/:path*',
+        },
+      ]
     }
   }
   

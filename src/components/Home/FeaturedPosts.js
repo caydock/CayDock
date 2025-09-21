@@ -5,7 +5,7 @@ import BlogLayoutOne from "../Blog/BlogLayoutOne";
 import BlogLayoutTwo from "../Blog/BlogLayoutTwo";
 import { useLanguage } from "@/src/components/i18n/LanguageProvider";
 
-const FeaturedPosts = ({ blogs }) => {
+const FeaturedPosts = ({ blogs, lang }) => {
   const { t } = useLanguage();
   const sortedBlogs = sortBlogs(blogs);
   
@@ -23,17 +23,17 @@ const FeaturedPosts = ({ blogs }) => {
     <div className="grid grid-cols-2 grid-rows-2 gap-6 mt-10 sm:mt-10">
       {sortedBlogs[1] && (
         <article className="col-span-2 lg:col-span-1 sxl:col-span-1 row-span-2 relative h-full">
-          <BlogLayoutOne blog={sortedBlogs[1]} />
+          <BlogLayoutOne blog={sortedBlogs[1]} lang={lang} />
         </article>
       )}
       {sortedBlogs[2] && (
         <article className="col-span-2 sm:col-span-1 lg:col-span-1 row-span-1 relative h-full">
-          <BlogLayoutTwo blog={sortedBlogs[2]} />
+          <BlogLayoutTwo blog={sortedBlogs[2]} lang={lang} />
         </article>
       )}
       {sortedBlogs[3] && (
         <article className="col-span-2 sm:col-span-1 lg:col-span-1 row-span-1 relative h-full">
-          <BlogLayoutTwo blog={sortedBlogs[3]} />
+          <BlogLayoutTwo blog={sortedBlogs[3]} lang={lang} />
         </article>
       )}
     </div>

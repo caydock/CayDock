@@ -7,6 +7,7 @@ import siteMetadata from "@/src/utils/siteMetaData";
 import { useLanguage } from "@/src/components/i18n/LanguageProvider";
 import Logo from "@/src/components/Header/SiteLogoBlack";
 import ShareButtons from "@/src/components/Elements/ShareButtons";
+import { useRouter } from "next/navigation";
 
 const Footer = () => {
   const {
@@ -16,6 +17,35 @@ const Footer = () => {
   } = useForm();
 
   const { language, setLanguage, t } = useLanguage();
+  const router = useRouter();
+  
+  const toggleLanguage = () => {
+    const newLang = language === 'zh' ? 'en' : 'zh';
+    setLanguage(newLang);
+    
+    // 获取当前路径并处理语言切换
+    const currentPath = window.location.pathname;
+    let newPath;
+    
+    if (newLang === 'zh') {
+      // 切换到中文
+      if (currentPath === '/' || currentPath === '') {
+        newPath = '/zh-cn';
+      } else {
+        newPath = `/zh-cn${currentPath}`;
+      }
+    } else {
+      // 切换到英文
+      if (currentPath.startsWith('/zh-cn')) {
+        newPath = currentPath.replace('/zh-cn', '') || '/';
+      } else {
+        newPath = currentPath;
+      }
+    }
+    
+    // 使用 Next.js router 进行导航
+    router.push(newPath);
+  };
 
   return (
     <footer className="bg-dark flex flex-col items-center text-light relative">
@@ -27,11 +57,11 @@ const Footer = () => {
 
         {/* 导航菜单 */}
         <nav className="mt-4 flex flex-wrap items-center justify-center gap-6 text-lg sm:text-xl">
-          <Link href="/" className="hover:underline transition-colors">{t('nav.home')}</Link>
-          <Link href="/blog" className="hover:underline transition-colors">{t('blog.title')}</Link>
-          <Link href="/submit" className="hover:underline transition-colors">{t('nav.submit')}</Link>
-          <Link href="/about" className="hover:underline transition-colors">{t('nav.about')}</Link>
-          <Link href="/contact" className="hover:underline transition-colors">{t('nav.contact')}</Link>
+          <Link href={language === 'zh' ? "/zh-cn" : "/"} className="hover:underline transition-colors">{t('nav.home')}</Link>
+          <Link href={language === 'zh' ? "/zh-cn/blog" : "/blog"} className="hover:underline transition-colors">{t('blog.title')}</Link>
+          <Link href={language === 'zh' ? "/zh-cn/submit" : "/submit"} className="hover:underline transition-colors">{t('nav.submit')}</Link>
+          <Link href={language === 'zh' ? "/zh-cn/about" : "/about"} className="hover:underline transition-colors">{t('nav.about')}</Link>
+          <Link href={language === 'zh' ? "/zh-cn/contact" : "/contact"} className="hover:underline transition-colors">{t('nav.contact')}</Link>
         </nav>
       </div>
 
@@ -109,9 +139,9 @@ const Footer = () => {
           &copy;2025 W3Cay. {t('footer.allRights')}
         </span>
         <div className="text-center my-4 md:my-0 flex items-center gap-4 text-base sm:text-base">
-          <Link href="/terms-of-service" className="underline">{t('legal.terms')}</Link>
-          <Link href="/privacy-policy" className="underline">{t('legal.privacy')}</Link>
-          <Link href="/disclaimer" className="underline">{t('legal.disclaimer')}</Link>
+          <Link href={language === 'zh' ? "/zh-cn/terms-of-service" : "/terms-of-service"} className="underline">{t('legal.terms')}</Link>
+          <Link href={language === 'zh' ? "/zh-cn/privacy-policy" : "/privacy-policy"} className="underline">{t('legal.privacy')}</Link>
+          <Link href={language === 'zh' ? "/zh-cn/disclaimer" : "/disclaimer"} className="underline">{t('legal.disclaimer')}</Link>
           <Link href="/sitemap.xml" className="underline">{t('footer.sitemap')}</Link>
         </div>
         <div className="text-center flex items-center gap-3 text-base sm:text-base">
@@ -122,7 +152,7 @@ const Footer = () => {
             </a>
           </span>
           <button
-            onClick={() => setLanguage(language === 'zh' ? 'en' : 'zh')}
+            onClick={toggleLanguage}
             className="ml-2 px-3 py-1 rounded-full border border-solid border-light/60  text-sm bg-transparent"
             aria-label="language-switcher-footer"
           >

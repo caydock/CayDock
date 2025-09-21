@@ -3,12 +3,14 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-const BlogLayoutThree = ({ blog }) => {
+const BlogLayoutThree = ({ blog, lang }) => {
   if (!blog) return null;
+  
+  const blogUrl = lang ? `/${lang}${blog.url}` : blog.url;
   
   return (
     <div className="group flex flex-col items-center text-dark dark:text-light">
-      <Link href={blog.url || '#'} className="w-full h-48 rounded-xl overflow-hidden">
+      <Link href={blogUrl || '#'} className="w-full h-48 rounded-xl overflow-hidden">
         <Image
           src={blog.image.src}
           placeholder="blur"
@@ -25,7 +27,7 @@ const BlogLayoutThree = ({ blog }) => {
         <span className="capitalize text-accent dark:text-accentDark font-semibold text-xs sm:text-sm">
           {blog.tags[0]}
         </span>
-        <Link href={blog.url || '#'} className="inline-block my-1">
+        <Link href={blogUrl || '#'} className="inline-block my-1">
           <h2 className="font-semibold capitalize  text-base sm:text-lg">
             <span
               className="bg-gradient-to-r from-accent/50 to-accent/50  dark:from-accentDark/50

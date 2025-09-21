@@ -5,7 +5,7 @@ import React from "react";
 import BlogLayoutThree from "../Blog/BlogLayoutThree";
 import { useLanguage } from "@/src/components/i18n/LanguageProvider";
 
-const RecentPosts = ({ blogs }) => {
+const RecentPosts = ({ blogs, lang }) => {
   const { t } = useLanguage();
   const sortedBlogs = sortBlogs(blogs);
   const recentBlogs = sortedBlogs.slice(4, 10);
@@ -22,7 +22,7 @@ const RecentPosts = ({ blogs }) => {
           {t('blog.recentPosts')}
         </h2>
         <Link
-          href="/categories/all"
+          href={lang ? `/${lang}/categories/all` : "/categories/all"}
           className="inline-block font-medium text-accent dark:text-accentDark underline underline-offset-2      text-base md:text-lg"
         >
                       {t('blog.viewAll')}
@@ -33,7 +33,7 @@ const RecentPosts = ({ blogs }) => {
         {recentBlogs.map((blog, index) => {
           return (
             <article key={index} className="col-span-1 row-span-1 relative">
-              <BlogLayoutThree blog={blog} />
+              <BlogLayoutThree blog={blog} lang={lang} />
             </article>
           );
         })}

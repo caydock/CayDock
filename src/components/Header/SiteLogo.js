@@ -2,10 +2,14 @@ import Image from "next/image"
 import Link from "next/link"
 import siteLogoBlack from "@/public/site-logo.webp"
 import siteLogoWhite from "@/public/site-logo-white.webp"
+import { useLanguage } from "@/src/components/i18n/LanguageProvider"
 
 const SiteLogo = ({ sizeClass = "w-40 md:w-32" }) => {
+  const { language } = useLanguage();
+  const isZh = language?.startsWith('zh');
+  
   return (
-    <Link href="/" className="flex items-center justify-center text-dark dark:text-light">
+    <Link href={isZh ? "/zh-cn" : "/"} className="flex items-center justify-center text-dark dark:text-light">
       <div className={`${sizeClass} rounded-full overflow-hidden dark:border-gray`}>
         <Image
           src={siteLogoBlack}

@@ -14,6 +14,15 @@ export function LanguageProvider({ children, initialLanguage, initialStrings }) 
   useEffect(() => {
     if (initialLanguage) return; // SSR provided, skip client detection on first paint
     if (typeof window === "undefined") return;
+    
+    // 首先检查 URL 中的语言信息
+    const currentPath = window.location.pathname;
+    if (currentPath.startsWith('/zh-cn')) {
+      setLanguage("zh");
+      return;
+    }
+    
+    // 然后检查本地存储
     const saved = window.localStorage.getItem("lang");
     if (saved === "zh" || saved === "en") {
       setLanguage(saved);

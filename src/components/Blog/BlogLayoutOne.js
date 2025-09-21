@@ -4,8 +4,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { slug } from "github-slugger";
 
-const BlogLayoutOne = ({ blog }) => {
+const BlogLayoutOne = ({ blog, lang }) => {
   if (!blog) return null;
+  
+  const blogUrl = lang ? `/${lang}${blog.url}` : blog.url;
   
   return (
     <div className="group inline-block overflow-hidden rounded-xl h-full">
@@ -26,10 +28,10 @@ const BlogLayoutOne = ({ blog }) => {
       />
 
       <div className="w-full absolute bottom-0 p-4 xs:p-6 sm:p-10 z-20">
-        <Tag link={`/categories/${slug(blog.tags[0])}`} name={blog.tags[0]}
+        <Tag link={lang ? `/${lang}/categories/${slug(blog.tags[0])}` : `/categories/${slug(blog.tags[0])}`} name={blog.tags[0]}
         className="px-6 text-xs sm:text-sm py-1 sm:py-2 !border "
         />
-        <Link href={blog.url || '#'} className="mt-6">
+        <Link href={blogUrl || '#'} className="mt-6">
           <h2 className="font-bold capitalize text-sm xs:text-base sm:text-xl md:text-2xl text-light mt-2 sm:mt-4">
             <span
               className="bg-gradient-to-r from-accent to-accent bg-[length:0px_6px] dark:from-accentDark/50 dark:to-accentDark/50

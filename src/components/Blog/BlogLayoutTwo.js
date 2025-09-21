@@ -3,13 +3,15 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-const BlogLayoutTwo = ({ blog }) => {
+const BlogLayoutTwo = ({ blog, lang }) => {
   if (!blog) return null;
+  
+  const blogUrl = lang ? `/${lang}${blog.url}` : blog.url;
   
   return (
     <div className="group grid grid-cols-12 gap-4 items-center text-dark dark:text-light h-full">
       <Link
-        href={blog.url || '#'}
+        href={blogUrl || '#'}
         className="col-span-12 lg:col-span-4 h-32 xl:h-40 2xl:h-48 rounded-xl overflow-hidden"
       >
         <Image
@@ -28,7 +30,7 @@ const BlogLayoutTwo = ({ blog }) => {
         <span className="inline-block w-full capitalize text-accent dark:text-accentDark font-semibold text-xs sm:text-sm">
           {blog.tags[0]}
         </span>
-        <Link href={blog.url} className="inline-block my-1">
+        <Link href={blogUrl} className="inline-block my-1">
           <h2 className="font-semibold capitalize text-base sm:text-lg">
             <span
               className="bg-gradient-to-r from-accent/50 dark:from-accentDark/50 to-accent/50 dark:to-accentDark/50 bg-[length:0px_6px]
