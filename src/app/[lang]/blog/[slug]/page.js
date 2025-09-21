@@ -13,10 +13,10 @@ import { headers, cookies } from "next/headers";
 import { getServerTranslation } from "@/src/i18n";
 
 export async function generateStaticParams() {
-  return blogs.flatMap((blog) => [
-    { lang: 'en', slug: blog.slug },
+  // 只为中文博客文章生成多语言参数（英文使用无前缀URL）
+  return blogs.filter(blog => blog.language === 'zh').map((blog) => [
     { lang: 'zh-cn', slug: blog.slug }
-  ]);
+  ]).flat();
 }
 
 export async function generateMetadata({ params }) {

@@ -22,9 +22,11 @@ const blog = s
     isPublished: s.boolean().default(true),
     author: s.string(),
     tags: s.array(s.string()),
+    tagKeys: s.array(s.string()).optional(), // 标签的key映射
     body: s.markdown(),
     toc: s.toc(),
     slug: s.string(),
+    key: s.string().optional(), // 博客文章的key映射
     language: s.string().default('en'),
   })
   .transform((data) => {

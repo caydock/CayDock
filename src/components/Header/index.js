@@ -13,14 +13,13 @@ import { useRouter } from "next/navigation";
 
 const Header = () => {
   const [mode, setMode] = useThemeSwitch();
-  const { t, language, setLanguage } = useLanguage();
+  const { t, language } = useLanguage();
   const isZh = language?.startsWith('zh');
   const [open, setOpen] = useState(false);
   const router = useRouter();
   
   const toggleLanguage = () => {
     const newLang = isZh ? 'en' : 'zh';
-    setLanguage(newLang);
     
     // 获取当前路径并处理语言切换
     const currentPath = window.location.pathname;

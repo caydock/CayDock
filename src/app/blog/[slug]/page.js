@@ -8,17 +8,18 @@ import { blogs } from '@/.velite/generated'
 import { slug as slugify } from "github-slugger";
 import Image from "next/image";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { headers, cookies } from "next/headers";
 import { getServerTranslation } from "@/src/i18n";
 
 export async function generateStaticParams() {
-  return blogs.map((blog) => ({ slug: blog.slug }));
+  // 只为英文博客文章生成静态参数
+  return blogs.filter(blog => blog.language === 'en').map((blog) => ({ slug: blog.slug }));
 }
 
 export async function generateMetadata({ params }) {
   const {slug} = await params
-  const blog = blogs.find((blog) => blog.slug === slug);
+  const blog = blogs.find((blog) => blog.slug === slug && blog.language === 'en');
   if (!blog) {
     return;
   }
@@ -63,7 +64,6 @@ export async function generateMetadata({ params }) {
   };
 }
 
-
 function TableOfContentsItem({ item, level = "two" }){
   return (
     <li className="py-1">
@@ -98,8 +98,10 @@ function TableOfContentsItem({ item, level = "two" }){
 
 export default async function BlogPage({ params }) {
   const {slug} = await params
+  
+  // 只查找英文博客文章（无语言前缀的URL默认是英文）
   const blog = blogs.find((blog) => {
-    return blog.slug === slug
+    return blog.slug === slug && blog.language === 'en'
   });
 
   if(!blog){
@@ -129,14 +131,8 @@ export default async function BlogPage({ params }) {
       }]
   }
 
-  // 获取翻译
-  const cookieStore = await cookies();
-  const headerStore = await headers();
-  const langCookie = cookieStore.get("lang")?.value || "";
-  const acceptLang = headerStore.get("accept-language") || "";
-  const isZh = (langCookie || acceptLang).toLowerCase().startsWith("zh");
-  const lang = isZh ? "zh" : "en";
-  const tdk = getServerTranslation(lang, "ui");
+  // 获取英文翻译
+  const tdk = getServerTranslation('en', "ui");
 
   const breadcrumbItems = [
     {
@@ -203,7 +199,7 @@ export default async function BlogPage({ params }) {
             {blog.title}
           </h1>
           <div className="mt-4 text-light/80 text-sm md:text-base">
-            {new Date(blog.publishedAt).toLocaleDateString(isZh ? 'zh-CN' : 'en-US', {
+            {new Date(blog.publishedAt).toLocaleDateString('en-US', {
               year: 'numeric',
               month: 'long',
               day: 'numeric'

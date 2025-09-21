@@ -40,6 +40,13 @@
       "description": "Read blog posts about programming, technology and more topics. Share my thoughts, tutorials and stories.",
       "keywords": "blog, tech articles, programming tutorials, development experience, tech sharing, W3Cay blog"
     },
+    "categories": {
+      "all": "All Categories",
+      "allDescription": "Browse blog posts from all categories",
+      "posts": "Blog Posts",
+      "learnAbout": "Learn about",
+      "throughCollection": " through our collection of free, practical blog posts."
+    },
     "discover": {
       "notFound": "Not Found",
       "notFoundDesc": "This website might no longer exist. Click the button below to continue exploring!",

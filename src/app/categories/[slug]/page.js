@@ -4,25 +4,35 @@ import Categories from "@/src/components/Blog/Categories";
 import BreadcrumbServer from "@/src/components/Blog/BreadcrumbServer";
 import ExploreButton from "@/src/components/Elements/ExploreButton";
 import { slug } from "github-slugger";
-import { headers, cookies } from "next/headers";
 import { getServerTranslation } from "@/src/i18n";
 
 export async function generateStaticParams() {
+  // 只为英文博客文章生成分类参数
   const categories = [];
   const allCategories = ["all"];
-  const blogsCategories = blogs.map((blog) => blog.tags);
-  blogsCategories.forEach((category) => {
-    category.forEach((item) => {
-      if (!allCategories.includes(item)) {
-        allCategories.push(item);
-      }
-    });
+  const enBlogs = blogs.filter(blog => blog.language === 'en');
+  enBlogs.forEach((blog) => {
+    if (blog.tagKeys && blog.tagKeys.length > 0) {
+      blog.tagKeys.forEach(tagKey => {
+        if (!allCategories.includes(tagKey)) {
+          allCategories.push(tagKey);
+        }
+      });
+    } else {
+      blog.tags.forEach((tag) => {
+        const slugified = slug(tag);
+        if (!allCategories.includes(slugified)) {
+          allCategories.push(slugified);
+        }
+      });
+    }
   });
+  
   allCategories.forEach((category) => {
     if (category === "all") {
       categories.push({ slug: "all" });
     } else {
-      categories.push({ slug: slug(category) });
+      categories.push({ slug: category });
     }
   });
   return categories;
@@ -47,51 +57,107 @@ export async function generateMetadata({ params }) {
 export default async function CategoryPage({ params }) {
   const { slug: categorySlug } = await params;
   
-  // Separating logic to create list of categories from all blog posts
+  // 获取英文翻译
+  const tdk = getServerTranslation("en", "ui");
+  
+  // Separating logic to create list of categories from English blog posts only using tagKeys
   const allCategories = ["all"]; // Initialize with 'all' category
-  blogs.forEach(blog => {
-    blog.tags.forEach(tag => {
-      const slugified = slug(tag);
-      if (!allCategories.includes(slugified)) {
-        allCategories.push(slugified);
-      }
-    });
+  blogs.filter(blog => blog.language === 'en').forEach(blog => {
+    if (blog.tagKeys && blog.tagKeys.length > 0) {
+      blog.tagKeys.forEach(tagKey => {
+        if (!allCategories.includes(tagKey)) {
+          allCategories.push(tagKey);
+        }
+      });
+    } else {
+      // Fallback to original tags if tagKeys not available
+      blog.tags.forEach(tag => {
+        const slugified = slug(tag);
+        if (!allCategories.includes(slugified)) {
+          allCategories.push(slugified);
+        }
+      });
+    }
   });
 
   // Sort allCategories to ensure they are in alphabetical order
   allCategories.sort();
 
-  // Step 2: Filter blog posts based on the current category (params.slug)
+  // Step 2: Filter blog posts based on the current category (params.slug) and language using tagKeys
   const filteredBlogs = blogs.filter(blog => {
     if (categorySlug === "all") {
-      return blog.isPublished; // Include all published blog posts if 'all' category is selected
+      return blog.isPublished && blog.language === 'en'; // Include all published blog posts if 'all' category is selected
     }
-    return blog.isPublished && blog.tags.some(tag => slug(tag) === categorySlug);
+    
+    // Use tagKeys for filtering if available, otherwise fallback to tags
+    if (blog.tagKeys && blog.tagKeys.length > 0) {
+      return blog.isPublished && blog.language === 'en' && blog.tagKeys.includes(categorySlug);
+    } else {
+      return blog.isPublished && blog.language === 'en' && blog.tags.some(tag => slug(tag) === categorySlug);
+    }
   });
 
-  // 获取翻译
-  const cookieStore = await cookies();
-  const headerStore = await headers();
-  const langCookie = cookieStore.get("lang")?.value || "";
-  const acceptLang = headerStore.get("accept-language") || "";
-  const isZh = (langCookie || acceptLang).toLowerCase().startsWith("zh");
-  const lang = isZh ? "zh" : "en";
-  const tdk = getServerTranslation(lang, "ui");
-
-      const breadcrumbItems = [
-      {
-        label: tdk.breadcrumb.blog,
-        href: "/blog"
-      },
-      {
-        label: tdk.breadcrumb.categories,
-        href: "/categories/all"
-      },
-      {
-        label: categorySlug === "all" ? tdk.breadcrumb.allCategories : categorySlug.replaceAll("-", " ").replace(/\b\w/g, l => l.toUpperCase()),
-        href: `/categories/${categorySlug}`
+  // 获取当前分类的原始标签名称（只查找英文博客）
+  const getCategoryLabel = (categorySlug) => {
+    if (categorySlug === "all") {
+      return tdk.breadcrumb.allCategories;
+    }
+    
+    // 只查找英文博客文章来获取原始标签名称
+    const currentLanguageBlogs = blogs.filter(blog => blog.language === 'en');
+    const matchingBlog = currentLanguageBlogs.find(blog => {
+      // 优先使用tagKeys进行匹配
+      if (blog.tagKeys && blog.tagKeys.length > 0) {
+        return blog.tagKeys.includes(categorySlug);
+      } else {
+        return blog.tags.some(tag => slug(tag) === categorySlug);
       }
-    ];
+    });
+    
+    if (matchingBlog) {
+      // 如果使用tagKeys匹配，找到对应的原始标签
+      if (matchingBlog.tagKeys && matchingBlog.tagKeys.includes(categorySlug)) {
+        const tagKeyIndex = matchingBlog.tagKeys.indexOf(categorySlug);
+        if (tagKeyIndex >= 0 && matchingBlog.tags[tagKeyIndex]) {
+          return matchingBlog.tags[tagKeyIndex];
+        }
+      } else {
+        // 使用原始tags匹配
+        const originalTag = matchingBlog.tags.find(tag => slug(tag) === categorySlug);
+        if (originalTag) {
+          return originalTag;
+        }
+      }
+    }
+    
+    // 如果没有找到匹配的博客，尝试解码URL编码的标签
+    try {
+      const decoded = decodeURIComponent(categorySlug);
+      if (decoded !== categorySlug) {
+        return decoded;
+      }
+    } catch (e) {
+      // 如果解码失败，继续使用默认方法
+    }
+    
+    // 使用默认的格式化方法
+    return categorySlug.replaceAll("-", " ").replace(/\b\w/g, l => l.toUpperCase());
+  };
+
+  const breadcrumbItems = [
+    {
+      label: tdk.breadcrumb.blog,
+      href: "/blog"
+    },
+    {
+      label: tdk.breadcrumb.categories,
+      href: "/categories/all"
+    },
+    {
+      label: getCategoryLabel(categorySlug),
+      href: `/categories/${categorySlug}`
+    }
+  ];
 
   return (
     <article className="mt-12 flex flex-col text-dark dark:text-light">

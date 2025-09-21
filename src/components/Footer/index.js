@@ -16,12 +16,11 @@ const Footer = () => {
     formState: { errors },
   } = useForm();
 
-  const { language, setLanguage, t } = useLanguage();
+  const { language, t } = useLanguage();
   const router = useRouter();
   
   const toggleLanguage = () => {
     const newLang = language === 'zh' ? 'en' : 'zh';
-    setLanguage(newLang);
     
     // 获取当前路径并处理语言切换
     const currentPath = window.location.pathname;

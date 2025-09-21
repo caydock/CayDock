@@ -4,17 +4,10 @@ import FeaturedPosts from "@/src/components/Home/FeaturedPosts";
 import RecentPosts from "@/src/components/Home/RecentPosts";
 import Categories from "@/src/components/Blog/Categories";
 import ExploreButton from "@/src/components/Elements/ExploreButton";
-import { headers, cookies } from "next/headers";
 import { getServerTranslation } from "@/src/i18n";
 
 export async function generateMetadata() {
-  const cookieStore = await cookies();
-  const headerStore = await headers();
-  const langCookie = cookieStore.get("lang")?.value || "";
-  const acceptLang = headerStore.get("accept-language") || "";
-  const isZh = (langCookie || acceptLang).toLowerCase().startsWith("zh");
-  const lang = isZh ? "zh" : "en";
-  const tdk = getServerTranslation(lang, "meta");
+  const tdk = getServerTranslation("en", "meta");
 
   return {
     title: tdk.blog.title,
@@ -23,19 +16,13 @@ export async function generateMetadata() {
 }
 
 export default async function Blog() {
-  const allBlogs = blogs;
-  const filteredBlogs = allBlogs.filter((blog) => {
-    return blog.isPublished;
+  // 只显示英文的已发布博客（无语言前缀的URL默认是英文）
+  const filteredBlogs = blogs.filter((blog) => {
+    return blog.isPublished && blog.language === 'en';
   });
 
-  // 获取翻译
-  const cookieStore = await cookies();
-  const headerStore = await headers();
-  const langCookie = cookieStore.get("lang")?.value || "";
-  const acceptLang = headerStore.get("accept-language") || "";
-  const isZh = (langCookie || acceptLang).toLowerCase().startsWith("zh");
-  const lang = isZh ? "zh" : "en";
-  const tdk = getServerTranslation(lang, "ui");
+  // 获取英文翻译
+  const tdk = getServerTranslation("en", "ui");
 
   return (
     <main className="flex flex-col items-center justify-center mb-10">

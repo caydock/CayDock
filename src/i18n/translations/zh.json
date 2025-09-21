@@ -40,6 +40,13 @@
       "description": "阅读关于编程、技术和更多主题的博客文章。分享我的想法、教程和故事。",
       "keywords": "博客,技术文章,编程教程,开发经验,技术分享,W3Cay博客"
     },
+    "categories": {
+      "all": "所有分类",
+      "allDescription": "浏览所有分类的博客文章",
+      "posts": "博客文章",
+      "learnAbout": "通过我们的免费实用博客文章了解",
+      "throughCollection": "。"
+    },
     "discover": {
       "notFound": "找不到了",
       "notFoundDesc": "这个网站可能已经不存在了，点击下方按钮继续探索吧！",

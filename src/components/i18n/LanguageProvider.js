@@ -15,21 +15,26 @@ export function LanguageProvider({ children, initialLanguage, initialStrings }) 
     if (initialLanguage) return; // SSR provided, skip client detection on first paint
     if (typeof window === "undefined") return;
     
-    // 首先检查 URL 中的语言信息
-    const currentPath = window.location.pathname;
-    if (currentPath.startsWith('/zh-cn')) {
-      setLanguage("zh");
-      return;
-    }
+    // 只从 URL 中检测语言信息
+    const updateLanguageFromURL = () => {
+      const currentPath = window.location.pathname;
+      if (currentPath.startsWith('/zh-cn')) {
+        setLanguage("zh");
+      } else {
+        setLanguage("en");
+      }
+    };
     
-    // 然后检查本地存储
-    const saved = window.localStorage.getItem("lang");
-    if (saved === "zh" || saved === "en") {
-      setLanguage(saved);
-    } else {
-      const prefersZh = (navigator.language || navigator.userLanguage || "en").toLowerCase().startsWith("zh");
-      setLanguage(prefersZh ? "zh" : "en");
-    }
+    // 初始检测
+    updateLanguageFromURL();
+    
+    // 监听URL变化（通过popstate事件）
+    window.addEventListener('popstate', updateLanguageFromURL);
+    
+    // 清理事件监听器
+    return () => {
+      window.removeEventListener('popstate', updateLanguageFromURL);
+    };
   }, [initialLanguage]);
 
   useEffect(() => {
