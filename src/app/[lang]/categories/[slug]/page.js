@@ -58,7 +58,41 @@ export async function generateMetadata({ params }) {
       description: tdk.categories.allDescription,
     };
   } else {
-    const categoryTitle = decodedCategorySlug.replaceAll("-", " ").replace(/\b\w/g, l => l.toUpperCase());
+    // 获取当前分类的中文标签名称
+    const getCategoryLabel = (categorySlug) => {
+      // 只查找当前语言的博客文章来获取原始标签名称
+      const currentLanguageBlogs = blogs.filter(blog => blog.language === language);
+      
+      // 查找tagKeys匹配的博客，获取对应的中文标签
+      const matchingBlog = currentLanguageBlogs.find(blog => {
+        if (blog.tagKeys && blog.tagKeys.length > 0) {
+          return blog.tagKeys.includes(categorySlug);
+        } else {
+          return blog.tags.some(tag => slug(tag) === categorySlug);
+        }
+      });
+      
+      if (matchingBlog) {
+        // 如果使用tagKeys匹配，找到对应的原始标签
+        if (matchingBlog.tagKeys && matchingBlog.tagKeys.includes(categorySlug)) {
+          const tagKeyIndex = matchingBlog.tagKeys.indexOf(categorySlug);
+          if (tagKeyIndex >= 0 && matchingBlog.tags[tagKeyIndex]) {
+            return matchingBlog.tags[tagKeyIndex];
+          }
+        } else {
+          // 使用原始tags匹配
+          const originalTag = matchingBlog.tags.find(tag => slug(tag) === categorySlug);
+          if (originalTag) {
+            return originalTag;
+          }
+        }
+      }
+      
+      // 如果没有找到匹配的博客，使用默认的格式化方法
+      return categorySlug.replaceAll("-", " ").replace(/\b\w/g, l => l.toUpperCase());
+    };
+    
+    const categoryTitle = getCategoryLabel(decodedCategorySlug);
     const tdk = getServerTranslation(language, "meta");
     return {
       title: `${categoryTitle} ${tdk.categories.posts}`,
