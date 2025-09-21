@@ -25,8 +25,9 @@ const blog = s
     body: s.markdown(),
     toc: s.toc(),
     slug: s.string(),
+    language: s.string().default('en'),
   })
-  .transform(data => {
+  .transform((data) => {
     return {
       ...data,
       url: `/blog/${data.slug}`,
@@ -45,7 +46,7 @@ export default defineConfig({
   collections: {
     blogs: {
       name: 'Blog',
-      pattern: 'blogs/**/*.mdx',
+      pattern: 'blogs/**/*.{mdx,en.mdx,zh-cn.mdx}',
       schema: blog,
     },
   },

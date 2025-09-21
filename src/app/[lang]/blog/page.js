@@ -24,7 +24,7 @@ export default async function LangBlog({ params }) {
   
   const allBlogs = blogs;
   const filteredBlogs = allBlogs.filter((blog) => {
-    return blog.isPublished;
+    return blog.isPublished && blog.language === language;
   });
 
   // 获取翻译
