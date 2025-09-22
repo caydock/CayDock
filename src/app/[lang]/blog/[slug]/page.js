@@ -160,7 +160,37 @@ export default async function LangBlogPage({ params }) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
     <article>
-      <div className="mb-8 text-center relative w-full h-[70vh] bg-dark text-light flex items-center justify-center">
+      <div className="mb-8 text-center relative w-full h-[70vh] bg-dark">
+        {/* 悬浮面包屑导航 */}
+        <div className="absolute top-8 left-0 right-0 z-20">
+          <nav className="flex items-center space-x-2 text-sm text-light mb-6 px-5 sm:px-10 md:px-10">
+            <Link 
+              href={`/${lang}`} 
+              className="hover:opacity-70 transition-opacity"
+            >
+              {tdk.nav.home}
+            </Link>
+            
+            {breadcrumbItems.map((item, index) => (
+              <div key={index} className="flex items-center space-x-2">
+                <span className="text-light/60">/</span>
+                {index === breadcrumbItems.length - 1 ? (
+                  <span className="text-light font-medium">
+                    {item.label}
+                  </span>
+                ) : (
+                  <Link 
+                    href={item.href} 
+                    className="hover:opacity-70 transition-opacity"
+                  >
+                    {item.label}
+                  </Link>
+                )}
+              </div>
+            ))}
+          </nav>
+        </div>
+        
         <div className="w-full z-10 flex flex-col items-center justify-center absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
           <Tag
             name={blog.tags[0]}

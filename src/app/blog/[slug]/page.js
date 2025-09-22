@@ -162,7 +162,7 @@ export default async function BlogPage({ params }) {
           <nav className="flex items-center space-x-2 text-sm text-light mb-6 px-5 sm:px-10 md:px-10">
             <Link 
               href="/" 
-              className="hover:text-accent transition-colors"
+              className="hover:opacity-70 transition-opacity"
             >
               {tdk.nav.home}
             </Link>
@@ -177,7 +177,7 @@ export default async function BlogPage({ params }) {
                 ) : (
                   <Link 
                     href={item.href} 
-                    className="hover:text-accent transition-colors"
+                    className="hover:opacity-70 transition-opacity"
                   >
                     {item.label}
                   </Link>
