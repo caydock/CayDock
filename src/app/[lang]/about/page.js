@@ -1,5 +1,5 @@
 import AboutCoverSection from "@/src/components/About/AboutCoverSection";
-import AboutBodyClient from "../../(about)/about/AboutBodyClient";
+import AboutBodyClient from "@/src/components/About/AboutBodyClient";
 import { headers, cookies } from "next/headers";
 import { getServerTranslation } from "@/src/i18n";
 

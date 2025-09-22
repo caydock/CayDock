@@ -8,16 +8,29 @@ const LanguageContext = createContext({
   t: (key) => key,
 });
 
-export function LanguageProvider({ children, initialLanguage, initialStrings }) {
-  const [language, setLanguage] = useState(initialLanguage || "en");
+export function LanguageProvider({ children, initialStrings }) {
+  // 初始化时从URL检测语言
+  const getInitialLanguage = () => {
+    if (typeof window !== "undefined") {
+      const currentPath = window.location.pathname;
+      if (currentPath.startsWith('/zh-cn')) {
+        return "zh";
+      }
+      // 根路径和其他路径都是英文
+      return "en";
+    }
+    return "en"; // 默认英文
+  };
+
+  const [language, setLanguage] = useState(getInitialLanguage);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
     
-    // 只从 URL 中检测语言信息
+    // 从 URL 中检测语言信息
     const updateLanguageFromURL = () => {
       const currentPath = window.location.pathname;
-      console.log('LanguageProvider: URL检测', { currentPath, initialLanguage });
+      console.log('LanguageProvider: URL检测', { currentPath, currentLanguage: language });
       if (currentPath.startsWith('/zh-cn')) {
         console.log('LanguageProvider: 设置为中文');
         setLanguage("zh");
@@ -27,7 +40,7 @@ export function LanguageProvider({ children, initialLanguage, initialStrings }) 
       }
     };
     
-    // 总是从URL检测语言，忽略initialLanguage
+    // 初始化时从URL检测语言
     updateLanguageFromURL();
     
     // 监听URL变化（通过popstate事件和pushstate/replacestate）
@@ -59,17 +72,13 @@ export function LanguageProvider({ children, initialLanguage, initialStrings }) 
     if (typeof window !== "undefined") {
       window.localStorage.setItem("lang", language);
       document.documentElement.setAttribute("lang", language === "zh" ? "zh-CN" : "en");
-      try {
-        const sixMonths = 60 * 60 * 24 * 180
-        document.cookie = `lang=${language}; path=/; max-age=${sixMonths}`
-      } catch {}
     }
   }, [language]);
 
   const effectiveStrings = useMemo(() => {
-    if (initialStrings && (initialLanguage === language)) return initialStrings
+    if (initialStrings) return initialStrings
     return TRANSLATIONS[language]?.ui || TRANSLATIONS.en.ui
-  }, [initialStrings, initialLanguage, language])
+  }, [initialStrings, language])
 
   const allTranslations = useMemo(() => {
     return TRANSLATIONS[language] || TRANSLATIONS.en

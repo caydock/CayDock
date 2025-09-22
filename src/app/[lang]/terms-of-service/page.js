@@ -1,5 +1,5 @@
 import { headers, cookies } from "next/headers";
-import TermsContent from "../../terms-of-service/TermsContent";
+import TermsContent from '@/src/components/Legal/TermsContent';
 import { getServerTranslation } from "@/src/i18n";
 
 export const runtime = 'edge';

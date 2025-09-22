@@ -25,13 +25,13 @@ export default function AboutBodyClient() {
         <>
           <h3 className="mt-8 text-xl md:text-2xl font-semibold">{t('about.wechatTitle')}</h3>
           <p className="mt-3 text-base md:text-lg">{t('about.wechatDesc')}</p>
-          <div className="mt-4 flex justify-start">
+          {/* <div className="mt-4 flex justify-start">
             <img 
               src="/static/weixin-qrcode.jpg" 
               alt="W3Cay 微信公众号二维码" 
               className="w-full md:max-w-[400px] h-auto rounded-lg shadow-md"
             />
-          </div>
+          </div> */}
         </>
       )}
 

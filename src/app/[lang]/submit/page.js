@@ -1,5 +1,5 @@
 import { headers, cookies } from "next/headers";
-import SubmitForm from '../../submit/SubmitForm';
+import SubmitForm from '@/src/components/Submit/SubmitForm';
 import { getServerTranslation } from "@/src/i18n";
 
 export const runtime = 'edge';

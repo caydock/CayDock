@@ -1,5 +1,5 @@
 import { headers, cookies } from "next/headers";
-import DisclaimerContent from "../../disclaimer/DisclaimerContent";
+import DisclaimerContent from '@/src/components/Legal/DisclaimerContent';
 import { getServerTranslation } from "@/src/i18n";
 
 export const runtime = 'edge';

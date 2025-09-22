@@ -1,5 +1,5 @@
 import { headers, cookies } from "next/headers";
-import ContactContent from "../../(about)/contact/ContactContent";
+import ContactContent from "@/src/components/Contact/ContactContent";
 import { getServerTranslation } from "@/src/i18n";
 
 export const runtime = 'edge';

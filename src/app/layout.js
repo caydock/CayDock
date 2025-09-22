@@ -5,7 +5,6 @@ import Footer from "../components/Footer";
 import Analytics from "@/src/components/Analytics";
 import siteMetadata from "../utils/siteMetaData";
 import { getServerTranslation } from "@/src/i18n";
-import { headers, cookies } from "next/headers";
 import Script from "next/script";
 import { LanguageProvider } from "@/src/components/i18n/LanguageProvider";
 import { shouldEnableAdSense } from "@/src/utils/env";
@@ -23,12 +22,8 @@ const manrope = Manrope({
 });
 
 export async function generateMetadata() {
-  const cookieStore = await cookies();
-  const headerStore = await headers();
-  const langCookie = cookieStore.get("lang")?.value || "";
-  const acceptLang = headerStore.get("accept-language") || "";
-  const isZh = (langCookie || acceptLang).toLowerCase().startsWith("zh");
-  const lang = isZh ? "zh" : "en";
+  // 默认使用英文
+  const lang = "en";
   const tdk = getServerTranslation(lang, "meta");
   const base = new URL(siteMetadata.siteUrl);
 
@@ -79,12 +74,8 @@ export const viewport = {
 export const runtime = 'edge';
 
 export default async function RootLayout({ children }) {
-  const headerStore = await headers();
-  const cookieStore = await cookies();
-  const langCookie = cookieStore.get("lang")?.value || "";
-  const acceptLang = headerStore.get("accept-language") || "";
-  const isZh = (langCookie || acceptLang).toLowerCase().startsWith("zh");
-  const htmlLang = isZh ? "zh-CN" : "en";
+  // 默认使用英文
+  const htmlLang = "en";
   return (
     <html lang={htmlLang}>
       <body
@@ -95,7 +86,7 @@ export default async function RootLayout({ children }) {
         )}
       >
 
-        <LanguageProvider initialLanguage={htmlLang.startsWith('zh') ? 'zh' : 'en'}>
+        <LanguageProvider>
           {children}
           <Footer />
         </LanguageProvider>

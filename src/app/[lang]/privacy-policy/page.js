@@ -1,5 +1,5 @@
 import { headers, cookies } from "next/headers";
-import PrivacyContent from "../../privacy-policy/PrivacyContent";
+import PrivacyContent from '@/src/components/Legal/PrivacyContent';
 import { getServerTranslation } from "@/src/i18n";
 
 export const runtime = 'edge';

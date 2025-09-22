@@ -12,13 +12,7 @@ export function detectLanguageFromPath(pathname) {
     };
   }
   
-  // 检查是否是英文路径
-  if (pathname.startsWith('/en')) {
-    return {
-      language: 'en',
-      cleanPath: pathname.replace('/en', '') || '/'
-    };
-  }
+  // 英文路径不需要特殊处理，直接返回
   
   // 默认英文
   return {
