@@ -1,54 +1,49 @@
 import { NextResponse } from 'next/server'
 
+// 支持的语言列表
+const locales = ['en', 'zh-cn']
+
+// 获取首选语言
+function getLocale(request) {
+  // 通过环境变量控制是否启用语言检测
+  const enableLanguageDetection = process.env.ENABLE_LANGUAGE_DETECTION === 'true'
+  
+  if (!enableLanguageDetection) {
+    // 禁用语言检测，始终返回默认语言
+    return 'en'
+  }
+  
+  // 启用语言检测时，从 Accept-Language 头部获取语言偏好
+  const acceptLanguage = request.headers.get('accept-language') || ''
+  
+  // 简单的语言检测逻辑
+  if (acceptLanguage.includes('zh') || acceptLanguage.includes('cn')) {
+    return 'zh-cn'
+  }
+  
+  // 默认返回英文
+  return 'en'
+}
+
 export function middleware(request) {
   const { pathname } = request.nextUrl
   
-  // 根路径直接处理，不重定向
-  if (pathname === '/') {
+  // 检查路径是否已经包含支持的语言
+  const pathnameHasLocale = locales.some(
+    (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
+  )
+
+  // 如果路径已经包含语言，直接继续
+  if (pathnameHasLocale) {
     return NextResponse.next()
   }
+
+  // 如果路径不包含语言，重写到带语言的路径（不改变URL）
+  const locale = getLocale(request)
+  const url = request.nextUrl.clone()
+  url.pathname = `/${locale}${pathname}`
   
-  // 自动检测需要重定向的路由（排除已处理的路由和特殊路径）
-  const excludedPaths = ['/api', '/_next', '/favicon.ico', '/zh-cn', '/en', '/admin', '/post']
-  const isExcludedPath = excludedPaths.some(excluded => pathname.startsWith(excluded))
-  
-  // 如果不是排除的路径，且不是根路径，且不包含中文前缀，则重写到英文版本
-  if (!isExcludedPath && pathname !== '/' && !pathname.startsWith('/zh-cn')) {
-    // 重写到英文版本，使用 /en 前缀来匹配 [lang] 路由
-    const url = request.nextUrl.clone()
-    url.pathname = `/en${pathname}`
-    return NextResponse.rewrite(url)
-  }
-  
-  // 检查是否是 /en/ 开头的路径
-  if (pathname.startsWith('/en')) {
-    // 重写到 /en 路由
-    const newPath = pathname.replace('/en', '') || '/'
-    const rewritePath = `/en${newPath}`
-    
-    // 创建新的 URL
-    const url = request.nextUrl.clone()
-    url.pathname = rewritePath
-    
-    return NextResponse.rewrite(url)
-  }
-  
-  // 检查是否是 /zh-cn/ 开头的其他路径
-  if (pathname.startsWith('/zh-cn')) {
-    // 重写到 /zh-cn 路由
-    const newPath = pathname.replace('/zh-cn', '') || '/'
-    const rewritePath = `/zh-cn${newPath}`
-    
-    // 创建新的 URL
-    const url = request.nextUrl.clone()
-    url.pathname = rewritePath
-    
-    return NextResponse.rewrite(url)
-  }
-  
-  
-  // 其他路径正常处理
-  return NextResponse.next()
+  return NextResponse.rewrite(url)
 }
 
 export const config = {
