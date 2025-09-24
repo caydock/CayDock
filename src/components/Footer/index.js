@@ -29,17 +29,21 @@ const Footer = () => {
     
     if (newLang === 'zh-cn') {
       // 切换到中文
-      if (currentPath === '/' || currentPath === '') {
+      if (currentPath === '/' || currentPath === '/en') {
         newPath = '/zh-cn';
+      } else if (currentPath.startsWith('/en')) {
+        newPath = currentPath.replace('/en', '/zh-cn');
       } else {
         newPath = `/zh-cn${currentPath}`;
       }
     } else {
       // 切换到英文
-      if (currentPath.startsWith('/zh-cn')) {
-        newPath = currentPath.replace('/zh-cn', '') || '/';
+      if (currentPath === '/' || currentPath === '/zh-cn') {
+        newPath = '/en';
+      } else if (currentPath.startsWith('/zh-cn')) {
+        newPath = currentPath.replace('/zh-cn', '/en');
       } else {
-        newPath = currentPath;
+        newPath = `/en${currentPath}`;
       }
     }
     
