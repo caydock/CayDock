@@ -203,7 +203,7 @@ export default function HomePage({ initialLanguage = 'en', searchParams = {}, in
   // 调试状态变化
   useEffect(() => {
     // 移除调试日志
-  }, [isAnimating, showRecommendedSite, randomSiteId, language, currentLanguage])
+  }, [isAnimating, showRecommendedSite, randomSiteId, currentLanguage])
 
     // 处理开始探索按钮点击
   const handleStartExploring = async () => {

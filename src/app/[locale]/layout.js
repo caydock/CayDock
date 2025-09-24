@@ -10,8 +10,10 @@ export function generateStaticParams() {
 
 export default async function LocaleLayout({
   children,
-  params: {locale}
+  params
 }) {
+  const { locale } = await params;
+  
   // Ensure that the incoming `locale` is valid
   if (!routing.locales.includes(locale)) {
     notFound();
