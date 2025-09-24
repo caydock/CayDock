@@ -5,27 +5,29 @@ import Logo from "./Logo";
 import SiteLogo from "./SiteLogo";
 import { MoonIcon, SunIcon } from "../Icons";
 import { useThemeSwitch } from "../Hooks/useThemeSwitch";
-import { useLanguage } from "@/src/components/i18n/LanguageProvider";
+import { useTranslations, useLocale } from 'next-intl';
 import { useState } from "react";
 import { cx } from "@/src/utils";
 import logo from "@/public/logo.png";
 import { useRouter } from "next/navigation";
+import { Link } from '@/src/i18n/routing';
 
 const Header = () => {
   const [mode, setMode] = useThemeSwitch();
-  const { t, language } = useLanguage();
-  const isZh = language?.startsWith('zh');
+  const t = useTranslations('ui');
+  const locale = useLocale();
+  const isZh = locale === 'zh-cn';
   const [open, setOpen] = useState(false);
   const router = useRouter();
   
   const toggleLanguage = () => {
-    const newLang = isZh ? 'en' : 'zh';
+    const newLocale = isZh ? 'en' : 'zh-cn';
     
     // 获取当前路径并处理语言切换
     const currentPath = window.location.pathname;
     let newPath;
     
-    if (newLang === 'zh') {
+    if (newLocale === 'zh-cn') {
       // 切换到中文
       if (currentPath === '/' || currentPath === '') {
         newPath = '/zh-cn';
@@ -72,11 +74,11 @@ const Header = () => {
       {/* Desktop top nav */}
       <nav className="w-max py-3 px-6 sm:px-8 border border-solid border-dark rounded-full font-medium capitalize items-center hidden sm:flex fixed top-6 right-1/2 translate-x-1/2 bg-light/80 backdrop-blur-sm z-50">
         <Logo />
-        <Link href={isZh ? "/zh-cn" : "/"} className="mx-2">{t('nav.home')}</Link>
-        <Link href={isZh ? "/zh-cn/blog" : "/blog"} className="mx-2">{t('blog.title')}</Link>
-        <Link href={isZh ? "/zh-cn/submit" : "/submit"} className="mx-2">{t('nav.submit')}</Link>
-        <Link href={isZh ? "/zh-cn/about" : "/about"} className="mx-2">{t('nav.about')}</Link>
-        <Link href={isZh ? "/zh-cn/contact" : "/contact"} className="mx-2">{t('nav.contact')}</Link>
+        <Link href="/" className="mx-2">{t('nav.home')}</Link>
+        <Link href="/blog" className="mx-2">{t('blog.title')}</Link>
+        <Link href="/submit" className="mx-2">{t('nav.submit')}</Link>
+        <Link href="/about" className="mx-2">{t('nav.about')}</Link>
+        <Link href="/contact" className="mx-2">{t('nav.contact')}</Link>
         <button onClick={toggleLanguage} className={cx("w-6 h-6 ease ml-2 flex items-center justify-center rounded-full p-1 text-xs font-bold", isZh ? "bg-blue-500 text-white" : "bg-green-500 text-white")} aria-label="language-switcher">
           {isZh ? 'EN' : '中'}
         </button>
@@ -107,11 +109,11 @@ const Header = () => {
           </button>
         </div>
         <nav className="flex flex-col p-4 gap-3 text-lg dark:text-light">
-          <Link href={isZh ? "/zh-cn" : "/"} onClick={() => setOpen(false)}>{t('nav.home')}</Link>
-          <Link href={isZh ? "/zh-cn/blog" : "/blog"} onClick={() => setOpen(false)}>{t('blog.title')}</Link>
-          <Link href={isZh ? "/zh-cn/submit" : "/submit"} onClick={() => setOpen(false)}>{t('nav.submit')}</Link>
-          <Link href={isZh ? "/zh-cn/contact" : "/contact"} onClick={() => setOpen(false)}>{t('nav.contact')}</Link>
-          <Link href={isZh ? "/zh-cn/about" : "/about"} onClick={() => setOpen(false)}>{t('nav.about')}</Link>
+          <Link href="/" onClick={() => setOpen(false)}>{t('nav.home')}</Link>
+          <Link href="/blog" onClick={() => setOpen(false)}>{t('blog.title')}</Link>
+          <Link href="/submit" onClick={() => setOpen(false)}>{t('nav.submit')}</Link>
+          <Link href="/contact" onClick={() => setOpen(false)}>{t('nav.contact')}</Link>
+          <Link href="/about" onClick={() => setOpen(false)}>{t('nav.about')}</Link>
           {/* Contact hidden on mobile per earlier request */}
           <button onClick={toggleLanguage} className={cx("mt-2 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold", isZh ? "bg-blue-500 text-white" : "bg-green-500 text-white")} aria-label="language-switcher">
             {isZh ? 'EN' : '中'}

@@ -1,11 +1,11 @@
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from '@/src/i18n/routing';
 import React from "react";
 
 const BlogLayoutThree = ({ blog, lang }) => {
   if (!blog) return null;
   
-  const blogUrl = lang ? `/${lang}${blog.url}` : blog.url;
+  const blogUrl = blog.url;
   
   return (
     <div className="group flex flex-col items-center text-dark dark:text-light">

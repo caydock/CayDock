@@ -1,13 +1,13 @@
 import React from "react";
 import Tag from "../Elements/Tag";
-import Link from "next/link";
+import { Link } from '@/src/i18n/routing';
 import Image from "next/image";
 import { slug } from "github-slugger";
 
 const BlogLayoutOne = ({ blog, lang }) => {
   if (!blog) return null;
   
-  const blogUrl = lang ? `/${lang}${blog.url}` : blog.url;
+  const blogUrl = blog.url;
   
   return (
     <div className="group inline-block overflow-hidden rounded-xl h-full">
@@ -28,7 +28,7 @@ const BlogLayoutOne = ({ blog, lang }) => {
       />
 
       <div className="w-full absolute bottom-0 p-4 xs:p-6 sm:p-10 z-20">
-        <Tag link={lang ? `/${lang}/categories/${blog.tagKeys && blog.tagKeys.length > 0 ? blog.tagKeys[0] : slug(blog.tags[0])}` : `/categories/${blog.tagKeys && blog.tagKeys.length > 0 ? blog.tagKeys[0] : slug(blog.tags[0])}`} name={blog.tags[0]}
+        <Tag link={`/categories/${blog.tagKeys && blog.tagKeys.length > 0 ? blog.tagKeys[0] : slug(blog.tags[0])}`} name={blog.tags[0]}
         className="px-6 text-xs sm:text-sm py-1 sm:py-2 !border "
         />
         <Link href={blogUrl || '#'} className="mt-6">

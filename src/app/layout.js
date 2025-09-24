@@ -4,10 +4,10 @@ import { Inter, Manrope } from "next/font/google";
 import Footer from "../components/Footer";
 import Analytics from "@/src/components/Analytics";
 import siteMetadata from "../utils/siteMetaData";
-import { getServerTranslation } from "@/src/i18n";
 import Script from "next/script";
-import { LanguageProvider } from "@/src/components/i18n/LanguageProvider";
 import { shouldEnableAdSense } from "@/src/utils/env";
+import { NextIntlClientProvider } from 'next-intl';
+import { getMessages } from 'next-intl/server';
 
 const inter = Inter({
   subsets: ["latin"],
@@ -22,26 +22,21 @@ const manrope = Manrope({
 });
 
 export async function generateMetadata() {
-  // 默认使用英文
-  const lang = "en";
-  const tdk = getServerTranslation(lang, "meta");
   const base = new URL(siteMetadata.siteUrl);
 
   return {
     metadataBase: base,
     title: {
       template: '%s | W3Cay',
-      default: tdk.home.title,
+      default: 'W3Cay - World\'s Weird Websites Cay',
     },
-    description: tdk.home.description || siteMetadata.description,
-    keywords: tdk.home.keywords,
+    description: siteMetadata.description,
     openGraph: {
-      title: tdk.home.title,
-      description: tdk.home.description || siteMetadata.description,
+      title: 'W3Cay - World\'s Weird Websites Cay',
+      description: siteMetadata.description,
       url: siteMetadata.siteUrl,
       siteName: 'W3Cay',
       images: [siteMetadata.socialBanner],
-      locale: lang === "zh" ? "zh_CN" : "en_US",
       type: "website",
     },
     robots: {
@@ -58,7 +53,7 @@ export async function generateMetadata() {
     },
     twitter: {
       card: "summary",
-      title: tdk.home.title,
+      title: 'W3Cay - World\'s Weird Websites Cay',
       site: '@w3cay_com',
       images: [siteMetadata.socialBanner],
     },
@@ -74,10 +69,8 @@ export const viewport = {
 export const runtime = 'edge';
 
 export default async function RootLayout({ children }) {
-  // 默认使用英文
-  const htmlLang = "en";
   return (
-    <html lang={htmlLang}>
+    <html>
       <body
         className={cx(
           inter.variable,
@@ -85,11 +78,7 @@ export default async function RootLayout({ children }) {
           "font-mr bg-light dark:bg-dark"
         )}
       >
-
-        <LanguageProvider>
-          {children}
-          <Footer />
-        </LanguageProvider>
+        {children}
         <Analytics />
         
         {/* Google AdSense 脚本（仅在生产环境） */}

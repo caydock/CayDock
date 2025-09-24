@@ -1,9 +1,9 @@
 "use client";
 import React from "react";
-import { useLanguage } from "@/src/components/i18n/LanguageProvider";
+import { useTranslations } from 'next-intl';
 
 export default function TermsContent() {
-  const { t } = useLanguage();
+  const t = useTranslations('ui');
 
   return (
     <div className="container mx-auto px-4 py-8">

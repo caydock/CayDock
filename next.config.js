@@ -1,5 +1,10 @@
+const withNextIntl = require('next-intl/plugin')(
+  // This is the default (also the `src` folder is supported out of the box)
+  './src/i18n/request.js'
+);
+
 /** @type {import('next').NextConfig} */
-module.exports = {
+const nextConfig = {
     // othor next config here...
     compiler: {
       removeConsole: process.env.NODE_ENV === 'production' ? true : false,
@@ -66,7 +71,7 @@ module.exports = {
 const { withSentryConfig } = require("@sentry/nextjs");
 
 module.exports = withSentryConfig(
-  module.exports,
+  withNextIntl(nextConfig),
   {
     // For all available options, see:
     // https://www.npmjs.com/package/@sentry/webpack-plugin#options

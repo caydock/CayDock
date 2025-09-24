@@ -3,7 +3,7 @@ import Link from 'next/link'
 import Image from "next/image"
 import logo from "@/public/about-logo.webp"
 
-import { useLanguage } from '@/src/components/i18n/LanguageProvider'
+import { useTranslations, useLocale } from 'next-intl'
 import { useState, useEffect } from 'react'
 import { shouldEnableAnalytics } from '@/src/utils/env'
 import { sites } from '@/src/data/sites'
@@ -12,9 +12,10 @@ import { motion } from 'framer-motion'
 import { useRouter } from 'next/navigation'
 
 export default function HomePage({ initialLanguage = 'en', searchParams = {}, initialSite = null }) {
-  const { language, t } = useLanguage()
-  const currentLanguage = language || initialLanguage
-  const isZh = currentLanguage?.startsWith('zh')
+  const t = useTranslations('ui')
+  const locale = useLocale()
+  const currentLanguage = locale === 'zh-cn' ? 'zh' : 'en'
+  const isZh = locale === 'zh-cn'
   const router = useRouter()
   const [randomSiteId, setRandomSiteId] = useState(null)
   const [isLoading, setIsLoading] = useState(false)

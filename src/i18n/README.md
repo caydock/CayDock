@@ -1,85 +1,118 @@
-# 多语言翻译系统
+# Next.js 国际化 (next-intl) 配置
 
-## 概述
-
-本项目使用统一的多语言翻译系统，支持服务端渲染（SEO）和客户端渲染（UI），所有翻译数据存储在JSON文件中，便于管理和维护。
+本项目使用 [next-intl](https://next-intl-docs.vercel.app/) 进行国际化支持。
 
 ## 文件结构
 
 ```
 src/i18n/
-├── index.js                    # 翻译系统核心文件
-├── translations/               # 翻译数据目录
-│   ├── en.json                # 英文翻译
-│   └── zh.json                # 中文翻译
-└── README.md                  # 本说明文档
+├── request.js              # next-intl 请求配置
+├── routing.js              # 路由配置
+├── messages/               # 翻译消息文件
+│   ├── en.json            # 英文翻译
+│   └── zh-cn.json         # 中文翻译
+└── README.md              # 本说明文档
 ```
 
-## 翻译数据结构
+## 支持的语言
 
-每个语言的翻译文件包含两个主要部分：
-
-### 1. `meta` - 元数据翻译（用于SEO）
-- 页面标题、描述、关键词
-- 用于服务端渲染和搜索引擎优化
-- 通过 `getServerTranslation(lang, "meta")` 获取
-
-### 2. `ui` - 用户界面翻译（用于客户端）
-- 导航、按钮、表单等UI元素
-- 用于客户端组件渲染
-- 通过 `getClientTranslation(lang)` 获取
+- `en` - 英文 (默认)
+- `zh-cn` - 中文
 
 ## 使用方法
 
-### 服务端组件（SEO/元数据）
+### 服务端组件
 
 ```javascript
-import { getServerTranslation } from "@/src/i18n";
+import { getTranslations } from 'next-intl/server';
 
-// 在 generateMetadata 函数中
-export async function generateMetadata() {
-  const tdk = getServerTranslation(lang, "meta");
+export async function generateMetadata({ params }) {
+  const { locale } = await params;
+  const t = await getTranslations({locale: locale, namespace: 'meta'});
   
   return {
-    title: tdk.home.title,
-    description: tdk.home.description,
+    title: t('home.title'),
+    description: t('home.description'),
   };
 }
 ```
 
-### 客户端组件（UI）
+### 客户端组件
 
 ```javascript
-import { useLanguage } from "@/src/components/i18n/LanguageProvider";
+import { useTranslations, useLocale } from 'next-intl';
 
 export default function MyComponent() {
-  const { t } = useLanguage();
+  const t = useTranslations('ui');
+  const locale = useLocale();
   
   return (
     <div>
       <h1>{t('nav.home')}</h1>
-      <button>{t('discover.random')}</button>
+      <p>当前语言: {locale}</p>
     </div>
   );
 }
 ```
 
-### 直接获取翻译数据
+### 导航链接
 
 ```javascript
-import { getClientTranslation } from "@/src/i18n";
+import { Link } from '@/src/i18n/routing';
 
-const translations = getClientTranslation('zh');
-console.log(translations.nav.home); // "首页"
+export default function Navigation() {
+  return (
+    <nav>
+      <Link href="/">首页</Link>
+      <Link href="/about">关于</Link>
+    </nav>
+  );
+}
+```
+
+## 翻译文件结构
+
+翻译文件分为两个主要命名空间：
+
+### `meta` - 元数据翻译
+用于 SEO 和页面元数据：
+```json
+{
+  "meta": {
+    "home": {
+      "title": "W3Cay - World's Weird Websites Cay",
+      "description": "W3Cay is a cay that collects the world's weird websites...",
+      "keywords": "weird websites, fun websites, bored button..."
+    }
+  }
+}
+```
+
+### `ui` - 用户界面翻译
+用于页面内容和用户界面：
+```json
+{
+  "ui": {
+    "nav": {
+      "home": "Home",
+      "about": "About",
+      "contact": "Contact"
+    },
+    "discover": {
+      "random": "Random",
+      "loading": "Loading..."
+    }
+  }
+}
 ```
 
 ## 添加新翻译
 
-1. 在 `src/i18n/translations/en.json` 中添加英文翻译
-2. 在 `src/i18n/translations/zh.json` 中添加中文翻译
+1. 在 `src/i18n/messages/en.json` 中添加英文翻译
+2. 在 `src/i18n/messages/zh-cn.json` 中添加中文翻译
 3. 确保两个文件的结构一致
 
-### 示例：添加新的翻译键
+### 示例
 
 **英文翻译 (en.json):**
 ```json
@@ -93,7 +126,7 @@ console.log(translations.nav.home); // "首页"
 }
 ```
 
-**中文翻译 (zh.json):**
+**中文翻译 (zh-cn.json):**
 ```json
 {
   "ui": {
@@ -107,14 +140,25 @@ console.log(translations.nav.home); // "首页"
 
 **使用方式：**
 ```javascript
-// 客户端组件
-const { t } = useLanguage();
+const t = useTranslations('ui');
 t('newSection.title'); // "新章节" 或 "New Section"
-
-// 服务端组件
-const tdk = getServerTranslation(lang, "ui");
-tdk.newSection.title; // 直接访问
 ```
+
+## 路由配置
+
+项目使用基于路径的国际化：
+- `/` → 重定向到 `/en`
+- `/en` → 英文版本
+- `/zh-cn` → 中文版本
+
+所有页面都位于 `src/app/[locale]/` 目录下。
+
+## 中间件
+
+`middleware.js` 文件处理语言检测和路由重写：
+- 自动检测用户语言偏好
+- 重写 URL 以包含语言前缀
+- 处理语言切换
 
 ## 最佳实践
 
@@ -122,23 +166,7 @@ tdk.newSection.title; // 直接访问
 2. **使用嵌套对象**: 将相关翻译组织在嵌套对象中，便于管理
 3. **避免硬编码**: 不要在代码中硬编码文本，始终使用翻译系统
 4. **测试翻译**: 在添加新翻译后，测试所有语言版本
-5. **JSON语法**: 确保JSON文件语法正确，可以使用 `node -c` 验证
-
-## 工具函数
-
-### `getServerTranslation(lang, type)`
-- `lang`: 语言代码 ('en' | 'zh')
-- `type`: 翻译类型 ('meta' | 'ui')
-- 返回指定语言和类型的翻译对象
-
-### `getClientTranslation(lang)`
-- `lang`: 语言代码 ('en' | 'zh')
-- 返回指定语言的UI翻译对象
-
-### `getTranslationKey(translations, key)`
-- `translations`: 翻译对象
-- `key`: 翻译键（支持点号分隔的嵌套键）
-- 返回翻译值，如果不存在则返回键名
+5. **JSON语法**: 确保JSON文件语法正确
 
 ## 故障排除
 
@@ -151,12 +179,16 @@ tdk.newSection.title; // 直接访问
 ### 调试技巧
 
 ```javascript
-// 检查翻译数据
-import { TRANSLATIONS } from "@/src/i18n";
-console.log(TRANSLATIONS.zh.ui.nav);
+// 检查当前语言
+const locale = useLocale();
+console.log('Current locale:', locale);
 
-// 验证翻译键
-import { getTranslationKey } from "@/src/i18n";
-const result = getTranslationKey(translations, 'nav.home');
-console.log(result);
+// 检查翻译键
+const t = useTranslations('ui');
+console.log('Translation result:', t('nav.home'));
 ```
+
+## 相关文档
+
+- [next-intl 官方文档](https://next-intl-docs.vercel.app/)
+- [Next.js 国际化指南](https://nextjs.org/docs/app/building-your-application/routing/internationalization)

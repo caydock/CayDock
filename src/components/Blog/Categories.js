@@ -10,7 +10,7 @@ const Categories = ({ categories, currentSlug, lang, getCategoryLabel }) => {
         return (
           <Category
             key={cat}
-            link={lang ? `/${lang}/categories/${cat}` : `/categories/${cat}`}
+            link={`/categories/${cat}`}
             name={displayName}
             active={currentSlug === cat}
           />

@@ -5,8 +5,8 @@ import HomePage from "@/src/components/Home/HomePage";
 export const runtime = 'edge';
 
 export async function generateMetadata({ params, searchParams }) {
-  const { lang } = await params;
-  const t = await getTranslations({locale: lang, namespace: 'meta'});
+  const { locale } = await params;
+  const t = await getTranslations({locale: locale, namespace: 'meta'});
   
   // 等待 searchParams
   const params_search = await searchParams;
@@ -22,7 +22,7 @@ export async function generateMetadata({ params, searchParams }) {
       });
       if (res.ok) {
         const site = await res.json();
-        const siteTitle = lang === 'zh-cn' ? site.title?.zh : site.title?.en;
+        const siteTitle = locale === 'zh-cn' ? site.title?.zh : site.title?.en;
         if (siteTitle) {
           const description = t('discover.siteDescription', {title: siteTitle});
           
@@ -65,9 +65,9 @@ export async function generateMetadata({ params, searchParams }) {
   };
 }
 
-export default async function LangHome({ params, searchParams }) {
-  const { lang } = await params;
-  const language = lang === 'zh-cn' ? 'zh' : 'en';
+export default async function LocaleHome({ params, searchParams }) {
+  const { locale } = await params;
+  const language = locale === 'zh-cn' ? 'zh' : 'en';
 
   // 等待 searchParams
   const params_search = await searchParams;

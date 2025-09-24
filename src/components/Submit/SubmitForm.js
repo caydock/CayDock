@@ -1,10 +1,10 @@
 "use client";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useLanguage } from "@/src/components/i18n/LanguageProvider";
+import { useTranslations } from 'next-intl';
 
 export default function SubmitForm({ initialLanguage = 'en', searchParams = {}, initialSite = null }) {
-  const { t } = useLanguage();
+  const t = useTranslations('ui');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
   

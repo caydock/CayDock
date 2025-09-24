@@ -1,9 +1,11 @@
 "use client";
-import Link from "next/link";
-import { useLanguage } from "@/src/components/i18n/LanguageProvider";
+import { useTranslations, useLocale } from 'next-intl';
+import { Link } from '@/src/i18n/routing';
 
 export default function AboutBodyClient() {
-  const { t, language } = useLanguage();
+  const t = useTranslations('ui');
+  const locale = useLocale();
+  const language = locale === 'zh-cn' ? 'zh' : 'en';
   return (
     <section className="mx-5 xs:mx-10 sm:mx-12 md:mx-16 lg:mx-20 mt-10 mb-10 md:mt-14 text-dark dark:text-light leading-relaxed">
       <h2 className="text-2xl md:text-3xl font-semibold">{t('about.aboutTitle')}</h2>
@@ -17,7 +19,7 @@ export default function AboutBodyClient() {
         {t('about.contactEmailPrefix')}
         <a className="underline underline-offset-2 ml-1" href="mailto:cay.dev@hotmail.com">cay.dev@hotmail.com</a>
         。 {t('about.contactSubmitPrefix')}
-        <Link href={language === 'zh' ? "/zh-cn/submit" : "/submit"} className="mx-1 underline underline-offset-2">{t('about.contactSubmitLink')}</Link>
+        <Link href="/submit" className="mx-1 underline underline-offset-2">{t('about.contactSubmitLink')}</Link>
         {t('about.contactSubmitSuffix')}
       </p>
 
