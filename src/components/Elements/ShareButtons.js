@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { useLanguage } from "@/src/components/i18n/LanguageProvider";
+import { useTranslations } from 'next-intl';
 
 const ShareButtons = ({ 
   url, 
@@ -9,7 +9,7 @@ const ShareButtons = ({
   hashtags = "weirdwebsites,webdiscovery", 
   className = "" 
 }) => {
-  const { t } = useLanguage();
+  const t = useTranslations('ui');
   
   // 获取当前页面信息
   const currentUrl = url || (typeof window !== 'undefined' ? window.location.href : '');

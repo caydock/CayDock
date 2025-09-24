@@ -1,12 +1,12 @@
 "use client";
 import { sortBlogs } from "@/src/utils";
-import Link from "next/link";
 import React from "react";
 import BlogLayoutThree from "../Blog/BlogLayoutThree";
-import { useLanguage } from "@/src/components/i18n/LanguageProvider";
+import { useTranslations } from 'next-intl';
+import { Link } from '@/src/i18n/routing';
 
 const RecentPosts = ({ blogs, lang }) => {
-  const { t } = useLanguage();
+  const t = useTranslations('ui');
   const sortedBlogs = sortBlogs(blogs);
   const recentBlogs = sortedBlogs.slice(4, 10);
   
@@ -22,7 +22,7 @@ const RecentPosts = ({ blogs, lang }) => {
           {t('blog.recentPosts')}
         </h2>
         <Link
-          href={lang ? `/${lang}/categories/all` : "/categories/all"}
+          href="/categories/all"
           className="inline-block font-medium text-accent dark:text-accentDark underline underline-offset-2      text-base md:text-lg"
         >
                       {t('blog.viewAll')}

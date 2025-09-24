@@ -1,15 +1,15 @@
 import Image from "next/image"
-import Link from "next/link"
+import { Link } from '@/src/i18n/routing'
 import siteLogoBlack from "@/public/site-logo.webp"
 import siteLogoWhite from "@/public/site-logo-white.webp"
-import { useLanguage } from "@/src/components/i18n/LanguageProvider"
+import { useLocale } from 'next-intl'
 
 const SiteLogo = ({ sizeClass = "w-40 md:w-32" }) => {
-  const { language } = useLanguage();
-  const isZh = language?.startsWith('zh');
+  const locale = useLocale();
+  const isZh = locale === 'zh-cn';
   
   return (
-    <Link href={isZh ? "/zh-cn" : "/"} className="flex items-center justify-center text-dark dark:text-light">
+    <Link href="/" className="flex items-center justify-center text-dark dark:text-light">
       <div className={`${sizeClass} rounded-full overflow-hidden dark:border-gray`}>
         <Image
           src={siteLogoBlack}

@@ -2,10 +2,10 @@
 import Image from 'next/image'
 import React from 'react'
 import profileCharacter from "../../../public/about-logo.webp"
-import { useLanguage } from "@/src/components/i18n/LanguageProvider"
+import { useTranslations } from 'next-intl';
 
 const AboutCoverSection = () => {
-  const { t } = useLanguage()
+  const t = useTranslations('ui');
   const styles = `
     .img-float { 
       animation: floatY 3.5s ease-in-out infinite; 

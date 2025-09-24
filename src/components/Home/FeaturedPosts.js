@@ -3,10 +3,10 @@ import { sortBlogs } from "@/src/utils";
 import React from "react";
 import BlogLayoutOne from "../Blog/BlogLayoutOne";
 import BlogLayoutTwo from "../Blog/BlogLayoutTwo";
-import { useLanguage } from "@/src/components/i18n/LanguageProvider";
+import { useTranslations } from 'next-intl';
 
 const FeaturedPosts = ({ blogs, lang }) => {
-  const { t } = useLanguage();
+  const t = useTranslations('ui');
   const sortedBlogs = sortBlogs(blogs);
   
   // 检查是否有足够的特色文章数据

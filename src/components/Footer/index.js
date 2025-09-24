@@ -2,7 +2,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { DribbbleIcon, GithubIcon, LinkedinIcon, TwitterIcon } from "../Icons";
-import Link from "next/link";
 import siteMetadata from "@/src/utils/siteMetaData";
 import { useTranslations, useLocale } from 'next-intl';
 import Logo from "@/src/components/Header/SiteLogoBlack";
