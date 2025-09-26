@@ -2,10 +2,10 @@ import Link from "next/link";
 
 const BreadcrumbServer = ({ items, homeLabel }) => {
   return (
-    <nav className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400 mb-6 px-5 sm:px-10 md:px-10">
+    <nav className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400 mb-6 px-5 sm:px-10 md:px-24 sxl:px-32">
       <Link 
         href="/" 
-        className="hover:text-accent dark:hover:text-accentDark transition-colors"
+        className="hover:opacity-50 hover:scale-105 transition-all duration-300"
       >
         {homeLabel}
       </Link>
@@ -20,7 +20,7 @@ const BreadcrumbServer = ({ items, homeLabel }) => {
           ) : (
             <Link 
               href={item.href} 
-              className="hover:text-accent dark:hover:text-accentDark transition-colors"
+              className="hover:opacity-50 hover:scale-105 transition-all duration-300"
             >
               {item.label}
             </Link>

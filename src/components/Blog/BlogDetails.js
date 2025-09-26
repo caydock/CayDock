@@ -49,7 +49,7 @@ export default function BlogDetails({ slug: blogSlug, locale }) {
             <nav className="flex items-center space-x-2 text-sm text-light mb-6 px-5 sm:px-10 md:px-10">
               <Link 
                 href={generateMultilingualPath("/", language)} 
-                className="hover:text-accent transition-colors"
+                className="hover:opacity-50 hover:scale-105 transition-all duration-300"
               >
                 {t('nav.home')}
               </Link>
@@ -64,7 +64,7 @@ export default function BlogDetails({ slug: blogSlug, locale }) {
                   ) : (
                     <Link 
                       href={item.href} 
-                      className="hover:text-accent transition-colors"
+                      className="hover:opacity-50 hover:scale-105 transition-all duration-300"
                     >
                       {item.label}
                     </Link>
