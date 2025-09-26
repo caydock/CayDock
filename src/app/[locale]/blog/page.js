@@ -36,7 +36,7 @@ export default async function BlogPage({ params }) {
       <FeaturedPosts blogs={filteredBlogs} lang={locale} />
       <RecentPosts blogs={filteredBlogs} lang={locale} />
       
-      <ExploreButton href={locale === 'zh-cn' ? '/zh-cn' : '/'}>
+      <ExploreButton href="/">
         {t('blog.exploreMore')}
       </ExploreButton>
     </main>

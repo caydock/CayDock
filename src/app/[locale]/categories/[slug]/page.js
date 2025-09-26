@@ -170,15 +170,15 @@ export default async function LangCategoryPage({ params }) {
   const breadcrumbItems = [
     {
       label: tdk.breadcrumb.blog,
-      href: `/${locale}/blog`
+      href: "/blog"
     },
     {
       label: tdk.breadcrumb.categories,
-      href: `/${locale}/categories/all`
+      href: "/categories/all"
     },
     {
       label: getCategoryLabel(categorySlug),
-      href: `/${locale}/categories/${categorySlug}`
+      href: `/categories/${categorySlug}`
     }
   ];
 
@@ -206,7 +206,7 @@ export default async function LangCategoryPage({ params }) {
         ))}
       </div>
       
-      <ExploreButton href={`/${locale}`}>
+      <ExploreButton href="/">
         {tdk.blog.exploreMore}
       </ExploreButton>
     </article>

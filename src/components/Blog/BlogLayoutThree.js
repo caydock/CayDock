@@ -13,7 +13,11 @@ const BlogLayoutThree = ({ blog, lang }) => {
   
   return (
     <div className="group flex flex-col items-center text-dark dark:text-light">
-      <SmartLink href={blogUrl || '#'} className="w-full h-48 rounded-xl overflow-hidden">
+      <SmartLink 
+        href={blogUrl || '#'} 
+        {...(lang && { locale: lang })}
+        className="w-full h-48 rounded-xl overflow-hidden"
+      >
         <Image
           src={blog.image.src}
           placeholder="blur"
@@ -30,7 +34,11 @@ const BlogLayoutThree = ({ blog, lang }) => {
         <span className="capitalize text-accent dark:text-accentDark font-semibold text-xs sm:text-sm">
           {blog.tags[0]}
         </span>
-        <SmartLink href={blogUrl || '#'} className="inline-block my-1">
+        <SmartLink 
+          href={blogUrl || '#'} 
+          {...(lang && { locale: lang })}
+          className="inline-block my-1"
+        >
           <h2 className="font-semibold capitalize  text-base sm:text-lg">
             <span
               className="bg-gradient-to-r from-accent/50 to-accent/50  dark:from-accentDark/50

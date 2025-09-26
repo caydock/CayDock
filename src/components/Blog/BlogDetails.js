@@ -28,15 +28,15 @@ export default function BlogDetails({ slug: blogSlug, locale }) {
   const breadcrumbItems = [
     {
       label: t('nav.blog'),
-      href: generateMultilingualPath("/blog", language)
+      href: "/blog"
     },
     {
       label: t('breadcrumb.categories'),
-      href: generateMultilingualPath("/categories/all", language)
+      href: "/categories/all"
     },
     {
       label: blog.title,
-      href: generateMultilingualPath(blog.url, language)
+      href: blog.url
     }
   ];
 
@@ -48,7 +48,7 @@ export default function BlogDetails({ slug: blogSlug, locale }) {
           <div className="absolute top-8 left-0 right-0 z-20">
             <nav className="flex items-center space-x-2 text-sm text-light mb-6 px-5 sm:px-10 md:px-10">
               <Link 
-                href={generateMultilingualPath("/", language)} 
+                href="/" 
                 className="hover:opacity-50 hover:scale-105 transition-all duration-300"
               >
                 {t('nav.home')}
@@ -77,7 +77,7 @@ export default function BlogDetails({ slug: blogSlug, locale }) {
           <div className="w-full z-10 flex flex-col items-center justify-center absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
             <Tag
               name={blog.tags[0]}
-              link={generateMultilingualPath(`/categories/${blog.tagKeys && blog.tagKeys.length > 0 ? blog.tagKeys[0] : slug(blog.tags[0])}`, language)}
+              link={`/categories/${blog.tagKeys && blog.tagKeys.length > 0 ? blog.tagKeys[0] : slug(blog.tags[0])}`}
               className="px-6 text-sm py-2"
             />
             <h1
@@ -114,7 +114,7 @@ export default function BlogDetails({ slug: blogSlug, locale }) {
             {/* 分享按钮 */}
             <div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
               <ShareButtons 
-                url={`${siteMetadata.siteUrl}${generateMultilingualPath(blog.url, language)}`}
+                url={`${siteMetadata.siteUrl}${blog.url}`}
                 title={blog.title}
                 description={blog.description}
                 hashtags="weirdwebsites,webdiscovery,blog"
@@ -123,7 +123,7 @@ export default function BlogDetails({ slug: blogSlug, locale }) {
           </div>
         </div>
         
-        <ExploreButton href={generateMultilingualPath("/", language)}>
+        <ExploreButton href="/">
           {t('blog.exploreMore')}
         </ExploreButton>
       </article>
