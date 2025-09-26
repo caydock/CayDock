@@ -17,10 +17,10 @@ const FeaturedPosts = ({ blogs, lang }) => {
     return null;
   }
   
-  return <section className="w-full mt-16 sm:mt-24  md:mt-10 px-5 sm:px-10 md:px-10 flex flex-col items-center justify-center">
+  return <section className="w-full mt-16 sm:mt-24 md:mt-10 px-5 sm:px-10 md:px-10 flex flex-col items-center justify-center">
     <h2 className="w-full inline-block font-bold capitalize text-2xl md:text-4xl text-dark dark:text-light">{t('blog.featuredPosts')}</h2>
 
-    <div className="grid grid-cols-2 grid-rows-2 gap-6 mt-10 sm:mt-10">
+    <div className="grid grid-cols-2 grid-rows-2 gap-6 mt-10 sm:mt-10 w-full">
       {sortedBlogs[1] && (
         <article className="col-span-2 lg:col-span-1 sxl:col-span-1 row-span-2 relative h-full">
           <BlogLayoutOne blog={sortedBlogs[1]} lang={lang} />
