@@ -67,8 +67,12 @@ export const viewport = {
 export const runtime = 'edge';
 
 export default async function RootLayout({ children }) {
+  // 使用默认语言，避免水合错误
+  // 多语言页面的 lang 属性由多语言布局处理
+  const lang = 'en';
+
   return (
-    <html>
+    <html lang={lang}>
       <body
         className={cx(
           inter.variable,
