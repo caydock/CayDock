@@ -6,8 +6,6 @@ import Analytics from "@/src/components/Analytics";
 import siteMetadata from "../utils/siteMetaData";
 import Script from "next/script";
 import { shouldEnableAdSense } from "@/src/utils/env";
-import { NextIntlClientProvider } from 'next-intl';
-import { getMessages } from 'next-intl/server';
 
 const inter = Inter({
   subsets: ["latin"],
