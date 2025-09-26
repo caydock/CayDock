@@ -1,5 +1,5 @@
 import { getTranslations } from 'next-intl/server';
-import ContactContent from '@/src/components/Contact/ContactContent';
+import ContactContent from './ContactContent';
 
 export async function generateMetadata({ params }) {
   const { locale } = await params;
