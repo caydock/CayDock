@@ -22,7 +22,7 @@ const RecentPosts = ({ blogs, lang }) => {
           {t('blog.recentPosts')}
         </h2>
         <Link
-          href="/categories/all"
+          href={lang ? `/${lang}/categories/all` : "/categories/all"}
           className="inline-block font-medium text-accent dark:text-accentDark underline underline-offset-2      text-base md:text-lg"
         >
                       {t('blog.viewAll')}
