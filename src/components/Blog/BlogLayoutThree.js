@@ -1,5 +1,6 @@
 import Image from "next/image";
-import { Link } from '@/src/i18n/routing';
+import { Link as IntlLink } from '@/src/i18n/routing';
+import Link from "next/link";
 import React from "react";
 
 const BlogLayoutThree = ({ blog, lang }) => {
@@ -7,9 +8,12 @@ const BlogLayoutThree = ({ blog, lang }) => {
   
   const blogUrl = blog.url;
   
+  // 智能选择 Link 组件：如果有 lang 参数，使用 IntlLink，否则使用普通 Link
+  const SmartLink = lang ? IntlLink : Link;
+  
   return (
     <div className="group flex flex-col items-center text-dark dark:text-light">
-      <Link href={blogUrl || '#'} className="w-full h-48 rounded-xl overflow-hidden">
+      <SmartLink href={blogUrl || '#'} className="w-full h-48 rounded-xl overflow-hidden">
         <Image
           src={blog.image.src}
           placeholder="blur"
@@ -20,13 +24,13 @@ const BlogLayoutThree = ({ blog, lang }) => {
           className="w-full h-full object-cover object-center group-hover:scale-105 transition-all ease duration-300"
           sizes="(max-width: 640px) 100vw,(max-width: 1024px) 50vw, 33vw"
         />
-      </Link>
+      </SmartLink>
 
       <div className="flex flex-col w-full mt-4">
         <span className="capitalize text-accent dark:text-accentDark font-semibold text-xs sm:text-sm">
           {blog.tags[0]}
         </span>
-        <Link href={blogUrl || '#'} className="inline-block my-1">
+        <SmartLink href={blogUrl || '#'} className="inline-block my-1">
           <h2 className="font-semibold capitalize  text-base sm:text-lg">
             <span
               className="bg-gradient-to-r from-accent/50 to-accent/50  dark:from-accentDark/50
@@ -37,7 +41,7 @@ const BlogLayoutThree = ({ blog, lang }) => {
               {blog.title}
             </span>
           </h2>
-        </Link>
+        </SmartLink>
 
         <span className="capitalize text-gray dark:text-light/50 font-semibold text-sm  sm:text-base">
           {new Date(blog.publishedAt).toLocaleDateString(lang === 'zh-cn' ? 'zh-CN' : 'en-US', {
