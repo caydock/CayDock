@@ -27,7 +27,9 @@ export async function generateMetadata({ params, searchParams }) {
           const description = t('discover.siteDescription', {title: siteTitle});
           
           return {
-            title: `${siteTitle} - W3Cay`,
+            title: {
+              absolute: `${siteTitle} - W3Cay`
+            },
             description: description,
             openGraph: {
               title: `${siteTitle} - W3Cay`,
@@ -41,7 +43,9 @@ export async function generateMetadata({ params, searchParams }) {
         const notFoundDescription = t('discover.notFoundDesc');
         
         return {
-          title: notFoundTitle,
+          title: {
+            absolute: notFoundTitle
+          },
           description: notFoundDescription,
           openGraph: {
             title: notFoundTitle,
@@ -54,9 +58,11 @@ export async function generateMetadata({ params, searchParams }) {
     }
   }
   
-  // 默认标题
+  // 默认标题 - 首页不使用模板，直接返回完整标题
   return {
-    title: t('home.title'),
+    title: {
+      absolute: t('home.title')
+    },
     description: t('home.description'),
     openGraph: {
       title: t('home.title'),
