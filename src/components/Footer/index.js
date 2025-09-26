@@ -6,8 +6,7 @@ import siteMetadata from "@/src/utils/siteMetaData";
 import { useTranslations, useLocale } from 'next-intl';
 import Logo from "@/src/components/Header/SiteLogoBlack";
 import ShareButtons from "@/src/components/Elements/ShareButtons";
-import { useRouter } from "next/navigation";
-import { Link } from '@/src/i18n/routing';
+import { Link, usePathname } from '@/src/i18n/routing';
 
 const Footer = () => {
   const {
@@ -18,38 +17,7 @@ const Footer = () => {
 
   const t = useTranslations('ui');
   const locale = useLocale();
-  const router = useRouter();
-  
-  const toggleLanguage = () => {
-    const newLang = locale === 'zh-cn' ? 'en' : 'zh-cn';
-    
-    // 获取当前路径并处理语言切换
-    const currentPath = window.location.pathname;
-    let newPath;
-    
-    if (newLang === 'zh-cn') {
-      // 切换到中文
-      if (currentPath === '/' || currentPath === '/en') {
-        newPath = '/zh-cn';
-      } else if (currentPath.startsWith('/en')) {
-        newPath = currentPath.replace('/en', '/zh-cn');
-      } else {
-        newPath = `/zh-cn${currentPath}`;
-      }
-    } else {
-      // 切换到英文
-      if (currentPath === '/' || currentPath === '/zh-cn') {
-        newPath = '/en';
-      } else if (currentPath.startsWith('/zh-cn')) {
-        newPath = currentPath.replace('/zh-cn', '/en');
-      } else {
-        newPath = `/en${currentPath}`;
-      }
-    }
-    
-    // 使用 Next.js router 进行导航
-    router.push(newPath);
-  };
+  const pathname = usePathname();
 
   return (
     <footer className="bg-dark flex flex-col items-center text-light relative">
@@ -155,13 +123,14 @@ const Footer = () => {
               CayDock
             </a>
           </span>
-          <button
-            onClick={toggleLanguage}
-            className="ml-2 px-3 py-1 rounded-full border border-solid border-light/60  text-sm bg-transparent"
+          <Link
+            href={pathname}
+            locale={locale === 'zh-cn' ? 'en' : 'zh-cn'}
+            className="ml-2 px-3 py-1 rounded-full border border-solid border-light/60 text-sm bg-transparent hover:bg-light/10 transition-colors"
             aria-label="language-switcher-footer"
           >
             {locale === 'zh-cn' ? 'EN' : '中文'}
-          </button>
+          </Link>
         </div>
       </div>
     </footer>
