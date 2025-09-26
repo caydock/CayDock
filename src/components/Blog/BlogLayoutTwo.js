@@ -8,7 +8,7 @@ const BlogLayoutTwo = ({ blog, lang }) => {
   const blogUrl = blog.url;
   
   return (
-    <div className="group grid grid-cols-12 gap-4 items-center text-dark dark:text-light h-full">
+    <div className="group grid grid-cols-12 gap-4 items-stretch text-dark dark:text-light h-full">
       <Link
         href={blogUrl || '#'}
         className="col-span-12 lg:col-span-4 h-32 xl:h-40 2xl:h-48 rounded-xl overflow-hidden"
@@ -25,7 +25,7 @@ const BlogLayoutTwo = ({ blog, lang }) => {
         />
       </Link>
 
-      <div className="col-span-12 lg:col-span-8 w-full flex flex-col justify-center">
+      <div className="col-span-12 lg:col-span-8 w-full flex flex-col justify-center h-full">
         <span className="inline-block w-full capitalize text-accent dark:text-accentDark font-semibold text-xs sm:text-sm">
           {blog.tags[0]}
         </span>
