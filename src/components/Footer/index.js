@@ -6,7 +6,8 @@ import siteMetadata from "@/src/utils/siteMetaData";
 import { useTranslations, useLocale } from 'next-intl';
 import Logo from "@/src/components/Header/SiteLogoBlack";
 import ShareButtons from "@/src/components/Elements/ShareButtons";
-import { Link, usePathname } from '@/src/i18n/routing';
+import { Link, usePathname, useRouter } from '@/src/i18n/routing';
+import { useParams } from 'next/navigation';
 
 const Footer = () => {
   const {
@@ -18,6 +19,8 @@ const Footer = () => {
   const t = useTranslations('ui');
   const locale = useLocale();
   const pathname = usePathname();
+  const router = useRouter();
+  const params = useParams();
 
   return (
     <footer className="bg-dark flex flex-col items-center text-light relative">
@@ -124,7 +127,9 @@ const Footer = () => {
             </a>
           </span>
           <Link
-            href={pathname}
+            href={pathname.replace(/\[([^\]]+)\]/g, (match, paramName) => {
+              return params[paramName] || match;
+            })}
             locale={locale === 'zh-cn' ? 'en' : 'zh-cn'}
             className="ml-2 px-3 py-1 rounded-full border border-solid border-light/60 text-sm bg-transparent hover:bg-light/10 transition-colors"
             aria-label="language-switcher-footer"
