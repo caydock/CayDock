@@ -55,9 +55,15 @@ const nextConfig = {
   }
 
 // Injected content via Sentry wizard below
+// 临时禁用 Sentry 配置避免构建错误
 
-const { withSentryConfig } = require("@sentry/nextjs");
+// const { withSentryConfig } = require("@sentry/nextjs");
 
+// 条件性导出配置 - 临时禁用 Sentry
+module.exports = withNextIntl(nextConfig);
+
+// 原 Sentry 配置（已禁用）
+/*
 module.exports = withSentryConfig(
   withNextIntl(nextConfig),
   {
@@ -92,3 +98,4 @@ module.exports = withSentryConfig(
     automaticVercelMonitors: true,
   }
 );
+*/
