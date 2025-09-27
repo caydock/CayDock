@@ -2,7 +2,7 @@
 import { useTranslations } from 'next-intl';
 import siteMetadata from "@/src/utils/siteMetaData";
 
-export default function ContactContent({ initialLanguage }) {
+export default function ContactContent() {
   const t = useTranslations('ui');
   
   return (
