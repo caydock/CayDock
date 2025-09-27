@@ -33,6 +33,62 @@ const nextConfig = {
           destination: '/?site=:id',
           permanent: true,
         },
+        // SEO 迁移：将旧的英文路径重定向到新的 /en/ 前缀路径
+        {
+          source: '/',
+          destination: '/en/',
+          permanent: true,
+        },
+        {
+          source: '/blog',
+          destination: '/en/blog',
+          permanent: true,
+        },
+        {
+          source: '/blog/:slug*',
+          destination: '/en/blog/:slug*',
+          permanent: true,
+        },
+        {
+          source: '/categories',
+          destination: '/en/categories',
+          permanent: true,
+        },
+        {
+          source: '/categories/:slug*',
+          destination: '/en/categories/:slug*',
+          permanent: true,
+        },
+        {
+          source: '/about',
+          destination: '/en/about',
+          permanent: true,
+        },
+        {
+          source: '/contact',
+          destination: '/en/contact',
+          permanent: true,
+        },
+        {
+          source: '/submit',
+          destination: '/en/submit',
+          permanent: true,
+        },
+        {
+          source: '/terms-of-service',
+          destination: '/en/terms-of-service',
+          permanent: true,
+        },
+        {
+          source: '/privacy-policy',
+          destination: '/en/privacy-policy',
+          permanent: true,
+        },
+        {
+          source: '/disclaimer',
+          destination: '/en/disclaimer',
+          permanent: true,
+        },
       ]
     },
     async rewrites() {
