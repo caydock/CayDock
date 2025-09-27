@@ -77,11 +77,11 @@ const Header = () => {
       {/* Desktop top nav */}
       <nav className="w-max py-3 px-6 sm:px-8 border border-solid border-dark rounded-full font-medium capitalize items-center hidden sm:flex fixed top-6 right-1/2 translate-x-1/2 bg-light/80 backdrop-blur-sm z-50">
         <Logo />
-        <Link href="/" className="mx-2">{t('nav.home')}</Link>
-        <Link href="/blog" className="mx-2">{t('blog.title')}</Link>
-        <Link href="/submit" className="mx-2">{t('nav.submit')}</Link>
-        <Link href="/about" className="mx-2">{t('nav.about')}</Link>
-        <Link href="/contact" className="mx-2">{t('nav.contact')}</Link>
+        <Link href="/" locale={locale} className="mx-2">{t('nav.home')}</Link>
+        <Link href="/blog" locale={locale} className="mx-2">{t('blog.title')}</Link>
+        <Link href="/submit" locale={locale} className="mx-2">{t('nav.submit')}</Link>
+        <Link href="/about" locale={locale} className="mx-2">{t('nav.about')}</Link>
+        <Link href="/contact" locale={locale} className="mx-2">{t('nav.contact')}</Link>
         <button onClick={toggleLanguage} className={cx("w-6 h-6 ease ml-2 flex items-center justify-center rounded-full p-1 text-xs font-bold", isZh ? "bg-blue-500 text-white" : "bg-green-500 text-white")} aria-label="language-switcher">
           {isZh ? 'EN' : '中'}
         </button>
@@ -112,11 +112,11 @@ const Header = () => {
           </button>
         </div>
         <nav className="flex flex-col p-4 gap-3 text-lg dark:text-light">
-          <Link href="/" onClick={() => setOpen(false)}>{t('nav.home')}</Link>
-          <Link href="/blog" onClick={() => setOpen(false)}>{t('blog.title')}</Link>
-          <Link href="/submit" onClick={() => setOpen(false)}>{t('nav.submit')}</Link>
-          <Link href="/contact" onClick={() => setOpen(false)}>{t('nav.contact')}</Link>
-          <Link href="/about" onClick={() => setOpen(false)}>{t('nav.about')}</Link>
+          <Link href="/" locale={locale} onClick={() => setOpen(false)}>{t('nav.home')}</Link>
+          <Link href="/blog" locale={locale} onClick={() => setOpen(false)}>{t('blog.title')}</Link>
+          <Link href="/submit" locale={locale} onClick={() => setOpen(false)}>{t('nav.submit')}</Link>
+          <Link href="/contact" locale={locale} onClick={() => setOpen(false)}>{t('nav.contact')}</Link>
+          <Link href="/about" locale={locale} onClick={() => setOpen(false)}>{t('nav.about')}</Link>
           {/* Contact hidden on mobile per earlier request */}
           <button onClick={toggleLanguage} className={cx("mt-2 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold", isZh ? "bg-blue-500 text-white" : "bg-green-500 text-white")} aria-label="language-switcher">
             {isZh ? 'EN' : '中'}

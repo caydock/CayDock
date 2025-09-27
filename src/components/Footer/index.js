@@ -32,11 +32,11 @@ const Footer = () => {
 
         {/* 导航菜单 */}
         <nav className="mt-4 flex flex-wrap items-center justify-center gap-6 text-lg sm:text-xl">
-          <Link href="/" className="hover:underline transition-colors">{t('nav.home')}</Link>
-          <Link href="/blog" className="hover:underline transition-colors">{t('blog.title')}</Link>
-          <Link href="/submit" className="hover:underline transition-colors">{t('nav.submit')}</Link>
-          <Link href="/about" className="hover:underline transition-colors">{t('nav.about')}</Link>
-          <Link href="/contact" className="hover:underline transition-colors">{t('nav.contact')}</Link>
+          <Link href="/" locale={locale} className="hover:underline transition-colors">{t('nav.home')}</Link>
+          <Link href="/blog" locale={locale} className="hover:underline transition-colors">{t('blog.title')}</Link>
+          <Link href="/submit" locale={locale} className="hover:underline transition-colors">{t('nav.submit')}</Link>
+          <Link href="/about" locale={locale} className="hover:underline transition-colors">{t('nav.about')}</Link>
+          <Link href="/contact" locale={locale} className="hover:underline transition-colors">{t('nav.contact')}</Link>
         </nav>
       </div>
 
@@ -114,10 +114,10 @@ const Footer = () => {
           &copy;2025 W3Cay. {t('footer.allRights')}
         </span>
         <div className="text-center my-4 md:my-0 flex items-center gap-4 text-base sm:text-base">
-          <Link href="/terms-of-service" className="underline">{t('legal.terms')}</Link>
-          <Link href="/privacy-policy" className="underline">{t('legal.privacy')}</Link>
-          <Link href="/disclaimer" className="underline">{t('legal.disclaimer')}</Link>
-          <Link href="/sitemap.xml" className="underline">{t('footer.sitemap')}</Link>
+          <Link href="/terms-of-service" locale={locale} className="underline">{t('legal.terms')}</Link>
+          <Link href="/privacy-policy" locale={locale} className="underline">{t('legal.privacy')}</Link>
+          <Link href="/disclaimer" locale={locale} className="underline">{t('legal.disclaimer')}</Link>
+          <a href="/sitemap.xml" className="underline">{t('footer.sitemap')}</a>
         </div>
         <div className="text-center flex items-center gap-3 text-base sm:text-base">
           <span>
