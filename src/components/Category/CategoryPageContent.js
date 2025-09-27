@@ -121,7 +121,7 @@ export default function CategoryPageContent({ categorySlug, locale, language }) 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-16 mt-5 sm:mt-10 md:mt-24 sxl:mt-32 px-5 sm:px-10 md:px-24 sxl:px-32 mb-10">
         {filteredBlogs.map((blog, index) => (
           <article key={index} className="col-span-1 relative">
-            <BlogLayoutThree blog={blog} />
+            <BlogLayoutThree blog={blog} lang={locale} />
           </article>
         ))}
       </div>
