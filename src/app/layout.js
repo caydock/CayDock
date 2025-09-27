@@ -54,7 +54,7 @@ export async function generateMetadata() {
       siteName: 'W3Cay',
       images: [
         {
-          url: siteMetadata.socialBanner,
+          url: `${siteMetadata.siteUrl}${siteMetadata.socialBanner}`,
           width: 1200,
           height: 630,
           alt: 'W3Cay - World\'s Weird Websites Cay',
@@ -78,8 +78,9 @@ export async function generateMetadata() {
     twitter: {
       card: "summary_large_image",
       title: 'W3Cay - World\'s Weird Websites Cay',
+      description: siteMetadata.description,
       site: '@caydock',
-      images: [siteMetadata.socialBanner],
+      images: [`${siteMetadata.siteUrl}${siteMetadata.socialBanner}`],
     },
   };
 }

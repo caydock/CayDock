@@ -30,6 +30,24 @@ export async function generatePageMetadata({ locale, path, metaKey, isRootPage =
     openGraph: {
       title: t(`${metaKey}.title`),
       description: t(`${metaKey}.description`),
+      url: canonicalUrl,
+      siteName: siteMetadata.title,
+      images: [
+        {
+          url: `${siteMetadata.siteUrl}${siteMetadata.socialBanner}`,
+          width: 1200,
+          height: 630,
+          alt: t(`${metaKey}.title`),
+        }
+      ],
+      locale: locale,
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: t(`${metaKey}.title`),
+      description: t(`${metaKey}.description`),
+      images: [`${siteMetadata.siteUrl}${siteMetadata.socialBanner}`],
     },
   };
 }

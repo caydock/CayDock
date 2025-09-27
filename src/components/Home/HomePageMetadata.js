@@ -28,6 +28,24 @@ export async function generateHomePageMetadata({ locale, searchParams }) {
             openGraph: {
               title: `${siteTitle} - W3Cay`,
               description: description,
+              url: `${siteMetadata.siteUrl}/`,
+              siteName: siteMetadata.title,
+              images: [
+                {
+                  url: `${siteMetadata.siteUrl}${siteMetadata.socialBanner}`,
+                  width: 1200,
+                  height: 630,
+                  alt: `${siteTitle} - W3Cay`,
+                }
+              ],
+              locale: locale,
+              type: 'website',
+            },
+            twitter: {
+              card: 'summary_large_image',
+              title: `${siteTitle} - W3Cay`,
+              description: description,
+              images: [`${siteMetadata.siteUrl}${siteMetadata.socialBanner}`],
             },
             alternates: {
               canonical: `${siteMetadata.siteUrl}/`,
@@ -50,6 +68,24 @@ export async function generateHomePageMetadata({ locale, searchParams }) {
           openGraph: {
             title: notFoundTitle,
             description: notFoundDescription,
+            url: `${siteMetadata.siteUrl}/`,
+            siteName: siteMetadata.title,
+            images: [
+              {
+                url: `${siteMetadata.siteUrl}${siteMetadata.socialBanner}`,
+                width: 1200,
+                height: 630,
+                alt: notFoundTitle,
+              }
+            ],
+            locale: locale,
+            type: 'website',
+          },
+          twitter: {
+            card: 'summary_large_image',
+            title: notFoundTitle,
+            description: notFoundDescription,
+            images: [`${siteMetadata.siteUrl}${siteMetadata.socialBanner}`],
           },
           alternates: {
             canonical: `${siteMetadata.siteUrl}/`,
@@ -73,6 +109,24 @@ export async function generateHomePageMetadata({ locale, searchParams }) {
     openGraph: {
       title: t('home.title'),
       description: t('home.description'),
+      url: `${siteMetadata.siteUrl}/`,
+      siteName: siteMetadata.title,
+      images: [
+        {
+          url: `${siteMetadata.siteUrl}${siteMetadata.socialBanner}`,
+          width: 1200,
+          height: 630,
+          alt: t('home.title'),
+        }
+      ],
+      locale: locale,
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: t('home.title'),
+      description: t('home.description'),
+      images: [`${siteMetadata.siteUrl}${siteMetadata.socialBanner}`],
     },
     alternates: {
       canonical: `${siteMetadata.siteUrl}/`,
