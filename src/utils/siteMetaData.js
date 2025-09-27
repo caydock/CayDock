@@ -1,7 +1,7 @@
 // please update required information
 const siteMetadata = {
     title: 'W3Cay - World’s Weird Websites Cay',
-    author: 'Cay',  
+    author: 'Cayden',  
     headerTitle: 'W3Cay',
     description: 'Discover the world\'s most interesting and weird websites. W3Cay curates unique, interactive, and fascinating web experiences from around the globe.',
     language: 'en-us',
