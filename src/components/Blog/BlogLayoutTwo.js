@@ -11,7 +11,7 @@ const BlogLayoutTwo = ({ blog, lang }) => {
     <div className="group grid grid-cols-12 gap-4 items-stretch text-dark dark:text-light h-full">
       <Link
         href={blogUrl || '#'}
-        className="col-span-12 lg:col-span-4 h-32 xl:h-40 2xl:h-48 rounded-xl overflow-hidden"
+        className="col-span-12 lg:col-span-4 h-48 sm:h-32 xl:h-40 2xl:h-48 rounded-xl overflow-hidden"
       >
         <Image
           src={blog.image.src}
