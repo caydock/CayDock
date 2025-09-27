@@ -33,12 +33,7 @@ const nextConfig = {
           destination: '/?site=:id',
           permanent: true,
         },
-        // SEO 迁移：将旧的英文路径重定向到新的 /en/ 前缀路径
-        {
-          source: '/',
-          destination: '/en/',
-          permanent: true,
-        },
+        // 注意：根路径重定向已移除，由 next-intl 自动处理
         {
           source: '/blog',
           destination: '/en/blog',
@@ -91,20 +86,7 @@ const nextConfig = {
         },
       ]
     },
-    async rewrites() {
-      return [
-        // 重写 /zh-cn/* 到 /[lang]/* 路由
-        {
-          source: '/zh-cn/:path*',
-          destination: '/zh-cn/:path*',
-        },
-        // 重写 /en/* 到 /[lang]/* 路由
-        {
-          source: '/en/:path*',
-          destination: '/en/:path*',
-        },
-      ]
-    }
+    // rewrites 已移除，由 next-intl 自动处理路由
   }
   
   class VeliteWebpackPlugin {
