@@ -4,10 +4,12 @@ import { useForm } from "react-hook-form";
 import { DribbbleIcon, GithubIcon, LinkedinIcon, TwitterIcon } from "../Icons";
 import siteMetadata from "@/src/utils/siteMetaData";
 import { useTranslations, useLocale } from 'next-intl';
+import { getClientTranslation } from '@/src/i18n';
 import Logo from "@/src/components/Header/SiteLogoBlack";
 import ShareButtons from "@/src/components/Elements/ShareButtons";
-import { Link, usePathname, useRouter } from '@/src/i18n/routing';
-import { useParams } from 'next/navigation';
+import { usePathname, useRouter } from '@/src/i18n/routing';
+import { useParams, usePathname as useNextPathname } from 'next/navigation';
+import SmartLink from '../Elements/SmartLink';
 
 const Footer = () => {
   const {
@@ -16,27 +18,56 @@ const Footer = () => {
     formState: { errors },
   } = useForm();
 
-  const t = useTranslations('ui');
   const locale = useLocale();
   const pathname = usePathname();
+  const nextPathname = useNextPathname();
   const router = useRouter();
   const params = useParams();
+  
+  // 判断是否为英文站（根目录）- 使用真实的浏览器路径
+  const isEnglishSite = !nextPathname.startsWith('/zh-cn');
+  const actualLocale = isEnglishSite ? 'en' : 'zh-cn';
+  
+  // 根据实际语言获取翻译
+  const defaultT = useTranslations('ui');
+  const translationLang = actualLocale === 'zh-cn' ? 'zh' : 'en';
+  const actualTranslations = getClientTranslation(translationLang);
+  
+  // 创建支持嵌套键的翻译函数
+  const t = (key) => {
+    if (actualTranslations) {
+      const keys = key.split('.');
+      let value = actualTranslations;
+      for (const k of keys) {
+        if (value && typeof value === 'object' && k in value) {
+          value = value[k];
+        } else {
+          return defaultT(key);
+        }
+      }
+      if (typeof value === 'string') {
+        return value;
+      }
+    }
+    return defaultT(key);
+  };
+  // 使用 SmartLink 统一处理链接
 
   return (
     <footer className="bg-dark flex flex-col items-center text-light relative">
 
       <div className="mt-10 w-full flex flex-col items-center justify-center gap-4 px-4">
-        <Logo sizeClass="w-40" />
+        <Logo sizeClass="w-40" locale={actualLocale} />
 
 
 
         {/* 导航菜单 */}
         <nav className="mt-4 flex flex-wrap items-center justify-center gap-6 text-lg sm:text-xl">
-          <Link href="/" locale={locale} className="hover:underline transition-colors">{t('nav.home')}</Link>
-          <Link href="/blog" locale={locale} className="hover:underline transition-colors">{t('blog.title')}</Link>
-          <Link href="/submit" locale={locale} className="hover:underline transition-colors">{t('nav.submit')}</Link>
-          <Link href="/about" locale={locale} className="hover:underline transition-colors">{t('nav.about')}</Link>
-          <Link href="/contact" locale={locale} className="hover:underline transition-colors">{t('nav.contact')}</Link>
+          <SmartLink href="/" locale={actualLocale} className="hover:underline transition-colors">{t('nav.home')}</SmartLink>
+          <SmartLink href="/blog" locale={actualLocale} className="hover:underline transition-colors">{t('blog.title')}</SmartLink>
+          <SmartLink href="/submit" locale={actualLocale} className="hover:underline transition-colors">{t('nav.submit')}</SmartLink>
+          <SmartLink href="/about" locale={actualLocale} className="hover:underline transition-colors">{t('nav.about')}</SmartLink>
+          <SmartLink href="/contact" locale={actualLocale} className="hover:underline transition-colors">{t('nav.contact')}</SmartLink>
         </nav>
       </div>
 
@@ -114,9 +145,9 @@ const Footer = () => {
           &copy;2025 W3Cay. {t('footer.allRights')}
         </span>
         <div className="text-center my-4 md:my-0 flex items-center gap-4 text-base sm:text-base">
-          <Link href="/terms-of-service" locale={locale} className="underline">{t('legal.terms')}</Link>
-          <Link href="/privacy-policy" locale={locale} className="underline">{t('legal.privacy')}</Link>
-          <Link href="/disclaimer" locale={locale} className="underline">{t('legal.disclaimer')}</Link>
+          <SmartLink href="/terms-of-service" locale={actualLocale} className="underline">{t('legal.terms')}</SmartLink>
+          <SmartLink href="/privacy-policy" locale={actualLocale} className="underline">{t('legal.privacy')}</SmartLink>
+          <SmartLink href="/disclaimer" locale={actualLocale} className="underline">{t('legal.disclaimer')}</SmartLink>
           <a href="/sitemap.xml" className="underline">{t('footer.sitemap')}</a>
         </div>
         <div className="text-center flex items-center gap-3 text-base sm:text-base">
@@ -126,16 +157,23 @@ const Footer = () => {
               CayDock
             </a>
           </span>
-          <Link
-            href={pathname.replace(/\[([^\]]+)\]/g, (match, paramName) => {
-              return params[paramName] || match;
-            })}
-            locale={locale === 'zh-cn' ? 'en' : 'zh-cn'}
-            className="ml-2 px-3 py-1 rounded-full border border-solid border-light/60 text-sm bg-transparent hover:bg-light/10 transition-colors"
-            aria-label="language-switcher-footer"
-          >
-            {locale === 'zh-cn' ? 'EN' : '中文'}
-          </Link>
+          {isEnglishSite ? (
+            <SmartLink
+              href={`/zh-cn${nextPathname}`}
+              className="ml-2 px-3 py-1 rounded-full border border-solid border-light/60 text-sm bg-transparent hover:bg-light/10 transition-colors"
+              aria-label="language-switcher-footer"
+            >
+              中文
+            </SmartLink>
+          ) : (
+            <SmartLink
+              href={nextPathname.replace('/zh-cn', '') || '/'}
+              className="ml-2 px-3 py-1 rounded-full border border-solid border-light/60 text-sm bg-transparent hover:bg-light/10 transition-colors"
+              aria-label="language-switcher-footer"
+            >
+              EN
+            </SmartLink>
+          )}
         </div>
       </div>
     </footer>

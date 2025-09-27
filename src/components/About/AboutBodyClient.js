@@ -1,6 +1,6 @@
 "use client";
 import { useTranslations, useLocale } from 'next-intl';
-import { Link } from '@/src/i18n/routing';
+import SmartLink from '../Elements/SmartLink';
 
 export default function AboutBodyClient() {
   const t = useTranslations('ui');
@@ -19,7 +19,7 @@ export default function AboutBodyClient() {
         {t('about.contactEmailPrefix')}
         <a className="underline underline-offset-2 ml-1" href="mailto:cay.dev@hotmail.com">cay.dev@hotmail.com</a>
         。 {t('about.contactSubmitPrefix')}
-        <Link href="/submit" locale={locale} className="mx-1 underline underline-offset-2">{t('about.contactSubmitLink')}</Link>
+        <SmartLink href="/submit" locale={locale} className="mx-1 underline underline-offset-2">{t('about.contactSubmitLink')}</SmartLink>
         {t('about.contactSubmitSuffix')}
       </p>
 

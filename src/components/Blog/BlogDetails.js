@@ -4,7 +4,7 @@ import { blogs } from '@/.velite/generated';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Tag from '../Elements/Tag';
-import { Link } from '@/src/i18n/routing';
+import SmartLink from '../Elements/SmartLink';
 import { slug } from 'github-slugger';
 import RenderMdx from './RenderMdx';
 import ShareButtons from '../Elements/ShareButtons';
@@ -47,13 +47,13 @@ export default function BlogDetails({ slug: blogSlug, locale }) {
           {/* 悬浮面包屑导航 */}
           <div className="absolute top-8 left-0 right-0 z-20">
             <nav className="flex items-center space-x-2 text-sm text-light mb-6 px-5 sm:px-10 md:px-10">
-              <Link 
+              <SmartLink 
                 href="/" 
                 locale={locale}
                 className="hover:opacity-50 hover:scale-105 transition-all duration-300"
               >
                 {t('nav.home')}
-              </Link>
+              </SmartLink>
               
               {breadcrumbItems.map((item, index) => (
                 <div key={index} className="flex items-center space-x-2">
@@ -63,13 +63,13 @@ export default function BlogDetails({ slug: blogSlug, locale }) {
                       {item.label}
                     </span>
                   ) : (
-                    <Link 
+                    <SmartLink 
                       href={item.href} 
                       locale={locale}
                       className="hover:opacity-50 hover:scale-105 transition-all duration-300"
                     >
                       {item.label}
-                    </Link>
+                    </SmartLink>
                   )}
                 </div>
               ))}

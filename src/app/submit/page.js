@@ -1,12 +1,12 @@
 import { headers, cookies } from "next/headers";
-import SubmitForm from './SubmitForm';
+import SubmitForm from '@/src/app/[locale]/submit/SubmitForm';
 import { getTranslations } from 'next-intl/server';
 import siteMetadata from '@/src/utils/siteMetaData';
 
 export const runtime = 'edge';
 
-export async function generateMetadata({ params }) {
-  const { locale } = await params;
+export async function generateMetadata() {
+  const locale = 'en'; // 根目录默认为英文
   const t = await getTranslations({locale: locale, namespace: 'meta'});
   
   return {
@@ -14,7 +14,7 @@ export async function generateMetadata({ params }) {
     description: t('submit.description'),
     keywords: t('submit.keywords'),
     alternates: {
-      canonical: `${siteMetadata.siteUrl}/${locale}/submit`,
+      canonical: `${siteMetadata.siteUrl}/submit`,
       languages: {
         'en': `${siteMetadata.siteUrl}/submit`,
         'zh-cn': `${siteMetadata.siteUrl}/zh-cn/submit`,
@@ -24,9 +24,9 @@ export async function generateMetadata({ params }) {
   };
 }
 
-export default async function SubmitPage({ params, searchParams }) {
-  const { locale } = await params;
-  const language = locale === 'zh-cn' ? 'zh' : 'en';
+export default async function SubmitPage({ searchParams }) {
+  const locale = 'en'; // 根目录默认为英文
+  const language = 'en';
 
   // 等待 searchParams
   const params_data = await searchParams;

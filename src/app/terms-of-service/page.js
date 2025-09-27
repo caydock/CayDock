@@ -2,15 +2,15 @@ import { getTranslations } from 'next-intl/server';
 import TermsContent from '@/src/components/Legal/TermsContent';
 import siteMetadata from '@/src/utils/siteMetaData';
 
-export async function generateMetadata({ params }) {
-  const { locale } = await params;
+export async function generateMetadata() {
+  const locale = 'en'; // 根目录默认为英文
   const t = await getTranslations({locale: locale, namespace: 'meta'});
   
   return {
     title: t('terms.title'),
     description: t('terms.description'),
     alternates: {
-      canonical: `${siteMetadata.siteUrl}/${locale}/terms-of-service`,
+      canonical: `${siteMetadata.siteUrl}/terms-of-service`,
       languages: {
         'en': `${siteMetadata.siteUrl}/terms-of-service`,
         'zh-cn': `${siteMetadata.siteUrl}/zh-cn/terms-of-service`,
@@ -24,6 +24,6 @@ export async function generateMetadata({ params }) {
   };
 }
 
-export default async function TermsPage({ params }) {
+export default async function TermsPage() {
   return <TermsContent />;
 }

@@ -33,57 +33,7 @@ const nextConfig = {
           destination: '/?site=:id',
           permanent: true,
         },
-        // 注意：根路径重定向已移除，由 next-intl 自动处理
-        {
-          source: '/blog',
-          destination: '/en/blog',
-          permanent: true,
-        },
-        {
-          source: '/blog/:slug*',
-          destination: '/en/blog/:slug*',
-          permanent: true,
-        },
-        {
-          source: '/categories',
-          destination: '/en/categories',
-          permanent: true,
-        },
-        {
-          source: '/categories/:slug*',
-          destination: '/en/categories/:slug*',
-          permanent: true,
-        },
-        {
-          source: '/about',
-          destination: '/en/about',
-          permanent: true,
-        },
-        {
-          source: '/contact',
-          destination: '/en/contact',
-          permanent: true,
-        },
-        {
-          source: '/submit',
-          destination: '/en/submit',
-          permanent: true,
-        },
-        {
-          source: '/terms-of-service',
-          destination: '/en/terms-of-service',
-          permanent: true,
-        },
-        {
-          source: '/privacy-policy',
-          destination: '/en/privacy-policy',
-          permanent: true,
-        },
-        {
-          source: '/disclaimer',
-          destination: '/en/disclaimer',
-          permanent: true,
-        },
+        // 注意：页面路由重定向已移除，由 next-intl 自动处理
       ]
     },
     // rewrites 已移除，由 next-intl 自动处理路由

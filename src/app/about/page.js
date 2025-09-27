@@ -3,15 +3,15 @@ import AboutCoverSection from '@/src/components/About/AboutCoverSection';
 import AboutBodyClient from '@/src/components/About/AboutBodyClient';
 import siteMetadata from '@/src/utils/siteMetaData';
 
-export async function generateMetadata({ params }) {
-  const { locale } = await params;
+export async function generateMetadata() {
+  const locale = 'en'; // 根目录默认为英文
   const t = await getTranslations({locale: locale, namespace: 'meta'});
   
   return {
     title: t('about.title'),
     description: t('about.description'),
     alternates: {
-      canonical: `${siteMetadata.siteUrl}/${locale}/about`,
+      canonical: `${siteMetadata.siteUrl}/about`,
       languages: {
         'en': `${siteMetadata.siteUrl}/about`,
         'zh-cn': `${siteMetadata.siteUrl}/zh-cn/about`,
@@ -25,9 +25,9 @@ export async function generateMetadata({ params }) {
   };
 }
 
-export default async function AboutPage({ params }) {
-  const { locale } = await params;
-  const language = locale === 'zh-cn' ? 'zh' : 'en';
+export default async function AboutPage() {
+  const locale = 'en'; // 根目录默认为英文
+  const language = 'en';
 
   return (
     <>

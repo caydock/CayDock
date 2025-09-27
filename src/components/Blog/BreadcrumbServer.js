@@ -1,15 +1,15 @@
-import { Link } from '@/src/i18n/routing';
+import SmartLink from '../Elements/SmartLink';
 
 const BreadcrumbServer = ({ items, homeLabel, locale }) => {
   return (
     <nav className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400 mb-6 px-5 sm:px-10 md:px-24 sxl:px-32">
-      <Link 
+      <SmartLink 
         href="/" 
         locale={locale}
         className="hover:opacity-50 hover:scale-105 transition-all duration-300"
       >
         {homeLabel}
-      </Link>
+      </SmartLink>
       
       {items.map((item, index) => (
         <div key={index} className="flex items-center space-x-2">
@@ -19,13 +19,13 @@ const BreadcrumbServer = ({ items, homeLabel, locale }) => {
               {item.label}
             </span>
           ) : (
-            <Link 
+            <SmartLink 
               href={item.href} 
               locale={locale}
               className="hover:opacity-50 hover:scale-105 transition-all duration-300"
             >
               {item.label}
-            </Link>
+            </SmartLink>
           )}
         </div>
       ))}

@@ -8,8 +8,8 @@ export const routing = defineRouting({
   // Used when no locale matches
   defaultLocale: 'en',
 
-  // Always show locale prefix for all locales
-  localePrefix: 'always',
+  // Only show locale prefix when needed (zh-cn will have prefix, en won't)
+  localePrefix: 'as-needed',
 
   // The `pathnames` object holds pairs of internal and
   // external paths. Based on the locale, the external

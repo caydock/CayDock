@@ -7,16 +7,16 @@ export const runtime = 'edge'
 export default async function sitemap() {
   const base = siteMetadata.siteUrl?.replace(/\/$/, '') || 'https://w3cay.com'
 
-  // 英文页面（带 /en/ 前缀）
+  // 英文页面（根路径，无前缀）
   const enStaticPaths = [
-    '/en',
-    '/en/submit',
-    '/en/about',
-    '/en/contact',
-    '/en/privacy-policy',
-    '/en/terms-of-service',
-    '/en/disclaimer',
-    '/en/blog',
+    '/',
+    '/submit',
+    '/about',
+    '/contact',
+    '/privacy-policy',
+    '/terms-of-service',
+    '/disclaimer',
+    '/blog',
   ].map((p) => ({ url: `${base}${p}`, changefreq: 'weekly', priority: 0.7 }))
 
   // 中文页面（带 /zh-cn/ 前缀）
@@ -79,7 +79,7 @@ export default async function sitemap() {
 
   // 生成英文标签页面路径
   const enCategoryPaths = enCategories.map((category) => ({
-    url: `${base}/en/categories/${category}`,
+    url: `${base}/categories/${category}`,
     changefreq: 'weekly',
     priority: 0.6,
   }))
@@ -97,7 +97,7 @@ export default async function sitemap() {
   const enBlogPaths = blogs
     .filter((blog) => blog.isPublished && blog.language === 'en')
     .map((blog) => ({
-      url: `${base}/en${blog.url}`,
+      url: `${base}${blog.url}`,
       changefreq: 'monthly',
       priority: 0.8,
     }))

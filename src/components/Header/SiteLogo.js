@@ -1,5 +1,5 @@
 import Image from "next/image"
-import { Link } from '@/src/i18n/routing'
+import SmartLink from '../Elements/SmartLink'
 import siteLogoBlack from "@/public/site-logo.webp"
 import siteLogoWhite from "@/public/site-logo-white.webp"
 import { useLocale } from 'next-intl'
@@ -9,7 +9,7 @@ const SiteLogo = ({ sizeClass = "w-40 md:w-32" }) => {
   const isZh = locale === 'zh-cn';
   
   return (
-    <Link href="/" locale={locale} className="flex items-center justify-center text-dark dark:text-light">
+    <SmartLink href="/" locale={locale} className="flex items-center justify-center text-dark dark:text-light">
       <div className={`${sizeClass} rounded-full overflow-hidden dark:border-gray`}>
         <Image
           src={siteLogoBlack}
@@ -26,7 +26,7 @@ const SiteLogo = ({ sizeClass = "w-40 md:w-32" }) => {
           priority
         />
       </div>
-    </Link>
+    </SmartLink>
   )
 }
 

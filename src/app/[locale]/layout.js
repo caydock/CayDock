@@ -2,7 +2,6 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '@/src/i18n/routing';
-import Footer from "@/src/components/Footer";
 import { headers } from 'next/headers';
 import siteMetadata from '@/src/utils/siteMetaData';
 
@@ -15,13 +14,11 @@ export async function generateMetadata({ params }) {
   
   // 简化处理：为所有页面生成基本的 hreflang 配置
   // 具体的页面路径由各个页面的 generateMetadata 处理
-  const alternateLanguages = {};
-  routing.locales.forEach(loc => {
-    alternateLanguages[loc] = `${siteMetadata.siteUrl}/${loc}/`;
-  });
-  
-  // 添加 x-default 指向英文版本
-  alternateLanguages['x-default'] = `${siteMetadata.siteUrl}/en/`;
+  const alternateLanguages = {
+    'en': `${siteMetadata.siteUrl}/`,
+    'zh-cn': `${siteMetadata.siteUrl}/zh-cn/`,
+    'x-default': `${siteMetadata.siteUrl}/`,
+  };
 
   return {
     alternates: {
@@ -49,7 +46,6 @@ export default async function LocaleLayout({
   return (
     <NextIntlClientProvider locale={locale} messages={messages}>
       {children}
-      <Footer />
     </NextIntlClientProvider>
   );
 }

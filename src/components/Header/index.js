@@ -5,19 +5,50 @@ import SiteLogo from "./SiteLogo";
 import { MoonIcon, SunIcon } from "../Icons";
 import { useThemeSwitch } from "../Hooks/useThemeSwitch";
 import { useTranslations, useLocale } from 'next-intl';
+import { getClientTranslation } from '@/src/i18n';
 import { useState } from "react";
 import { cx } from "@/src/utils";
 import logo from "@/public/logo.png";
 import { useRouter } from "next/navigation";
-import { Link } from '@/src/i18n/routing';
+import SmartLink from '../Elements/SmartLink';
+import { usePathname as useNextPathname } from 'next/navigation';
 
 const Header = () => {
   const [mode, setMode] = useThemeSwitch();
-  const t = useTranslations('ui');
   const locale = useLocale();
   const isZh = locale === 'zh-cn';
   const [open, setOpen] = useState(false);
   const router = useRouter();
+  const pathname = useIntlPathname();
+  const nextPathname = useNextPathname();
+  
+  // 判断是否为英文站（根目录）- 使用真实的浏览器路径
+  const isEnglishSite = !nextPathname.startsWith('/zh-cn');
+  const actualLocale = isEnglishSite ? 'en' : 'zh-cn';
+  
+  // 根据实际语言获取翻译
+  const defaultT = useTranslations('ui');
+  const translationLang = actualLocale === 'zh-cn' ? 'zh' : 'en';
+  const actualTranslations = getClientTranslation(translationLang);
+  
+  // 创建支持嵌套键的翻译函数
+  const t = (key) => {
+    if (actualTranslations) {
+      const keys = key.split('.');
+      let value = actualTranslations;
+      for (const k of keys) {
+        if (value && typeof value === 'object' && k in value) {
+          value = value[k];
+        } else {
+          return defaultT(key);
+        }
+      }
+      if (typeof value === 'string') {
+        return value;
+      }
+    }
+    return defaultT(key);
+  };
   
   const toggleLanguage = () => {
     const newLocale = isZh ? 'en' : 'zh-cn';
@@ -27,22 +58,25 @@ const Header = () => {
     let newPath;
     
     if (newLocale === 'zh-cn') {
-      // 切换到中文
-      if (currentPath === '/' || currentPath === '/en') {
+      // 切换到中文 - 添加 /zh-cn 前缀
+      if (currentPath === '/') {
         newPath = '/zh-cn';
-      } else if (currentPath.startsWith('/en')) {
-        newPath = currentPath.replace('/en', '/zh-cn');
       } else {
         newPath = `/zh-cn${currentPath}`;
       }
     } else {
-      // 切换到英文
-      if (currentPath === '/' || currentPath === '/zh-cn') {
-        newPath = '/en';
+      // 切换到英文 - 移除 /zh-cn 前缀
+      if (currentPath === '/zh-cn') {
+        newPath = '/';
       } else if (currentPath.startsWith('/zh-cn')) {
-        newPath = currentPath.replace('/zh-cn', '/en');
+        newPath = currentPath.replace('/zh-cn', '');
+        // 确保路径以 / 开头
+        if (!newPath.startsWith('/')) {
+          newPath = '/' + newPath;
+        }
       } else {
-        newPath = `/en${currentPath}`;
+        // 如果当前路径不包含语言前缀，保持不变
+        newPath = currentPath;
       }
     }
     
@@ -76,12 +110,12 @@ const Header = () => {
 
       {/* Desktop top nav */}
       <nav className="w-max py-3 px-6 sm:px-8 border border-solid border-dark rounded-full font-medium capitalize items-center hidden sm:flex fixed top-6 right-1/2 translate-x-1/2 bg-light/80 backdrop-blur-sm z-50">
-        <Logo />
-        <Link href="/" locale={locale} className="mx-2">{t('nav.home')}</Link>
-        <Link href="/blog" locale={locale} className="mx-2">{t('blog.title')}</Link>
-        <Link href="/submit" locale={locale} className="mx-2">{t('nav.submit')}</Link>
-        <Link href="/about" locale={locale} className="mx-2">{t('nav.about')}</Link>
-        <Link href="/contact" locale={locale} className="mx-2">{t('nav.contact')}</Link>
+        <Logo locale={actualLocale} />
+        <SmartLink href="/" locale={actualLocale} className="mx-2">{t('nav.home')}</SmartLink>
+        <SmartLink href="/blog" locale={actualLocale} className="mx-2">{t('blog.title')}</SmartLink>
+        <SmartLink href="/submit" locale={actualLocale} className="mx-2">{t('nav.submit')}</SmartLink>
+        <SmartLink href="/about" locale={actualLocale} className="mx-2">{t('nav.about')}</SmartLink>
+        <SmartLink href="/contact" locale={actualLocale} className="mx-2">{t('nav.contact')}</SmartLink>
         <button onClick={toggleLanguage} className={cx("w-6 h-6 ease ml-2 flex items-center justify-center rounded-full p-1 text-xs font-bold", isZh ? "bg-blue-500 text-white" : "bg-green-500 text-white")} aria-label="language-switcher">
           {isZh ? 'EN' : '中'}
         </button>
@@ -112,11 +146,11 @@ const Header = () => {
           </button>
         </div>
         <nav className="flex flex-col p-4 gap-3 text-lg dark:text-light">
-          <Link href="/" locale={locale} onClick={() => setOpen(false)}>{t('nav.home')}</Link>
-          <Link href="/blog" locale={locale} onClick={() => setOpen(false)}>{t('blog.title')}</Link>
-          <Link href="/submit" locale={locale} onClick={() => setOpen(false)}>{t('nav.submit')}</Link>
-          <Link href="/contact" locale={locale} onClick={() => setOpen(false)}>{t('nav.contact')}</Link>
-          <Link href="/about" locale={locale} onClick={() => setOpen(false)}>{t('nav.about')}</Link>
+          <SmartLink href="/" locale={actualLocale} onClick={() => setOpen(false)}>{t('nav.home')}</SmartLink>
+          <SmartLink href="/blog" locale={actualLocale} onClick={() => setOpen(false)}>{t('blog.title')}</SmartLink>
+          <SmartLink href="/submit" locale={actualLocale} onClick={() => setOpen(false)}>{t('nav.submit')}</SmartLink>
+          <SmartLink href="/contact" locale={actualLocale} onClick={() => setOpen(false)}>{t('nav.contact')}</SmartLink>
+          <SmartLink href="/about" locale={actualLocale} onClick={() => setOpen(false)}>{t('nav.about')}</SmartLink>
           {/* Contact hidden on mobile per earlier request */}
           <button onClick={toggleLanguage} className={cx("mt-2 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold", isZh ? "bg-blue-500 text-white" : "bg-green-500 text-white")} aria-label="language-switcher">
             {isZh ? 'EN' : '中'}

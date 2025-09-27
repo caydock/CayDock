@@ -5,6 +5,7 @@ import BreadcrumbServer from "@/src/components/Blog/BreadcrumbServer";
 import ExploreButton from "@/src/components/Elements/ExploreButton";
 import { slug } from "github-slugger";
 import { getServerTranslation } from "@/src/i18n";
+import siteMetadata from '@/src/utils/siteMetaData';
 
 export async function generateStaticParams() {
   // 只为英文博客文章生成分类参数
@@ -40,16 +41,73 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }) {
   const { slug: categorySlug } = await params;
+  const locale = 'en'; // 根目录默认为英文
+  const language = 'en';
+  
   if (categorySlug === "all") {
+    const tdk = getServerTranslation(language, "meta");
     return {
-      title: `All Blog Posts`,
-      description: `Learn web development through our collection of free, practical blog posts.`,
+      title: tdk.categories.all,
+      description: tdk.categories.allDescription,
+      alternates: {
+        canonical: `${siteMetadata.siteUrl}/categories/all`,
+        languages: {
+          'en': `${siteMetadata.siteUrl}/categories/all`,
+          'zh-cn': `${siteMetadata.siteUrl}/zh-cn/categories/all`,
+          'x-default': `${siteMetadata.siteUrl}/categories/all`,
+        },
+      },
     };
   } else {
-    const categoryTitle = categorySlug.replaceAll("-", " ").replace(/\b\w/g, l => l.toUpperCase());
+    // 获取当前分类的标签名称
+    const getCategoryLabel = (categorySlug) => {
+      const currentLanguageBlogs = blogs.filter(blog => blog.language === language);
+      
+      const matchingBlog = currentLanguageBlogs.find(blog => {
+        if (blog.tagKeys && blog.tagKeys.length > 0) {
+          return blog.tagKeys.includes(categorySlug);
+        } else {
+          return blog.tags.some(tag => slug(tag) === categorySlug);
+        }
+      });
+      
+      let label = '';
+      if (matchingBlog) {
+        if (matchingBlog.tagKeys && matchingBlog.tagKeys.includes(categorySlug)) {
+          const tagKeyIndex = matchingBlog.tagKeys.indexOf(categorySlug);
+          if (tagKeyIndex >= 0 && matchingBlog.tags[tagKeyIndex]) {
+            label = matchingBlog.tags[tagKeyIndex];
+          }
+        } else {
+          const originalTag = matchingBlog.tags.find(tag => slug(tag) === categorySlug);
+          if (originalTag) {
+            label = originalTag;
+          }
+        }
+      }
+      
+      // 如果没有找到匹配的标签，使用 slug 生成
+      if (!label) {
+        label = categorySlug.replaceAll("-", " ");
+      }
+      
+      // 确保首字母大写
+      return label.replace(/\b\w/g, l => l.toUpperCase());
+    };
+    
+    const categoryTitle = getCategoryLabel(categorySlug);
+    const tdk = getServerTranslation(language, "meta");
     return {
-      title: `${categoryTitle} Blog Posts`,
-      description: `Learn about ${categoryTitle} through our collection of free, practical blog posts.`,
+      title: `${categoryTitle} ${tdk.categories.posts}`,
+      description: `${tdk.categories.learnAbout} ${categoryTitle} ${tdk.categories.throughCollection}`,
+      alternates: {
+        canonical: `${siteMetadata.siteUrl}/categories/${categorySlug}`,
+        languages: {
+          'en': `${siteMetadata.siteUrl}/categories/${categorySlug}`,
+          'zh-cn': `${siteMetadata.siteUrl}/zh-cn/categories/${categorySlug}`,
+          'x-default': `${siteMetadata.siteUrl}/categories/${categorySlug}`,
+        },
+      },
     };
   }
 }

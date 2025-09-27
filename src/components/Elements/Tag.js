@@ -1,10 +1,10 @@
 import { cx } from "@/src/utils";
-import { Link } from '@/src/i18n/routing';
+import SmartLink from "./SmartLink";
 import React from "react";
 
 const Tag = ({ link = "#", name, locale, ...props }) => {
   return (
-    <Link
+    <SmartLink
       href={link}
       locale={locale}
       className={cx(
@@ -13,7 +13,7 @@ const Tag = ({ link = "#", name, locale, ...props }) => {
       )}
     >
       {name}
-    </Link>
+    </SmartLink>
   );
 };
 

@@ -7,6 +7,8 @@ import StructuredData from "@/src/components/StructuredData";
 import siteMetadata from "../utils/siteMetaData";
 import Script from "next/script";
 import { shouldEnableAdSense } from "@/src/utils/env";
+import { NextIntlClientProvider } from 'next-intl';
+import { getMessages } from 'next-intl/server';
 
 const inter = Inter({
   subsets: ["latin"],
@@ -91,12 +93,12 @@ export const viewport = {
 export const runtime = 'edge';
 
 export default async function RootLayout({ children }) {
-  // 使用默认语言，避免水合错误
-  // 多语言页面的 lang 属性由多语言布局处理
-  const lang = 'en';
+  // 根目录默认为英文
+  const locale = 'en';
+  const messages = await getMessages({locale});
 
   return (
-    <html lang={lang}>
+    <html lang={locale}>
       <head>
         <StructuredData />
       </head>
@@ -107,7 +109,10 @@ export default async function RootLayout({ children }) {
           "font-mr bg-light dark:bg-dark"
         )}
       >
-        {children}
+        <NextIntlClientProvider locale={locale} messages={messages}>
+          {children}
+          <Footer />
+        </NextIntlClientProvider>
         <Analytics />
         
         {/* Google AdSense 脚本（仅在生产环境） */}

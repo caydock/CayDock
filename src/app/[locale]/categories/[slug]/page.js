@@ -58,9 +58,9 @@ export async function generateMetadata({ params }) {
       alternates: {
         canonical: `${siteMetadata.siteUrl}/${locale}/categories/all`,
         languages: {
-          'en': `${siteMetadata.siteUrl}/en/categories/all`,
+          'en': `${siteMetadata.siteUrl}/categories/all`,
           'zh-cn': `${siteMetadata.siteUrl}/zh-cn/categories/all`,
-          'x-default': `${siteMetadata.siteUrl}/en/categories/all`,
+          'x-default': `${siteMetadata.siteUrl}/categories/all`,
         },
       },
     };
@@ -109,9 +109,9 @@ export async function generateMetadata({ params }) {
       alternates: {
         canonical: `${siteMetadata.siteUrl}/${locale}/categories/${categorySlug}`,
         languages: {
-          'en': `${siteMetadata.siteUrl}/en/categories/${categorySlug}`,
+          'en': `${siteMetadata.siteUrl}/categories/${categorySlug}`,
           'zh-cn': `${siteMetadata.siteUrl}/zh-cn/categories/${categorySlug}`,
-          'x-default': `${siteMetadata.siteUrl}/en/categories/${categorySlug}`,
+          'x-default': `${siteMetadata.siteUrl}/categories/${categorySlug}`,
         },
       },
     };

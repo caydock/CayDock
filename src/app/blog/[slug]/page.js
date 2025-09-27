@@ -7,16 +7,13 @@ import siteMetadata from '@/src/utils/siteMetaData';
 export async function generateStaticParams() {
   const params = [];
 
-  // 为每种语言生成参数
-  ['en', 'zh-cn'].forEach(locale => {
-    const language = locale === 'zh-cn' ? 'zh' : 'en';
-    const languageBlogs = blogs.filter(blog => blog.language === language);
+  // 只为英文生成参数
+  const language = 'en';
+  const languageBlogs = blogs.filter(blog => blog.language === language);
 
-    languageBlogs.forEach(blog => {
-      params.push({
-        locale,
-        slug: blog.slug,
-      });
+  languageBlogs.forEach(blog => {
+    params.push({
+      slug: blog.slug,
     });
   });
 
@@ -24,9 +21,10 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }) {
-  const { locale, slug } = await params;
+  const { slug } = await params;
+  const locale = 'en'; // 根目录默认为英文
   const t = await getTranslations({locale: locale, namespace: 'meta'});
-  const language = locale === 'zh-cn' ? 'zh' : 'en';
+  const language = 'en';
 
   // 查找对应的博客文章
   const blog = blogs.find(blog =>
@@ -56,7 +54,7 @@ export async function generateMetadata({ params }) {
 
   const authors = blog?.author ? [blog.author] : siteMetadata.author;
 
-  const currentUrl = `${siteMetadata.siteUrl}/${locale}${blog.url}`;
+  const currentUrl = `${siteMetadata.siteUrl}${blog.url}`;
   
   // 简化的 hreflang 配置，与其他页面保持一致
   const alternateLanguages = {
@@ -77,7 +75,7 @@ export async function generateMetadata({ params }) {
       description: blog.description,
       url: currentUrl,
       siteName: siteMetadata.title,
-      locale: language === 'zh' ? "zh_CN" : "en_US",
+      locale: "en_US",
       type: "article",
       publishedTime: publishedAt,
       modifiedTime: modifiedAt,
@@ -94,8 +92,9 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function BlogDetailPage({ params }) {
-  const { locale, slug } = await params;
-  const language = locale === 'zh-cn' ? 'zh' : 'en';
+  const { slug } = await params;
+  const locale = 'en'; // 根目录默认为英文
+  const language = 'en';
 
   // 查找对应的博客文章
   const blog = blogs.find(blog =>
