@@ -77,21 +77,28 @@ export async function generateMetadata({ params }) {
         }
       });
       
+      let label = '';
       if (matchingBlog) {
         if (matchingBlog.tagKeys && matchingBlog.tagKeys.includes(categorySlug)) {
           const tagKeyIndex = matchingBlog.tagKeys.indexOf(categorySlug);
           if (tagKeyIndex >= 0 && matchingBlog.tags[tagKeyIndex]) {
-            return matchingBlog.tags[tagKeyIndex];
+            label = matchingBlog.tags[tagKeyIndex];
           }
         } else {
           const originalTag = matchingBlog.tags.find(tag => slug(tag) === categorySlug);
           if (originalTag) {
-            return originalTag;
+            label = originalTag;
           }
         }
       }
       
-      return categorySlug.replaceAll("-", " ").replace(/\b\w/g, l => l.toUpperCase());
+      // 如果没有找到匹配的标签，使用 slug 生成
+      if (!label) {
+        label = categorySlug.replaceAll("-", " ");
+      }
+      
+      // 确保首字母大写
+      return label.replace(/\b\w/g, l => l.toUpperCase());
     };
     
     const categoryTitle = getCategoryLabel(categorySlug);
@@ -167,21 +174,28 @@ export default async function LangCategoryPage({ params }) {
       }
     });
 
+    let label = '';
     if (matchingBlog) {
       if (matchingBlog.tagKeys && matchingBlog.tagKeys.includes(categorySlug)) {
         const tagKeyIndex = matchingBlog.tagKeys.indexOf(categorySlug);
         if (tagKeyIndex >= 0 && matchingBlog.tags[tagKeyIndex]) {
-          return matchingBlog.tags[tagKeyIndex];
+          label = matchingBlog.tags[tagKeyIndex];
         }
       } else {
         const originalTag = matchingBlog.tags.find(tag => slug(tag) === categorySlug);
         if (originalTag) {
-          return originalTag;
+          label = originalTag;
         }
       }
     }
 
-    return categorySlug.replaceAll("-", " ").replace(/\b\w/g, l => l.toUpperCase());
+    // 如果没有找到匹配的标签，使用 slug 生成
+    if (!label) {
+      label = categorySlug.replaceAll("-", " ");
+    }
+
+    // 确保首字母大写
+    return label.replace(/\b\w/g, l => l.toUpperCase());
   };
 
   const breadcrumbItems = [
@@ -229,3 +243,4 @@ export default async function LangCategoryPage({ params }) {
     </article>
   );
 }
+
