@@ -79,13 +79,6 @@ export async function generateMetadata() {
       site: '@caydock',
       images: [siteMetadata.socialBanner],
     },
-    alternates: {
-      canonical: siteMetadata.siteUrl,
-      languages: {
-        'en': 'https://w3cay.com/en',
-        'zh-CN': 'https://w3cay.com/zh-cn',
-      },
-    },
   };
 }
 

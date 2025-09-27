@@ -56,13 +56,26 @@ export async function generateMetadata({ params }) {
 
   const authors = blog?.author ? [blog.author] : siteMetadata.author;
 
+  const currentUrl = `${siteMetadata.siteUrl}/${locale}${blog.url}`;
+  
+  // 简化的 hreflang 配置，与其他页面保持一致
+  const alternateLanguages = {
+    'en': `${siteMetadata.siteUrl}/en${blog.url}`,
+    'zh-cn': `${siteMetadata.siteUrl}/zh-cn${blog.url}`,
+    'x-default': `${siteMetadata.siteUrl}/en${blog.url}`,
+  };
+
   return {
     title: blog.title,
     description: blog.description,
+    alternates: {
+      canonical: currentUrl,
+      languages: alternateLanguages,
+    },
     openGraph: {
       title: blog.title,
       description: blog.description,
-      url: siteMetadata.siteUrl + `/${locale}${blog.url}`,
+      url: currentUrl,
       siteName: siteMetadata.title,
       locale: language === 'zh' ? "zh_CN" : "en_US",
       type: "article",

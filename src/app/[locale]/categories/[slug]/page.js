@@ -5,6 +5,7 @@ import BreadcrumbServer from "@/src/components/Blog/BreadcrumbServer";
 import ExploreButton from "@/src/components/Elements/ExploreButton";
 import { slug } from "github-slugger";
 import { getServerTranslation } from "@/src/i18n";
+import siteMetadata from '@/src/utils/siteMetaData';
 
 export async function generateStaticParams() {
   const allCategories = ["all"];
@@ -54,6 +55,14 @@ export async function generateMetadata({ params }) {
     return {
       title: tdk.categories.all,
       description: tdk.categories.allDescription,
+      alternates: {
+        canonical: `${siteMetadata.siteUrl}/${locale}/categories/all`,
+        languages: {
+          'en': `${siteMetadata.siteUrl}/en/categories/all`,
+          'zh-cn': `${siteMetadata.siteUrl}/zh-cn/categories/all`,
+          'x-default': `${siteMetadata.siteUrl}/en/categories/all`,
+        },
+      },
     };
   } else {
     // 获取当前分类的标签名称
@@ -90,6 +99,14 @@ export async function generateMetadata({ params }) {
     return {
       title: `${categoryTitle} ${tdk.categories.posts}`,
       description: `${tdk.categories.learnAbout} ${categoryTitle} ${tdk.categories.throughCollection}`,
+      alternates: {
+        canonical: `${siteMetadata.siteUrl}/${locale}/categories/${categorySlug}`,
+        languages: {
+          'en': `${siteMetadata.siteUrl}/en/categories/${categorySlug}`,
+          'zh-cn': `${siteMetadata.siteUrl}/zh-cn/categories/${categorySlug}`,
+          'x-default': `${siteMetadata.siteUrl}/en/categories/${categorySlug}`,
+        },
+      },
     };
   }
 }

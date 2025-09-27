@@ -1,6 +1,7 @@
 import { getRequestContext } from '@cloudflare/next-on-pages'
 import { sites as fallbackSites } from '@/src/data/sites'
 import { normalizeRowToSite } from '@/src/utils/siteUtils'
+import siteMetadata from '@/src/utils/siteMetaData'
 
 export const runtime = 'edge'
 
@@ -40,7 +41,7 @@ export async function GET(_req, ctx) {
       const origin = (() => { try { return new URL(_req.url).origin } catch { return '' } })()      
       return Response.json({
         id: '824079b',
-        url: 'https://w3cay.com',
+        url: siteMetadata.siteUrl,
                   title: { en: 'Local Mock Demo' },
     
       })

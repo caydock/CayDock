@@ -1,6 +1,7 @@
 import { headers, cookies } from "next/headers";
 import { getTranslations } from 'next-intl/server';
 import HomePage from "@/src/components/Home/HomePage";
+import siteMetadata from '@/src/utils/siteMetaData';
 
 export const runtime = 'edge';
 
@@ -15,7 +16,7 @@ export async function generateMetadata({ params, searchParams }) {
   if (params_search?.site) {
     try {
       const baseUrl = process.env.NODE_ENV === 'production' 
-        ? 'https://w3cay.com' 
+        ? siteMetadata.siteUrl 
         : 'http://localhost:3000';
       const res = await fetch(`${baseUrl}/api/site-by-abbr/${encodeURIComponent(params_search.site)}`, {
         headers: { accept: 'application/json' }
@@ -83,7 +84,7 @@ export default async function LocaleHome({ params, searchParams }) {
   if (params_search?.site) {
     try {
       const baseUrl = process.env.NODE_ENV === 'production' 
-        ? 'https://w3cay.com' 
+        ? siteMetadata.siteUrl 
         : 'http://localhost:3000';
       const res = await fetch(`${baseUrl}/api/site-by-abbr/${encodeURIComponent(params_search.site)}`, {
         headers: { accept: 'application/json' }

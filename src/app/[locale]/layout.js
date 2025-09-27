@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import { routing } from '@/src/i18n/routing';
 import Footer from "@/src/components/Footer";
 import { headers } from 'next/headers';
+import siteMetadata from '@/src/utils/siteMetaData';
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({locale}));
@@ -11,22 +12,20 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }) {
   const { locale } = await params;
-  const headersList = await headers();
-  const pathname = headersList.get('x-pathname') || '';
   
-  const baseUrl = 'https://w3cay.com';
-  const currentUrl = `${baseUrl}${pathname}`;
-  
-  // Generate hreflang links for all locales
+  // 简化处理：为所有页面生成基本的 hreflang 配置
+  // 具体的页面路径由各个页面的 generateMetadata 处理
   const alternateLanguages = {};
   routing.locales.forEach(loc => {
-    const localePath = pathname.replace(`/${locale}`, `/${loc}`);
-    alternateLanguages[loc] = `${baseUrl}${localePath}`;
+    alternateLanguages[loc] = `${siteMetadata.siteUrl}/${loc}/`;
   });
+  
+  // 添加 x-default 指向英文版本
+  alternateLanguages['x-default'] = `${siteMetadata.siteUrl}/en/`;
 
   return {
     alternates: {
-      canonical: currentUrl,
+      canonical: `${siteMetadata.siteUrl}/${locale}/`,
       languages: alternateLanguages,
     },
   };

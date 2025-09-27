@@ -4,6 +4,7 @@ import FeaturedPosts from "@/src/components/Home/FeaturedPosts";
 import RecentPosts from "@/src/components/Home/RecentPosts";
 import ExploreButton from "@/src/components/Elements/ExploreButton";
 import { getTranslations } from 'next-intl/server';
+import siteMetadata from '@/src/utils/siteMetaData';
 
 export async function generateMetadata({ params }) {
   const { locale } = await params;
@@ -12,6 +13,14 @@ export async function generateMetadata({ params }) {
   return {
     title: t('blog.title'),
     description: t('blog.description'),
+    alternates: {
+      canonical: `${siteMetadata.siteUrl}/${locale}/blog`,
+      languages: {
+        'en': `${siteMetadata.siteUrl}/en/blog`,
+        'zh-cn': `${siteMetadata.siteUrl}/zh-cn/blog`,
+        'x-default': `${siteMetadata.siteUrl}/en/blog`,
+      },
+    },
     openGraph: {
       title: t('blog.title'),
       description: t('blog.description'),
