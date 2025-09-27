@@ -1,32 +1,9 @@
-import { getTranslations } from 'next-intl/server';
 import ContactContent from '@/src/components/Contact/ContactContent';
-import siteMetadata from '@/src/utils/siteMetaData';
+import { createLocalePageMetadata, getPageLocale } from '@/src/utils/pageUtils';
 
-export async function generateMetadata({ params }) {
-  const { locale } = await params;
-  const t = await getTranslations({locale: locale, namespace: 'meta'});
-  
-  return {
-    title: t('contact.title'),
-    description: t('contact.description'),
-    alternates: {
-      canonical: `${siteMetadata.siteUrl}/${locale}/contact`,
-      languages: {
-        'en': `${siteMetadata.siteUrl}/contact`,
-        'zh-cn': `${siteMetadata.siteUrl}/zh-cn/contact`,
-        'x-default': `${siteMetadata.siteUrl}/contact`,
-      },
-    },
-    openGraph: {
-      title: t('contact.title'),
-      description: t('contact.description'),
-    },
-  };
-}
+export const generateMetadata = createLocalePageMetadata('/contact', 'contact');
 
 export default async function ContactPage({ params }) {
-  const { locale } = await params;
-  const language = locale === 'zh-cn' ? 'zh' : 'en';
-
+  const { language } = await getPageLocale(params);
   return <ContactContent initialLanguage={language} />;
 }

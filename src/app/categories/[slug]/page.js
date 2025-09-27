@@ -5,6 +5,7 @@ import BreadcrumbServer from "@/src/components/Blog/BreadcrumbServer";
 import ExploreButton from "@/src/components/Elements/ExploreButton";
 import { slug } from "github-slugger";
 import { getServerTranslation } from "@/src/i18n";
+import { generateLanguageLinks } from '@/src/utils/pageUtils';
 import siteMetadata from '@/src/utils/siteMetaData';
 
 export async function generateStaticParams() {
@@ -51,11 +52,7 @@ export async function generateMetadata({ params }) {
       description: tdk.categories.allDescription,
       alternates: {
         canonical: `${siteMetadata.siteUrl}/categories/all`,
-        languages: {
-          'en': `${siteMetadata.siteUrl}/categories/all`,
-          'zh-cn': `${siteMetadata.siteUrl}/zh-cn/categories/all`,
-          'x-default': `${siteMetadata.siteUrl}/categories/all`,
-        },
+        languages: generateLanguageLinks('/categories/all'),
       },
     };
   } else {
@@ -102,11 +99,7 @@ export async function generateMetadata({ params }) {
       description: `${tdk.categories.learnAbout} ${categoryTitle} ${tdk.categories.throughCollection}`,
       alternates: {
         canonical: `${siteMetadata.siteUrl}/categories/${categorySlug}`,
-        languages: {
-          'en': `${siteMetadata.siteUrl}/categories/${categorySlug}`,
-          'zh-cn': `${siteMetadata.siteUrl}/zh-cn/categories/${categorySlug}`,
-          'x-default': `${siteMetadata.siteUrl}/categories/${categorySlug}`,
-        },
+        languages: generateLanguageLinks(`/categories/${categorySlug}`),
       },
     };
   }

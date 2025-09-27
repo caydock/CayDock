@@ -1,31 +1,13 @@
 import SubmitForm from '@/src/components/Submit/SubmitForm';
-import { getTranslations } from 'next-intl/server';
+import { createLocalePageMetadata, getPageLocale } from '@/src/utils/pageUtils';
 import siteMetadata from '@/src/utils/siteMetaData';
 
 export const runtime = 'edge';
 
-export async function generateMetadata({ params }) {
-  const { locale } = await params;
-  const t = await getTranslations({locale: locale, namespace: 'meta'});
-  
-  return {
-    title: t('submit.title'),
-    description: t('submit.description'),
-    keywords: t('submit.keywords'),
-    alternates: {
-      canonical: `${siteMetadata.siteUrl}/${locale}/submit`,
-      languages: {
-        'en': `${siteMetadata.siteUrl}/submit`,
-        'zh-cn': `${siteMetadata.siteUrl}/zh-cn/submit`,
-        'x-default': `${siteMetadata.siteUrl}/submit`,
-      },
-    },
-  };
-}
+export const generateMetadata = createLocalePageMetadata('/submit', 'submit');
 
 export default async function SubmitPage({ params, searchParams }) {
-  const { locale } = await params;
-  const language = locale === 'zh-cn' ? 'zh' : 'en';
+  const { language } = await getPageLocale(params);
 
   // 等待 searchParams
   const params_data = await searchParams;

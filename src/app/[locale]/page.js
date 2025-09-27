@@ -1,6 +1,7 @@
 import { headers, cookies } from "next/headers";
 import { getTranslations } from 'next-intl/server';
 import HomePage from "@/src/components/Home/HomePage";
+import { generateLanguageLinks } from '@/src/utils/pageUtils';
 import siteMetadata from '@/src/utils/siteMetaData';
 
 export const runtime = 'edge';

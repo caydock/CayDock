@@ -2,6 +2,7 @@ import { getTranslations } from 'next-intl/server';
 import { blogs } from '@/.velite/generated';
 import { notFound } from 'next/navigation';
 import BlogDetails from '@/src/components/Blog/BlogDetails';
+import { generateLanguageLinks } from '@/src/utils/pageUtils';
 import siteMetadata from '@/src/utils/siteMetaData';
 
 export async function generateStaticParams() {
@@ -57,11 +58,7 @@ export async function generateMetadata({ params }) {
   const currentUrl = `${siteMetadata.siteUrl}${blog.url}`;
   
   // 简化的 hreflang 配置，与其他页面保持一致
-  const alternateLanguages = {
-    'en': `${siteMetadata.siteUrl}${blog.url}`,
-    'zh-cn': `${siteMetadata.siteUrl}/zh-cn${blog.url}`,
-    'x-default': `${siteMetadata.siteUrl}${blog.url}`,
-  };
+  const alternateLanguages = generateLanguageLinks(blog.url);
 
   return {
     title: blog.title,

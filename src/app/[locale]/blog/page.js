@@ -4,33 +4,12 @@ import FeaturedPosts from "@/src/components/Home/FeaturedPosts";
 import RecentPosts from "@/src/components/Home/RecentPosts";
 import ExploreButton from "@/src/components/Elements/ExploreButton";
 import { getTranslations } from 'next-intl/server';
-import siteMetadata from '@/src/utils/siteMetaData';
+import { createLocalePageMetadata, getPageLocale } from '@/src/utils/pageUtils';
 
-export async function generateMetadata({ params }) {
-  const { locale } = await params;
-  const t = await getTranslations({locale: locale, namespace: 'meta'});
-  
-  return {
-    title: t('blog.title'),
-    description: t('blog.description'),
-    alternates: {
-      canonical: `${siteMetadata.siteUrl}/${locale}/blog`,
-      languages: {
-        'en': `${siteMetadata.siteUrl}/blog`,
-        'zh-cn': `${siteMetadata.siteUrl}/zh-cn/blog`,
-        'x-default': `${siteMetadata.siteUrl}/blog`,
-      },
-    },
-    openGraph: {
-      title: t('blog.title'),
-      description: t('blog.description'),
-    },
-  };
-}
+export const generateMetadata = createLocalePageMetadata('/blog', 'blog');
 
 export default async function BlogPage({ params }) {
-  const { locale } = await params;
-  const language = locale === 'zh-cn' ? 'zh' : 'en';
+  const { locale, language } = await getPageLocale(params);
   
   // 根据语言过滤博客
   const filteredBlogs = blogs.filter((blog) => {
