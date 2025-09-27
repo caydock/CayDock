@@ -3,6 +3,7 @@ import { cx } from "@/src/utils";
 import { Inter, Manrope } from "next/font/google";
 import Footer from "../components/Footer";
 import Analytics from "@/src/components/Analytics";
+import StructuredData from "@/src/components/StructuredData";
 import siteMetadata from "../utils/siteMetaData";
 import Script from "next/script";
 import { shouldEnableAdSense } from "@/src/utils/env";
@@ -49,8 +50,16 @@ export async function generateMetadata() {
       description: siteMetadata.description,
       url: siteMetadata.siteUrl,
       siteName: 'W3Cay',
-      images: [siteMetadata.socialBanner],
+      images: [
+        {
+          url: siteMetadata.socialBanner,
+          width: 1200,
+          height: 630,
+          alt: 'W3Cay - World\'s Weird Websites Cay',
+        }
+      ],
       type: "website",
+      locale: 'en_US',
     },
     robots: {
       index: true,
@@ -65,10 +74,17 @@ export async function generateMetadata() {
       },
     },
     twitter: {
-      card: "summary",
+      card: "summary_large_image",
       title: 'W3Cay - World\'s Weird Websites Cay',
-      site: '@w3cay_com',
+      site: '@caydock',
       images: [siteMetadata.socialBanner],
+    },
+    alternates: {
+      canonical: siteMetadata.siteUrl,
+      languages: {
+        'en': 'https://w3cay.com/en',
+        'zh-CN': 'https://w3cay.com/zh-cn',
+      },
     },
   };
 }
@@ -88,6 +104,9 @@ export default async function RootLayout({ children }) {
 
   return (
     <html lang={lang}>
+      <head>
+        <StructuredData />
+      </head>
       <body
         className={cx(
           inter.variable,

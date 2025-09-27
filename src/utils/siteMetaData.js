@@ -3,7 +3,7 @@ const siteMetadata = {
     title: 'W3Cay - World’s Weird Websites Cay',
     author: 'Cay',  
     headerTitle: 'W3Cay',
-    description: '',
+    description: 'Discover the world\'s most interesting and weird websites. W3Cay curates unique, interactive, and fascinating web experiences from around the globe.',
     language: 'en-us',
     theme: 'system', // system, dark or light
     siteUrl: 'https://w3cay.com', // your website URL

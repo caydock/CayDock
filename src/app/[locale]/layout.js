@@ -3,9 +3,33 @@ import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '@/src/i18n/routing';
 import Footer from "@/src/components/Footer";
+import { headers } from 'next/headers';
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({locale}));
+}
+
+export async function generateMetadata({ params }) {
+  const { locale } = await params;
+  const headersList = await headers();
+  const pathname = headersList.get('x-pathname') || '';
+  
+  const baseUrl = 'https://w3cay.com';
+  const currentUrl = `${baseUrl}${pathname}`;
+  
+  // Generate hreflang links for all locales
+  const alternateLanguages = {};
+  routing.locales.forEach(loc => {
+    const localePath = pathname.replace(`/${locale}`, `/${loc}`);
+    alternateLanguages[loc] = `${baseUrl}${localePath}`;
+  });
+
+  return {
+    alternates: {
+      canonical: currentUrl,
+      languages: alternateLanguages,
+    },
+  };
 }
 
 export default async function LocaleLayout({
