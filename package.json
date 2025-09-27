@@ -16,6 +16,7 @@
     "copy-images": "./scripts/copy-images.sh",
     "content:full": "npm run content && npm run copy-images",
     "reorganize-images": "./scripts/reorganize-images.sh",
+    "generate-favicons": "node scripts/generate-favicons.js",
     "d1:apply": "wrangler d1 migrations apply w3cay-db --local",
     "d1:push": "wrangler d1 migrations apply w3cay-db",
     "d1:exec": "wrangler d1 execute w3cay-db --command",
