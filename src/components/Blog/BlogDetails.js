@@ -80,6 +80,7 @@ export default function BlogDetails({ slug: blogSlug, locale }) {
             <Tag
               name={blog.tags[0]}
               link={`/categories/${blog.tagKeys && blog.tagKeys.length > 0 ? blog.tagKeys[0] : slug(blog.tags[0])}`}
+              locale={locale}
               className="px-6 text-sm py-2"
             />
             <h1
