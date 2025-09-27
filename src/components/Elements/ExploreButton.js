@@ -1,11 +1,12 @@
-import Link from "next/link";
+import { Link } from '@/src/i18n/routing';
 import React from "react";
 
-const ExploreButton = ({ href = "/", children, className = "" }) => {
+const ExploreButton = ({ href = "/", children, className = "", locale }) => {
   return (
     <div className={`w-full flex justify-center mt-16 sm:mt-24 md:mt-32 px-5 sm:px-10 md:px-24 sxl:px-32 mb-10 ${className}`}>
       <Link
         href={href}
+        locale={locale}
         className="group relative inline-flex items-center gap-3 py-4 px-10 bg-gradient-to-r from-orange-500 via-red-500 to-orange-600 text-white rounded-full font-bold text-lg shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 transform hover:-translate-y-1 overflow-hidden"
       >
         {/* 背景动画效果 */}

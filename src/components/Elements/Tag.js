@@ -1,5 +1,5 @@
 import { cx } from "@/src/utils";
-import Link from "next/link";
+import { Link } from '@/src/i18n/routing';
 import React from "react";
 
 const Tag = ({ link = "#", name, ...props }) => {

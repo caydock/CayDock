@@ -1,10 +1,11 @@
-import Link from "next/link";
+import { Link } from '@/src/i18n/routing';
 
-const BreadcrumbServer = ({ items, homeLabel }) => {
+const BreadcrumbServer = ({ items, homeLabel, locale }) => {
   return (
     <nav className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400 mb-6 px-5 sm:px-10 md:px-24 sxl:px-32">
       <Link 
         href="/" 
+        locale={locale}
         className="hover:opacity-50 hover:scale-105 transition-all duration-300"
       >
         {homeLabel}
@@ -20,6 +21,7 @@ const BreadcrumbServer = ({ items, homeLabel }) => {
           ) : (
             <Link 
               href={item.href} 
+              locale={locale}
               className="hover:opacity-50 hover:scale-105 transition-all duration-300"
             >
               {item.label}

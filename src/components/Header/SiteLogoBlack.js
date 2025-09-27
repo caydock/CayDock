@@ -1,5 +1,5 @@
 import Image from "next/image"
-import Link from "next/link"
+import { Link } from '@/src/i18n/routing'
 import logoImg from "@/public/site-logo-white.webp"
 
 const SiteLogo = ({ sizeClass = "w-40 md:w-32" }) => {
