@@ -1,5 +1,5 @@
 import { getTranslations } from 'next-intl/server';
-import ContactContent from '@/src/app/[locale]/contact/ContactContent';
+import ContactContent from '@/src/components/Contact/ContactContent';
 import siteMetadata from '@/src/utils/siteMetaData';
 
 export async function generateMetadata() {

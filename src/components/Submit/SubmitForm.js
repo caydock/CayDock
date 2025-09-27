@@ -1,112 +1,139 @@
 "use client";
-import React, { useState } from "react";
-import { useForm } from "react-hook-form";
-import { useTranslations } from 'next-intl';
+import { useMemo, useState } from 'react'
+import { useTranslations } from 'next-intl'
 
-export default function SubmitForm({ initialLanguage = 'en', searchParams = {}, initialSite = null }) {
-  const t = useTranslations('ui');
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState(null);
-  
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm();
+function isValidUrl(u) {
+  try {
+    const url = new URL(u)
+    return url.protocol === 'http:' || url.protocol === 'https:'
+  } catch { return false }
+}
 
-  const onSubmit = async (data) => {
-    setIsSubmitting(true);
-    setSubmitStatus(null);
-    
+function buildSubmission(url, title) {
+  const idFromUrl = (u) => {
+    try { return new URL(u).hostname.replace(/^www\./, '').replace(/[^a-z0-9]+/gi, '-').replace(/(^-|-$)/g, '') } catch { return '' }
+  }
+  const clean = (s) => (s || '').trim()
+  const id = idFromUrl(url)
+  return {
+    id: id || undefined,
+    link: clean(url), // 使用link字段而不是url
+    title: clean(title) || undefined
+  }
+}
+
+export default function SubmitForm({ initialLanguage, searchParams, initialSite }) {
+  const t = useTranslations('ui')
+  const [url, setUrl] = useState(initialSite?.link || '')
+  const [title, setTitle] = useState(initialSite?.title || '')
+  const [savedHint, setSavedHint] = useState('')
+  const [showSuccessModal, setShowSuccessModal] = useState(false)
+  const [submissionResult, setSubmissionResult] = useState(null)
+  const submission = useMemo(() => buildSubmission(url, title), [url, title])
+  const json = useMemo(() => JSON.stringify(submission, null, 2), [submission])
+
+  const requiredMissing = !url || !isValidUrl(url)
+
+  const saveLocal = () => {
     try {
-      const response = await fetch('/api/submit', {
+      const list = JSON.parse(localStorage.getItem('user_submissions') || '[]')
+      list.push(submission)
+      localStorage.setItem('user_submissions', JSON.stringify(list))
+      setSavedHint(t('submit.saved'))
+      setTimeout(() => setSavedHint(''), 1500)
+    } catch {}
+  }
+
+  const submitApi = async () => {
+    try {
+      const res = await fetch('/api/submit', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.error || '提交失败');
+        headers: { 'content-type': 'application/json', 'accept': 'application/json' },
+        body: JSON.stringify(submission)
+      })
+      if (!res.ok) {
+        const errorData = await res.json()
+        throw new Error(errorData.error || '提交失败')
       }
+      const result = await res.json()
+      setSubmissionResult(result)
+      setShowSuccessModal(true)
+      // 清空表单
+      setUrl('')
+      setTitle('')
 
-      const result = await response.json();
-      setSubmitStatus({ type: 'success', message: t('submit.successMessage') });
-      reset();
-    } catch (error) {
-      console.error('提交失败:', error);
-      setSubmitStatus({ type: 'error', message: error.message || '提交失败，请重试' });
-    } finally {
-      setIsSubmitting(false);
+    } catch (e) {
+      setSavedHint(e.message || '提交失败，已保存到本地')
+      setTimeout(() => setSavedHint(''), 3000)
     }
-  };
+  }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="max-w-2xl mx-auto">
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold mb-4">{t('submit.title')}</h1>
-          <p className="text-lg text-gray-600 dark:text-gray-300">{t('submit.tagline')}</p>
-        </div>
+    <>
+      <main className="max-w-4xl mx-auto mt-16 p-8">
+        <h1 className="text-4xl md:text-5xl font-bold text-center mb-4 text-dark dark:text-light">{t('submit.title')}</h1>
+        <p className="text-center text-gray-600 dark:text-gray-300 text-lg mb-12">{t('submit.tagline')}</p>
 
-        {submitStatus && (
-          <div className={`mb-6 p-4 rounded-lg ${
-            submitStatus.type === 'success' 
-              ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' 
-              : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
-          }`}>
-            {submitStatus.message}
+        <form className="bg-white/95 dark:bg-zinc-900/95 backdrop-blur-lg rounded-3xl p-8 shadow-2xl mb-8" onSubmit={(e) => { e.preventDefault(); saveLocal() }}>
+          <div className="mb-6">
+            <label className="block mb-2 font-semibold text-dark dark:text-light">{t('submit.urlLabel')}</label>
+            <input 
+              type="url" 
+              placeholder={t('submit.urlPlaceholder')} 
+              value={url} 
+              onChange={(e) => setUrl(e.target.value)} 
+              required 
+              aria-invalid={!url ? undefined : (!isValidUrl(url) ? 'true' : undefined)}
+              className="w-full px-4 py-3 border-2 border-gray-200 dark:border-gray-700 rounded-lg text-base transition-colors focus:outline-none focus:border-violet-500 bg-white dark:bg-zinc-800 text-dark dark:text-light"
+            />
+            {url && !isValidUrl(url) && <div className="text-red-500 mt-2 text-sm">{t('submit.urlInvalid')}</div>}
+          </div>
+          <div className="mb-6">
+            <label className="block mb-2 font-semibold text-dark dark:text-light">{t('submit.siteTitleLabel')}</label>
+            <input 
+              type="text" 
+              value={title} 
+              onChange={(e) => setTitle(e.target.value)} 
+              placeholder={t('submit.siteTitlePlaceholder')}
+              className="w-full px-4 py-3 border-2 border-gray-200 dark:border-gray-700 rounded-lg text-base transition-colors focus:outline-none focus:border-violet-500 bg-white dark:bg-zinc-800 text-dark dark:text-light"
+            />
+          </div>
+
+          <div className="flex justify-center mt-8">
+            <button 
+              className="px-6 py-3 border-2 border-violet-500 bg-transparent text-violet-500 rounded-full font-semibold cursor-pointer transition-all duration-300 text-base hover:bg-violet-500 hover:text-white disabled:opacity-50 disabled:cursor-not-allowed dark:text-violet-400 dark:border-violet-400 dark:hover:bg-violet-400 dark:hover:text-white" 
+              type="submit" 
+              onClick={(e)=>{e.preventDefault(); submitApi()}} 
+              disabled={requiredMissing}
+            >
+              {t('submit.submitBtn')}
+            </button>
+          </div>
+          <div className="text-center mt-4 text-gray-600 dark:text-gray-300 text-sm">
+            <span>{savedHint}</span>
+          </div>
+        </form>
+
+        {/* 成功弹层 */}
+        {showSuccessModal && (
+          <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+            <div className="bg-white dark:bg-zinc-900 rounded-2xl p-8 max-w-md w-full text-center shadow-2xl">
+              <div className="text-6xl mb-6">🎉</div>
+              <h2 className="text-2xl font-bold mb-4 text-dark dark:text-light">{t('submit.successTitle')}</h2>
+              <p className="text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
+                {t('submit.successMessage')}
+              </p>
+
+              <button 
+                className="px-8 py-3 bg-violet-600 text-white rounded-full font-semibold hover:bg-violet-700 transition-all duration-300 hover:scale-105"
+                onClick={() => setShowSuccessModal(false)}
+              >
+                {t('submit.confirm')}
+              </button>
+            </div>
           </div>
         )}
-
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-          <div>
-            <label htmlFor="link" className="block text-sm font-medium mb-2">
-              {t('submit.urlLabel')} *
-            </label>
-            <input
-              type="url"
-              id="link"
-              {...register("link", { 
-                required: t('submit.urlInvalid'),
-                pattern: {
-                  value: /^https?:\/\/.+/,
-                  message: t('submit.urlInvalid')
-                }
-              })}
-              placeholder={t('submit.urlPlaceholder')}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-800 dark:border-gray-600 dark:text-white"
-            />
-            {errors.link && (
-              <p className="mt-1 text-sm text-red-600">{errors.link.message}</p>
-            )}
-          </div>
-
-          <div>
-            <label htmlFor="title" className="block text-sm font-medium mb-2">
-              {t('submit.siteTitleLabel')}
-            </label>
-            <input
-              type="text"
-              id="title"
-              {...register("title")}
-              placeholder={t('submit.siteTitlePlaceholder')}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-800 dark:border-gray-600 dark:text-white"
-            />
-          </div>
-
-          <button
-            type="submit"
-            disabled={isSubmitting}
-            className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-          >
-            {isSubmitting ? t('submit.saved') : t('submit.submitBtn')}
-          </button>
-        </form>
-      </div>
-    </div>
-  );
+      </main>
+    </>
+  )
 }

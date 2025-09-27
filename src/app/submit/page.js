@@ -1,5 +1,4 @@
-import { headers, cookies } from "next/headers";
-import SubmitForm from '@/src/app/[locale]/submit/SubmitForm';
+import SubmitForm from '@/src/components/Submit/SubmitForm';
 import { getTranslations } from 'next-intl/server';
 import siteMetadata from '@/src/utils/siteMetaData';
 
