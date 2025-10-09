@@ -82,6 +82,12 @@
       "exploring": "探索中...",
       "startExploring": "开始探索"
     },
+    "meta": {
+      "discover": {
+        "notFound": "找不到了",
+        "notFoundDesc": "这个网站可能已经不存在了，点击下方按钮继续探索吧！"
+      }
+    },
     "footer": {
       "title": "探索全球有趣网站的宝藏小岛",
       "description": "W3Cay是一个有趣的网络小岛，收集各种奇怪和无用的网站。发现随机网站，探索数字世界中无尽的奇妙奇观。",

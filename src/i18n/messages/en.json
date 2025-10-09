@@ -82,6 +82,12 @@
       "exploring": "Exploring...",
       "startExploring": "Start Exploring"
     },
+    "meta": {
+      "discover": {
+        "notFound": "Not Found",
+        "notFoundDesc": "This website might no longer exist. Click the button below to continue exploring!"
+      }
+    },
     "footer": {
       "title": "World's Weird Websites Cay",
       "description": "W3Cay is a cay that collects the world's weird websites. Randomly explore endless fun and interesting websites across the digital world.",
