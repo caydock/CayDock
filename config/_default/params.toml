@@ -178,7 +178,7 @@ forgejoDefaultServer = "https://v11.next.forgejo.org"
   # userId = ""
 
 [advertisement]
-  # adsense = ""
+  adsense = "ca-pub-2011896129037768"
 
 # 评论系统配置
 [comments]
