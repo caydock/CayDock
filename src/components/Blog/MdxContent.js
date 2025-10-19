@@ -26,7 +26,7 @@ const CustomLink = (props) => {
       <a
         href={href}
         target="_blank"
-        rel="noopener noreferrer"
+        rel="nofollow noopener noreferrer"
         className="text-accent dark:text-accentDark"
         style={{ textDecoration: 'underline' }}
         onMouseEnter={(e) => e.target.style.textDecoration = 'none'}
@@ -78,7 +78,7 @@ const MDXContent = ({ code, components, ...props }) => {
               (match, before, href, after) => {
                 const isExternal = href.startsWith('http://') || href.startsWith('https://');
                 return isExternal 
-                  ? `<a ${before}href="${href}"${after} target="_blank" rel="noopener noreferrer">`
+                  ? `<a ${before}href="${href}"${after} target="_blank" rel="nofollow noopener noreferrer">`
                   : `<a ${before}href="${href}"${after} target="_blank">`;
               }
             )
