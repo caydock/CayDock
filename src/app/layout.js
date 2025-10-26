@@ -94,7 +94,7 @@ export const runtime = 'edge';
 export default async function RootLayout({ children }) {
   // 根目录默认为英文
   const locale = 'en';
-  const messages = await getMessages({locale});
+  const messages = await getMessages({ locale });
 
   return (
     <html lang={locale}>
@@ -113,7 +113,16 @@ export default async function RootLayout({ children }) {
           <Footer />
         </NextIntlClientProvider>
         <Analytics />
-        
+        {/* Google AdSense 脚本（仅在生产环境） */}
+        {shouldEnableAdSense && (
+          <Script
+            async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2011896129037768"
+            crossOrigin="anonymous"
+            strategy="beforeInteractive"
+            id="google-adsense"
+          />
+        )}
       </body>
     </html>
   );
