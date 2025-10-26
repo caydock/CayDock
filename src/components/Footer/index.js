@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { DribbbleIcon, GithubIcon, LinkedinIcon, TwitterIcon } from "../Icons";
 import siteMetadata from "@/src/utils/siteMetaData";
@@ -51,6 +51,38 @@ const Footer = () => {
     }
     return defaultT(key);
   };
+
+  // 加载AdSense脚本
+  useEffect(() => {
+    const loadAdSense = () => {
+      if (typeof window !== 'undefined' && !window.adsbygoogle) {
+        const script = document.createElement('script');
+        script.async = true;
+        script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2011896129037768';
+        script.crossOrigin = 'anonymous';
+        document.head.appendChild(script);
+      }
+    };
+
+    loadAdSense();
+  }, []);
+
+  // 初始化广告
+  useEffect(() => {
+    const initAd = () => {
+      if (typeof window !== 'undefined' && window.adsbygoogle) {
+        try {
+          (window.adsbygoogle = window.adsbygoogle || []).push({});
+        } catch (e) {
+          console.log('AdSense error:', e);
+        }
+      }
+    };
+
+    // 延迟初始化以确保脚本已加载
+    const timer = setTimeout(initAd, 1000);
+    return () => clearTimeout(timer);
+  }, []);
   // 使用 SmartLink 统一处理链接
 
   return (
@@ -93,11 +125,23 @@ const Footer = () => {
            />
          </a>
 
-         <ShareButtons 
-           hashtags="weirdwebsites,webdiscovery,funwebsites"
-           className="text-light"
-         />
-       </div>
+        <ShareButtons 
+          hashtags="weirdwebsites,webdiscovery,funwebsites"
+          className="text-light"
+        />
+      </div>
+
+      {/* Google AdSense 广告 */}
+      <div className="mt-8 w-full max-w-4xl mx-auto px-4">
+        <ins 
+          className="adsbygoogle"
+          style={{display:'block'}}
+          data-ad-client="ca-pub-2011896129037768"
+          data-ad-slot="9754650830"
+          data-ad-format="auto"
+          data-full-width-responsive="true"
+        ></ins>
+      </div>
 
 
 
