@@ -15,7 +15,6 @@ export const isCloudflarePages = process.env.NEXT_PUBLIC_VERCEL_ENV === 'product
 // 统计代码配置
 export const shouldEnableAnalytics = isProduction
 export const shouldEnableAdSense = isProduction
-export const shouldEnableSentry = false // 临时禁用 Sentry 避免构建错误
 
 // 调试配置
 export const shouldEnableDebugLogs = isDevelopment
@@ -32,7 +31,6 @@ export const getEnvironmentInfo = () => ({
   nextPublicVercelEnv: process.env.NEXT_PUBLIC_VERCEL_ENV,
   shouldEnableAnalytics,
   shouldEnableAdSense,
-  shouldEnableSentry,
   shouldEnableDebugLogs
 })
 

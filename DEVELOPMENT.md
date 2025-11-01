@@ -72,9 +72,8 @@ export const shouldEnableAdSense = true
 
 生产环境的错误日志会通过以下方式收集：
 
-1. **Sentry**: 自动收集JavaScript错误
-2. **Cloudflare日志流**: 通过 `console.error` 记录的错误
-3. **API错误**: 通过统一的错误处理中间件记录
+1. **Cloudflare日志流**: 通过 `console.error` 记录的错误
+2. **API错误**: 通过统一的错误处理中间件记录
 
 ## 开发建议
 

@@ -5,19 +5,8 @@ import { useEffect } from "react";
 
 export default function GlobalError({ error }) {
   useEffect(() => {
-    // 只在客户端且Sentry可用时捕获错误
-    if (typeof window !== "undefined") {
-      try {
-        import("@sentry/nextjs").then((Sentry) => {
-          Sentry.captureException(error);
-        }).catch(() => {
-          // Sentry不可用时忽略错误
-          console.error("Global error:", error);
-        });
-      } catch (e) {
-        console.error("Global error:", error);
-      }
-    }
+    // 记录全局错误到控制台
+    console.error("Global error:", error);
   }, [error]);
 
   return (
