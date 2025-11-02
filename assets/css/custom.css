@@ -331,7 +331,7 @@
   pointer-events: none;
   opacity: 1;
   /* 白天模式：白色渐变蒙层 */
-  background: linear-gradient(to top, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0)) !important;
+  background: linear-gradient(to top, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.1)) !important;
 }
 
 /* 夜间模式：黑色渐变蒙层 */
