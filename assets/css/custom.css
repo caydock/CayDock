@@ -307,15 +307,131 @@
 }
 
 /* 博客卡片封面优化 */
+.thumbnail_card_container {
+  min-height: 300px;
+  position: relative;
+}
+
 .thumbnail_card {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   transition: all 0.3s ease;
+  min-height: 300px;
+  width: 100%;
 }
 
 .thumbnail_card:hover {
   transform: scale(1.02);
+}
+
+/* 蒙层样式 */
+.thumbnail_overlay {
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  opacity: 1;
+  /* 白天模式：白色渐变蒙层 */
+  background: linear-gradient(to top, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0)) !important;
+}
+
+/* 夜间模式：黑色渐变蒙层 */
+.dark .thumbnail_overlay {
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.15)) !important;
+}
+
+.group-hover-card:hover .thumbnail_overlay {
+  opacity: 1;
+  /* 白天模式：白色渐变蒙层 */
+  background: linear-gradient(to top, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0)) !important;
+}
+
+/* 夜间模式：悬停时黑色蒙层加深 */
+.dark .group-hover-card:hover .thumbnail_overlay {
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4)) !important;
+}
+
+/* 封面上的文字内容样式 */
+.thumbnail_content {
+  transition: transform 0.3s ease;
+  pointer-events: none;
+}
+
+.thumbnail_content * {
+  pointer-events: auto;
+}
+
+.group-hover-card:hover .thumbnail_content {
+  transform: translateY(-4px);
+}
+
+/* 白天模式：封面上的元信息文字为深色 */
+.thumbnail_content .group-hover-cancel,
+.thumbnail_content .group-hover-cancel a,
+.thumbnail_content .group-hover-cancel span {
+  color: rgba(0, 0, 0, 0.9) !important;
+}
+
+/* 夜间模式：封面上的元信息文字为白色 */
+.dark .thumbnail_content .group-hover-cancel,
+.dark .thumbnail_content .group-hover-cancel a,
+.dark .thumbnail_content .group-hover-cancel span {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* 白天模式：封面上的标签样式 */
+.thumbnail_content .group-hover-cancel a[class*="badge"] {
+  background: rgba(0, 0, 0, 0.2) !important;
+  border-color: rgba(0, 0, 0, 0.3) !important;
+  color: rgba(0, 0, 0, 0.9) !important;
+  backdrop-filter: blur(4px);
+}
+
+/* 夜间模式：封面上的标签样式 */
+.dark .thumbnail_content .group-hover-cancel a[class*="badge"] {
+  background: rgba(255, 255, 255, 0.2) !important;
+  border-color: rgba(255, 255, 255, 0.3) !important;
+  color: white !important;
+  backdrop-filter: blur(4px);
+}
+
+/* 白天模式：封面上的分隔符样式 */
+.thumbnail_content .text-primary-500 {
+  color: rgba(0, 0, 0, 0.6) !important;
+}
+
+/* 夜间模式：封面上的分隔符样式 */
+.dark .thumbnail_content .text-primary-500 {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
+/* 白天模式：封面标题文字颜色 */
+.thumbnail_content .group-hover-card-title {
+  color: rgba(0, 0, 0, 0.95) !important;
+}
+
+.thumbnail_content .group-hover-card-title span {
+  color: rgba(0, 0, 0, 0.8) !important;
+}
+
+/* 夜间模式：封面标题文字颜色 */
+.dark .thumbnail_content .group-hover-card-title {
+  color: white !important;
+}
+
+.dark .thumbnail_content .group-hover-card-title span {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+/* 白天模式：封面摘要文字颜色 */
+.thumbnail_content .prose,
+.thumbnail_content .prose-invert {
+  color: rgba(0, 0, 0, 0.9) !important;
+}
+
+/* 夜间模式：封面摘要文字颜色 */
+.dark .thumbnail_content .prose,
+.dark .thumbnail_content .prose-invert {
+  color: rgba(255, 255, 255, 0.9) !important;
 }
 
 /* 文字截断样式 */
@@ -338,8 +454,16 @@
 
 /* 移动端博客卡片优化 */
 @media (max-width: 768px) {
+  .thumbnail_card_container {
+    min-height: 250px;
+  }
+  
   .thumbnail_card {
-    height: 12rem !important;
+    min-height: 250px !important;
+  }
+  
+  .thumbnail_content {
+    padding: 1rem !important;
   }
   
   .group-hover-card:hover {

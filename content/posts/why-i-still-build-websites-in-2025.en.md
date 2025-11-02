@@ -4,7 +4,7 @@ date: 2025-10-09T18:00:08+08:00
 draft: false
 lang: en
 tags: ["web development", "indie development", "AI", "developer side projects"]
-featureimage: "/images/why-i-still-build-websites-in-2025/cover.jpg"
+featureimage: "/images/why-i-still-build-websites-in-2025/cover.webp"
 translationKey: "why-i-still-build-websites-in-2025"
 ---
 

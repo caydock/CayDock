@@ -1,10 +1,10 @@
 ---
-title: "为什么2025年了我还在做网站"
+title: "为什么2025年了我还在做网站：独立开发技术路径选择"
 date: 2025-10-09T18:00:08+08:00
 draft: false
 lang: zh
 tags: ["网站开发", "独立开发", "AI", "程序员副业"]
-featureimage: "/images/why-i-still-build-websites-in-2025/cover.jpg"
+featureimage: "/images/why-i-still-build-websites-in-2025/cover.webp"
 translationKey: "why-i-still-build-websites-in-2025"
 ---
 

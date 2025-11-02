@@ -1,0 +1,166 @@
+{{ $disableImageOptimization := .Page.Site.Params.disableImageOptimization | default false }}
+<div
+  class="group-hover-card group relative min-h-full min-w-full overflow-hidden rounded border border-2 border-neutral-200 shadow-2xl dark:border-neutral-700">
+  <a
+    {{ partial "article-link/_external-link.html" . | safeHTMLAttr }}
+    class="absolute inset-0 z-30"
+    aria-label="{{ $.Title }}"></a>
+  {{- with $.Params.images -}}
+    {{- range first 6 . }}
+      <meta property="og:image" content="{{ . | absURL }}">
+    {{ end -}}
+  {{- else -}}
+    {{- $images := $.Resources.ByType "image" -}}
+    {{- $featured := $images.GetMatch "*feature*" -}}
+    {{- if not $featured }}{{ $featured = $images.GetMatch "{*cover*,*thumbnail*}" }}{{ end -}}
+    {{ if and .Params.featureimage (not $featured) }}
+      {{- $url:= .Params.featureimage -}}
+      {{- if hasPrefix $url "/" -}}
+        {{- $featured = $url -}}
+      {{- else -}}
+        {{ $featured = resources.GetRemote $url }}
+      {{- end -}}
+    {{ end }}
+    {{- if not $featured }}
+      {{- $firstImage := index $images 0 -}}
+      {{- if $firstImage }}{{ $featured = $firstImage }}{{ end -}}
+    {{ end -}}
+    {{- if not $featured }}
+      {{- $content := .Content -}}
+      {{- $imageRegex := `!\[.*?\]\((.*?)\)` -}}
+      {{- $matches := findRE $imageRegex $content -}}
+      {{- if $matches -}}
+        {{- $firstMatch := index $matches 0 -}}
+        {{- $imagePath := replaceRE `!\[.*?\]\((.*?)\)` `$1` $firstMatch -}}
+        {{- if hasPrefix $imagePath "/" -}}
+          {{- $featured = $imagePath -}}
+        {{- end -}}
+      {{- end -}}
+    {{ end -}}
+    {{- if not $featured }}
+      {{ with .Site.Params.defaultFeaturedImage }}{{ $featured = resources.Get . }}{{ end }}
+    {{ end -}}
+    {{ if .Params.hideFeatureImage }}{{ $featured = false }}{{ end }}
+    {{- with $featured -}}
+      {{/* 封面图容器 - 相对定位 */}}
+      <div class="thumbnail_card_container relative w-full">
+        {{ if eq (printf "%T" .) "string" }}
+          <div class="thumbnail_card nozoom w-full" style="background-image:url({{ . }});"></div>
+        {{ else }}
+          {{ if or $disableImageOptimization (strings.HasSuffix . ".svg") }}
+            <div class="thumbnail_card nozoom w-full" style="background-image:url({{ .RelPermalink }});"></div>
+          {{ else }}
+            {{ with .Resize "600x" }}
+              <div class="thumbnail_card nozoom w-full" style="background-image:url({{ .RelPermalink }});"></div>
+            {{ end }}
+          {{ end }}
+        {{ end }}
+        {{/* 蒙层 - 半透明黑色背景 */}}
+        <div class="thumbnail_overlay absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/30"></div>
+        
+        {{/* 文字内容 - 绝对定位在底部 */}}
+        <div class="thumbnail_content absolute bottom-0 left-0 right-0 px-6 py-4 z-20 pointer-events-none">
+          {{ if and $.Draft $.Site.Params.article.showDraftLabel }}
+            <span class="absolute top-0 right-0 m-2 z-30">
+              {{ partial "badge.html" (i18n "article.draft" | emojify) }}
+            </span>
+          {{ end }}
+          {{ with $.Params.externalUrl }}
+            <div
+              class="group-hover-card-title decoration-primary-400 text-xl font-bold text-white group-hover:underline group-hover:underline-offset-2 drop-shadow-lg">
+              {{ $.Title | emojify }}
+              <span class="cursor-default align-top text-xs text-white/80">
+                <span class="rtl:hidden">&#8599;</span>
+                <span class="ltr:hidden">&#8598;</span>
+              </span>
+            </div>
+          {{ else }}
+            <div
+              class="group-hover-card-title decoration-primary-400 text-xl font-bold text-white group-hover:underline group-hover:underline-offset-2 drop-shadow-lg">
+              {{ $.Title | emojify }}
+            </div>
+          {{ end }}
+          <div class="group-hover-cancel text-sm text-white/90 mt-2 drop-shadow-md">
+            {{ partial "article-meta/basic.html" $ }}
+          </div>
+          {{ if $.Params.showSummary | default ($.Site.Params.list.showSummary | default false) }}
+            <div class="prose prose-invert py-1 text-white/90 text-sm drop-shadow-md">{{ $.Summary | plainify }}</div>
+          {{ end }}
+        </div>
+      </div>
+    {{- else -}}
+      {{/* 使用默认封面图片 */}}
+      {{ with $.Site.Params.defaultFeaturedImage }}
+        <div class="thumbnail_card_container relative w-full">
+          <div class="thumbnail_card nozoom w-full h-48" style="background-image:url({{ . }}); background-size: cover; background-position: center; background-repeat: no-repeat;"></div>
+          {{/* 蒙层 */}}
+          <div class="thumbnail_overlay absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/30"></div>
+          
+          {{/* 文字内容 */}}
+          <div class="thumbnail_content absolute bottom-0 left-0 right-0 px-6 py-4 z-20 pointer-events-none">
+            {{ if and $.Draft $.Site.Params.article.showDraftLabel }}
+              <span class="absolute top-0 right-0 m-2 z-30">
+                {{ partial "badge.html" (i18n "article.draft" | emojify) }}
+              </span>
+            {{ end }}
+            {{ with $.Params.externalUrl }}
+              <div
+                class="group-hover-card-title decoration-primary-400 text-xl font-bold text-white group-hover:underline group-hover:underline-offset-2 drop-shadow-lg">
+                {{ $.Title | emojify }}
+                <span class="cursor-default align-top text-xs text-white/80">
+                  <span class="rtl:hidden">&#8599;</span>
+                  <span class="ltr:hidden">&#8598;</span>
+                </span>
+              </div>
+            {{ else }}
+              <div
+                class="group-hover-card-title decoration-primary-400 text-xl font-bold text-white group-hover:underline group-hover:underline-offset-2 drop-shadow-lg">
+                {{ $.Title | emojify }}
+              </div>
+            {{ end }}
+            <div class="group-hover-cancel text-sm text-white/90 mt-2 drop-shadow-md">
+              {{ partial "article-meta/basic.html" $ }}
+            </div>
+            {{ if $.Params.showSummary | default ($.Site.Params.list.showSummary | default false) }}
+              <div class="prose prose-invert py-1 text-white/90 text-sm drop-shadow-md">{{ $.Summary | plainify }}</div>
+            {{ end }}
+          </div>
+        </div>
+      {{ else }}
+        {{/* 没有封面图的情况，保持原来的布局 */}}
+        {{ if and $.Draft $.Site.Params.article.showDraftLabel }}
+          <span class="absolute top-0 right-0 m-2">
+            {{ partial "badge.html" (i18n "article.draft" | emojify) }}
+          </span>
+        {{ end }}
+        <div class="px-6 py-4">
+          {{ with $.Params.externalUrl }}
+            <div
+              class="group-hover-card-title decoration-primary-500 dark:text-neutral text-xl font-bold text-neutral-800 group-hover:underline group-hover:underline-offset-2">
+              {{ $.Title | emojify }}
+              <span class="cursor-default align-top text-xs text-neutral-400 dark:text-neutral-500">
+                <span class="rtl:hidden">&#8599;</span>
+                <span class="ltr:hidden">&#8598;</span>
+              </span>
+            </div>
+          {{ else }}
+            <div
+              class="group-hover-card-title decoration-primary-500 dark:text-neutral text-xl font-bold text-neutral-800 group-hover:underline group-hover:underline-offset-2">
+              {{ $.Title | emojify }}
+            </div>
+          {{ end }}
+          <div class="group-hover-cancel text-sm text-neutral-500 dark:text-neutral-400">
+            {{ partial "article-meta/basic.html" $ }}
+          </div>
+          {{ if $.Params.showSummary | default ($.Site.Params.list.showSummary | default false) }}
+            <div class="prose dark:prose-invert py-1">{{ $.Summary | plainify }}</div>
+          {{ end }}
+        </div>
+      {{ end }}
+      {{- with $.Site.Params.images }}
+        <meta property="og:image" content="{{ index . 0 | absURL }}">
+      {{ end -}}
+    {{- end -}}
+  {{- end -}}
+</div>
+
