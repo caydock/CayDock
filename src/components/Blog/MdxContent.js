@@ -69,22 +69,42 @@ const MDXContent = ({ code, components, ...props }) => {
     
     // 如果 code 是字符串，直接渲染为 HTML
     if (typeof code === 'string') {
-      const HtmlRenderer = () => (
-        <div 
-          className="prose prose-lg max-w-none prose-a:underline prose-a:text-blue-600 hover:prose-a:no-underline hover:prose-a:text-blue-800"
-          dangerouslySetInnerHTML={{ 
-            __html: code.replace(
-              /<a\s+([^>]*?)href="([^"]*?)"([^>]*?)>/g,
-              (match, before, href, after) => {
-                const isExternal = href.startsWith('http://') || href.startsWith('https://');
-                return isExternal 
-                  ? `<a ${before}href="${href}"${after} target="_blank" rel="nofollow noopener noreferrer">`
-                  : `<a ${before}href="${href}"${after} target="_blank">`;
+      const HtmlRenderer = () => {
+        // 改进的链接处理：支持单引号、双引号、各种属性顺序
+        const processedHtml = code.replace(
+          /<a\s+([^>]*?)href=["']([^"']*?)["']([^>]*?)>/gi,
+          (match, before, href, after) => {
+            // 检查是否已经有 target 属性
+            const hasTarget = /target\s*=/i.test(before + after);
+            const hasRel = /rel\s*=/i.test(before + after);
+            
+            // 判断是否为外部链接
+            const isExternal = href && (href.startsWith('http://') || href.startsWith('https://'));
+            
+            if (hasTarget) {
+              // 如果已经有 target，只更新 rel（如果是外部链接）
+              if (isExternal && !hasRel) {
+                return `<a ${before}href="${href}"${after} rel="nofollow noopener noreferrer">`;
               }
-            )
-          }}
-        />
-      );
+              return match; // 已经有 target，不需要修改
+            }
+            
+            // 没有 target，添加 target 和 rel
+            if (isExternal) {
+              return `<a ${before}href="${href}"${after} target="_blank" rel="nofollow noopener noreferrer">`;
+            } else {
+              return `<a ${before}href="${href}"${after} target="_blank">`;
+            }
+          }
+        );
+        
+        return (
+          <div 
+            className="prose prose-lg max-w-none prose-a:underline prose-a:text-blue-600 hover:prose-a:no-underline hover:prose-a:text-blue-800"
+            dangerouslySetInnerHTML={{ __html: processedHtml }}
+          />
+        );
+      };
       HtmlRenderer.displayName = 'HtmlRenderer';
       return HtmlRenderer;
     }

@@ -7,6 +7,38 @@ const mdxComponents = {
   // Add any custom components here
 }
 
+// 处理 HTML 中的链接，添加 target="_blank" 和 rel 属性
+const processLinksInHtml = (html) => {
+  if (typeof html !== 'string') return html;
+  
+  return html.replace(
+    /<a\s+([^>]*?)href=["']([^"']*?)["']([^>]*?)>/gi,
+    (match, before, href, after) => {
+      // 检查是否已经有 target 属性
+      const hasTarget = /target\s*=/i.test(before + after);
+      const hasRel = /rel\s*=/i.test(before + after);
+      
+      // 判断是否为外部链接
+      const isExternal = href && (href.startsWith('http://') || href.startsWith('https://'));
+      
+      if (hasTarget) {
+        // 如果已经有 target，只更新 rel（如果是外部链接）
+        if (isExternal && !hasRel) {
+          return `<a ${before}href="${href}"${after} rel="nofollow noopener noreferrer">`;
+        }
+        return match; // 已经有 target，不需要修改
+      }
+      
+      // 没有 target，添加 target 和 rel
+      if (isExternal) {
+        return `<a ${before}href="${href}"${after} target="_blank" rel="nofollow noopener noreferrer">`;
+      } else {
+        return `<a ${before}href="${href}"${after} target="_blank">`;
+      }
+    }
+  );
+};
+
 const RenderMdx = ({blog}) => {
   console.log('Blog body type:', typeof blog.body);
   console.log('Blog body preview:', typeof blog.body === 'string' ? blog.body.substring(0, 200) : blog.body);
@@ -21,9 +53,9 @@ const RenderMdx = ({blog}) => {
         // 找到中间位置
         const middleIndex = Math.floor(paragraphs.length / 2);
         
-        // 分割内容
-        const beforeAd = paragraphs.slice(0, middleIndex).join('</p>') + '</p>';
-        const afterAd = paragraphs.slice(middleIndex).join('</p>');
+        // 分割内容并处理链接
+        const beforeAd = processLinksInHtml(paragraphs.slice(0, middleIndex).join('</p>') + '</p>');
+        const afterAd = processLinksInHtml(paragraphs.slice(middleIndex).join('</p>'));
         
         return (
           <>
