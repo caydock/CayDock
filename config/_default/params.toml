@@ -113,17 +113,18 @@ forgejoDefaultServer = "https://v11.next.forgejo.org"
 
 [taxonomy]
   showTermCount = true
-  showHero = false
-  # heroStyle = "background" # valid options: basic, big, background, thumbAndBackground
+  showHero = true
+  heroStyle = "background" # valid options: basic, big, background, thumbAndBackground
   showBreadcrumbs = false
   showViews = false
   showLikes = false
   showTableOfContents = false
   cardView = false
+  layoutBackgroundBlur = true
 
 [term]
-  showHero = false
-  # heroStyle = "background" # valid options: basic, big, background, thumbAndBackground
+  showHero = true
+  heroStyle = "background" # valid options: basic, big, background, thumbAndBackground
   showBreadcrumbs = false
   showViews = false
   showLikes = false
@@ -131,6 +132,7 @@ forgejoDefaultServer = "https://v11.next.forgejo.org"
   groupByYear = false
   cardView = false
   cardViewScreenWidth = false
+  layoutBackgroundBlur = true
 
 [firebase]
   # apiKey = "XXXXXX"
