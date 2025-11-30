@@ -17,3 +17,8 @@ items:
     description: "时间记录工具，支持倒计时、纪念日等"
     link: "https://timecay.com"
     icon: "https://timecay.com/favicon.ico"
+    
+  - title: "音乐封面查询"
+    description: "免费在线音乐封面查询工具，支持搜索专辑、歌曲封面，可下载高清封面图片"
+    link: "/tools/music-cover"
+    icon: "/images/music-cover-icon.svg"

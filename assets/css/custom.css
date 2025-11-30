@@ -4,10 +4,6 @@
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 1.5rem;
   margin: 2rem 0;
-  max-width: 4xl;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 0 1rem;
 }
 
 .product-card-home {
@@ -102,7 +98,6 @@
   .products-grid-home {
     grid-template-columns: 1fr;
     gap: 1rem;
-    padding: 0 0.5rem;
   }
   
   .product-content-home {
@@ -474,3 +469,4 @@
     -webkit-line-clamp: 3;
   }
 }
+

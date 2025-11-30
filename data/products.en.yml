@@ -17,3 +17,8 @@ items:
     description: "Time recording tool, supports countdown, anniversaries, etc."
     link: "https://timecay.com"
     icon: "https://timecay.com/favicon.ico"
+    
+  - title: "Music Cover Search"
+    description: "Free online music cover search tool, search and download high-quality album covers"
+    link: "/tools/music-cover"
+    icon: "/images/music-cover-icon.svg"
