@@ -18,11 +18,21 @@ export async function onRequest(context) {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'Accept-Language': 'en-US,en;q=0.9',
+        'Referer': 'https://music.apple.com/',
       },
     })
 
     if (!response.ok) {
-      throw new Error(`iTunes API error: ${response.statusText}`)
+      const errorText = await response.text()
+      console.error('iTunes API error:', {
+        status: response.status,
+        statusText: response.statusText,
+        body: errorText,
+        url: itunesUrl
+      })
+      throw new Error(`iTunes API error: ${response.status} ${response.statusText}`)
     }
 
     const data = await response.json()
