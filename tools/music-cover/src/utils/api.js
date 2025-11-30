@@ -1,46 +1,12 @@
-// iTunes Search API 支持 CORS，可以直接调用
-// 如果 Cloudflare Function 失败，回退到直接调用
+// 直接调用 iTunes Search API（支持 CORS）
 const ITUNES_API_BASE = 'https://itunes.apple.com'
-const CF_FUNCTION_BASE = '/api/itunes'
-
-async function tryCloudflareFunction(url) {
-  try {
-    const response = await fetch(`${CF_FUNCTION_BASE}/search?${url}`, {
-      method: 'GET',
-      headers: {
-        'Accept': 'application/json',
-      },
-    })
-    
-    if (response.ok) {
-      return await response.json()
-    }
-    
-    // 如果返回 403 或其他错误，返回 null 以触发回退
-    if (response.status === 403 || response.status === 404) {
-      return null
-    }
-    
-    throw new Error(`搜索失败: ${response.statusText}`)
-  } catch (error) {
-    // 网络错误或其他错误，返回 null 以触发回退
-    console.warn('Cloudflare Function failed, falling back to direct API call:', error)
-    return null
-  }
-}
 
 export async function searchItunes(params) {
   const queryString = new URLSearchParams(params).toString()
+  const url = `${ITUNES_API_BASE}/search?${queryString}`
   
-  // 先尝试使用 Cloudflare Function
-  const cfResult = await tryCloudflareFunction(queryString)
-  if (cfResult) {
-    return cfResult
-  }
-  
-  // 如果 Cloudflare Function 失败，直接调用 iTunes API（支持 CORS）
   try {
-    const response = await fetch(`${ITUNES_API_BASE}/search?${queryString}`, {
+    const response = await fetch(url, {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
@@ -54,7 +20,7 @@ export async function searchItunes(params) {
     const data = await response.json()
     return data
   } catch (error) {
-    console.error('Direct API request failed:', error)
+    console.error('API request failed:', error)
     throw new Error(error.message || '搜索失败，请稍后重试')
   }
 }
