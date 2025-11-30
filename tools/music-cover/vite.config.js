@@ -2,45 +2,9 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import path from 'path'
 import { fileURLToPath } from 'url'
-import { copyFileSync, existsSync, readFileSync, writeFileSync, mkdirSync } from 'fs'
+import { existsSync, readFileSync, writeFileSync } from 'fs'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
-
-// 自定义插件：确保 favicon.svg 在正确位置（Vite 的 copyPublicDir 会自动复制，这里作为备用）
-const copyFaviconPlugin = () => {
-  return {
-    name: 'copy-favicon',
-    writeBundle() {
-      const faviconDest = path.resolve(__dirname, '../../static/tools/music-cover/favicon.svg')
-      // 检查是否已经存在（由 Vite 的 copyPublicDir 复制）
-      if (!existsSync(faviconDest)) {
-        // 尝试多个可能的源路径
-        const possiblePaths = [
-          path.resolve(__dirname, 'public/favicon.svg'),
-          path.resolve(__dirname, './public/favicon.svg'),
-          path.resolve(process.cwd(), 'tools/music-cover/public/favicon.svg'),
-        ]
-        
-        let faviconSrc = null
-        for (const possiblePath of possiblePaths) {
-          if (existsSync(possiblePath)) {
-            faviconSrc = possiblePath
-            break
-          }
-        }
-        
-        if (faviconSrc) {
-          const destDir = path.dirname(faviconDest)
-          if (!existsSync(destDir)) {
-            mkdirSync(destDir, { recursive: true })
-          }
-          copyFileSync(faviconSrc, faviconDest)
-          console.log(`✓ Copied favicon.svg to ${faviconDest}`)
-        }
-      }
-    }
-  }
-}
 
 // 自定义插件：静态预渲染
 const prerenderPlugin = () => {
@@ -96,7 +60,7 @@ const prerenderPlugin = () => {
 
 export default defineConfig({
   root: __dirname,
-  plugins: [vue(), copyFaviconPlugin(), prerenderPlugin()],
+  plugins: [vue(), prerenderPlugin()],
   server: {
     port: 5173,
     strictPort: false,
@@ -129,10 +93,6 @@ export default defineConfig({
         entryFileNames: 'assets/[name]-[hash].js',
         chunkFileNames: 'assets/[name]-[hash].js',
         assetFileNames: (assetInfo) => {
-          // favicon.svg 不添加 hash，保持原文件名
-          if (assetInfo.name === 'favicon.svg') {
-            return '[name][extname]'
-          }
           if (assetInfo.name.endsWith('.css')) {
             return 'assets/[name]-[hash][extname]'
           }
@@ -140,7 +100,7 @@ export default defineConfig({
         }
       }
     },
-    // 启用 publicDir 复制，这样 favicon.svg 会被自动复制
+    // 使用 Vite 默认机制复制 public 目录
     copyPublicDir: true
   },
   base: '/tools/music-cover/',

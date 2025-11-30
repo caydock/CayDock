@@ -1,2 +1,3 @@
 public/
+!tools/**/public/
 static/tools/music-cover/
