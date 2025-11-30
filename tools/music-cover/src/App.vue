@@ -100,6 +100,16 @@
         </div>
       </div>
 
+      <!-- 复制成功提示 -->
+      <div v-if="copySuccess" class="fixed top-20 left-1/2 transform -translate-x-1/2 z-50 bg-green-500/90 dark:bg-green-600/90 text-white rounded-xl px-6 py-3 shadow-lg backdrop-blur-sm animate-fade-in">
+        <div class="flex items-center gap-2">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+          <p class="font-medium">封面已复制到剪贴板</p>
+        </div>
+      </div>
+
       <!-- 结果列表 -->
       <div v-if="results.length > 0" class="space-y-6">
         <div class="flex justify-between items-center mb-6">
@@ -117,12 +127,13 @@
             :key="item?.trackId || item?.collectionId || index"
             class="group bg-card/80 backdrop-blur-sm border border-border/50 rounded-2xl p-5 hover:shadow-2xl hover:scale-[1.02] transition-all duration-300 cursor-pointer"
           >
-            <div class="aspect-square mb-4 bg-gradient-to-br from-muted to-muted/50 rounded-xl overflow-hidden shadow-lg group-hover:shadow-xl transition-shadow duration-300">
+            <div class="aspect-square mb-4 bg-gradient-to-br from-muted to-muted/50 rounded-xl overflow-hidden shadow-lg group-hover:shadow-xl transition-shadow duration-300 cursor-pointer" @click.stop="copyCoverToClipboard(item)">
               <img
                 :src="getCoverUrl(item)"
                 :alt="item?.collectionName || item?.trackName || 'Cover'"
-                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 pointer-events-none"
                 @error="handleImageError"
+                draggable="false"
               />
             </div>
             <h3 class="font-bold text-lg mb-2 line-clamp-2 group-hover:text-primary transition-colors">
@@ -144,16 +155,12 @@
               >
                 下载封面
               </button>
-              <a
-                v-if="item?.collectionViewUrl || item?.trackViewUrl"
-                :href="item?.collectionViewUrl || item?.trackViewUrl"
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                @click.stop="copyCoverToClipboard(item, $event)"
                 class="px-4 py-2.5 text-sm font-semibold border-2 border-border rounded-xl hover:bg-accent/50 hover:border-primary/50 transition-all duration-200 flex items-center justify-center"
-                @click.stop
               >
-                查看
-              </a>
+                复制封面
+              </button>
             </div>
           </div>
         </div>
@@ -205,6 +212,7 @@ const loading = ref(false)
 const error = ref('')
 const results = ref([])
 const hasSearched = ref(false)
+const copySuccess = ref(false)
 
 // 检测是否为苹果设备
 const isAppleDevice = ref(false)
@@ -261,15 +269,98 @@ const formatDate = (dateString) => {
   }
 }
 
-const downloadCover = (item) => {
+const downloadCover = async (item) => {
   if (!item) return
   const url = getCoverUrl(item)
   if (!url) return
+  
   try {
-    // 在新标签页中打开封面图片
-    window.open(url, '_blank', 'noopener,noreferrer')
+    // 获取图片数据
+    const response = await fetch(url)
+    const blob = await response.blob()
+    
+    // 创建下载链接
+    const blobUrl = URL.createObjectURL(blob)
+    const link = document.createElement('a')
+    link.href = blobUrl
+    
+    // 生成文件名（使用专辑名或歌曲名）
+    const fileName = `${item?.collectionName || item?.trackName || 'cover'}.jpg`.replace(/[^\w\s-]/g, '').trim().replace(/\s+/g, '-')
+    link.download = fileName
+    
+    // 触发下载
+    document.body.appendChild(link)
+    link.click()
+    
+    // 清理
+    document.body.removeChild(link)
+    URL.revokeObjectURL(blobUrl)
   } catch (error) {
-    console.error('Failed to open cover:', error)
+    console.error('下载失败:', error)
+    // 如果下载失败，回退到打开新标签页
+    window.open(url, '_blank', 'noopener,noreferrer')
+  }
+}
+
+const copyCoverToClipboard = async (item, event) => {
+  if (!item) return
+  
+  // 阻止默认行为和事件冒泡
+  if (event) {
+    event.preventDefault()
+    event.stopPropagation()
+  }
+  
+  const url = getCoverUrl(item)
+  if (!url) return
+  
+  try {
+    // 获取图片数据
+    const response = await fetch(url)
+    const blob = await response.blob()
+    
+    // 使用 Canvas 将图片转换为 PNG（更兼容的格式）
+    const img = new Image()
+    img.crossOrigin = 'anonymous'
+    
+    await new Promise((resolve, reject) => {
+      img.onload = resolve
+      img.onerror = reject
+      img.src = url
+    })
+    
+    // 创建 Canvas 并绘制图片
+    const canvas = document.createElement('canvas')
+    canvas.width = img.width
+    canvas.height = img.height
+    const ctx = canvas.getContext('2d')
+    ctx.drawImage(img, 0, 0)
+    
+    // 将 Canvas 转换为 Blob (PNG 格式)
+    const pngBlob = await new Promise(resolve => {
+      canvas.toBlob(resolve, 'image/png')
+    })
+    
+    if (!pngBlob) {
+      throw new Error('无法转换图片')
+    }
+    
+    // 复制到剪贴板（使用 PNG 格式，兼容性更好）
+    await navigator.clipboard.write([
+      new ClipboardItem({
+        'image/png': pngBlob
+      })
+    ])
+    
+    // 显示成功提示
+    copySuccess.value = true
+    setTimeout(() => {
+      copySuccess.value = false
+    }, 2000)
+  } catch (err) {
+    console.error('复制失败:', err)
+    // 如果复制失败，回退到打开新标签页
+    downloadCover(item)
   }
 }
 
@@ -290,6 +381,21 @@ const handleImageError = (e) => {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -10px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out;
 }
 </style>
 
