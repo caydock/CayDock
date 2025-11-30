@@ -57,5 +57,57 @@
     @apply bg-background text-foreground;
     margin: 0;
     padding: 0;
+    /* Apple Music 风格的背景渐变 */
+    background: linear-gradient(to bottom, 
+      hsl(var(--background)), 
+      hsl(var(--muted) / 0.3)
+    );
+    position: relative;
+  }
+  
+  .dark body {
+    background: linear-gradient(to bottom, 
+      hsl(var(--background)), 
+      hsl(var(--muted) / 0.2)
+    );
+  }
+  
+  /* 音乐唱片风格背景 - 使用在线图片 */
+  .record-bg {
+    background-image: url('https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=2000&h=2000&fit=crop&q=80') !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    opacity: 0.15 !important;
+    filter: blur(60px) saturate(0.5);
+    width: 100% !important;
+    height: 100% !important;
+  }
+  
+  .dark .record-bg {
+    opacity: 0.2 !important;
+    filter: blur(60px) saturate(0.5) brightness(0.6);
+  }
+  
+  /* 旋转动画 */
+  @keyframes recordRotate {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+}
+
+/* Apple Music 风格的卡片动画 */
+@layer utilities {
+  .card-hover {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
   }
 }
