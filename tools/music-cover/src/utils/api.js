@@ -1,6 +1,20 @@
-// 开发环境直接调用 iTunes API，生产环境使用 Cloudflare Functions
-const isDev = import.meta.env.DEV
-const API_BASE = isDev ? 'https://itunes.apple.com' : (import.meta.env.BASE_URL + 'api/itunes').replace(/\/+/g, '/')
+// 检测环境并设置 API 基础路径
+function getApiBase() {
+  // 开发环境（Vite 开发服务器）
+  if (import.meta.env.DEV) {
+    // 检查是否在 Vite 开发服务器中（端口 5173）
+    if (typeof window !== 'undefined' && window.location.port === '5173') {
+      return '/api/itunes' // 使用 Vite 代理
+    }
+    // 其他开发环境（如 Hugo 服务器），直接使用 iTunes API
+    return 'https://itunes.apple.com'
+  }
+  
+  // 生产环境使用 Cloudflare Functions
+  return '/api/itunes'
+}
+
+const API_BASE = getApiBase()
 
 export async function searchItunes(params) {
   const queryString = new URLSearchParams(params).toString()
