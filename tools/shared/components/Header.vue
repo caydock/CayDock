@@ -4,7 +4,7 @@
     <!-- Logo/Title - 靠左 -->
     <div class="flex items-center" style="flex-shrink: 0;">
       <a :href="siteConfig.site.url" class="flex items-center">
-        <span class="text-lg font-bold text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white no-underline transition-colors duration-200">
+        <span class="text-lg font-bold text-gray-700 hover:text-gray-900 no-underline transition-colors duration-200">
           {{ siteConfig.site.title }}
         </span>
       </a>

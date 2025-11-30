@@ -13,7 +13,7 @@
     <main class="flex-1 relative" style="margin: 0; z-index: 1;">
       <div class="max-w-6xl mx-auto px-4 sm:px-6 md:px-8 py-4 md:py-8">
       <div class="mb-10">
-        <h1 class="text-4xl md:text-5xl font-bold mb-3 bg-gradient-to-r from-gray-900 to-gray-700 dark:from-gray-100 dark:to-gray-300 bg-clip-text text-transparent">
+        <h1 class="text-4xl md:text-5xl font-bold mb-3 bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
           音乐封面查询
         </h1>
         <p class="text-muted-foreground text-lg">免费音乐封面查询刮削工具，支持搜索专辑、歌曲、音乐录影带封面，可下载高清封面图片（600x600至2000x2000），支持多个国家/地区的 iTunes Store</p>
