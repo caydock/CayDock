@@ -22,13 +22,23 @@
     <meta property="twitter:description" content="免费在线音乐封面查询工具，支持搜索专辑、歌曲、音乐录影带封面，可下载高清封面图片（600x600至2000x2000），支持多个国家/地区的 iTunes Store，无需注册即可使用。" />
     
     <!-- Favicons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app">
+      <!-- 静态渲染内容 - 用于 SEO 和无 JS 环境 -->
+      <noscript>
+        <div style="max-width: 1200px; margin: 0 auto; padding: 2rem;">
+          <h1 style="font-size: 2.5rem; font-weight: bold; margin-bottom: 1rem;">音乐封面查询</h1>
+          <p style="font-size: 1.125rem; color: #666; margin-bottom: 2rem;">免费音乐封面查询刮削工具，支持搜索专辑、歌曲、音乐录影带封面，可下载高清封面图片（600x600至2000x2000），支持多个国家/地区的 iTunes Store</p>
+          <p style="color: #999;">此工具需要启用 JavaScript 才能正常使用。</p>
+        </div>
+      </noscript>
+    </div>
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>

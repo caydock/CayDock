@@ -1,5 +1,6 @@
 <template>
-  <div class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 gap-x-3 pt-[2px] pr-0 pb-[3px] pl-0" style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+  <header class="w-full relative z-10">
+    <div class="main-menu flex items-center justify-between px-4 sm:px-6 md:px-8 py-6 max-w-6xl mx-auto" style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
     <!-- Logo/Title - 靠左 -->
     <div class="flex items-center" style="flex-shrink: 0;">
       <a :href="siteConfig.site.url" class="flex items-center">
@@ -73,8 +74,8 @@
       <ul class="flex space-y-2 mt-3 flex-col items-end w-full px-6 py-6 mx-auto overflow-visible list-none ltr:text-right rtl:text-left max-w-7xl">
         <li>
           <button
-            @click="toggleMobileMenu"
-            class="cursor-pointer inline-block align-text-bottom hover:text-primary-600 dark:hover:text-primary-400"
+            @click.stop="toggleMobileMenu"
+            class="cursor-pointer inline-block align-text-bottom hover:text-primary-600 dark:hover:text-primary-400 z-40 relative"
             aria-label="Close menu"
           >
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -104,7 +105,8 @@
         </li>
       </ul>
     </div>
-  </div>
+    </div>
+  </header>
 </template>
 
 <script setup>
@@ -152,19 +154,10 @@ const mainMenu = computed(() => {
 <style scoped>
 /* 与主站样式保持一致 */
 .main-menu {
-  max-width: 100%;
   display: flex !important;
   align-items: center;
   justify-content: space-between !important;
   width: 100%;
-}
-
-@media (min-width: 768px) {
-  .main-menu {
-    max-width: 72rem; /* 与内容区域 max-w-6xl 保持一致 (1152px) */
-    margin-left: auto;
-    margin-right: auto;
-  }
 }
 
 /* 确保桌面导航栏显示 */
