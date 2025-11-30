@@ -14,14 +14,11 @@ export async function onRequest(context) {
   const itunesUrl = `https://itunes.apple.com/search?${itunesParams.toString()}`
 
   try {
+    // 使用最简化的请求，让 Cloudflare 使用默认的 User-Agent
+    // iTunes API 可能对自定义 User-Agent 敏感
     const response = await fetch(itunesUrl, {
       method: 'GET',
-      headers: {
-        'Accept': 'application/json',
-        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-        'Accept-Language': 'en-US,en;q=0.9',
-        'Referer': 'https://music.apple.com/',
-      },
+      // 不设置自定义 headers，使用 Cloudflare 的默认行为
     })
 
     if (!response.ok) {
