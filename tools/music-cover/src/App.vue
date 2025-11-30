@@ -29,10 +29,9 @@
                 v-model="searchType"
                 class="w-full px-4 py-3 border border-input/50 rounded-xl bg-background/80 text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 transition-all duration-200 text-base"
               >
-                <option value="album">专辑</option>
                 <option value="song">歌曲</option>
+                <option value="album">专辑</option>
                 <option value="musicVideo">音乐录影带</option>
-                <option value="artist">艺人</option>
               </select>
             </div>
             <div>
@@ -170,6 +169,20 @@
         <p class="text-lg text-muted-foreground font-medium">未找到相关结果</p>
         <p class="text-sm text-muted-foreground/70 mt-2">请尝试其他关键词或调整搜索条件</p>
       </div>
+
+      <!-- 移动端提示（仅苹果设备显示） -->
+      <div v-if="isAppleDevice" class="bg-muted/30 dark:bg-muted/20 border border-border/30 rounded-xl p-4 mt-8 backdrop-blur-sm">
+        <div class="flex items-start gap-3">
+          <svg class="w-4 h-4 flex-shrink-0 text-muted-foreground/60 dark:text-muted-foreground/50 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <div class="flex-1">
+            <p class="text-xs text-muted-foreground/70 dark:text-muted-foreground/60">
+              建议使用电脑查询，移动设备可能会因系统限制导致搜索失败。
+            </p>
+          </div>
+        </div>
+      </div>
       </div>
     </main>
     
@@ -185,13 +198,20 @@ import Header from '@shared/components/Header.vue'
 import Footer from '@shared/components/Footer.vue'
 
 const searchTerm = ref('')
-const searchType = ref('album')
+const searchType = ref('song')
 const country = ref('cn')
 const coverSize = ref('600')
 const loading = ref(false)
 const error = ref('')
 const results = ref([])
 const hasSearched = ref(false)
+
+// 检测是否为苹果设备
+const isAppleDevice = ref(false)
+if (typeof window !== 'undefined') {
+  const userAgent = navigator.userAgent.toLowerCase()
+  isAppleDevice.value = /iphone|ipad|ipod/.test(userAgent)
+}
 
 const handleSearch = async () => {
   if (!searchTerm.value.trim()) {
