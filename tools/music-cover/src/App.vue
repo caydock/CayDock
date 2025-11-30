@@ -1,6 +1,11 @@
 <template>
-  <div class="min-h-screen bg-background p-4 md:p-8" style="margin: 0; padding: 1rem 2rem;">
-    <div class="max-w-6xl mx-auto">
+  <div class="min-h-screen bg-background flex flex-col">
+    <!-- Header -->
+    <Header />
+    
+    <!-- Main Content -->
+    <main class="flex-1" style="margin: 0;">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 md:px-8 py-4 md:py-8">
       <div class="mb-8">
         <h1 class="text-3xl md:text-4xl font-bold mb-2">音乐封面查询</h1>
         <p class="text-muted-foreground">通过 iTunes Search API 搜索音乐专辑封面</p>
@@ -143,13 +148,19 @@
       <div v-if="!loading && results.length === 0 && hasSearched" class="text-center py-12">
         <p class="text-muted-foreground">未找到相关结果，请尝试其他关键词</p>
       </div>
-    </div>
+      </div>
+    </main>
+    
+    <!-- Footer -->
+    <Footer />
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
 import { searchItunes, getCoverUrl as getCoverUrlUtil } from './utils/api'
+import Header from '@shared/components/Header.vue'
+import Footer from '@shared/components/Footer.vue'
 
 const searchTerm = ref('')
 const searchType = ref('album')

@@ -53,7 +53,12 @@ export default defineConfig({
   base: '/tools/music-cover/',
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src')
+      '@': path.resolve(__dirname, './src'),
+      '@shared': path.resolve(__dirname, '../shared')
     }
+  },
+  // 确保可以解析共享目录
+  optimizeDeps: {
+    include: []
   }
 })
