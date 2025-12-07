@@ -44,7 +44,7 @@ const Header = () => {
   };
 
   return (
-    <header className="w-full border-b border-dark/10 dark:border-light/10">
+    <header className="fixed top-0 left-0 right-0 z-50 w-full border-b border-dark/10 dark:border-light/10 bg-light/90 dark:bg-dark/90 backdrop-blur-sm">
       <div className="w-full max-w-7xl mx-auto px-5 sm:px-10 py-4 flex items-center justify-between relative">
         {/* Logo - Left side */}
         <div className="flex items-center">
