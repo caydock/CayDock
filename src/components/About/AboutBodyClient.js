@@ -14,10 +14,6 @@ export default function AboutBodyClient() {
     const content = [
       t('about.aboutDesc'),
       t('about.domainDesc'),
-      t('about.contactTitle'),
-      t('about.contactEmailPrefix'),
-      t('about.contactSubmitPrefix'),
-      t('about.contactSubmitSuffix'),
     ].join('');
     return content.length;
   }, [t]);
@@ -45,16 +41,6 @@ export default function AboutBodyClient() {
 
         <h3 className="mt-8 text-xl md:text-2xl font-semibold mb-3">{t('about.domainTitle')}</h3>
         <p className="text-base md:text-lg mb-6">{t('about.domainDesc')}</p>
-
-        <h3 className="mt-8 text-xl md:text-2xl font-semibold mb-3">{t('about.contactTitle')}</h3>
-        <p className="text-base md:text-lg mb-6">
-          {t('about.contactEmailPrefix')}
-          <a className="underline underline-offset-2 ml-1" href="mailto:cay.dev@hotmail.com">cay.dev@hotmail.com</a>
-          {locale === 'zh-cn' ? '。' : '. '}
-          {t('about.contactSubmitPrefix')}
-          <SmartLink href="/submit" locale={locale} className="mx-1 underline underline-offset-2">{t('about.contactSubmitLink')}</SmartLink>
-          {t('about.contactSubmitSuffix')}
-        </p>
 
         {language === 'zh' && (
           <>

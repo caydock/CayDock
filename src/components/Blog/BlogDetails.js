@@ -8,6 +8,7 @@ import RenderMdx from './RenderMdx';
 import ShareButtons from '../Elements/ShareButtons';
 import PageTemplate from '../PageTemplate/PageTemplate';
 import siteMetadata from '@/src/utils/siteMetaData';
+import GiscusComments from '../Elements/GiscusComments';
 import { useMemo } from 'react';
 
 export default function BlogDetails({ slug: blogSlug, locale }) {
@@ -49,11 +50,12 @@ export default function BlogDetails({ slug: blogSlug, locale }) {
   ];
 
   // 准备标签组件
+  // 始终使用 slug(tag) 生成链接，确保一致性
   const tagElements = blog.tags.slice(0, 4).map((tag, index) => (
     <Tag
       key={index}
       name={tag}
-      link={`/tags/${blog.tagKeys && blog.tagKeys.length > index ? blog.tagKeys[index] : slug(tag)}`}
+      link={`/tags/${slug(tag)}`}
       locale={locale}
       className="!bg-light/20 dark:!bg-light/20 backdrop-blur-sm !border-dark/30 dark:!border-light/30 !text-dark dark:!text-light hover:!bg-dark/10 dark:hover:!bg-light/30 !border-2 px-4 py-1 text-xs md:text-sm"
     />
@@ -89,6 +91,9 @@ export default function BlogDetails({ slug: blogSlug, locale }) {
           hashtags="weirdwebsites,webdiscovery,blog"
         />
       </div>
+
+      {/* 评论组件 */}
+      <GiscusComments locale={locale} />
     </PageTemplate>
   );
 }

@@ -20,8 +20,6 @@ export const routing = defineRouting({
     '/': '/',
     '/about': '/about',
     '/posts': '/posts',
-    '/contact': '/contact',
-    '/submit': '/submit',
     '/terms-of-service': '/terms-of-service',
     '/privacy-policy': '/privacy-policy',
     '/disclaimer': '/disclaimer',

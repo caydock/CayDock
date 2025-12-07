@@ -10,9 +10,7 @@ export default async function sitemap() {
   // 英文页面（根路径，无前缀）
   const enStaticPaths = [
     '/',
-    '/submit',
     '/about',
-    '/contact',
     '/privacy-policy',
     '/terms-of-service',
     '/disclaimer',
@@ -22,9 +20,7 @@ export default async function sitemap() {
   // 中文页面（带 /zh-cn/ 前缀）
   const zhStaticPaths = [
     '/zh-cn',
-    '/zh-cn/submit',
     '/zh-cn/about',
-    '/zh-cn/contact',
     '/zh-cn/privacy-policy',
     '/zh-cn/terms-of-service',
     '/zh-cn/disclaimer',

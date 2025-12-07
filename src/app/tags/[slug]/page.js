@@ -41,38 +41,51 @@ export async function generateMetadata({ params }) {
   // 不再处理 "all" 情况，因为 /tags 就是列表页
   // 获取当前分类的标签名称
   const getCategoryLabel = (categorySlug) => {
-    const currentLanguageBlogs = blogs.filter(blog => blog.language === language);
-    
-    const matchingBlog = currentLanguageBlogs.find(blog => {
-      if (blog.tagKeys && blog.tagKeys.length > 0) {
-        return blog.tagKeys.includes(categorySlug);
-      } else {
-        return blog.tags.some(tag => slug(tag) === categorySlug);
+    // 解码 URL 编码的 slug
+    let decodedSlug = categorySlug;
+    try {
+      const decoded = decodeURIComponent(categorySlug);
+      if (decoded !== categorySlug) {
+        decodedSlug = decoded;
       }
-    });
+    } catch (e) {
+      // 如果解码失败，使用原始值
+    }
     
-    let label = '';
-    if (matchingBlog) {
-      if (matchingBlog.tagKeys && matchingBlog.tagKeys.includes(categorySlug)) {
-        const tagKeyIndex = matchingBlog.tagKeys.indexOf(categorySlug);
-        if (tagKeyIndex >= 0 && matchingBlog.tags[tagKeyIndex]) {
-          label = matchingBlog.tags[tagKeyIndex];
-        }
-      } else {
-        const originalTag = matchingBlog.tags.find(tag => slug(tag) === categorySlug);
-        if (originalTag) {
-          label = originalTag;
+    const currentLanguageBlogs = blogs.filter(blog => blog.language === language && blog.isPublished);
+    
+    // 检测中文字符
+    const chineseCharRegex = /[\u4e00-\u9fa5]/;
+    
+    // 尝试多种匹配方式
+    for (const blog of currentLanguageBlogs) {
+      for (const tag of blog.tags) {
+        const tagSlug = slug(tag);
+        // 匹配多种可能的情况
+        if (tagSlug === categorySlug || 
+            tagSlug === decodedSlug || 
+            tag === decodedSlug ||
+            tag === categorySlug ||
+            (decodedSlug !== categorySlug && tagSlug === slug(decodedSlug))) {
+          return tag; // 返回原始标签名称
         }
       }
+    }
+    
+    // 如果解码后的值包含中文字符，直接返回
+    if (decodedSlug !== categorySlug && chineseCharRegex.test(decodedSlug)) {
+      return decodedSlug;
     }
     
     // 如果没有找到匹配的标签，使用 slug 生成
-    if (!label) {
-      label = categorySlug.replaceAll("-", " ");
+    let label = decodedSlug.replaceAll("-", " ");
+    
+    // 确保首字母大写（仅对英文）
+    if (!chineseCharRegex.test(label)) {
+      label = label.replace(/\b\w/g, l => l.toUpperCase());
     }
     
-    // 确保首字母大写
-    return label.replace(/\b\w/g, l => l.toUpperCase());
+    return label;
   };
   
   const categoryTitle = getCategoryLabel(categorySlug);

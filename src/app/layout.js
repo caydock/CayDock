@@ -101,6 +101,10 @@ export default async function RootLayout({ children }) {
     <html lang={locale}>
       <head>
         <StructuredData />
+        {/* Google AdSense meta tag */}
+        {shouldEnableAdSense && (
+          <meta name="google-adsense-account" content="ca-pub-2011896129037768" />
+        )}
       </head>
       <body
         className={cx(

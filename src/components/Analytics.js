@@ -1,6 +1,7 @@
 "use client"
 import Script from "next/script"
 import { shouldEnableAnalytics } from '@/src/utils/env'
+import { useEffect } from 'react'
 
 export default function Analytics() {
   // 在开发环境中不加载统计代码
@@ -9,23 +10,60 @@ export default function Analytics() {
     return null
   }
 
+  // Umami 事件追踪（与旧项目保持一致）
+  useEffect(() => {
+    if (!shouldEnableAnalytics) return;
+
+    const handleUmamiLoad = () => {
+      const umamiScript = document.querySelector('script[data-id="umami-script"]');
+      if (umamiScript && window.umami) {
+        const ogType = document.head.querySelector('meta[property="og:type"]')?.getAttribute("content");
+        const ogTitle = document.head.querySelector('meta[property="og:title"]')?.getAttribute("content");
+        const ogUrl = document.head.querySelector('meta[property="og:url"]')?.getAttribute("content");
+        
+        if (ogType && ogTitle && ogUrl) {
+          window.umami.track(`${ogType}:${ogTitle}`, { url: ogUrl });
+        }
+      }
+    };
+
+    const umamiScript = document.querySelector('script[data-id="umami-script"]');
+    if (umamiScript) {
+      umamiScript.addEventListener("load", handleUmamiLoad);
+      return () => {
+        umamiScript.removeEventListener("load", handleUmamiLoad);
+      };
+    }
+  }, []);
+
   return (
     <>
-      <Script src="https://www.googletagmanager.com/gtag/js?id=G-GY58MNR1C0" strategy="afterInteractive" />
+      {/* Google Analytics */}
+      <Script src="https://www.googletagmanager.com/gtag/js?id=G-R79DZ5MNVW" strategy="afterInteractive" />
       <Script id="gtag-init" strategy="afterInteractive">{`
 window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
-gtag('config', 'G-GY58MNR1C0');
+gtag('config', 'G-R79DZ5MNVW');
 `}</Script>
+      
+      {/* Microsoft Clarity */}
       <Script id="clarity-script" strategy="afterInteractive">{`
   (function(c,l,a,r,i,t,y){
       c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
       t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
       y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-  })(window, document, "clarity", "script", "soy2grvr91");
+  })(window, document, "clarity", "script", "sp27h402gc");
  `}</Script>
- <Script defer src="https://umami.caydock.com/script.js" data-website-id="0e516cec-cb7c-42dc-bc80-679b4f00adeb"></Script>
+      
+      {/* Umami Analytics */}
+      <Script 
+        data-id="umami-script"
+        defer 
+        src="https://umami.caydock.com/script.js" 
+        data-website-id="a1726c23-3e9b-4772-bf42-d8c17539c258"
+        data-domains="caydock.com"
+      />
     </>
   )
 }

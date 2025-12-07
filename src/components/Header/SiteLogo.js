@@ -8,12 +8,10 @@ const SiteLogo = () => {
   const isEnglishSite = !nextPathname.startsWith('/zh-cn');
   const actualLocale = isEnglishSite ? 'en' : 'zh-cn';
   
-  // 对于中文站点，确保跳转到 /zh-cn/，而不是根目录
-  // 对于英文站点，跳转到根目录 /
-  const homeHref = actualLocale === 'zh-cn' ? '/zh-cn' : '/';
-  
+  // 始终使用根路径 "/"，让 SmartLink 根据 locale 自动处理语言前缀
+  // SmartLink 会根据 locale 自动添加语言前缀（对于 zh-cn）或不添加（对于 en）
   return (
-    <SmartLink href={homeHref} locale={actualLocale} className="flex items-center text-dark dark:text-light font-bold text-xl">
+    <SmartLink href="/" locale={actualLocale} className="flex items-center text-dark dark:text-light font-bold text-xl">
       CayDock
     </SmartLink>
   )

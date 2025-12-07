@@ -13,6 +13,21 @@ const siteMetadata = {
     github: 'https://github.com/caydock',
     twitter: 'https://twitter.com/caydock',
     locale: 'en-US',
+    // Giscus 评论系统配置
+    giscus: {
+      enable: true,
+      repo: 'caydock/CayDock',
+      repoId: 'R_kgDOPPGM_g',
+      category: 'Announcements',
+      categoryId: 'DIC_kwDOPPGM_s4Cvark',
+      mapping: 'pathname',
+      strict: '0',
+      reactionsEnabled: '1',
+      emitMetadata: '0',
+      inputPosition: 'bottom',
+      theme: 'preferred_color_scheme',
+      loading: 'lazy',
+    },
   }
   
   module.exports = siteMetadata
