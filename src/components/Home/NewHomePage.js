@@ -1,5 +1,6 @@
 "use client";
 import React from 'react';
+import Image from 'next/image';
 import { blogs } from '@/.velite/generated';
 import { sortBlogs } from '@/src/utils';
 import HomeHeroSection from './HomeHeroSection';
@@ -21,7 +22,35 @@ const NewHomePage = () => {
   const recentBlogs = sortedBlogs.slice(0, 6); // 显示最新6篇文章
 
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen">
+    <>
+      {/* 固定全局背景图片 */}
+      <div className="fixed top-0 left-0 w-full h-full z-0">
+        <Image
+          src="/images/about-bg.jpg"
+          alt="Home background"
+          fill
+          className="object-cover object-center"
+          priority
+          sizes="100vw"
+        />
+        {/* 渐变遮罩 */}
+        <div 
+          className="absolute top-0 left-0 right-0 bottom-0"
+          style={{
+            background: 'linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.1) 5%, rgba(0, 0, 0, 0.1) 40%, rgba(0, 0, 0, 0.03) 48%, transparent 5%)'
+          }}
+        />
+      </div>
+      
+      {/* 渐变背景遮罩 */}
+      <div className="dark:hidden fixed inset-0 z-[1]" style={{
+        background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.4) 2%, rgba(255, 255, 255, 0.7) 5%,  rgba(255, 255, 255, 0.9) 10%,  rgba(255, 255, 255, 0.98) 100%)'
+      }} />
+      <div className="hidden dark:block fixed inset-0 z-[1]" style={{
+        background: 'linear-gradient(to bottom, rgba(26, 26, 26, 0.2) 0%, rgba(26, 26, 26, 0.4) 5%, rgba(26, 26, 26, 0.7) 10%, rgba(26, 26, 26, 0.9) 100%)'
+      }} />
+      
+      <main className="relative z-10 flex flex-col items-center justify-center min-h-screen pt-20 md:pt-32">
       {/* Hero Section */}
       <HomeHeroSection />
       
@@ -38,7 +67,7 @@ const NewHomePage = () => {
               </p>
             </div>
             <SmartLink
-              href="/categories/all"
+              href="/posts"
               locale={locale}
               className="inline-block font-medium text-accent dark:text-accentDark underline underline-offset-2 text-sm md:text-base"
             >
@@ -57,7 +86,8 @@ const NewHomePage = () => {
           </div>
         </section>
       )}
-    </main>
+      </main>
+    </>
   );
 };
 

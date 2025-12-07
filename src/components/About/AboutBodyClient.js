@@ -1,43 +1,70 @@
 "use client";
 import { useTranslations, useLocale } from 'next-intl';
 import SmartLink from '../Elements/SmartLink';
+import PageTemplate from '../PageTemplate/PageTemplate';
+import { useMemo } from 'react';
 
 export default function AboutBodyClient() {
   const t = useTranslations('ui');
   const locale = useLocale();
   const language = locale === 'zh-cn' ? 'zh' : 'en';
+  
+  // 计算字数
+  const wordCount = useMemo(() => {
+    const content = [
+      t('about.aboutDesc'),
+      t('about.domainDesc'),
+      t('about.contactTitle'),
+      t('about.contactEmailPrefix'),
+      t('about.contactSubmitPrefix'),
+      t('about.contactSubmitSuffix'),
+    ].join('');
+    return content.length;
+  }, [t]);
+
   return (
-    <section className="max-w-7xl mx-auto px-5 sm:px-10 mt-10 mb-10 md:mt-14 text-dark dark:text-light leading-relaxed">
-      <h2 className="text-2xl md:text-3xl font-semibold">{t('about.aboutTitle')}</h2>
-      <p className="mt-4 text-base md:text-lg">{t('about.aboutDesc')}</p>
+    <PageTemplate
+      backgroundImage="/images/about-bg.jpg"
+      title={t('about.aboutTitle')}
+      breadcrumb="Pages /"
+      metadata={{
+        date: new Date().toLocaleDateString(locale === 'zh-cn' ? 'zh-CN' : 'en-US', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        }),
+        wordCount,
+        readingTime: locale === 'zh-cn' ? '1分钟' : '1 min'
+      }}
+      heroHeight="h-[40vh] sm:h-[50vh] md:h-[60vh]"
+      locale={locale}
+    >
+      <section className="text-dark dark:text-light leading-relaxed">
+        <h2 className="text-2xl md:text-3xl font-semibold mb-4">{t('about.aboutTitle')}</h2>
+        <p className="text-base md:text-lg mb-6">{t('about.aboutDesc')}</p>
 
-      <h3 className="mt-8 text-xl md:text-2xl font-semibold">{t('about.domainTitle')}</h3>
-      <p className="mt-3 text-base md:text-lg">{t('about.domainDesc')}</p>
+        <h3 className="mt-8 text-xl md:text-2xl font-semibold mb-3">{t('about.domainTitle')}</h3>
+        <p className="text-base md:text-lg mb-6">{t('about.domainDesc')}</p>
 
-      <h3 className="mt-8 text-xl md:text-2xl font-semibold">{t('about.contactTitle')}</h3>
-      <p className="mt-3 text-base md:text-lg">
-        {t('about.contactEmailPrefix')}
-        <a className="underline underline-offset-2 ml-1" href="mailto:cay.dev@hotmail.com">cay.dev@hotmail.com</a>
-        。 {t('about.contactSubmitPrefix')}
-        <SmartLink href="/submit" locale={locale} className="mx-1 underline underline-offset-2">{t('about.contactSubmitLink')}</SmartLink>
-        {t('about.contactSubmitSuffix')}
-      </p>
+        <h3 className="mt-8 text-xl md:text-2xl font-semibold mb-3">{t('about.contactTitle')}</h3>
+        <p className="text-base md:text-lg mb-6">
+          {t('about.contactEmailPrefix')}
+          <a className="underline underline-offset-2 ml-1" href="mailto:cay.dev@hotmail.com">cay.dev@hotmail.com</a>
+          {locale === 'zh-cn' ? '。' : '. '}
+          {t('about.contactSubmitPrefix')}
+          <SmartLink href="/submit" locale={locale} className="mx-1 underline underline-offset-2">{t('about.contactSubmitLink')}</SmartLink>
+          {t('about.contactSubmitSuffix')}
+        </p>
 
-      {language === 'zh' && (
-        <>
-          <h3 className="mt-8 text-xl md:text-2xl font-semibold">{t('about.wechatTitle')}</h3>
-          <p className="mt-3 text-base md:text-lg">{t('about.wechatDesc')}</p>
-          {/* <div className="mt-4 flex justify-start">
-            <img 
-              src="/static/weixin-qrcode.jpg" 
-              alt="W3Cay 微信公众号二维码" 
-              className="w-full md:max-w-[400px] h-auto rounded-lg shadow-md"
-            />
-          </div> */}
-        </>
-      )}
+        {language === 'zh' && (
+          <>
+            <h3 className="mt-8 text-xl md:text-2xl font-semibold mb-3">{t('about.wechatTitle')}</h3>
+            <p className="text-base md:text-lg mb-6">{t('about.wechatDesc')}</p>
+          </>
+        )}
 
-      <p className="mt-8 text-base md:text-lg text-dark/80 dark:text-light/80">{t('about.outro')}</p>
-    </section>
+        <p className="mt-8 text-base md:text-lg text-dark/80 dark:text-light/80">{t('about.outro')}</p>
+      </section>
+    </PageTemplate>
   );
 }

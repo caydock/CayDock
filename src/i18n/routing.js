@@ -19,7 +19,7 @@ export const routing = defineRouting({
     // single external path can be provided.
     '/': '/',
     '/about': '/about',
-    '/blog': '/blog',
+    '/posts': '/posts',
     '/contact': '/contact',
     '/submit': '/submit',
     '/terms-of-service': '/terms-of-service',
@@ -27,9 +27,9 @@ export const routing = defineRouting({
     '/disclaimer': '/disclaimer',
     '/subscribe': '/subscribe',
     '/products': '/products',
-    '/categories': '/categories',
-    '/categories/[slug]': '/categories/[slug]',
-    '/blog/[slug]': '/blog/[slug]'
+    '/tags': '/tags',
+    '/tags/[slug]': '/tags/[slug]',
+    '/posts/[slug]': '/posts/[slug]'
   }
 });
 

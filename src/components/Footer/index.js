@@ -37,7 +37,7 @@ const Footer = () => {
   };
 
   return (
-    <footer className="flex flex-col items-center text-dark dark:text-light relative bg-light dark:bg-dark">
+    <footer className="flex flex-col items-center text-dark dark:text-light relative bg-light dark:bg-dark z-20">
       <div className="w-full max-w-7xl mx-auto relative font-medium border-t border-solid border-dark/10 dark:border-light/10 py-6 px-5 sm:px-8 flex flex-col md:flex-row items-center justify-between">
         <span className="text-center text-base sm:text-base">
           &copy;2025 CayDock. {t('footer.allRights')}
@@ -55,23 +55,6 @@ const Footer = () => {
               CayDock
             </a>
           </span>
-          {isEnglishSite ? (
-            <SmartLink
-              href={`/zh-cn${nextPathname}`}
-              className="ml-2 px-3 py-1 rounded-full border border-solid border-dark/20 dark:border-light/20 text-sm bg-transparent hover:bg-dark/10 dark:hover:bg-light/10 transition-colors"
-              aria-label="language-switcher-footer"
-            >
-              中文
-            </SmartLink>
-          ) : (
-            <SmartLink
-              href={nextPathname.replace('/zh-cn', '') || '/'}
-              className="ml-2 px-3 py-1 rounded-full border border-solid border-dark/20 dark:border-light/20 text-sm bg-transparent hover:bg-dark/10 dark:hover:bg-light/10 transition-colors"
-              aria-label="language-switcher-footer"
-            >
-              EN
-            </SmartLink>
-          )}
         </div>
       </div>
     </footer>

@@ -13,6 +13,7 @@ export async function generateMetadata() {
       absolute: t('home.title')
     },
     description: t('home.description'),
+    keywords: t('home.keywords'),
     alternates: {
       canonical: `${siteMetadata.siteUrl}/`,
       languages: {

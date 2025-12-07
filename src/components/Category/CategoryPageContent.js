@@ -1,7 +1,6 @@
 import { blogs } from '@/.velite/generated'
 import BlogLayoutThree from "@/src/components/Blog/BlogLayoutThree";
 import Categories from "@/src/components/Blog/Categories";
-import BreadcrumbServer from "@/src/components/Blog/BreadcrumbServer";
 import { slug } from "github-slugger";
 import { getServerTranslation } from "@/src/i18n";
 
@@ -94,31 +93,17 @@ export default function CategoryPageContent({ categorySlug, locale, language }) 
     return categorySlug.replaceAll("-", " ").replace(/\b\w/g, l => l.toUpperCase());
   };
 
-  const breadcrumbItems = [
-    {
-      label: tdk.breadcrumb.blog,
-      href: "/blog"
-    },
-    {
-      label: tdk.breadcrumb.categories,
-      href: "/categories/all"
-    },
-    {
-      label: getCategoryLabel(categorySlug),
-      href: `/categories/${categorySlug}`
-    }
-  ];
-
   return (
-    <article className="mt-12 flex flex-col text-dark dark:text-light max-w-7xl mx-auto">
-      <BreadcrumbServer items={breadcrumbItems} homeLabel={tdk.nav.home} locale={locale} />
+    <article className="mt-12 pt-24 flex flex-col text-dark dark:text-light max-w-7xl mx-auto">
       <div className="px-5 sm:px-10 md:px-10 flex flex-col">
         <h1 className="mt-6 font-semibold text-2xl md:text-4xl lg:text-5xl capitalize">#{getCategoryLabel(categorySlug)}</h1>
         <span className="mt-10 inline-block">
           {tdk.blog.categorySubtitle}
         </span>
       </div>
-      <Categories categories={allCategories} currentSlug={categorySlug} lang={locale} getCategoryLabel={getCategoryLabel} />
+      <div className="px-5 sm:px-10 md:px-10">
+        <Categories categories={allCategories} currentSlug={categorySlug} lang={locale} getCategoryLabel={getCategoryLabel} />
+      </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-16 mt-5 sm:mt-10 md:mt-24 sxl:mt-32 px-5 sm:px-10 md:px-10 mb-10">
         {filteredBlogs.map((blog, index) => (

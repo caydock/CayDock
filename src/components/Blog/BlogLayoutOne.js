@@ -28,7 +28,7 @@ const BlogLayoutOne = ({ blog, lang }) => {
       />
 
       <div className="w-full absolute bottom-0 p-4 xs:p-6 sm:p-10 z-20">
-        <Tag link={`/categories/${blog.tagKeys && blog.tagKeys.length > 0 ? blog.tagKeys[0] : slug(blog.tags[0])}`} name={blog.tags[0]} locale={lang}
+        <Tag link={`/tags/${blog.tagKeys && blog.tagKeys.length > 0 ? blog.tagKeys[0] : slug(blog.tags[0])}`} name={blog.tags[0]} locale={lang}
         className="px-6 text-xs sm:text-sm py-1 sm:py-2 !border "
         />
         <SmartLink href={blogUrl || '#'} locale={lang} className="mt-6">

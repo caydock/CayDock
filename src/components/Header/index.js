@@ -12,12 +12,17 @@ import { usePathname as useNextPathname } from 'next/navigation';
 const Header = () => {
   const [mode, setMode] = useThemeSwitch();
   const [open, setOpen] = useState(false);
-  const [showSearch, setShowSearch] = useState(false);
+  const [showLangDropdown, setShowLangDropdown] = useState(false);
   const nextPathname = useNextPathname();
   
   // 判断是否为英文站（根目录）- 使用真实的浏览器路径
   const isEnglishSite = !nextPathname.startsWith('/zh-cn');
   const actualLocale = isEnglishSite ? 'en' : 'zh-cn';
+  
+  // 获取不包含语言前缀的路径
+  const cleanPathname = isEnglishSite 
+    ? nextPathname 
+    : (nextPathname.replace('/zh-cn', '') || '/');
   
   // 根据实际语言获取翻译
   const defaultT = useTranslations('ui');
@@ -53,40 +58,73 @@ const Header = () => {
 
         {/* Desktop top nav - Center */}
         <nav className="hidden sm:flex items-center gap-6 font-medium">
-        <SmartLink href="/blog" locale={actualLocale} className="text-dark dark:text-light hover:opacity-70 transition-opacity">{t('blog.title')}</SmartLink>
+        <SmartLink href="/posts" locale={actualLocale} className="text-dark dark:text-light hover:opacity-70 transition-opacity">{t('blog.title')}</SmartLink>
         <SmartLink href="/products" locale={actualLocale} className="text-dark dark:text-light hover:opacity-70 transition-opacity">{actualLocale === 'zh-cn' ? '产品' : 'Products'}</SmartLink>
         <SmartLink href="/about" locale={actualLocale} className="text-dark dark:text-light hover:opacity-70 transition-opacity">{t('nav.about')}</SmartLink>
         <SmartLink href="/subscribe" locale={actualLocale} className="text-dark dark:text-light hover:opacity-70 transition-opacity">{actualLocale === 'zh-cn' ? '订阅' : 'Subscribe'}</SmartLink>
-        <SmartLink href="/categories/all" locale={actualLocale} className="text-dark dark:text-light hover:opacity-70 transition-opacity">{actualLocale === 'zh-cn' ? '标签' : 'Tags'}</SmartLink>
+        <SmartLink href="/tags" locale={actualLocale} className="text-dark dark:text-light hover:opacity-70 transition-opacity">{actualLocale === 'zh-cn' ? '标签' : 'Tags'}</SmartLink>
         </nav>
 
         {/* Right side - Actions */}
         <div className="flex items-center gap-3">
-        {/* Search button */}
-        <button onClick={() => setShowSearch(!showSearch)} className="w-6 h-6 flex items-center justify-center" aria-label="search">
-          <svg className="w-full h-full fill-dark dark:fill-light" viewBox="0 0 24 24">
-            <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
-          </svg>
-        </button>
-        
-        {/* Language switcher */}
-        {isEnglishSite ? (
-          <SmartLink
-            href={`/zh-cn${nextPathname}`}
-            className="px-2 py-1 text-xs font-bold bg-blue-500 text-white"
+        {/* Language switcher - Dropdown */}
+        <div className="relative">
+          <button
+            onClick={() => setShowLangDropdown(!showLangDropdown)}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-md border border-dark/20 dark:border-light/20 bg-light dark:bg-dark text-dark dark:text-light hover:bg-dark/5 dark:hover:bg-light/5 transition-colors"
             aria-label="language-switcher"
+            aria-expanded={showLangDropdown}
           >
-            中文
-          </SmartLink>
-        ) : (
-          <SmartLink
-            href={nextPathname.replace('/zh-cn', '') || '/'}
-            className="px-2 py-1 text-xs font-bold bg-green-500 text-white"
-            aria-label="language-switcher"
-          >
-            EN
-          </SmartLink>
-        )}
+            {/* Language Icon */}
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
+            </svg>
+            <span className="text-sm font-medium">{actualLocale === 'zh-cn' ? '中文' : 'EN'}</span>
+            {/* Dropdown Arrow */}
+            <svg 
+              className={`w-3 h-3 transition-transform ${showLangDropdown ? 'rotate-180' : ''}`} 
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          
+          {/* Dropdown Menu */}
+          {showLangDropdown && (
+            <>
+              {/* Backdrop */}
+              <div 
+                className="fixed inset-0 z-40" 
+                onClick={() => setShowLangDropdown(false)}
+                aria-hidden="true"
+              />
+              {/* Menu */}
+              <div className="absolute right-0 top-full mt-2 w-32 bg-light dark:bg-dark border border-dark/20 dark:border-light/20 rounded-md shadow-lg z-50 overflow-hidden">
+                {isEnglishSite ? (
+                  <SmartLink
+                    href={cleanPathname}
+                    locale="zh-cn"
+                    className="block px-4 py-2 text-sm text-dark dark:text-light hover:bg-dark/5 dark:hover:bg-light/5 transition-colors"
+                    onClick={() => setShowLangDropdown(false)}
+                  >
+                    中文
+                  </SmartLink>
+                ) : (
+                  <SmartLink
+                    href={cleanPathname}
+                    locale="en"
+                    className="block px-4 py-2 text-sm text-dark dark:text-light hover:bg-dark/5 dark:hover:bg-light/5 transition-colors"
+                    onClick={() => setShowLangDropdown(false)}
+                  >
+                    English
+                  </SmartLink>
+                )}
+              </div>
+            </>
+          )}
+        </div>
         
         {/* Theme switcher */}
         <button onClick={() => setMode(mode === "light" ? "dark" : "light")} className={cx("w-6 h-6 flex items-center justify-center", mode === "light" ? "text-dark" : "text-light")} aria-label="theme-switcher">
@@ -128,35 +166,37 @@ const Header = () => {
           </button>
         </div>
         <nav className="flex flex-col p-4 gap-3 text-lg dark:text-light">
-          <SmartLink href="/blog" locale={actualLocale} onClick={() => setOpen(false)}>{t('blog.title')}</SmartLink>
+          <SmartLink href="/posts" locale={actualLocale} onClick={() => setOpen(false)}>{t('blog.title')}</SmartLink>
           <SmartLink href="/products" locale={actualLocale} onClick={() => setOpen(false)}>{actualLocale === 'zh-cn' ? '产品' : 'Products'}</SmartLink>
           <SmartLink href="/about" locale={actualLocale} onClick={() => setOpen(false)}>{t('nav.about')}</SmartLink>
           <SmartLink href="/subscribe" locale={actualLocale} onClick={() => setOpen(false)}>{actualLocale === 'zh-cn' ? '订阅' : 'Subscribe'}</SmartLink>
-          <SmartLink href="/categories/all" locale={actualLocale} onClick={() => setOpen(false)}>{actualLocale === 'zh-cn' ? '标签' : 'Tags'}</SmartLink>
-          <button onClick={() => { setShowSearch(!showSearch); setOpen(false); }} className="mt-2 w-6 h-6 rounded-full flex items-center justify-center" aria-label="search">
-            <svg className="w-full h-full fill-dark dark:fill-light" viewBox="0 0 24 24">
-              <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+          <SmartLink href="/tags" locale={actualLocale} onClick={() => setOpen(false)}>{actualLocale === 'zh-cn' ? '标签' : 'Tags'}</SmartLink>
+          <div className="mt-2 flex items-center gap-2">
+            <svg className="w-5 h-5 fill-dark dark:fill-light" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
             </svg>
-          </button>
-          {isEnglishSite ? (
-            <SmartLink
-              href={`/zh-cn${nextPathname}`}
-              className="mt-2 px-3 py-1 text-xs font-bold bg-blue-500 text-white"
-              onClick={() => setOpen(false)}
-              aria-label="language-switcher"
-            >
-              中文
-            </SmartLink>
-          ) : (
-            <SmartLink
-              href={nextPathname.replace('/zh-cn', '') || '/'}
-              className="mt-2 px-3 py-1 text-xs font-bold bg-green-500 text-white"
-              onClick={() => setOpen(false)}
-              aria-label="language-switcher"
-            >
-              EN
-            </SmartLink>
-          )}
+            {isEnglishSite ? (
+              <SmartLink
+                href={`/zh-cn${nextPathname}`}
+                locale="zh-cn"
+                className="text-sm font-medium text-dark dark:text-light hover:opacity-70 transition-opacity"
+                onClick={() => setOpen(false)}
+                aria-label="language-switcher"
+              >
+                中文
+              </SmartLink>
+            ) : (
+              <SmartLink
+                href={nextPathname.replace('/zh-cn', '') || '/'}
+                locale="en"
+                className="text-sm font-medium text-dark dark:text-light hover:opacity-70 transition-opacity"
+                onClick={() => setOpen(false)}
+                aria-label="language-switcher"
+              >
+                English
+              </SmartLink>
+            )}
+          </div>
           <button onClick={() => { setMode(mode === "light" ? "dark" : "light"); }} className={cx("mt-2 w-6 h-6 rounded-full flex items-center justify-center border", mode === "light" ? "bg-dark text-light" : "bg-light text-dark")} aria-label="theme-switcher">
             {mode === "light" ? <MoonIcon className={"fill-current"} /> : <SunIcon className={"fill-current"} />}
           </button>

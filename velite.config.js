@@ -31,9 +31,11 @@ const blog = s
     language: s.string().default('en'),
   })
   .transform((data) => {
+    // 优先使用 key，如果没有 key 则使用 slug（保持与旧项目一致）
+    const urlSlug = data.key || data.slug;
     return {
       ...data,
-      url: `/blog/${data.slug}`,
+      url: `/posts/${urlSlug}`,
       readingTime: readingTime(data.body),
     //   toc: headings,
       image: {

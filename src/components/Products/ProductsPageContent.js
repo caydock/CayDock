@@ -1,5 +1,6 @@
 "use client";
 import { memo, useMemo } from 'react';
+import Image from 'next/image';
 import { useTranslations, useLocale } from 'next-intl';
 import ProductCard from './ProductCard';
 
@@ -44,7 +45,37 @@ const ProductsPageContent = memo(function ProductsPageContent({ locale: propLoca
   ], [t]);
 
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen py-12">
+    <>
+      {/* 固定全局背景图片 */}
+      <div className="fixed top-0 left-0 w-full h-full z-0">
+        <Image
+          src="/images/about-bg.jpg"
+          alt="Products background"
+          fill
+          className="object-cover object-center"
+          priority
+          sizes="100vw"
+        />
+        {/* 渐变遮罩 */}
+        <div 
+          className="absolute top-0 left-0 right-0 bottom-0"
+          style={{
+            background: 'linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.1) 5%, rgba(0, 0, 0, 0.1) 40%, rgba(0, 0, 0, 0.03) 48%, transparent 5%)'
+          }}
+        />
+      </div>
+      
+      {/* 渐变背景遮罩 - 覆盖整个页面 */}
+      <div className="dark:hidden fixed top-0 left-0 right-0 bottom-0 z-[1]" style={{
+        background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.4) 2%, rgba(255, 255, 255, 0.7) 5%,  rgba(255, 255, 255, 0.9) 10%,  rgba(255, 255, 255, 0.98) 100%)',
+        minHeight: '100vh'
+      }} />
+      <div className="hidden dark:block fixed top-0 left-0 right-0 bottom-0 z-[1]" style={{
+        background: 'linear-gradient(to bottom, rgba(26, 26, 26, 0.2) 0%, rgba(26, 26, 26, 0.4) 5%, rgba(26, 26, 26, 0.7) 10%, rgba(26, 26, 26, 0.9) 100%)',
+        minHeight: '100vh'
+      }} />
+      
+      <main className="relative z-10 flex flex-col items-center justify-center min-h-screen pt-20 md:pt-24 py-12">
       <div className="w-full max-w-7xl mx-auto px-5 sm:px-10">
         {/* Hero Section */}
         <div className="text-center mb-16">
@@ -82,7 +113,8 @@ const ProductsPageContent = memo(function ProductsPageContent({ locale: propLoca
           </div>
         )}
       </div>
-    </main>
+      </main>
+    </>
   );
 });
 

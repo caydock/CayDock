@@ -16,7 +16,7 @@ export default async function sitemap() {
     '/privacy-policy',
     '/terms-of-service',
     '/disclaimer',
-    '/blog',
+    '/posts',
   ].map((p) => ({ url: `${base}${p}`, changefreq: 'weekly', priority: 0.7 }))
 
   // 中文页面（带 /zh-cn/ 前缀）
@@ -28,7 +28,7 @@ export default async function sitemap() {
     '/zh-cn/privacy-policy',
     '/zh-cn/terms-of-service',
     '/zh-cn/disclaimer',
-    '/zh-cn/blog',
+    '/zh-cn/posts',
   ].map((p) => ({ url: `${base}${p}`, changefreq: 'weekly', priority: 0.7 }))
 
   const staticPaths = [...enStaticPaths, ...zhStaticPaths]
@@ -79,14 +79,14 @@ export default async function sitemap() {
 
   // 生成英文标签页面路径
   const enCategoryPaths = enCategories.map((category) => ({
-    url: `${base}/categories/${category}`,
+    url: `${base}/tags/${category}`,
     changefreq: 'weekly',
     priority: 0.6,
   }))
 
   // 生成中文标签页面路径
   const zhCategoryPaths = zhCategories.map((category) => ({
-    url: `${base}/zh-cn/categories/${category}`,
+    url: `${base}/zh-cn/tags/${category}`,
     changefreq: 'weekly',
     priority: 0.6,
   }))

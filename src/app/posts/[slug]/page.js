@@ -8,16 +8,15 @@ import siteMetadata from '@/src/utils/siteMetaData';
 export async function generateStaticParams() {
   const params = [];
 
-  // 为每种语言生成参数
-  ['en', 'zh-cn'].forEach(locale => {
-    const language = locale === 'zh-cn' ? 'zh-cn' : 'en';
-    const languageBlogs = blogs.filter(blog => blog.language === language);
+  // 只为英文生成参数
+  const language = 'en';
+  const languageBlogs = blogs.filter(blog => blog.language === language);
 
-    languageBlogs.forEach(blog => {
-      params.push({
-        locale,
-        slug: blog.slug,
-      });
+  languageBlogs.forEach(blog => {
+    // 优先使用 key，如果没有 key 则使用 slug（保持与旧项目一致）
+    const urlSlug = blog.key || blog.slug;
+    params.push({
+      slug: urlSlug,
     });
   });
 
@@ -25,14 +24,16 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }) {
-  const { locale, slug } = await params;
+  const { slug } = await params;
+  const locale = 'en'; // 根目录默认为英文
   const t = await getTranslations({locale: locale, namespace: 'meta'});
-  const language = locale === 'zh-cn' ? 'zh-cn' : 'en';
+  const language = 'en';
 
-  // 查找对应的博客文章
-  const blog = blogs.find(blog =>
-    blog.slug === slug && blog.language === language
-  );
+  // 查找对应的博客文章（优先通过 key 查找，如果没有 key 则通过 slug 查找）
+  const blog = blogs.find(blog => {
+    const urlSlug = blog.key || blog.slug;
+    return urlSlug === slug && blog.language === language;
+  });
 
   if (!blog) {
     return {
@@ -57,7 +58,7 @@ export async function generateMetadata({ params }) {
 
   const authors = blog?.author ? [blog.author] : siteMetadata.author;
 
-  const currentUrl = `${siteMetadata.siteUrl}/${locale}${blog.url}`;
+  const currentUrl = `${siteMetadata.siteUrl}${blog.url}`;
   
   // 简化的 hreflang 配置，与其他页面保持一致
   const alternateLanguages = generateLanguageLinks(blog.url);
@@ -74,7 +75,7 @@ export async function generateMetadata({ params }) {
       description: blog.description,
       url: currentUrl,
       siteName: siteMetadata.title,
-      locale: language === 'zh' ? "zh_CN" : "en_US",
+      locale: "en_US",
       type: "article",
       publishedTime: publishedAt,
       modifiedTime: modifiedAt,
@@ -91,13 +92,15 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function BlogDetailPage({ params }) {
-  const { locale, slug } = await params;
-  const language = locale === 'zh-cn' ? 'zh-cn' : 'en';
+  const { slug } = await params;
+  const locale = 'en'; // 根目录默认为英文
+  const language = 'en';
 
-  // 查找对应的博客文章
-  const blog = blogs.find(blog =>
-    blog.slug === slug && blog.language === language
-  );
+  // 查找对应的博客文章（优先通过 key 查找，如果没有 key 则通过 slug 查找）
+  const blog = blogs.find(blog => {
+    const urlSlug = blog.key || blog.slug;
+    return urlSlug === slug && blog.language === language;
+  });
 
   if (!blog) {
     notFound();

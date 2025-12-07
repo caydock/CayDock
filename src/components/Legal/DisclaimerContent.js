@@ -6,7 +6,7 @@ export default function DisclaimerContent() {
   const t = useTranslations('ui');
 
   return (
-    <div className="max-w-7xl mx-auto px-5 sm:px-10 py-8">
+    <div className="max-w-7xl mx-auto px-5 sm:px-10 pt-24 pb-8">
       <div className="w-full">
         <h1 className="text-3xl font-bold mb-4">{t('disclaimerPage.title')}</h1>
         {t('disclaimerPage.subtitle') && <p className="text-lg text-gray-600 dark:text-gray-400 mb-8">{t('disclaimerPage.subtitle')}</p>}
