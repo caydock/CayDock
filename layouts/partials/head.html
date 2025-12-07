@@ -7,6 +7,53 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta name="theme-color">
 
+  {{/* Language Detection - Auto redirect based on browser language */}}
+  <script>
+    !function() {
+      'use strict';
+      var path = (window.location.pathname || '/').replace(/\/$/, '') || '/';
+      
+      // 如果已经在中文路径，不执行
+      if (path.indexOf('/zh-cn') === 0) {
+        return;
+      }
+      
+      // 只在根路径执行（首页自动跳转）
+      if (path !== '/' && path !== '/index.html') {
+        return;
+      }
+      
+      // 检测浏览器语言
+      var browserLang = (navigator.language || navigator.userLanguage || navigator.browserLanguage || 'en').toLowerCase();
+      var langCode = browserLang.split('-')[0];
+      
+      // 支持的中文语言代码
+      var chineseLangCodes = ['zh', 'zh-cn', 'zh-tw', 'zh-hk', 'zh-sg', 'zh-mo'];
+      
+      // 检查是否是中文
+      var isChinese = false;
+      for (var i = 0; i < chineseLangCodes.length; i++) {
+        if (browserLang.indexOf(chineseLangCodes[i]) === 0) {
+          isChinese = true;
+          break;
+        }
+      }
+      if (!isChinese && langCode === 'zh') {
+        isChinese = true;
+      }
+      
+      // 如果是中文，跳转到中文版本
+      if (isChinese) {
+        var currentSearch = window.location.search || '';
+        var currentHash = window.location.hash || '';
+        var zhCnPath = '/zh-cn' + currentSearch + currentHash;
+        
+        // 立即跳转，使用 replace 避免历史记录
+        window.location.replace(zhCnPath);
+      }
+    }();
+  </script>
+
   {{/* Title */}}
   {{ if .IsHome -}}
     {{ $pageTitle := .Site.Params.pageTitle | default .Site.Title }}

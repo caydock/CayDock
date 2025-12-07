@@ -16,6 +16,11 @@
   weight = 10
 
 [[main]]
+  name = "产品"
+  url = "https://apps.caydock.com/zh-cn"
+  weight = 15
+
+[[main]]
   name = "关于"
   pageRef = "about"
   weight = 20

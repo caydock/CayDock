@@ -16,6 +16,11 @@
   weight = 10
 
 [[main]]
+  name = "Products"
+  url = "https://apps.caydock.com/"
+  weight = 15
+
+[[main]]
   name = "About"
   pageRef = "about"
   weight = 20

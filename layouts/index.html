@@ -9,7 +9,7 @@
   {{/* 最新博客文章 */}}
   {{ $postsSection := .Site.GetPage "/posts" }}
   {{ if $postsSection }}
-    {{ $latestPosts := $postsSection.RegularPages | first 3 }}
+    {{ $latestPosts := $postsSection.RegularPages | first 6 }}
     {{ if $latestPosts }}
     <section class="mt-20">
       <header class="mb-8">
@@ -34,38 +34,5 @@
       </div>
     </section>
     {{ end }}
-  {{ end }}
-  
-  {{ $products := index .Site.Data (printf "products.%s" .Site.Language.Lang) }}
-  {{ if not $products }}
-    {{ $products = .Site.Data.products }}
-  {{ end }}
-  {{ if $products }}
-  <section class="mt-20">
-    <header class="mb-8">
-      <h2 class="mt-5 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
-        {{ $products.title }}
-      </h2>
-      <p class="mt-1 mb-2 text-base text-neutral-500 dark:text-neutral-400">
-        {{ $products.subtitle }}
-      </p>
-    </header>
-    
-    <div class="products-grid-home">
-      {{ range $products.items }}
-      <a href="{{ .link }}" {{ if hasPrefix .link "http" }}target="_blank"{{ end }} class="product-card-home">
-        <div class="product-content-home">
-          <div class="product-header-home">
-            <img src="{{ .icon }}" alt="{{ .title }} icon" class="product-icon-home" 
-                 onerror="this.onerror=null; this.src='{{ .link }}/favicon.ico'; this.onerror=function(){this.style.display='none'}">
-            <h3 class="product-title-home">{{ .title }}</h3>
-          </div>
-          <p class="product-description-home">{{ .description }}</p>
-          <p class="product-link-home">{{ .link }}</p>
-        </div>
-      </a>
-      {{ end }}
-    </div>
-  </section>
   {{ end }}
 {{ end }}
