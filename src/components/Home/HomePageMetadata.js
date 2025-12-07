@@ -22,11 +22,11 @@ export async function generateHomePageMetadata({ locale, searchParams }) {
           
           return {
             title: {
-              absolute: `${siteTitle} - W3Cay`
+              absolute: `${siteTitle} - CayDock`
             },
             description: description,
             openGraph: {
-              title: `${siteTitle} - W3Cay`,
+              title: `${siteTitle} - CayDock`,
               description: description,
               url: `${siteMetadata.siteUrl}/`,
               siteName: siteMetadata.title,
@@ -35,7 +35,7 @@ export async function generateHomePageMetadata({ locale, searchParams }) {
                   url: `${siteMetadata.siteUrl}${siteMetadata.socialBanner}`,
                   width: 1200,
                   height: 630,
-                  alt: `${siteTitle} - W3Cay`,
+                  alt: `${siteTitle} - CayDock`,
                 }
               ],
               locale: locale,
@@ -43,7 +43,7 @@ export async function generateHomePageMetadata({ locale, searchParams }) {
             },
             twitter: {
               card: 'summary_large_image',
-              title: `${siteTitle} - W3Cay`,
+              title: `${siteTitle} - CayDock`,
               description: description,
               images: [`${siteMetadata.siteUrl}${siteMetadata.socialBanner}`],
             },
@@ -57,7 +57,7 @@ export async function generateHomePageMetadata({ locale, searchParams }) {
         }
       } else {
         // 网站不存在，返回未找到的标题
-        const notFoundTitle = `${t('discover.notFound')} - W3Cay`;
+        const notFoundTitle = `${t('discover.notFound')} - CayDock`;
         const notFoundDescription = t('discover.notFoundDesc');
         
         return {

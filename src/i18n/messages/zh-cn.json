@@ -1,44 +1,81 @@
 {
   "meta": {
     "home": {
-      "title": "W3Cay - 探索全球有趣网站的宝藏小岛",
-      "description": "W3Cay是一个有趣的网络小岛，收集各种奇怪和无用的网站。发现随机网站，探索数字世界中无尽的奇妙之处。",
-      "keywords": "有趣网站,有趣网站,无聊按钮,无用网站,随机网站,W3Cay"
+      "title": "你好，我是 Cayden。",
+      "description": "CayDock 是我的个人产品导航网站，记录我在独立开发中遇到的挑战、经历和成长，希望能为其他独立开发者提供一些启发和帮助",
+      "keywords": "个人博客,独立开发者,技术博客,编程,开发经验,CayDock"
     },
     "about": {
-      "title": "关于我们",
-      "description": "W3Cay是一个\"兴趣小岛\"，致力于收集和分享有趣的网站、工具、游戏和AI体验，为您的日常生活带来灵感和快乐。",
-      "keywords": "关于我们,网站介绍,团队介绍,网站理念,W3Cay,兴趣小岛"
+      "title": "关于",
+      "description": "记录我的所做所想与成长。CayDock 是我的个人产品导航网站，记录我在独立开发中遇到的挑战、经历和成长，希望能为其他独立开发者提供一些启发和帮助。",
+      "keywords": "关于,个人博客,独立开发者,技术分享,CayDock"
     },
     "contact": {
       "title": "联系我们",
-      "description": "联系W3Cay团队获取支持、反馈或合作机会。我们致力于为您提供最佳的网站发现体验。",
-      "keywords": "联系我们,网站反馈,合作,技术支持,W3Cay,网站发现"
+      "description": "联系CayDock获取支持、反馈或合作机会。",
+      "keywords": "联系我们,反馈,合作,技术支持,CayDock"
     },
     "submit": {
       "title": "提交网站",
-      "description": "向W3Cay提交有趣、奇怪或无用的网站。分享您发现的精彩网站，让更多人探索数字世界的有趣角落。",
-      "keywords": "提交网站,推荐网站,分享网站,有趣网站,W3Cay,网站分享"
+      "description": "向CayDock提交有趣的网站。分享您发现的精彩网站。",
+      "keywords": "提交网站,推荐网站,分享网站,CayDock"
     },
     "terms": {
       "title": "服务条款",
-      "description": "W3Cay服务条款。了解使用我们网站时的权利和义务。我们致力于提供透明和公平的服务体验。",
-      "keywords": "服务条款,使用条款,网站条款,法律条款,W3Cay,网站使用"
+      "description": "CayDock 网站服务条款和条件。了解使用我们网站时的权利和义务。",
+      "keywords": "服务条款,使用条款,网站条款,法律条款,CayDock"
     },
     "privacy": {
       "title": "隐私政策",
-      "description": "W3Cay隐私政策。了解我们如何收集、使用和保护您的个人信息。我们重视您的隐私权利。",
-      "keywords": "隐私政策,数据保护,个人信息,隐私权利,W3Cay,数据安全"
+      "description": "我们如何收集、使用和保护您的信息。了解CayDock的隐私政策。",
+      "keywords": "隐私政策,数据保护,个人信息,隐私权利,CayDock"
     },
     "disclaimer": {
       "title": "免责声明",
-      "description": "W3Cay免责声明。了解我们关于第三方内容的免责声明。我们致力于提供准确和合法的网站信息。",
-      "keywords": "免责声明,法律声明,第三方内容,免责条款,W3Cay,法律信息"
+      "description": "重要法律免责声明和限制。了解CayDock关于第三方内容的免责声明。",
+      "keywords": "免责声明,法律声明,第三方内容,免责条款,CayDock"
+    },
+    "subscribe": {
+      "title": "订阅",
+      "description": "获取最新内容更新。订阅CayDock，获取技术分享和独立开发经验。",
+      "keywords": "订阅,RSS,微信公众号,内容更新,CayDock"
+    },
+    "products": {
+      "title": "产品",
+      "subtitle": "发现我们的创新工具和服务集合",
+      "empty": "暂无产品",
+      "musicCover": {
+        "name": "音乐专辑封面查询",
+        "description": "免费的音乐封面搜索工具，支持搜索专辑、歌曲和音乐视频封面",
+        "category": "音乐工具",
+        "link": "https://musiccover.caydock.com"
+      },
+      "w3cay": {
+        "name": "W3Cay",
+        "description": "W3Cay 是一个有趣的网站集合平台，收集各种有趣的网站",
+        "category": "网站集合",
+        "link": "https://w3cay.com",
+        "icon": "https://w3cay.com/favicon-96x96.png"
+      },
+      "qrcay": {
+        "name": "QrCay",
+        "description": "QrCay 是一个二维码生成和管理工具",
+        "category": "二维码工具",
+        "link": "https://qrcay.com",
+        "icon": "https://qrcay.com/vite.svg"
+      },
+      "timecay": {
+        "name": "TimeCay",
+        "description": "时间记录工具，支持倒计时、纪念日等",
+        "category": "时间工具",
+        "link": "https://timecay.com",
+        "icon": "https://timecay.com/favicon.ico"
+      }
     },
     "blog": {
       "title": "博客",
       "description": "阅读关于编程、技术和更多主题的博客文章。分享我的想法、教程和故事。",
-      "keywords": "博客,技术文章,编程教程,开发经验,技术分享,W3Cay博客"
+      "keywords": "博客,技术文章,编程教程,开发经验,技术分享,CayDock博客"
     },
     "categories": {
       "all": "所有分类",
@@ -50,7 +87,7 @@
     "discover": {
       "notFound": "找不到了",
       "notFoundDesc": "这个网站可能已经不存在了，点击下方按钮继续探索吧！",
-      "siteDescription": "在 W3Cay 发现有趣网站：{title}。探索数字世界中的奇妙网站，发现更多有趣内容。"
+      "siteDescription": "在 CayDock 发现有趣网站：{title}。探索数字世界中的奇妙网站，发现更多有趣内容。"
     }
   },
   "ui": {
@@ -58,7 +95,7 @@
       "home": "首页",
       "blog": "博客",
       "submit": "推荐投稿",
-      "about": "关于本站",
+      "about": "关于",
       "contact": "联系我们"
     },
     "blog": {
@@ -89,14 +126,14 @@
       }
     },
     "footer": {
-      "title": "探索全球有趣网站的宝藏小岛",
-      "description": "W3Cay是一个有趣的网络小岛，收集各种奇怪和无用的网站。发现随机网站，探索数字世界中无尽的奇妙奇观。",
+      "title": "个人博客与项目展示",
+      "description": "CayDock 是我的个人产品导航网站，记录我在独立开发中遇到的挑战、经历和成长，希望能为其他独立开发者提供一些启发和帮助",
       "sitemap": "站点地图",
       "allRights": "保留所有权利。",
       "madeWithBy": "用 ❤️ 制作，开发者"
     },
-    "subtitle": "点击下方按钮，开始探索有趣网站",
-    "heroTitle": "探索全球有趣网站的宝藏小岛",
+    "subtitle": "记录我的所做所想与成长",
+    "heroTitle": "你好，我是 Cayden。",
     "legal": {
       "terms": "服务条款",
       "privacy": "隐私政策",
@@ -109,86 +146,221 @@
     },
     "share": {
       "share": "分享：",
-      "defaultDescription": "在W3Cay发现令人惊叹的有趣网站！",
+      "defaultDescription": "在CayDock发现令人惊叹的有趣网站！",
       "linkCopied": "链接已复制到剪贴板！"
+    },
+    "products": {
+      "title": "产品",
+      "subtitle": "发现我们的创新工具和服务集合",
+      "empty": "暂无产品",
+      "musicCover": {
+        "name": "音乐专辑封面查询",
+        "description": "免费的音乐封面搜索工具，支持搜索专辑、歌曲和音乐视频封面",
+        "category": "音乐工具",
+        "link": "https://musiccover.caydock.com"
+      },
+      "w3cay": {
+        "name": "W3Cay",
+        "description": "W3Cay 是一个有趣的网站集合平台，收集各种有趣的网站",
+        "category": "网站集合",
+        "link": "https://w3cay.com/zh-cn/",
+        "icon": "https://w3cay.com/favicon-96x96.png"
+      },
+      "qrcay": {
+        "name": "QrCay",
+        "description": "QrCay 是一个二维码生成和管理工具",
+        "category": "二维码工具",
+        "link": "https://qrcay.com",
+        "icon": "https://qrcay.com/vite.svg"
+      },
+      "timecay": {
+        "name": "TimeCay",
+        "description": "时间记录工具，支持倒计时、纪念日等",
+        "category": "时间工具",
+        "link": "https://timecay.com",
+        "icon": "https://timecay.com/favicon.ico"
+      }
     },
     "terms": {
       "title": "服务条款",
-      "intro": "欢迎使用 W3Cay。访问或使用本网站即表示你同意遵守本服务条款。",
-      "useTitle": "服务使用",
-      "use1": "W3Cay 仅整理与分享第三方网站的链接，不托管也不控制外部内容。",
-      "use2": "你承诺不将 W3Cay 用于任何违法或未授权的目的。",
-      "use3": "我们可能会在不通知的情况下更新或移除内容。",
-      "ipTitle": "知识产权",
-      "ipText": "W3Cay 上的商标、标识与图片归其权利人所有，第三方内容仅用于识别与评论。",
-      "linksTitle": "第三方链接",
-      "linksText": "W3Cay 可能包含由第三方提供或维护的外部网站链接，我们不保证其准确性或完整性。",
-      "liabilityTitle": "责任限制",
-      "liabilityText": "W3Cay 按\"现状\"和\"可用性\"提供，对任何形式的担保与由此产生的损害概不负责。",
-      "changesTitle": "条款变更",
-      "changesText": "我们可能随时修改本条款，继续使用即表示接受变更后的条款。",
-      "contactTitle": "联系",
-      "contactText": "关于本条款的问题，请联系："
+      "subtitle": "CayDock 网站服务条款和条件",
+      "acceptanceTitle": "1. 条款接受",
+      "acceptanceText": "通过访问和使用 CayDock 网站（以下简称\"服务\"），您接受并同意受本协议条款和规定的约束。",
+      "licenseTitle": "2. 使用许可",
+      "licenseText": "允许临时下载一份 CayDock 上的材料，仅供个人、非商业临时查看。这是许可的授予，不是所有权的转让，在此许可下您不得：",
+      "license1": "修改或复制材料",
+      "license2": "将材料用于任何商业目的或任何公开展示",
+      "license3": "尝试对网站上包含的任何软件进行逆向工程",
+      "license4": "从材料中删除任何版权或其他专有标记",
+      "disclaimerTitle": "3. 免责声明",
+      "disclaimerText": "CayDock 上的材料按\"现状\"提供。CayDock 不作任何明示或暗示的保证，并在此否认和否定所有其他保证，包括但不限于适销性、特定用途适用性或知识产权或其他权利不侵权的暗示保证或条件。",
+      "limitationsTitle": "4. 限制",
+      "limitationsText": "在任何情况下，CayDock 或其供应商均不对因使用或无法使用 CayDock 上的材料而造成的任何损害（包括但不限于数据或利润损失，或由于业务中断造成的损害）承担责任，即使 CayDock 或 CayDock 授权代表已被告知此类损害的可能性。",
+      "accuracyTitle": "5. 材料准确性",
+      "accuracyText": "CayDock 上出现的材料可能包含技术、排版或摄影错误。CayDock 不保证其网站上的任何材料都是准确、完整或最新的。",
+      "linksTitle": "6. 链接",
+      "linksText": "CayDock 尚未审查链接到我们网站的所有网站，不对任何此类链接网站的内容负责。包含任何链接并不意味着 CayDock 对该网站的认可。",
+      "modificationsTitle": "7. 修改",
+      "modificationsText": "CayDock 可随时修改其网站的服务条款，恕不另行通知。通过使用本网站，您同意受这些服务条款的当前版本约束。",
+      "governingTitle": "8. 适用法律",
+      "governingText": "这些条款和条件受法律管辖并根据法律解释，您不可撤销地服从该州或地方法院的专属管辖权。",
+      "contactTitle": "9. 联系信息",
+      "contactText": "如果您对这些服务条款有任何疑问，请通过以下方式联系我们：",
+      "lastUpdated": "最后更新：2024年1月"
     },
     "privacy": {
       "title": "隐私政策",
-      "intro": "我们重视你的隐私。本政策说明我们收集哪些信息以及如何使用。",
-      "infoTitle": "我们收集的信息",
-      "info1": "用于改进站点体验的基础分析与使用数据。",
-      "info2": "你自愿提供的信息（例如提交网站时）。",
-      "cookiesTitle": "Cookies",
-      "cookiesText": "我们可能使用 Cookies 记住偏好并分析流量，你可在浏览器中进行管理。",
-      "thirdTitle": "第三方服务",
-      "thirdText": "W3Cay 链接到的外部服务有其各自的隐私政策，我们不对其做法负责。",
-      "securityTitle": "数据安全",
-      "securityText": "我们采取合理措施保护数据，但任何传输或存储方式都无法保证 100% 安全。",
-      "changesTitle": "政策变更",
-      "changesText": "我们可能不时更新本政策，继续使用即表示接受变更。",
-      "contactTitle": "联系",
-      "contactText": "关于本隐私政策的问题，请联系："
+      "subtitle": "我们如何收集、使用和保护您的信息",
+      "infoTitle": "1. 我们收集的信息",
+      "personalTitle": "个人信息",
+      "emailLabel": "电子邮件地址",
+      "emailText": "：当您联系我们或订阅我们的新闻通讯时",
+      "commentsLabel": "评论",
+      "commentsText": "：当您在我们的博客文章上留下评论时",
+      "usageLabel": "使用数据",
+      "usageText": "：关于您如何使用我们网站的信息",
+      "autoTitle": "自动收集的信息",
+      "logLabel": "日志数据",
+      "logText": "：IP地址、浏览器类型、访问的页面、在页面上花费的时间",
+      "cookiesLabel": "Cookie",
+      "cookiesText": "：存储在您设备上的小数据文件，用于改善您的体验",
+      "analyticsLabel": "分析数据",
+      "analyticsText": "：通过Google Analytics获得的网站使用统计信息",
+      "useTitle": "2. 我们如何使用您的信息",
+      "useIntro": "我们使用收集的信息来：",
+      "use1": "提供和维护我们的网站",
+      "use2": "改善用户体验和网站功能",
+      "use3": "回复您的询问和评论",
+      "use4": "发送新闻通讯（在您同意的情况下）",
+      "use5": "分析网站流量和使用模式",
+      "use6": "确保网站安全并防止欺诈",
+      "sharingTitle": "3. 信息共享",
+      "sharingText": "我们不会出售、交易或以其他方式将您的个人信息转移给第三方，除非：",
+      "serviceLabel": "服务提供商",
+      "serviceText": "：协助运营我们网站的可信第三方",
+      "legalLabel": "法律要求",
+      "legalText": "：法律要求或为保护我们的权利时",
+      "consentLabel": "同意",
+      "consentText": "：当您明确同意时",
+      "cookiesTitle": "4. Cookie和跟踪",
+      "cookiesTypesTitle": "我们使用的Cookie类型",
+      "essentialLabel": "必要Cookie",
+      "essentialText": "：网站功能所必需的",
+      "analyticsCookiesLabel": "分析Cookie",
+      "analyticsCookiesText": "：帮助我们了解访问者如何使用我们的网站",
+      "advertisingLabel": "广告Cookie",
+      "advertisingText": "：Google AdSense用于相关广告",
+      "managingTitle": "管理Cookie",
+      "managingText": "您可以通过浏览器设置控制Cookie。但是，禁用Cookie可能会影响网站功能。",
+      "thirdTitle": "5. 第三方服务",
+      "googleAnalyticsTitle": "Google Analytics",
+      "googleAnalyticsText": "我们使用Google Analytics来分析网站流量。Google的隐私政策适用于此服务。",
+      "googleAdSenseTitle": "Google AdSense",
+      "googleAdSenseText": "我们通过Google AdSense展示广告。Google可能使用Cookie根据您对我们网站的访问来投放广告。",
+      "socialTitle": "社交媒体",
+      "socialText": "我们的网站可能包含社交媒体功能。这些功能可能会收集您的IP地址和页面信息。",
+      "securityTitle": "6. 数据安全",
+      "securityText": "我们实施适当的安全措施来保护您的个人信息免受未经授权的访问、更改、披露或破坏。",
+      "retentionTitle": "7. 数据保留",
+      "retentionText": "我们仅在实现本隐私政策中概述的目的所需的时间内保留您的个人信息，除非法律要求更长的保留期。",
+      "rightsTitle": "8. 您的权利",
+      "rightsIntro": "根据您所在的位置，您可能有权：",
+      "rights1": "访问您的个人信息",
+      "rights2": "更正不准确的信息",
+      "rights3": "删除您的个人信息",
+      "rights4": "反对处理您的信息",
+      "rights5": "数据可移植性",
+      "childrenTitle": "9. 儿童隐私",
+      "childrenText": "我们的网站不适用于13岁以下的儿童。我们不会故意收集13岁以下儿童的个人信息。",
+      "internationalTitle": "10. 国际数据传输",
+      "internationalText": "您的信息可能会被传输到您所在国家以外的国家并在那里处理。我们确保有适当的保障措施。",
+      "changesTitle": "11. 政策变更",
+      "changesText": "我们可能会不时更新此隐私政策。我们将通过在此页面上发布新政策来通知您任何更改。",
+      "contactTitle": "12. 联系我们",
+      "contactText": "如果您对此隐私政策有任何疑问，请通过以下方式联系我们：",
+      "lastUpdated": "最后更新：2024年1月"
     },
     "disclaimerPage": {
       "title": "免责声明",
-      "intro": "W3Cay 是一个精选网站目录。我们不拥有、控制或背书任何外部链接网站的内容。",
-      "thirdTitle": "第三方内容责任",
-      "thirdText": "所有外链仅为便利与探索之用，我们不保证其内容的准确性、合法性或可用性。",
-      "fairTitle": "合理使用与署名",
-      "fairText": "商标、标识与图片归其权利人所有，任何使用仅用于识别、评论或点评目的。",
-      "adviceTitle": "非专业建议",
-      "adviceText": "W3Cay 上的内容仅供信息与娱乐，不构成任何专业建议。",
-      "contactTitle": "联系我们",
-      "contactText": "若你认为权利受侵害或内容不当，请发送邮件："
+      "subtitle": "重要法律免责声明和限制",
+      "generalTitle": "1. 一般免责声明",
+      "generalText": "本网站上的信息按\"现状\"提供。在法律允许的最大范围内，本公司：",
+      "generalList1": "排除所有与本网站及其内容相关的陈述和保证，或由任何关联公司或任何其他第三方提供的陈述和保证，包括与本网站和/或公司文献中的任何不准确或遗漏相关的内容",
+      "generalList2": "排除因您使用本网站而产生或与之相关的所有损害责任",
+      "contentTitle": "2. 内容免责声明",
+      "accuracyTitle": "信息准确性",
+      "accuracyText1": "CayDock上的内容仅供一般信息目的",
+      "accuracyText2": "虽然我们努力保持信息的最新性和正确性，但我们不对网站或网站上包含的信息、产品、服务或相关图形的完整性、准确性、可靠性、适用性或可用性作任何明示或暗示的陈述或保证",
+      "accuracyText3": "因此，您对此类信息的任何依赖都严格由您自己承担风险",
+      "technicalTitle": "技术内容",
+      "technicalText1": "技术教程、代码示例和开发指南仅供教育目的",
+      "technicalText2": "我们不保证代码或技术在所有环境中都能正常工作",
+      "technicalText3": "在生产环境中实施之前，始终在安全环境中测试代码",
+      "technicalText4": "我们不对使用我们的代码示例产生的任何损害或问题负责",
+      "externalTitle": "3. 外部链接免责声明",
+      "externalText1": "我们的网站可能包含指向外部网站的链接，这些网站不是由CayDock提供或维护的，也不以任何方式与CayDock关联",
+      "externalText2": "我们不保证这些外部网站上任何信息的准确性、相关性、及时性或完整性",
+      "externalText3": "包含任何链接并不一定意味着推荐或认可其中表达的观点",
+      "professionalTitle": "4. 专业建议免责声明",
+      "professionalText1": "本网站上的信息不构成专业建议",
+      "professionalText2": "您不应仅依赖本网站上的信息来做出决策",
+      "professionalText3": "在做出重要决策之前，始终寻求专业建议",
+      "professionalText4": "我们不对基于本网站提供的信息做出的任何决策负责",
+      "investmentTitle": "5. 投资和财务免责声明",
+      "investmentText1": "任何关于投资、金融产品或商业机会的信息仅供信息目的",
+      "investmentText2": "我们不是财务顾问，不提供投资建议",
+      "investmentText3": "过往表现不能保证未来结果",
+      "investmentText4": "在做出投资决策之前，始终咨询合格的财务专业人士",
+      "technologyTitle": "6. 技术和开发免责声明",
+      "technologyText1": "技术变化迅速，信息可能会过时",
+      "technologyText2": "我们不保证我们的技术内容会保持最新",
+      "technologyText3": "始终通过官方文档和当前最佳实践验证信息",
+      "technologyText4": "我们不对过时信息产生的任何问题负责",
+      "userTitle": "7. 用户生成内容",
+      "userText1": "评论和用户生成的内容不一定反映我们的观点",
+      "userText2": "我们保留审核和删除不当内容的权利",
+      "userText3": "用户对其自己的评论和内容负责",
+      "userText4": "我们不对用户生成内容产生的任何损害负责",
+      "liabilityTitle": "8. 责任限制",
+      "liabilityText": "在任何情况下，CayDock及其董事、员工、合作伙伴、代理人、供应商或关联公司均不对任何间接、偶然、特殊、后果性或惩罚性损害负责，包括但不限于利润、数据、使用、商誉或其他无形损失的损失，这些损害是由于您使用网站而产生的。",
+      "indemnificationTitle": "9. 赔偿",
+      "indemnificationText": "您同意为CayDock及其许可方和被许可方及其员工、承包商、代理人、高级职员和董事进行辩护、赔偿并使其免受任何和所有索赔、损害、义务、损失、负债、成本或债务以及费用（包括但不限于律师费）的损害。",
+      "governingTitle": "10. 适用法律",
+      "governingText": "本免责声明受法律管辖并根据法律解释，您不可撤销地服从该州或地方法院的专属管辖权。",
+      "contactTitle": "11. 联系信息",
+      "contactText": "如果您对此免责声明有任何疑问，请通过以下方式联系我们：",
+      "lastUpdated": "最后更新：2024年1月"
     },
     "submit": {
       "title": "推荐一个网站",
       "tagline": "分享你觉得很酷的网站，我们会审核后择优收录。",
       "urlLabel": "网站链接",
-      "urlPlaceholder": "https://w3cay.com",
+      "urlPlaceholder": "https://caydock.com",
       "urlInvalid": "请输入有效的HTTPS链接",
       "siteTitleLabel": "标题（可选）",
       "siteTitlePlaceholder": "网站标题（英文）",
       "submitBtn": "提交",
       "saved": "已保存",
       "successTitle": "提交成功！",
-      "successMessage": "感谢您的提交！我们会尽快审核您的网站。审核通过后，您的网站将会在W3Cay上展示。",
+      "successMessage": "感谢您的提交！我们会尽快审核您的网站。审核通过后，您的网站将会在CayDock上展示。",
       "submissionInfo": "提交信息：",
       "confirm": "确定"
     },
     "about": {
       "heroTitle": "保持好奇，热爱分享，探索有趣的网络世界",
-      "heroDesc": "这是我持续创作的信念。W3Cay 专注于发现与分享有趣的网站、工具、游戏与 AI 体验，让灵感与快乐在日常里发生。保持学习、拥抱变化，用简单而美的方式传递价值。",
-      "aboutTitle": "关于本站",
-      "aboutDesc": "你好，我是 Cayden，欢迎来到 W3Cay(万趣岛)！这里是一座充满好奇与乐趣的\"兴趣小岛\"，我们专注于收集并分享独特有趣的网站、工具、小游戏与 AI 相关体验，帮你在繁忙的日常里找到片刻的灵感与快乐。",
+      "heroDesc": "这是我持续创作的信念。CayDock 专注于发现与分享有趣的网站、工具、游戏与 AI 体验，让灵感与快乐在日常里发生。保持学习、拥抱变化，用简单而美的方式传递价值。",
+      "aboutTitle": "关于",
+      "aboutDesc": "👋 Hi, 我叫 Cayden，欢迎访问我的个人网站 CayDock\n\n我是一名 Web 程序员👨‍💻，目标是做一名自由的独立开发者\n\nCayDock 名字由来：Cayden 是我的名字，Dock 既有程序启动器的意思，也表示海边的船坞，寓意我的产品出海启程的地方和个人想法的港湾\n\n这里主要分享我的独立开发出海经验，解决过的技术、产品、SEO，运营等问题以及一些生活思考和琐碎事情，既有专业的技术分享，也有生活化的分享，既有深度，也有广度。\n\n不定时更新，如果分享的内容对你有帮助，欢迎订阅并留言与我交流",
       "domainTitle": "域名由来",
-      "domainDesc": "\"w3cay\" 由 \"w3\"（World's Weird Websites 的缩写）与 \"cay\"（小岛）组合而来。互联网像一片广阔海洋，埋藏着无数\"有趣的小岛\"。W3Cay 希望把它们串联起来，分享给同样热爱探索的你。",
+      "domainDesc": "\"CayDock\" 由 \"Cayden\"（我的名字）与 \"Dock\"（程序启动器，也指海边的船坞）组合而来。寓意我的产品出海启程的地方和个人想法的港湾。",
       "contactTitle": "联系与投稿",
       "contactEmailPrefix": "商务合作、媒体报道、友情链接等事宜，请发送邮件至：",
       "contactSubmitPrefix": "推荐新网站请前往",
       "contactSubmitLink": "提交页面",
       "contactSubmitSuffix": "，我们会定期审核与收录。",
       "wechatTitle": "微信公众号",
-      "wechatDesc": "关注我们的微信公众号「W3Cay」，获取最新网站推荐和有趣内容。我们会定期推送精选网站，让你不错过任何精彩内容。",
-      "outro": "无论你是寻找灵感、解压放松，还是单纯想笑一笑，都希望你能在 W3Cay 的\"兴趣小岛 🏝️\"里，找到独属于你的那一处惊喜。"
+      "wechatDesc": "欢迎关注我的微信公众号，获取更多技术分享和独立开发经验：",
+      "outro": "无论你是寻找灵感、解压放松，还是单纯想笑一笑，都希望你能在 CayDock 的\"兴趣小岛 🏝️\"里，找到独属于你的那一处惊喜。"
     },
     "notFound": {
       "title": "页面不存在",
@@ -196,8 +368,8 @@
     },
     "contactPage": {
       "title": "联系我们",
-      "subtitle": "与 W3Cay 取得联系",
-      "thank": "感谢你访问 W3Cay！如有任何问题、建议或合作意向，欢迎随时联系。",
+      "subtitle": "与 CayDock 取得联系",
+      "thank": "感谢你访问 CayDock！如有任何问题、建议或合作意向，欢迎随时联系。",
       "emailTitle": "邮箱",
       "emailPrimary": "主要联系方式：",
       "feedbackTitle": "反馈建议",

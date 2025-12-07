@@ -1,9 +1,9 @@
 import siteMetadata from '@/src/utils/siteMetaData'
 
 export default function manifest() {
-  const name = 'W3Cay'
-  const shortName = 'W3Cay'
-  const description = siteMetadata.description || 'Discover interesting websites, tools, mini games and AI inspiration.'
+  const name = 'CayDock'
+  const shortName = 'CayDock'
+  const description = siteMetadata.description || 'Personal Blog & Project Showcase'
   const themeColor = '#111111'
   const backgroundColor = '#ffffff'
   return {

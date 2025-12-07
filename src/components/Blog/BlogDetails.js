@@ -8,13 +8,12 @@ import SmartLink from '../Elements/SmartLink';
 import { slug } from 'github-slugger';
 import RenderMdx from './RenderMdx';
 import ShareButtons from '../Elements/ShareButtons';
-import ExploreButton from '../Elements/ExploreButton';
 import siteMetadata from '@/src/utils/siteMetaData';
 import { generateMultilingualPath } from '@/src/utils/languageUtils';
 
 export default function BlogDetails({ slug: blogSlug, locale }) {
   const t = useTranslations('ui');
-  const language = locale === 'zh-cn' ? 'zh' : 'en';
+  const language = locale === 'zh-cn' ? 'zh-cn' : 'en';
   
   // 查找对应的博客文章
   const blog = blogs.find(blog => 
@@ -42,7 +41,7 @@ export default function BlogDetails({ slug: blogSlug, locale }) {
 
   return (
     <>
-      <article>
+      <article className="max-w-7xl mx-auto">
         <div className="mb-8 text-center relative w-full h-[70vh] bg-dark">
           {/* 悬浮面包屑导航 */}
           <div className="absolute top-8 left-0 right-0 z-20">
@@ -125,10 +124,6 @@ export default function BlogDetails({ slug: blogSlug, locale }) {
             </div>
           </div>
         </div>
-        
-        <ExploreButton href="/" locale={locale}>
-          {t('blog.exploreMore')}
-        </ExploreButton>
       </article>
     </>
   );

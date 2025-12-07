@@ -1,31 +1,51 @@
-import { headers, cookies } from "next/headers";
-import HomePageContent from "@/src/components/Home/HomePageContent";
-import { generateHomePageMetadata } from "@/src/components/Home/HomePageMetadata";
-import { generateLanguageLinks } from '@/src/utils/pageUtils';
+import NewHomePage from "@/src/components/Home/NewHomePage";
+import { getTranslations } from 'next-intl/server';
 import siteMetadata from '@/src/utils/siteMetaData';
 
 export const runtime = 'edge';
 
-export async function generateMetadata({ params, searchParams }) {
+export async function generateMetadata({ params }) {
   const { locale } = await params;
-  const params_search = await searchParams;
+  const t = await getTranslations({ locale, namespace: 'meta' });
   
-  const metadata = await generateHomePageMetadata({ locale, searchParams: params_search });
-  
-  // 为 locale 页面添加正确的 canonical URL
   return {
-    ...metadata,
+    title: {
+      absolute: t('home.title')
+    },
+    description: t('home.description'),
     alternates: {
-      ...metadata.alternates,
       canonical: `${siteMetadata.siteUrl}/${locale}/`,
+      languages: {
+        'en': `${siteMetadata.siteUrl}/`,
+        'zh-cn': `${siteMetadata.siteUrl}/zh-cn/`,
+        'x-default': `${siteMetadata.siteUrl}/`,
+      },
+    },
+    openGraph: {
+      title: t('home.title'),
+      description: t('home.description'),
+      url: `${siteMetadata.siteUrl}/${locale}/`,
+      siteName: siteMetadata.title,
+      images: [
+        {
+          url: `${siteMetadata.siteUrl}${siteMetadata.socialBanner}`,
+          width: 1200,
+          height: 630,
+          alt: t('home.title'),
+        }
+      ],
+      locale: locale,
+      type: 'website',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: t('home.title'),
+      description: t('home.description'),
+      images: [`${siteMetadata.siteUrl}${siteMetadata.socialBanner}`],
     },
   };
 }
 
-export default async function LocaleHome({ params, searchParams }) {
-  const { locale } = await params;
-  const language = locale === 'zh-cn' ? 'zh' : 'en';
-  const params_search = await searchParams;
-
-  return <HomePageContent locale={locale} language={language} searchParams={params_search} />;
+export default async function LocaleHome() {
+  return <NewHomePage />;
 }

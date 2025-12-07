@@ -58,7 +58,7 @@ export default async function sitemap() {
   // 获取中文博客标签（使用 tagKeys）
   const zhCategories = ['all']
   blogs.forEach(blog => {
-    if (blog.isPublished && blog.language === 'zh') {
+    if (blog.isPublished && blog.language === 'zh-cn') {
       if (blog.tagKeys && blog.tagKeys.length > 0) {
         blog.tagKeys.forEach(tagKey => {
           if (!zhCategories.includes(tagKey)) {
@@ -104,7 +104,7 @@ export default async function sitemap() {
 
   // 生成中文博客文章路径
   const zhBlogPaths = blogs
-    .filter((blog) => blog.isPublished && blog.language === 'zh')
+    .filter((blog) => blog.isPublished && blog.language === 'zh-cn')
     .map((blog) => ({
       url: `${base}/zh-cn${blog.url}`,
       changefreq: 'monthly',

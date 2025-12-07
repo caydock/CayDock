@@ -1,25 +1,18 @@
 "use client"
-import Image from "next/image";
-import Logo from "./Logo";
 import SiteLogo from "./SiteLogo";
 import { MoonIcon, SunIcon } from "../Icons";
 import { useThemeSwitch } from "../Hooks/useThemeSwitch";
-import { useTranslations, useLocale } from 'next-intl';
+import { useTranslations } from 'next-intl';
 import { getClientTranslation } from '@/src/i18n';
 import { useState } from "react";
 import { cx } from "@/src/utils";
-import logo from "@/public/logo.png";
-import { useRouter } from "next/navigation";
 import SmartLink from '../Elements/SmartLink';
 import { usePathname as useNextPathname } from 'next/navigation';
 
 const Header = () => {
   const [mode, setMode] = useThemeSwitch();
-  const locale = useLocale();
-  const isZh = locale === 'zh-cn';
   const [open, setOpen] = useState(false);
-  const router = useRouter();
-  const pathname = useIntlPathname();
+  const [showSearch, setShowSearch] = useState(false);
   const nextPathname = useNextPathname();
   
   // 判断是否为英文站（根目录）- 使用真实的浏览器路径
@@ -49,80 +42,69 @@ const Header = () => {
     }
     return defaultT(key);
   };
-  
-  const toggleLanguage = () => {
-    const newLocale = isZh ? 'en' : 'zh-cn';
-    
-    // 获取当前路径并处理语言切换
-    const currentPath = window.location.pathname;
-    let newPath;
-    
-    if (newLocale === 'zh-cn') {
-      // 切换到中文 - 添加 /zh-cn 前缀
-      if (currentPath === '/') {
-        newPath = '/zh-cn';
-      } else {
-        newPath = `/zh-cn${currentPath}`;
-      }
-    } else {
-      // 切换到英文 - 移除 /zh-cn 前缀
-      if (currentPath === '/zh-cn') {
-        newPath = '/';
-      } else if (currentPath.startsWith('/zh-cn')) {
-        newPath = currentPath.replace('/zh-cn', '');
-        // 确保路径以 / 开头
-        if (!newPath.startsWith('/')) {
-          newPath = '/' + newPath;
-        }
-      } else {
-        // 如果当前路径不包含语言前缀，保持不变
-        newPath = currentPath;
-      }
-    }
-    
-    // 使用 Next.js router 进行导航
-    router.push(newPath);
-  };
 
   return (
-    <header className="w-full px-5 sm:px-10 flex items-center justify-center relative">
-      {/* Mobile top: menu button with logo */}
-      <div className="sm:hidden absolute left-4 z-40">
+    <header className="w-full border-b border-dark/10 dark:border-light/10">
+      <div className="w-full max-w-7xl mx-auto px-5 sm:px-10 py-4 flex items-center justify-between relative">
+        {/* Logo - Left side */}
+        <div className="flex items-center">
+          <SiteLogo />
+        </div>
+
+        {/* Desktop top nav - Center */}
+        <nav className="hidden sm:flex items-center gap-6 font-medium">
+        <SmartLink href="/blog" locale={actualLocale} className="text-dark dark:text-light hover:opacity-70 transition-opacity">{t('blog.title')}</SmartLink>
+        <SmartLink href="/products" locale={actualLocale} className="text-dark dark:text-light hover:opacity-70 transition-opacity">{actualLocale === 'zh-cn' ? '产品' : 'Products'}</SmartLink>
+        <SmartLink href="/about" locale={actualLocale} className="text-dark dark:text-light hover:opacity-70 transition-opacity">{t('nav.about')}</SmartLink>
+        <SmartLink href="/subscribe" locale={actualLocale} className="text-dark dark:text-light hover:opacity-70 transition-opacity">{actualLocale === 'zh-cn' ? '订阅' : 'Subscribe'}</SmartLink>
+        <SmartLink href="/categories/all" locale={actualLocale} className="text-dark dark:text-light hover:opacity-70 transition-opacity">{actualLocale === 'zh-cn' ? '标签' : 'Tags'}</SmartLink>
+        </nav>
+
+        {/* Right side - Actions */}
+        <div className="flex items-center gap-3">
+        {/* Search button */}
+        <button onClick={() => setShowSearch(!showSearch)} className="w-6 h-6 flex items-center justify-center" aria-label="search">
+          <svg className="w-full h-full fill-dark dark:fill-light" viewBox="0 0 24 24">
+            <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+          </svg>
+        </button>
+        
+        {/* Language switcher */}
+        {isEnglishSite ? (
+          <SmartLink
+            href={`/zh-cn${nextPathname}`}
+            className="px-2 py-1 text-xs font-bold bg-blue-500 text-white"
+            aria-label="language-switcher"
+          >
+            中文
+          </SmartLink>
+        ) : (
+          <SmartLink
+            href={nextPathname.replace('/zh-cn', '') || '/'}
+            className="px-2 py-1 text-xs font-bold bg-green-500 text-white"
+            aria-label="language-switcher"
+          >
+            EN
+          </SmartLink>
+        )}
+        
+        {/* Theme switcher */}
+        <button onClick={() => setMode(mode === "light" ? "dark" : "light")} className={cx("w-6 h-6 flex items-center justify-center", mode === "light" ? "text-dark" : "text-light")} aria-label="theme-switcher">
+          {mode === "light" ? <MoonIcon className={"fill-dark"} /> : <SunIcon className={"fill-light"} />}
+        </button>
+
+        {/* Mobile menu button */}
         <button
           onClick={() => setOpen(true)}
           aria-label="open-menu"
-          className={cx("w-10 h-10 rounded-full flex items-center justify-center border border-dark/70 bg-light dark:bg-dark overflow-hidden shadow-sm")}
+          className="sm:hidden w-6 h-6 flex items-center justify-center"
         >
-          <div className="w-6 h-6 rounded-full overflow-hidden">
-            <Image 
-              src={logo} 
-              alt="w3cay logo" 
-              className="w-full h-auto rounded-full" 
-              sizes="20vw"
-              onError={(e) => {
-                // 如果图片加载失败，隐藏图片元素
-                e.target.style.display = 'none';
-              }}
-            />
-          </div>
+          <svg className="w-full h-full fill-dark dark:fill-light" viewBox="0 0 24 24">
+            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+          </svg>
         </button>
+        </div>
       </div>
-
-      {/* Desktop top nav */}
-      <nav className="w-max py-3 px-6 sm:px-8 border border-solid border-dark rounded-full font-medium capitalize items-center hidden sm:flex fixed top-6 right-1/2 translate-x-1/2 bg-light/80 backdrop-blur-sm z-50">
-        <Logo locale={actualLocale} />
-        <SmartLink href="/" locale={actualLocale} className="mx-2">{t('nav.home')}</SmartLink>
-        <SmartLink href="/blog" locale={actualLocale} className="mx-2">{t('blog.title')}</SmartLink>
-        <SmartLink href="/submit" locale={actualLocale} className="mx-2">{t('nav.submit')}</SmartLink>
-        <SmartLink href="/about" locale={actualLocale} className="mx-2">{t('nav.about')}</SmartLink>
-        <SmartLink href="/contact" locale={actualLocale} className="mx-2">{t('nav.contact')}</SmartLink>
-        <button onClick={toggleLanguage} className={cx("w-6 h-6 ease ml-2 flex items-center justify-center rounded-full p-1 text-xs font-bold", isZh ? "bg-blue-500 text-white" : "bg-green-500 text-white")} aria-label="language-switcher">
-          {isZh ? 'EN' : '中'}
-        </button>
-        <button onClick={() => setMode(mode === "light" ? "dark" : "light")} className={cx("w-6 h-6 ease ml-2 flex items-center justify-center rounded-full p-1", mode === "light" ? "bg-dark text-light" : "bg-light text-dark")} aria-label="theme-switcher">
-          {mode === "light" ? <MoonIcon className={"fill-dark"} /> : <SunIcon className={"fill-dark"} />}
-        </button>
-      </nav>
 
       {/* Mobile side drawer */}
       <div className={cx("sm:hidden fixed inset-0 z-50 transition-opacity", open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none")}
@@ -140,21 +122,41 @@ const Header = () => {
         aria-modal="true"
       >
         <div className="flex items-center justify-between p-4 border-b border-dark/10 dark:border-light/10">
-          <SiteLogo sizeClass="w-32" />
-          <button aria-label="close-menu" onClick={() => setOpen(false)} className="w-9 h-9 rounded-full border border-dark/70 flex items-center justify-center dark:text-light">
+          <SiteLogo />
+          <button aria-label="close-menu" onClick={() => setOpen(false)} className="w-9 h-9 flex items-center justify-center dark:text-light">
             ×
           </button>
         </div>
         <nav className="flex flex-col p-4 gap-3 text-lg dark:text-light">
-          <SmartLink href="/" locale={actualLocale} onClick={() => setOpen(false)}>{t('nav.home')}</SmartLink>
           <SmartLink href="/blog" locale={actualLocale} onClick={() => setOpen(false)}>{t('blog.title')}</SmartLink>
-          <SmartLink href="/submit" locale={actualLocale} onClick={() => setOpen(false)}>{t('nav.submit')}</SmartLink>
-          <SmartLink href="/contact" locale={actualLocale} onClick={() => setOpen(false)}>{t('nav.contact')}</SmartLink>
+          <SmartLink href="/products" locale={actualLocale} onClick={() => setOpen(false)}>{actualLocale === 'zh-cn' ? '产品' : 'Products'}</SmartLink>
           <SmartLink href="/about" locale={actualLocale} onClick={() => setOpen(false)}>{t('nav.about')}</SmartLink>
-          {/* Contact hidden on mobile per earlier request */}
-          <button onClick={toggleLanguage} className={cx("mt-2 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold", isZh ? "bg-blue-500 text-white" : "bg-green-500 text-white")} aria-label="language-switcher">
-            {isZh ? 'EN' : '中'}
+          <SmartLink href="/subscribe" locale={actualLocale} onClick={() => setOpen(false)}>{actualLocale === 'zh-cn' ? '订阅' : 'Subscribe'}</SmartLink>
+          <SmartLink href="/categories/all" locale={actualLocale} onClick={() => setOpen(false)}>{actualLocale === 'zh-cn' ? '标签' : 'Tags'}</SmartLink>
+          <button onClick={() => { setShowSearch(!showSearch); setOpen(false); }} className="mt-2 w-6 h-6 rounded-full flex items-center justify-center" aria-label="search">
+            <svg className="w-full h-full fill-dark dark:fill-light" viewBox="0 0 24 24">
+              <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+            </svg>
           </button>
+          {isEnglishSite ? (
+            <SmartLink
+              href={`/zh-cn${nextPathname}`}
+              className="mt-2 px-3 py-1 text-xs font-bold bg-blue-500 text-white"
+              onClick={() => setOpen(false)}
+              aria-label="language-switcher"
+            >
+              中文
+            </SmartLink>
+          ) : (
+            <SmartLink
+              href={nextPathname.replace('/zh-cn', '') || '/'}
+              className="mt-2 px-3 py-1 text-xs font-bold bg-green-500 text-white"
+              onClick={() => setOpen(false)}
+              aria-label="language-switcher"
+            >
+              EN
+            </SmartLink>
+          )}
           <button onClick={() => { setMode(mode === "light" ? "dark" : "light"); }} className={cx("mt-2 w-6 h-6 rounded-full flex items-center justify-center border", mode === "light" ? "bg-dark text-light" : "bg-light text-dark")} aria-label="theme-switcher">
             {mode === "light" ? <MoonIcon className={"fill-current"} /> : <SunIcon className={"fill-current"} />}
           </button>

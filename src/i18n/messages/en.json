@@ -1,44 +1,54 @@
 {
   "meta": {
     "home": {
-      "title": "W3Cay - World's Weird Websites Cay",
-      "description": "W3Cay is a cay that collects the world's weird websites. Randomly explore endless fun and interesting websites across the digital world.",
-      "keywords": "weird websites, fun websites, bored button, useless website, random website, W3Cay"
+      "title": "Hi, I am Cayden.",
+      "description": "CayDock is my personal product navigation website, recording the challenges, experiences and growth I encountered in independent development, hoping to provide some inspiration and help for other independent developers",
+      "keywords": "personal blog, tech blog, programming, development, CayDock"
     },
     "about": {
-      "title": "About Us",
-      "description": "W3Cay is a cay that collects the world's weird websites. Randomly explore endless fun and interesting websites across the digital world.",
-      "keywords": "about us, website introduction, team introduction, website philosophy, W3Cay, island of interests"
+      "title": "About",
+      "description": "Recording my thoughts, experiences and growth. CayDock is my personal product navigation website, recording the challenges, experiences and growth I encountered in independent development, hoping to provide some inspiration and help for other independent developers.",
+      "keywords": "about, personal blog, independent developer, tech sharing, CayDock"
     },
     "contact": {
       "title": "Contact Us",
-      "description": "Contact the W3Cay team for support, feedback, or collaboration opportunities. We are committed to providing you with the best website discovery experience.",
-      "keywords": "contact us, website feedback, collaboration, technical support, W3Cay, website discovery"
+      "description": "Contact CayDock for support, feedback, or collaboration opportunities.",
+      "keywords": "contact, feedback, collaboration, technical support, CayDock"
     },
     "submit": {
       "title": "Submit Website",
-      "description": "Submit interesting, weird or useless websites to W3Cay. Share the amazing websites you discovered and let more people explore the interesting corners of the digital world.",
-      "keywords": "submit website, recommend site, share website, interesting websites, W3Cay, website sharing"
+      "description": "Submit interesting websites to CayDock. Share the amazing websites you discovered.",
+      "keywords": "submit website, recommend site, share website, CayDock"
     },
     "terms": {
       "title": "Terms of Service",
-      "description": "W3Cay Terms of Service. Learn about your rights and obligations when using our website. We are committed to providing a transparent and fair service experience.",
-      "keywords": "terms of service, terms of use, website terms, legal terms, W3Cay, website usage"
+      "description": "Terms and Conditions for CayDock Website. Learn about your rights and obligations when using our website.",
+      "keywords": "terms of service, terms of use, website terms, legal terms, CayDock"
     },
     "privacy": {
       "title": "Privacy Policy",
-      "description": "W3Cay Privacy Policy. Learn how we collect, use, and protect your personal information. We value your privacy rights.",
-      "keywords": "privacy policy, data protection, personal information, privacy rights, W3Cay, data security"
+      "description": "How We Collect, Use, and Protect Your Information. Learn about CayDock's privacy policy.",
+      "keywords": "privacy policy, data protection, personal information, privacy rights, CayDock"
     },
     "disclaimer": {
       "title": "Disclaimer",
-      "description": "W3Cay Disclaimer. Learn about our disclaimers regarding third-party content. We are committed to providing accurate and legal website information.",
-      "keywords": "disclaimer, legal notice, third-party content, disclaimers, W3Cay, legal information"
+      "description": "Important Legal Disclaimers and Limitations. Learn about CayDock's disclaimers regarding third-party content.",
+      "keywords": "disclaimer, legal notice, third-party content, disclaimers, CayDock"
+    },
+    "subscribe": {
+      "title": "Subscribe",
+      "description": "Stay Updated with Latest Content. Subscribe to CayDock for technical sharing and independent development experience.",
+      "keywords": "subscribe, RSS, newsletter, content updates, CayDock"
+    },
+    "products": {
+      "title": "Products",
+      "description": "Explore my independent development products and tools. Discover innovative solutions designed to make your life easier and more efficient.",
+      "keywords": "products, apps, tools, independent development, CayDock, music cover search, QR code generator, time tracking"
     },
     "blog": {
       "title": "Blog",
       "description": "Read blog posts about programming, technology and more topics. Share my thoughts, tutorials and stories.",
-      "keywords": "blog, tech articles, programming tutorials, development experience, tech sharing, W3Cay blog"
+      "keywords": "blog, tech articles, programming tutorials, development experience, tech sharing, CayDock blog"
     },
     "categories": {
       "all": "All Categories",
@@ -50,7 +60,7 @@
     "discover": {
       "notFound": "Not Found",
       "notFoundDesc": "This website might no longer exist. Click the button below to continue exploring!",
-      "siteDescription": "Discover interesting website {title} on W3Cay. Explore weird and wonderful websites in the digital world."
+      "siteDescription": "Discover interesting website {title} on CayDock. Explore weird and wonderful websites in the digital world."
     }
   },
   "ui": {
@@ -89,14 +99,14 @@
       }
     },
     "footer": {
-      "title": "World's Weird Websites Cay",
-      "description": "W3Cay is a cay that collects the world's weird websites. Randomly explore endless fun and interesting websites across the digital world.",
+      "title": "Personal Blog & Project Showcase",
+      "description": "CayDock is my personal product navigation website, recording the challenges, experiences and growth I encountered in independent development, hoping to provide some inspiration and help for other independent developers",
       "sitemap": "Sitemap",
       "allRights": "All rights reserved.",
       "madeWithBy": "Made with ❤️ by"
     },
-    "subtitle": "Click the button below to start exploring weird websites",
-    "heroTitle": "World's Weird Websites Cay",
+    "subtitle": "Recording my thoughts, experiences and growth",
+    "heroTitle": "Hi, I am Cayden.",
     "legal": {
       "terms": "Terms",
       "privacy": "Privacy",
@@ -109,55 +119,190 @@
     },
     "share": {
       "share": "Share:",
-      "defaultDescription": "Discover amazing weird websites on W3Cay!",
+      "defaultDescription": "Discover amazing weird websites on CayDock!",
       "linkCopied": "Link copied to clipboard!"
+    },
+    "products": {
+      "title": "Products",
+      "subtitle": "Discover our collection of innovative tools and services",
+      "empty": "No products available",
+      "musicCover": {
+        "name": "Music Album Cover Search",
+        "description": "Free music cover search tool, supports searching album, song, and music video covers",
+        "category": "Music Tools",
+        "link": "https://musiccover.caydock.com"
+      },
+      "w3cay": {
+        "name": "W3Cay",
+        "description": "W3Cay is an interesting website collection platform that collects various interesting websites",
+        "category": "Website Collection",
+        "link": "https://w3cay.com",
+        "icon": "https://w3cay.com/favicon-96x96.png"
+      },
+      "qrcay": {
+        "name": "QrCay",
+        "description": "QrCay is a QR code generation and management tool",
+        "category": "QR Code Tools",
+        "link": "https://qrcay.com",
+        "icon": "https://qrcay.com/vite.svg"
+      },
+      "timecay": {
+        "name": "TimeCay",
+        "description": "Time recording tool, supports countdown, anniversaries, etc.",
+        "category": "Time Tools",
+        "link": "https://timecay.com",
+        "icon": "https://timecay.com/favicon.ico"
+      }
     },
     "terms": {
       "title": "Terms of Service",
-      "intro": "Welcome to W3Cay. By accessing or using our website, you agree to be bound by these Terms of Service.",
-      "useTitle": "Use of the Service",
-      "use1": "W3Cay curates and shares links to third‑party websites. We do not host or control external content.",
-      "use2": "You agree not to use W3Cay for any illegal or unauthorized purpose.",
-      "use3": "We may update or remove content at our discretion without notice.",
-      "ipTitle": "Intellectual Property",
-      "ipText": "All trademarks, logos, and images on W3Cay belong to their respective owners. Any third‑party content is used for identification and review purposes.",
-      "linksTitle": "Links to Third‑Party Sites",
-      "linksText": "W3Cay may contain links to external sites not provided or maintained by us. We do not guarantee the accuracy or completeness of information on those sites.",
-      "liabilityTitle": "Limitation of Liability",
-      "liabilityText": "W3Cay is provided on an 'as is' and 'as available' basis. We disclaim all warranties and are not liable for any damages arising from the use of W3Cay or linked sites.",
-      "changesTitle": "Changes to Terms",
-      "changesText": "We may modify these Terms at any time. Continued use of the site constitutes acceptance of the new Terms.",
-      "contactTitle": "Contact",
-      "contactText": "For questions about these Terms, contact:"
+      "subtitle": "Terms and Conditions for CayDock Website",
+      "acceptanceTitle": "1. Acceptance of Terms",
+      "acceptanceText": "By accessing and using the CayDock website (hereinafter \"the Service\"), you accept and agree to be bound by the terms and provision of this agreement.",
+      "licenseTitle": "2. Use License",
+      "licenseText": "Permission is granted to temporarily download one copy of the materials on CayDock for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and under this license you may not:",
+      "license1": "Modify or copy the materials",
+      "license2": "Use the materials for any commercial purpose or for any public display",
+      "license3": "Attempt to reverse engineer any software contained on the website",
+      "license4": "Remove any copyright or other proprietary notations from the materials",
+      "disclaimerTitle": "3. Disclaimer",
+      "disclaimerText": "The materials on CayDock are provided on an 'as is' basis. CayDock makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties including without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.",
+      "limitationsTitle": "4. Limitations",
+      "limitationsText": "In no event shall CayDock or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on CayDock, even if CayDock or a CayDock authorized representative has been notified orally or in writing of the possibility of such damage.",
+      "accuracyTitle": "5. Accuracy of Materials",
+      "accuracyText": "The materials appearing on CayDock could include technical, typographical, or photographic errors. CayDock does not warrant that any of the materials on its website are accurate, complete, or current.",
+      "linksTitle": "6. Links",
+      "linksText": "CayDock has not reviewed all of the sites linked to our website and is not responsible for the contents of any such linked site. The inclusion of any link does not imply endorsement by CayDock of the site.",
+      "modificationsTitle": "7. Modifications",
+      "modificationsText": "CayDock may revise these terms of service for its website at any time without notice. By using this website you are agreeing to be bound by the then current version of these terms of service.",
+      "governingTitle": "8. Governing Law",
+      "governingText": "These terms and conditions are governed by and construed in accordance with the laws and you irrevocably submit to the exclusive jurisdiction of the courts in that state or location.",
+      "contactTitle": "9. Contact Information",
+      "contactText": "If you have any questions about these Terms of Service, please contact us at:",
+      "lastUpdated": "Last updated: January 2024"
     },
     "privacy": {
       "title": "Privacy Policy",
-      "intro": "We value your privacy. This policy explains what information we collect and how we use it.",
-      "infoTitle": "Information We Collect",
-      "info1": "Basic analytics and usage data to improve the site experience.",
-      "info2": "Information you provide voluntarily (e.g., when submitting a website).",
-      "cookiesTitle": "Cookies",
-      "cookiesText": "We may use cookies to remember preferences and analyze traffic. You can control cookies through your browser settings.",
-      "thirdTitle": "Third‑Party Services",
-      "thirdText": "External services linked from W3Cay have their own privacy policies. We are not responsible for their practices.",
-      "securityTitle": "Data Security",
-      "securityText": "We take reasonable measures to protect data, but no method of transmission or storage is 100% secure.",
-      "changesTitle": "Changes",
-      "changesText": "We may update this policy from time to time. Continued use indicates acceptance of any changes.",
-      "contactTitle": "Contact",
-      "contactText": "If you have questions about this Privacy Policy, contact:"
+      "subtitle": "How We Collect, Use, and Protect Your Information",
+      "infoTitle": "1. Information We Collect",
+      "personalTitle": "Personal Information",
+      "emailLabel": "Email Address:",
+      "emailText": "When you contact us or subscribe to our newsletter",
+      "commentsLabel": "Comments:",
+      "commentsText": "When you leave comments on our blog posts",
+      "usageLabel": "Usage Data:",
+      "usageText": "Information about how you use our website",
+      "autoTitle": "Automatically Collected Information",
+      "logLabel": "Log Data:",
+      "logText": "IP address, browser type, pages visited, time spent on pages",
+      "cookiesLabel": "Cookies:",
+      "cookiesText": "Small data files stored on your device to improve your experience",
+      "analyticsLabel": "Analytics:",
+      "analyticsText": "Website usage statistics through Google Analytics",
+      "useTitle": "2. How We Use Your Information",
+      "useIntro": "We use the collected information to:",
+      "use1": "Provide and maintain our website",
+      "use2": "Improve user experience and website functionality",
+      "use3": "Respond to your inquiries and comments",
+      "use4": "Send newsletters (with your consent)",
+      "use5": "Analyze website traffic and usage patterns",
+      "use6": "Ensure website security and prevent fraud",
+      "sharingTitle": "3. Information Sharing",
+      "sharingText": "We do not sell, trade, or otherwise transfer your personal information to third parties except:",
+      "serviceLabel": "Service Providers:",
+      "serviceText": "Trusted third parties who assist in operating our website",
+      "legalLabel": "Legal Requirements:",
+      "legalText": "When required by law or to protect our rights",
+      "consentLabel": "Consent:",
+      "consentText": "When you have given explicit consent",
+      "cookiesTitle": "4. Cookies and Tracking",
+      "cookiesTypesTitle": "Types of Cookies We Use",
+      "essentialLabel": "Essential Cookies:",
+      "essentialText": "Necessary for website functionality",
+      "analyticsCookiesLabel": "Analytics Cookies:",
+      "analyticsCookiesText": "Help us understand how visitors use our site",
+      "advertisingLabel": "Advertising Cookies:",
+      "advertisingText": "Used by Google AdSense for relevant ads",
+      "managingTitle": "Managing Cookies",
+      "managingText": "You can control cookies through your browser settings. However, disabling cookies may affect website functionality.",
+      "thirdTitle": "5. Third-Party Services",
+      "googleAnalyticsTitle": "Google Analytics",
+      "googleAnalyticsText": "We use Google Analytics to analyze website traffic. Google's privacy policy applies to this service.",
+      "googleAdSenseTitle": "Google AdSense",
+      "googleAdSenseText": "We display advertisements through Google AdSense. Google may use cookies to serve ads based on your visits to our site.",
+      "socialTitle": "Social Media",
+      "socialText": "Our website may include social media features. These features may collect your IP address and page information.",
+      "securityTitle": "6. Data Security",
+      "securityText": "We implement appropriate security measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction.",
+      "retentionTitle": "7. Data Retention",
+      "retentionText": "We retain your personal information only as long as necessary to fulfill the purposes outlined in this privacy policy, unless a longer retention period is required by law.",
+      "rightsTitle": "8. Your Rights",
+      "rightsIntro": "Depending on your location, you may have the right to:",
+      "rights1": "Access your personal information",
+      "rights2": "Correct inaccurate information",
+      "rights3": "Delete your personal information",
+      "rights4": "Object to processing of your information",
+      "rights5": "Data portability",
+      "childrenTitle": "9. Children's Privacy",
+      "childrenText": "Our website is not intended for children under 13. We do not knowingly collect personal information from children under 13.",
+      "internationalTitle": "10. International Data Transfers",
+      "internationalText": "Your information may be transferred to and processed in countries other than your own. We ensure appropriate safeguards are in place.",
+      "changesTitle": "11. Changes to This Policy",
+      "changesText": "We may update this privacy policy from time to time. We will notify you of any changes by posting the new policy on this page.",
+      "contactTitle": "12. Contact Us",
+      "contactText": "If you have any questions about this Privacy Policy, please contact us at:",
+      "lastUpdated": "Last updated: January 2024"
     },
     "disclaimerPage": {
       "title": "Disclaimer",
-      "intro": "W3Cay is a curated directory of interesting websites. We do not own, control, or endorse the content of external sites linked on W3Cay.",
-      "thirdTitle": "No Responsibility for Third‑Party Content",
-      "thirdText": "All external links are provided for convenience and exploration. We do not guarantee the accuracy, legality, or availability of any external site.",
-      "fairTitle": "Fair Use & Attribution",
-      "fairText": "Trademarks, logos, and images belong to their respective owners. Any use is for identification, review, or commentary purposes.",
-      "adviceTitle": "No Professional Advice",
-      "adviceText": "Content on W3Cay is for informational and entertainment purposes only and should not be considered professional advice.",
-      "contactTitle": "Contact",
-      "contactText": "If you believe your rights are infringed or content is inappropriate, please email:"
+      "subtitle": "Important Legal Disclaimers and Limitations",
+      "generalTitle": "1. General Disclaimer",
+      "generalText": "The information on this website is provided on an \"as is\" basis. To the fullest extent permitted by law, this Company:",
+      "generalList1": "Excludes all representations and warranties relating to this website and its contents or which is or may be provided by any affiliates or any other third party, including in relation to any inaccuracies or omissions in this website and/or the Company's literature",
+      "generalList2": "Excludes all liability for damages arising out of or in connection with your use of this website",
+      "contentTitle": "2. Content Disclaimer",
+      "accuracyTitle": "Accuracy of Information",
+      "accuracyText1": "The content on CayDock is for general information purposes only",
+      "accuracyText2": "While we strive to keep the information up to date and correct, we make no representations or warranties of any kind, express or implied, about the completeness, accuracy, reliability, suitability, or availability of the website or the information, products, services, or related graphics contained on the website",
+      "accuracyText3": "Any reliance you place on such information is therefore strictly at your own risk",
+      "technicalTitle": "Technical Content",
+      "technicalText1": "Technical tutorials, code examples, and development guides are provided for educational purposes",
+      "technicalText2": "We do not guarantee that the code or techniques will work in all environments",
+      "technicalText3": "Always test code in a safe environment before implementing in production",
+      "technicalText4": "We are not responsible for any damages or issues arising from the use of our code examples",
+      "externalTitle": "3. External Links Disclaimer",
+      "externalText1": "Our website may contain links to external websites that are not provided or maintained by or in any way affiliated with CayDock",
+      "externalText2": "We do not guarantee the accuracy, relevance, timeliness, or completeness of any information on these external websites",
+      "externalText3": "The inclusion of any links does not necessarily imply a recommendation or endorse the views expressed within them",
+      "professionalTitle": "4. Professional Advice Disclaimer",
+      "professionalText1": "The information on this website is not intended as professional advice",
+      "professionalText2": "You should not rely solely on the information on this website for making decisions",
+      "professionalText3": "Always seek professional advice before making important decisions",
+      "professionalText4": "We are not responsible for any decisions made based on the information provided on this website",
+      "investmentTitle": "5. Investment and Financial Disclaimer",
+      "investmentText1": "Any information about investments, financial products, or business opportunities is for informational purposes only",
+      "investmentText2": "We are not financial advisors and do not provide investment advice",
+      "investmentText3": "Past performance does not guarantee future results",
+      "investmentText4": "Always consult with qualified financial professionals before making investment decisions",
+      "technologyTitle": "6. Technology and Development Disclaimer",
+      "technologyText1": "Technology changes rapidly, and information may become outdated",
+      "technologyText2": "We do not guarantee that our technical content will remain current",
+      "technologyText3": "Always verify information with official documentation and current best practices",
+      "technologyText4": "We are not responsible for any issues arising from outdated information",
+      "userTitle": "7. User-Generated Content",
+      "userText1": "Comments and user-generated content do not necessarily reflect our views",
+      "userText2": "We reserve the right to moderate and remove inappropriate content",
+      "userText3": "Users are responsible for their own comments and content",
+      "userText4": "We are not liable for any damages arising from user-generated content",
+      "liabilityTitle": "8. Limitation of Liability",
+      "liabilityText": "In no event shall CayDock, nor its directors, employees, partners, agents, suppliers, or affiliates, be liable for any indirect, incidental, special, consequential, or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses, resulting from your use of the website.",
+      "indemnificationTitle": "9. Indemnification",
+      "indemnificationText": "You agree to defend, indemnify, and hold harmless CayDock and its licensee and licensors, and their employees, contractors, agents, officers and directors, from and against any and all claims, damages, obligations, losses, liabilities, costs or debt, and expenses (including but not limited to attorney's fees).",
+      "governingTitle": "10. Governing Law",
+      "governingText": "This disclaimer is governed by and construed in accordance with the laws, and you irrevocably submit to the exclusive jurisdiction of the courts in that state or location.",
+      "contactTitle": "11. Contact Information",
+      "contactText": "If you have any questions about this Disclaimer, please contact us at:",
+      "lastUpdated": "Last updated: January 2024"
     },
     "submit": {
       "title": "Recommend a Website",
@@ -170,23 +315,23 @@
       "submitBtn": "Submit",
       "saved": "Saved",
       "successTitle": "Submission Successful!",
-      "successMessage": "Thank you for your submission! We will review your website as soon as possible. Once approved, your website will be displayed on W3Cay.",
+      "successMessage": "Thank you for your submission! We will review your website as soon as possible. Once approved, your website will be displayed on CayDock.",
       "submissionInfo": "Submission Info:",
       "confirm": "OK"
     },
     "about": {
       "heroTitle": "Stay Curious, Share with Passion, Explore the World's Weird Websites",
-      "heroDesc": "This is the belief behind my continuous creation. W3Cay focuses on discovering and sharing weird and useless websites, bringing inspiration and joy to everyday life. Keep learning, embrace changes, and deliver value in a simple and beautiful way.",
-      "aboutTitle": "About This Site",
-      "aboutDesc": "Hi, I'm Cayden. W3Cay is a joyful 'island of world's weird websites' dedicated to collecting and sharing unique websites, helping you find a little inspiration and fun in daily life.",
+        "heroDesc": "This is the belief behind my continuous creation. CayDock focuses on discovering and sharing weird and useless websites, bringing inspiration and joy to everyday life. Keep learning, embrace changes, and deliver value in a simple and beautiful way.",
+        "aboutTitle": "About",
+        "aboutDesc": "👋 Hi, I am **Cayden**, welcome to my personal website CayDock\n\nI am a frontend development engineer👨‍💻, aiming to be a free independent developer\n\nCayDock is my personal project showcase website, Cay is my name, Dock means program launcher\n\nHere I also share my independent development overseas experience, solving technical, product, SEO, operations and other problems\n\nI also share some good books I have read, as well as some life trivia\n\nUpdated irregularly, if the content I share is helpful to you, welcome to subscribe and leave a message to communicate with me",
       "domainTitle": "Domain Origin",
-      "domainDesc": "\"w3cay\" combines \"w3\" (short for World's Weird Websites) and \"cay\" (a small island). The internet is like a vast ocean full of interesting 'islands'. W3Cay hopes to connect them and share with explorers like you.",
+        "domainDesc": "\"CayDock\" combines \"Cayden\" (my name) and \"Dock\" (program launcher, also means dock by the sea). It represents the place where my products set sail and the harbor for my personal thoughts.",
       "contactTitle": "Contact & Submit",
       "contactEmailPrefix": "For collaboration, media, or partnership inquiries, email:",
       "contactSubmitPrefix": "To recommend a website, go to",
       "contactSubmitLink": "Submit",
       "contactSubmitSuffix": ". We review regularly and curate the best.",
-      "outro": "Whether you're seeking inspiration, relaxing, or just want a laugh, we hope you find your own surprise on W3Cay's 'island of interests' 🏝️."
+      "outro": "Whether you're seeking inspiration, relaxing, or just want a laugh, we hope you find your own surprise on CayDock's 'island of interests' 🏝️."
     },
     "notFound": {
       "title": "Page Not Found",
@@ -194,8 +339,8 @@
     },
     "contactPage": {
       "title": "Contact Us",
-      "subtitle": "Get in touch with W3Cay",
-      "thank": "Thank you for visiting W3Cay! If you have any questions, suggestions, or cooperation intentions, feel free to reach out.",
+      "subtitle": "Get in touch with CayDock",
+      "thank": "Thank you for visiting CayDock! If you have any questions, suggestions, or cooperation intentions, feel free to reach out.",
       "emailTitle": "Email",
       "emailPrimary": "Primary: ",
       "feedbackTitle": "Feedback",

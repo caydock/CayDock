@@ -7,7 +7,7 @@ export default function AboutBodyClient() {
   const locale = useLocale();
   const language = locale === 'zh-cn' ? 'zh' : 'en';
   return (
-    <section className="mx-5 xs:mx-10 sm:mx-12 md:mx-16 lg:mx-20 mt-10 mb-10 md:mt-14 text-dark dark:text-light leading-relaxed">
+    <section className="max-w-7xl mx-auto px-5 sm:px-10 mt-10 mb-10 md:mt-14 text-dark dark:text-light leading-relaxed">
       <h2 className="text-2xl md:text-3xl font-semibold">{t('about.aboutTitle')}</h2>
       <p className="mt-4 text-base md:text-lg">{t('about.aboutDesc')}</p>
 

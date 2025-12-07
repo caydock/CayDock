@@ -1,7 +1,7 @@
 "use client";
 import Image from 'next/image'
 import React from 'react'
-import profileCharacter from "../../../public/about-logo.webp"
+import profileCharacter from "../../../public/cay.webp"
 import { useTranslations } from 'next-intl';
 
 const AboutCoverSection = () => {

@@ -10,7 +10,7 @@ export async function generateStaticParams() {
   
   // 为每种语言生成参数
   ['en', 'zh-cn'].forEach(locale => {
-    const language = locale === 'zh-cn' ? 'zh' : 'en';
+    const language = locale === 'zh-cn' ? 'zh-cn' : 'en';
     const languageBlogs = blogs.filter(blog => blog.language === language);
     
     languageBlogs.forEach((blog) => {
@@ -47,6 +47,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }) {
   const { locale, slug: categorySlug } = await params;
   const language = locale === 'zh-cn' ? 'zh' : 'en';
+  const blogLanguage = locale === 'zh-cn' ? 'zh-cn' : 'en';
   
   if (categorySlug === "all") {
     const tdk = getServerTranslation(language, "meta");
@@ -61,7 +62,7 @@ export async function generateMetadata({ params }) {
   } else {
     // 获取当前分类的标签名称
     const getCategoryLabel = (categorySlug) => {
-      const currentLanguageBlogs = blogs.filter(blog => blog.language === language);
+      const currentLanguageBlogs = blogs.filter(blog => blog.language === blogLanguage);
       
       const matchingBlog = currentLanguageBlogs.find(blog => {
         if (blog.tagKeys && blog.tagKeys.length > 0) {

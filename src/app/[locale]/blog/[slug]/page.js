@@ -10,7 +10,7 @@ export async function generateStaticParams() {
 
   // 为每种语言生成参数
   ['en', 'zh-cn'].forEach(locale => {
-    const language = locale === 'zh-cn' ? 'zh' : 'en';
+    const language = locale === 'zh-cn' ? 'zh-cn' : 'en';
     const languageBlogs = blogs.filter(blog => blog.language === language);
 
     languageBlogs.forEach(blog => {
@@ -27,7 +27,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }) {
   const { locale, slug } = await params;
   const t = await getTranslations({locale: locale, namespace: 'meta'});
-  const language = locale === 'zh-cn' ? 'zh' : 'en';
+  const language = locale === 'zh-cn' ? 'zh-cn' : 'en';
 
   // 查找对应的博客文章
   const blog = blogs.find(blog =>
@@ -92,7 +92,7 @@ export async function generateMetadata({ params }) {
 
 export default async function BlogDetailPage({ params }) {
   const { locale, slug } = await params;
-  const language = locale === 'zh-cn' ? 'zh' : 'en';
+  const language = locale === 'zh-cn' ? 'zh-cn' : 'en';
 
   // 查找对应的博客文章
   const blog = blogs.find(blog =>

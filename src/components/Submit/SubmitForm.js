@@ -70,7 +70,7 @@ export default function SubmitForm({ initialLanguage, searchParams, initialSite 
 
   return (
     <>
-      <main className="max-w-4xl mx-auto mt-16 p-8">
+      <main className="max-w-7xl mx-auto mt-16 px-5 sm:px-10 py-8">
         <h1 className="text-4xl md:text-5xl font-bold text-center mb-4 text-dark dark:text-light">{t('submit.title')}</h1>
         <p className="text-center text-gray-600 dark:text-gray-300 text-lg mb-12">{t('submit.tagline')}</p>
 

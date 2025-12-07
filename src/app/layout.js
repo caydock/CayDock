@@ -1,6 +1,7 @@
 import "./globals.css";
 import { cx } from "@/src/utils";
 import { Inter, Manrope } from "next/font/google";
+import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Analytics from "@/src/components/Analytics";
 import StructuredData from "@/src/components/StructuredData";
@@ -28,8 +29,8 @@ export async function generateMetadata() {
   return {
     metadataBase: base,
     title: {
-      template: '%s | W3Cay',
-      default: 'W3Cay - World\'s Weird Websites Cay',
+      template: '%s | CayDock',
+      default: 'CayDock - Personal Blog & Project Showcase',
     },
     description: siteMetadata.description,
     icons: {
@@ -46,16 +47,16 @@ export async function generateMetadata() {
     },
     manifest: '/site.webmanifest',
     openGraph: {
-      title: 'W3Cay - World\'s Weird Websites Cay',
+      title: 'CayDock - Personal Blog & Project Showcase',
       description: siteMetadata.description,
       url: siteMetadata.siteUrl,
-      siteName: 'W3Cay',
+      siteName: 'CayDock',
       images: [
         {
           url: `${siteMetadata.siteUrl}${siteMetadata.socialBanner}`,
           width: 1200,
           height: 630,
-          alt: 'W3Cay - World\'s Weird Websites Cay',
+          alt: 'CayDock - Personal Blog & Project Showcase',
         }
       ],
       type: "website",
@@ -75,7 +76,7 @@ export async function generateMetadata() {
     },
     twitter: {
       card: "summary_large_image",
-      title: 'W3Cay - World\'s Weird Websites Cay',
+      title: 'CayDock - Personal Blog & Project Showcase',
       description: siteMetadata.description,
       site: '@caydock',
       images: [`${siteMetadata.siteUrl}${siteMetadata.socialBanner}`],
@@ -109,6 +110,7 @@ export default async function RootLayout({ children }) {
         )}
       >
         <NextIntlClientProvider locale={locale} messages={messages}>
+          <Header />
           {children}
           <Footer />
         </NextIntlClientProvider>

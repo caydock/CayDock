@@ -2,7 +2,6 @@ import { blogs } from '@/.velite/generated'
 import BlogLayoutThree from "@/src/components/Blog/BlogLayoutThree";
 import Categories from "@/src/components/Blog/Categories";
 import BreadcrumbServer from "@/src/components/Blog/BreadcrumbServer";
-import ExploreButton from "@/src/components/Elements/ExploreButton";
 import { slug } from "github-slugger";
 import { getServerTranslation } from "@/src/i18n";
 
@@ -10,9 +9,12 @@ export default function CategoryPageContent({ categorySlug, locale, language }) 
   // 获取翻译
   const tdk = getServerTranslation(language, "ui");
   
+  // language 可能是 'zh'，但博客文章的 language 是 'zh-cn'，需要转换
+  const blogLanguage = language === 'zh' ? 'zh-cn' : language;
+  
   // 创建分类列表
   const allCategories = ["all"];
-  blogs.filter(blog => blog.language === language).forEach(blog => {
+  blogs.filter(blog => blog.language === blogLanguage).forEach(blog => {
     if (blog.tagKeys && blog.tagKeys.length > 0) {
       blog.tagKeys.forEach(tagKey => {
         if (!allCategories.includes(tagKey)) {
@@ -35,13 +37,13 @@ export default function CategoryPageContent({ categorySlug, locale, language }) 
   // 过滤博客文章
   const filteredBlogs = blogs.filter(blog => {
     if (categorySlug === "all") {
-      return blog.isPublished && blog.language === language;
+      return blog.isPublished && blog.language === blogLanguage;
     }
 
     if (blog.tagKeys && blog.tagKeys.length > 0) {
-      return blog.isPublished && blog.language === language && blog.tagKeys.includes(categorySlug);
+      return blog.isPublished && blog.language === blogLanguage && blog.tagKeys.includes(categorySlug);
     } else {
-      return blog.isPublished && blog.language === language && blog.tags.some(tag => slug(tag) === categorySlug);
+      return blog.isPublished && blog.language === blogLanguage && blog.tags.some(tag => slug(tag) === categorySlug);
     }
   });
 
@@ -108,9 +110,9 @@ export default function CategoryPageContent({ categorySlug, locale, language }) 
   ];
 
   return (
-    <article className="mt-12 flex flex-col text-dark dark:text-light">
+    <article className="mt-12 flex flex-col text-dark dark:text-light max-w-7xl mx-auto">
       <BreadcrumbServer items={breadcrumbItems} homeLabel={tdk.nav.home} locale={locale} />
-      <div className="px-5 sm:px-10 md:px-24 sxl:px-32 flex flex-col">
+      <div className="px-5 sm:px-10 md:px-10 flex flex-col">
         <h1 className="mt-6 font-semibold text-2xl md:text-4xl lg:text-5xl capitalize">#{getCategoryLabel(categorySlug)}</h1>
         <span className="mt-10 inline-block">
           {tdk.blog.categorySubtitle}
@@ -118,17 +120,13 @@ export default function CategoryPageContent({ categorySlug, locale, language }) 
       </div>
       <Categories categories={allCategories} currentSlug={categorySlug} lang={locale} getCategoryLabel={getCategoryLabel} />
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-16 mt-5 sm:mt-10 md:mt-24 sxl:mt-32 px-5 sm:px-10 md:px-24 sxl:px-32 mb-10">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-16 mt-5 sm:mt-10 md:mt-24 sxl:mt-32 px-5 sm:px-10 md:px-10 mb-10">
         {filteredBlogs.map((blog, index) => (
           <article key={index} className="col-span-1 relative">
             <BlogLayoutThree blog={blog} lang={locale} />
           </article>
         ))}
       </div>
-      
-      <ExploreButton locale={locale}>
-        {tdk.blog.exploreMore}
-      </ExploreButton>
     </article>
   );
 }

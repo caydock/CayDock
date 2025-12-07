@@ -1,28 +1,12 @@
 "use client";
-import React, { useEffect } from "react";
-import { useForm } from "react-hook-form";
-import { DribbbleIcon, GithubIcon, LinkedinIcon, TwitterIcon } from "../Icons";
-import siteMetadata from "@/src/utils/siteMetaData";
-import { useTranslations, useLocale } from 'next-intl';
+import React from "react";
+import { useTranslations } from 'next-intl';
 import { getClientTranslation } from '@/src/i18n';
-import Logo from "@/src/components/Header/SiteLogoBlack";
-import ShareButtons from "@/src/components/Elements/ShareButtons";
-import { usePathname, useRouter } from '@/src/i18n/routing';
-import { useParams, usePathname as useNextPathname } from 'next/navigation';
+import { usePathname as useNextPathname } from 'next/navigation';
 import SmartLink from '../Elements/SmartLink';
 
 const Footer = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
-
-  const locale = useLocale();
-  const pathname = usePathname();
   const nextPathname = useNextPathname();
-  const router = useRouter();
-  const params = useParams();
   
   // 判断是否为英文站（根目录）- 使用真实的浏览器路径
   const isEnglishSite = !nextPathname.startsWith('/zh-cn');
@@ -52,141 +36,11 @@ const Footer = () => {
     return defaultT(key);
   };
 
-  // 加载AdSense脚本
-  useEffect(() => {
-    const loadAdSense = () => {
-      if (typeof window !== 'undefined' && !window.adsbygoogle) {
-        const script = document.createElement('script');
-        script.async = true;
-        script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2011896129037768';
-        script.crossOrigin = 'anonymous';
-        document.head.appendChild(script);
-      }
-    };
-
-    loadAdSense();
-  }, []);
-
-  // 初始化广告
-  useEffect(() => {
-    const initAd = () => {
-      if (typeof window !== 'undefined' && window.adsbygoogle) {
-        try {
-          (window.adsbygoogle = window.adsbygoogle || []).push({});
-        } catch (e) {
-          console.log('AdSense error:', e);
-        }
-      }
-    };
-
-    // 延迟初始化以确保脚本已加载
-    const timer = setTimeout(initAd, 1000);
-    return () => clearTimeout(timer);
-  }, []);
-  // 使用 SmartLink 统一处理链接
-
   return (
-    <footer className="bg-dark flex flex-col items-center text-light relative">
-
-      <div className="mt-10 w-full flex flex-col items-center justify-center gap-4 px-4">
-        <Logo sizeClass="w-40" locale={actualLocale} />
-
-
-
-        {/* 导航菜单 */}
-        <nav className="mt-4 flex flex-wrap items-center justify-center gap-6 text-lg sm:text-xl">
-          <SmartLink href="/" locale={actualLocale} className="hover:underline transition-colors">{t('nav.home')}</SmartLink>
-          <SmartLink href="/blog" locale={actualLocale} className="hover:underline transition-colors">{t('blog.title')}</SmartLink>
-          <SmartLink href="/submit" locale={actualLocale} className="hover:underline transition-colors">{t('nav.submit')}</SmartLink>
-          <SmartLink href="/about" locale={actualLocale} className="hover:underline transition-colors">{t('nav.about')}</SmartLink>
-          <SmartLink href="/contact" locale={actualLocale} className="hover:underline transition-colors">{t('nav.contact')}</SmartLink>
-        </nav>
-      </div>
-
-             {/* 副标题 */}
-       <p className='font-medium mt-10 text-base max-w-2xl text-center text-light/80 transition-all duration-1000 ease-in-out px-4'>
-         {t('footer.description')}
-       </p>
-
-       {/* Product Hunt Badge 和分享按钮 */}
-       <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-6">
-         <a 
-           href="https://www.producthunt.com/products/w3cay?embed=true&utm_source=badge-featured&utm_medium=badge&utm_source=badge-w3cay" 
-           target="_blank"
-           rel="noopener noreferrer"
-           className="hover:scale-105 transition-transform duration-200"
-         >
-           <img 
-             src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1009668&theme=light&t=1756549588428" 
-             alt="W3CAY - World’s Weird Websites Cay — your island of quirky web discoveries | Product Hunt" 
-             style={{ width: '160px', height: '34px' }} 
-             width="160" 
-             height="34" 
-           />
-         </a>
-
-        <ShareButtons 
-          hashtags="weirdwebsites,webdiscovery,funwebsites"
-          className="text-light"
-        />
-      </div>
-
-      {/* Google AdSense 广告 */}
-      <div className="mt-8 w-full max-w-4xl mx-auto px-4">
-        <ins 
-          className="adsbygoogle"
-          style={{display:'block'}}
-          data-ad-client="ca-pub-2011896129037768"
-          data-ad-slot="9754650830"
-          data-ad-format="auto"
-          data-full-width-responsive="true"
-        ></ins>
-      </div>
-
-
-
-      {/* <div className="flex items-center mt-8">
-        <a
-          href={siteMetadata.linkedin}
-          className="inline-block w-6 h-6 mr-4"
-          aria-label="Reach out to me via LinkedIn"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <LinkedinIcon className="hover:scale-125 transition-all ease duration-200" />
-        </a>
-        <a
-          href={siteMetadata.twitter}
-          className="inline-block w-6 h-6 mr-4"
-          aria-label="Reach out to me via Twitter"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <TwitterIcon className="hover:scale-125 transition-all ease duration-200" />
-        </a>
-        <a
-          href={siteMetadata.github}
-          className="inline-block w-6 h-6 mr-4 fill-light"
-          aria-label="Check my profile on Github"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <GithubIcon className="fill-light dark:fill-dark  hover:scale-125 transition-all ease duration-200" />
-        </a>
-        <a
-          href={siteMetadata.dribbble}
-          className="inline-block w-6 h-6 mr-4"
-          aria-label="Check my profile on Dribbble"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <DribbbleIcon className="hover:scale-125 transition-all ease duration-200" />
-        </a>
-      </div> */}
-
-      <div className="w-full  mt-10 md:mt-10 relative font-medium border-t border-solid border-light py-6 px-8 flex  flex-col md:flex-row items-center justify-between">
+    <footer className="flex flex-col items-center text-dark dark:text-light relative">
+      <div className="w-full max-w-7xl mx-auto relative font-medium border-t border-solid border-dark/10 dark:border-light/10 py-6 px-5 sm:px-8 flex flex-col md:flex-row items-center justify-between">
         <span className="text-center text-base sm:text-base">
-          &copy;2025 W3Cay. {t('footer.allRights')}
+          &copy;2025 CayDock. {t('footer.allRights')}
         </span>
         <div className="text-center my-4 md:my-0 flex items-center gap-4 text-base sm:text-base">
           <SmartLink href="/terms-of-service" locale={actualLocale} className="underline">{t('legal.terms')}</SmartLink>
@@ -204,7 +58,7 @@ const Footer = () => {
           {isEnglishSite ? (
             <SmartLink
               href={`/zh-cn${nextPathname}`}
-              className="ml-2 px-3 py-1 rounded-full border border-solid border-light/60 text-sm bg-transparent hover:bg-light/10 transition-colors"
+              className="ml-2 px-3 py-1 rounded-full border border-solid border-dark/20 dark:border-light/20 text-sm bg-transparent hover:bg-dark/10 dark:hover:bg-light/10 transition-colors"
               aria-label="language-switcher-footer"
             >
               中文
@@ -212,7 +66,7 @@ const Footer = () => {
           ) : (
             <SmartLink
               href={nextPathname.replace('/zh-cn', '') || '/'}
-              className="ml-2 px-3 py-1 rounded-full border border-solid border-light/60 text-sm bg-transparent hover:bg-light/10 transition-colors"
+              className="ml-2 px-3 py-1 rounded-full border border-solid border-dark/20 dark:border-light/20 text-sm bg-transparent hover:bg-dark/10 dark:hover:bg-light/10 transition-colors"
               aria-label="language-switcher-footer"
             >
               EN

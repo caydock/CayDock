@@ -25,6 +25,8 @@ export const routing = defineRouting({
     '/terms-of-service': '/terms-of-service',
     '/privacy-policy': '/privacy-policy',
     '/disclaimer': '/disclaimer',
+    '/subscribe': '/subscribe',
+    '/products': '/products',
     '/categories': '/categories',
     '/categories/[slug]': '/categories/[slug]',
     '/blog/[slug]': '/blog/[slug]'

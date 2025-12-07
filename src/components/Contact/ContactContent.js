@@ -6,7 +6,7 @@ export default function ContactContent() {
   const t = useTranslations('ui');
   
   return (
-    <main className="mb-10 mt-10 md:mt-28 text-dark dark:text-light leading-relaxed max-w-4xl mx-auto text-center px-5 xs:px-10 sm:px-12 md:px-16 lg:px-20">
+    <main className="mb-10 mt-10 md:mt-28 text-dark dark:text-light leading-relaxed max-w-7xl mx-auto text-center px-5 sm:px-10">
       <h1 className="text-3xl md:text-4xl font-bold">{t('contactPage.title')}</h1>
       <p className="mt-2 text-base md:text-lg text-dark/80 dark:text-light/80">{t('contactPage.subtitle')}</p>
 
