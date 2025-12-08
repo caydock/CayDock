@@ -117,7 +117,9 @@ export default async function RootLayout({ children }) {
         <NextIntlClientProvider locale={locale} messages={messages}>
           <GlobalBackground />
           <Header />
-          {children}
+          <div className="relative z-10">
+            {children}
+          </div>
           <Footer />
         </NextIntlClientProvider>
         <Analytics />
