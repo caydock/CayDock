@@ -5,6 +5,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Analytics from "@/src/components/Analytics";
 import StructuredData from "@/src/components/StructuredData";
+import GlobalBackground from "../components/Background/GlobalBackground";
 import siteMetadata from "../utils/siteMetaData";
 import Script from "next/script";
 import { shouldEnableAdSense } from "@/src/utils/env";
@@ -114,6 +115,7 @@ export default async function RootLayout({ children }) {
         )}
       >
         <NextIntlClientProvider locale={locale} messages={messages}>
+          <GlobalBackground />
           <Header />
           {children}
           <Footer />

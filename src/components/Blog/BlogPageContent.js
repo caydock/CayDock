@@ -27,7 +27,7 @@ export default async function BlogPageContent({ locale, language, searchParams }
   const t = await getTranslations({locale: locale, namespace: 'ui'});
 
   return (
-    <main className="flex flex-col items-center justify-center min-h-screen pt-20 md:pt-24 pb-10">
+    <main className="relative z-10 flex flex-col items-center justify-center min-h-screen pt-20 md:pt-24 pb-10">
       <div className="w-full max-w-7xl mx-auto px-5 sm:px-10">
         {/* 标题 */}
         <div className="mb-8 md:mb-12">

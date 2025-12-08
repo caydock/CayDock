@@ -8,22 +8,24 @@ const BlogLayoutOne = ({ blog, lang }) => {
   if (!blog) return null;
   
   const blogUrl = blog.url;
+  const imageSrc = blog.image?.src || '/images/about-bg.jpg';
+  const imageWidth = blog.image?.width || 1200;
+  const imageHeight = blog.image?.height || 630;
   
   return (
-    <div className="group inline-block overflow-hidden rounded-xl h-full">
+    <div className="group inline-block overflow-hidden rounded-sm h-full">
       <div
         className="absolute top-0 left-0 bottom-0 right-0 h-full
-            bg-gradient-to-b from-transparent from-0% to-dark/90 rounded-xl z-10
+            bg-gradient-to-b from-transparent from-0% to-dark/90 rounded-sm z-10
             "
       />
       <Image
-        src={blog.image.src}
-        placeholder="blur"
-        blurDataURL={blog.image.blurDataURL}
+        src={imageSrc}
+        {...(blog.image?.blurDataURL && { placeholder: "blur", blurDataURL: blog.image.blurDataURL })}
         alt={blog.title}
-        width={blog.image.width}
-        height={blog.image.height}
-        className="w-full h-full object-center object-cover rounded-xl group-hover:scale-105 transition-all ease duration-300"
+        width={imageWidth}
+        height={imageHeight}
+        className="w-full h-full object-center object-cover rounded-sm group-hover:scale-105 transition-all ease duration-300"
         sizes="(max-width: 1180px) 100vw, 50vw"
       />
 

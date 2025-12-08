@@ -12,7 +12,7 @@ const HomeHeroSection = () => {
   return (
     <section className='w-full flex flex-col items-center justify-center py-8 md:py-12 px-5 sm:px-10'>
       {/* Avatar */}
-      <div className='w-32 h-32 xs:w-36 xs:h-36 md:w-40 md:h-40 mb-4 rounded-full overflow-hidden'>
+      <div className='w-32 h-32 xs:w-36 xs:h-36 md:w-40 md:h-40 mb-6 md:mb-8 rounded-full overflow-hidden'>
         <Image 
           src={profileCharacter} 
           alt="CayDock" 
@@ -23,7 +23,7 @@ const HomeHeroSection = () => {
       </div>
 
       {/* Name */}
-      <h1 className='font-bold text-2xl md:text-3xl lg:text-4xl mb-3 text-dark dark:text-light'>
+      <h1 className='font-extrabold text-2xl md:text-3xl lg:text-4xl mb-6 md:mb-8 text-dark dark:text-light'>
         CayDock
       </h1>
 
@@ -69,12 +69,12 @@ const HomeHeroSection = () => {
       </div>
 
       {/* Greeting */}
-      <h2 className='font-bold text-xl md:text-2xl lg:text-3xl mb-2 text-dark dark:text-light text-center'>
+      <h2 className='font-bold text-xl md:text-2xl lg:text-3xl mb-4 md:mb-6 text-dark dark:text-light text-center'>
         {t('heroTitle')}
       </h2>
 
       {/* Profession */}
-      <p className='font-semibold text-base md:text-lg lg:text-xl mb-3 text-dark dark:text-light text-center'>
+      <p className='font-semibold text-base md:text-lg lg:text-xl mb-6 md:mb-8 text-dark dark:text-light text-center'>
         {t('subtitle')}
       </p>
 

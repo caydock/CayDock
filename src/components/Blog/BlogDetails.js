@@ -63,10 +63,10 @@ export default function BlogDetails({ slug: blogSlug, locale }) {
 
   return (
     <PageTemplate
-      backgroundImage={{
+      backgroundImage={blog.image?.src ? {
         src: blog.image.src,
-        blurDataURL: blog.image.blurDataURL
-      }}
+        ...(blog.image.blurDataURL && { blurDataURL: blog.image.blurDataURL })
+      } : '/images/about-bg.jpg'}
       title={blog.title}
       metadata={{
         date: new Date(blog.publishedAt).toLocaleDateString(locale === 'zh-cn' ? 'zh-CN' : 'en-US', {

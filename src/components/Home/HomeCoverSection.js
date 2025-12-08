@@ -16,6 +16,7 @@ const HomeCoverSection = ({blogs, lang}) => {
     }
     
     const blogUrl = blog.url;
+    const imageSrc = blog.image?.src || '/images/about-bg.jpg';
 
   return (
     <div className='w-full max-w-7xl mx-auto px-5 sm:px-10 md:px-10 inline-block mt-10'>
@@ -23,9 +24,8 @@ const HomeCoverSection = ({blogs, lang}) => {
             <div className='absolute top-0 left-0 bottom-0 right-0 h-full
             bg-gradient-to-b from-transparent from-0% to-dark/90 rounded-3xl z-0
             ' />
-        <Image src={blog.image.src}
-        placeholder='blur'
-        blurDataURL={blog.image.blurDataURL}
+        <Image src={imageSrc}
+        {...(blog.image?.blurDataURL && { placeholder: 'blur', blurDataURL: blog.image.blurDataURL })}
         alt={blog.title}
         fill
         className='w-full h-full object-center object-cover rounded-3xl -z-10'

@@ -1,5 +1,6 @@
 "use client";
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import siteMetadata from '@/src/utils/siteMetaData';
 import profileCharacter from "../../../public/cay.webp";
 
@@ -18,6 +19,18 @@ export default function PageTemplate({
   locale = 'en', // 语言
   heroHeight = 'h-[60vh] sm:h-[70vh] md:h-[80vh]', // Hero 区域高度
 }) {
+  const pathname = usePathname();
+  
+  // 判断是否是文章页（只在文章页显示背景）
+  // 文章页路径格式：/posts/[slug] 或 /zh-cn/posts/[slug]
+  const isBlogPostPage = pathname?.match(/\/posts\/[^/]+$/);
+  
+  // 判断是否配置了背景图片
+  const hasBackgroundImage = backgroundImage && (
+    (typeof backgroundImage === 'string' && backgroundImage) ||
+    (typeof backgroundImage === 'object' && backgroundImage?.src)
+  );
+  
   const bgImageSrc = typeof backgroundImage === 'string' 
     ? backgroundImage 
     : backgroundImage?.src || '/images/about-bg.jpg';
@@ -25,11 +38,17 @@ export default function PageTemplate({
   const bgImageBlur = typeof backgroundImage === 'object' 
     ? backgroundImage?.blurDataURL 
     : undefined;
+  
+  // 只有当 blurDataURL 是有效字符串时才添加 placeholder
+  const imageProps = bgImageBlur && typeof bgImageBlur === 'string' && bgImageBlur.trim()
+    ? { placeholder: "blur", blurDataURL: bgImageBlur }
+    : {};
 
   return (
     <>
-      {/* 固定全局背景图片 */}
-      <div className="fixed top-0 left-0 w-full h-screen z-0">
+      {/* 固定全局背景图片 - 只在文章页且有配置背景图片时显示，z-index 高于全局背景 */}
+      {isBlogPostPage && hasBackgroundImage && (
+        <div className="fixed top-0 left-0 w-full h-screen z-[2]">
         <Image
           src={bgImageSrc}
           alt={title}
@@ -37,10 +56,7 @@ export default function PageTemplate({
           className="object-cover object-center"
           priority
           sizes="100vw"
-          {...(bgImageBlur && {
-            placeholder: "blur",
-            blurDataURL: bgImageBlur
-          })}
+          {...imageProps}
         />
         {/* 渐变遮罩 */}
         <div 
@@ -49,16 +65,21 @@ export default function PageTemplate({
             background: 'linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.1) 5%, rgba(0, 0, 0, 0.1) 40%, rgba(0, 0, 0, 0.03) 48%, transparent 5%)'
           }}
         />
-      </div>
+        </div>
+      )}
 
       <article className="relative z-10 pt-16">
-        {/* 渐变背景遮罩 */}
-        <div className="dark:hidden absolute inset-0" style={{
-          background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.4) 2%, rgba(255, 255, 255, 0.7) 5%,  rgba(255, 255, 255, 0.9) 10%,  rgba(255, 255, 255, 0.98) 100%)'
-        }} />
-        <div className="hidden dark:block absolute inset-0" style={{
-          background: 'linear-gradient(to bottom, rgba(26, 26, 26, 0.2) 0%, rgba(26, 26, 26, 0.4) 5%, rgba(26, 26, 26, 0.7) 10%, rgba(26, 26, 26, 0.9) 100%)'
-        }} />
+        {/* 渐变背景遮罩 - 只在文章页且有配置背景图片时显示 */}
+        {isBlogPostPage && hasBackgroundImage && (
+          <>
+            <div className="dark:hidden absolute inset-0" style={{
+              background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.4) 2%, rgba(255, 255, 255, 0.7) 5%,  rgba(255, 255, 255, 0.9) 10%,  rgba(255, 255, 255, 0.98) 100%)'
+            }} />
+            <div className="hidden dark:block absolute inset-0" style={{
+              background: 'linear-gradient(to bottom, rgba(26, 26, 26, 0.2) 0%, rgba(26, 26, 26, 0.4) 5%, rgba(26, 26, 26, 0.7) 10%, rgba(26, 26, 26, 0.9) 100%)'
+            }} />
+          </>
+        )}
         
         <div className="relative z-10">
           {/* Hero Section - 标题区域 */}

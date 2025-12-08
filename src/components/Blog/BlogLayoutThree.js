@@ -6,21 +6,23 @@ const BlogLayoutThree = ({ blog, lang }) => {
   if (!blog) return null;
   
   const blogUrl = blog.url;
+  const imageSrc = blog.image?.src || '/images/about-bg.jpg';
+  const imageWidth = blog.image?.width || 1200;
+  const imageHeight = blog.image?.height || 630;
   
   return (
     <div className="group flex flex-col items-center text-dark dark:text-light">
       <SmartLink 
         href={blogUrl || '#'} 
         {...(lang && { locale: lang })}
-        className="w-full h-48 rounded-xl overflow-hidden"
+        className="w-full h-48 rounded-sm overflow-hidden"
       >
         <Image
-          src={blog.image.src}
-          placeholder="blur"
-          blurDataURL={blog.image.blurDataURL}
+          src={imageSrc}
+          {...(blog.image?.blurDataURL && { placeholder: "blur", blurDataURL: blog.image.blurDataURL })}
           alt={blog.title}
-          width={blog.image.width}
-          height={blog.image.height}
+          width={imageWidth}
+          height={imageHeight}
           className="w-full h-full object-cover object-center group-hover:scale-105 transition-all ease duration-300"
           sizes="(max-width: 640px) 100vw,(max-width: 1024px) 50vw, 33vw"
         />

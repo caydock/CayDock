@@ -167,12 +167,9 @@ export default function CategoryPageContent({ categorySlug, locale, language }) 
   };
 
   return (
-    <article className="mt-12 pt-24 flex flex-col text-dark dark:text-light max-w-7xl mx-auto">
+    <article className="relative z-10 mt-12 pt-24 flex flex-col text-dark dark:text-light max-w-7xl mx-auto">
       <div className="px-5 sm:px-10 md:px-10 flex flex-col">
         <h1 className="mt-6 font-semibold text-2xl md:text-4xl lg:text-5xl capitalize">#{getCategoryLabel(decodedCategorySlug)}</h1>
-        <span className="mt-10 inline-block">
-          {tdk.blog.categorySubtitle}
-        </span>
       </div>
       <div className="px-5 sm:px-10 md:px-10">
         <Categories categories={allCategories} currentSlug={categorySlug} lang={locale} getCategoryLabel={getCategoryLabel} />

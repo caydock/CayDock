@@ -19,7 +19,7 @@ const blog = s
     publishedAt: s.isodate(),
     updatedAt: s.isodate(),
     description: s.string(), 
-    image: s.image(),
+    image: s.string().optional(), // 改为可选字符串，支持外部 URL
     isPublished: s.boolean().default(true),
     author: s.string(),
     tags: s.array(s.string()),
@@ -33,16 +33,49 @@ const blog = s
   .transform((data) => {
     // 优先使用 key，如果没有 key 则使用 slug（保持与旧项目一致）
     const urlSlug = data.key || data.slug;
+    
+    // 处理图片：如果是外部 URL，直接使用；如果是本地路径，尝试解析
+    let imageData = null;
+    if (data.image) {
+      // 检查是否是外部 URL
+      if (data.image.startsWith('http://') || data.image.startsWith('https://')) {
+        // 外部 URL，直接使用，不包含 blurDataURL
+        imageData = {
+          src: data.image,
+          width: 1200,
+          height: 630,
+        };
+      } else {
+        // 本地路径，转换为以 / 开头的绝对路径
+        // 将 ./images/xxx 转换为 /static/blogs/{slug}/images/xxx
+        // 注意：使用 slug 而不是 key，因为目录名通常是基于 slug 的
+        let imageSrc = data.image;
+        const blogDirName = data.slug; // 使用 slug 作为博客目录名
+        
+        if (imageSrc.startsWith('./')) {
+          // 移除 ./ 前缀，添加博客目录路径
+          imageSrc = `/static/blogs/${blogDirName}${imageSrc.substring(1)}`;
+        } else if (imageSrc.startsWith('/images/')) {
+          // 如果已经是 /images/ 开头，添加博客目录路径
+          imageSrc = `/static/blogs/${blogDirName}${imageSrc}`;
+        } else if (!imageSrc.startsWith('/')) {
+          // 如果没有 ./ 也没有 /，添加 /static/blogs/{slug}/
+          imageSrc = `/static/blogs/${blogDirName}/${imageSrc}`;
+        }
+        
+        imageData = {
+          src: imageSrc,
+          width: 1200,
+          height: 630,
+        };
+      }
+    }
+    
     return {
       ...data,
       url: `/posts/${urlSlug}`,
       readingTime: readingTime(data.body),
-    //   toc: headings,
-      image: {
-        ...data.image,
-        // 保持velite的默认图片路径处理
-        src: data.image.src,
-      },
+      image: imageData,
     }
   })
 

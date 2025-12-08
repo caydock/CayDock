@@ -9,6 +9,22 @@ const nextConfig = {
     compiler: {
       removeConsole: process.env.NODE_ENV === 'production' ? true : false,
     },
+    images: {
+      remotePatterns: [
+        {
+          protocol: 'https',
+          hostname: 'tva1.sinaimg.cn',
+        },
+        {
+          protocol: 'https',
+          hostname: 'upload-images.jianshu.io',
+        },
+        {
+          protocol: 'https',
+          hostname: 'ftp.bmp.ovh',
+        },
+      ],
+    },
     webpack: config => {
       config.plugins.push(new VeliteWebpackPlugin())
       return config
