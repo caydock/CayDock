@@ -18,7 +18,8 @@ export default async function BlogPageContent({ locale, language, searchParams }
   const sortedBlogs = sortBlogs(filteredBlogs);
 
   // 分页逻辑
-  const currentPage = parseInt(searchParams?.page || '1', 10);
+  const resolvedSearchParams = searchParams instanceof Promise ? await searchParams : searchParams;
+  const currentPage = parseInt(resolvedSearchParams?.page || '1', 10);
   const totalPages = Math.ceil(sortedBlogs.length / POSTS_PER_PAGE);
   const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
   const endIndex = startIndex + POSTS_PER_PAGE;
@@ -53,7 +54,7 @@ export default async function BlogPageContent({ locale, language, searchParams }
           currentPage={currentPage} 
           totalPages={totalPages} 
           locale={locale}
-          basePath={locale === 'zh-cn' ? '/zh-cn/posts' : '/posts'}
+          basePath="/posts"
         />
       </div>
     </main>

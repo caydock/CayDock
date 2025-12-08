@@ -21,6 +21,8 @@ export const config = {
   // - /api (API routes)
   // - /_next (Next.js internals)
   // - /_vercel (Vercel internals)
+  // - /static (static assets)
   // - /favicon.ico, /sitemap.xml, /robots.txt (static files)
-  matcher: ['/((?!api|_next|_vercel|.*\\..*).*)']
+  // - Files with extensions (images, etc.)
+  matcher: ['/((?!api|_next|_vercel|static|.*\\..*).*)']
 };

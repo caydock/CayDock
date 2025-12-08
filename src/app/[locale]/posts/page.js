@@ -5,6 +5,7 @@ export const generateMetadata = createLocalePageMetadata('/posts', 'blog');
 
 export default async function BlogPage({ params, searchParams }) {
   const { locale, language } = await getPageLocale(params);
+  const resolvedSearchParams = await searchParams;
   
-  return <BlogPageContent locale={locale} language={language} searchParams={searchParams} />;
+  return <BlogPageContent locale={locale} language={language} searchParams={resolvedSearchParams} />;
 }

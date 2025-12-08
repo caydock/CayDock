@@ -13,6 +13,7 @@ const Pagination = memo(function Pagination({
   }
 
   const getPageUrl = (page) => {
+    // basePath 应该是 /posts，next-intl 会根据 locale 自动添加语言前缀
     if (page === 1) {
       return basePath;
     }
