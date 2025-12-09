@@ -23,12 +23,12 @@ export default function PageTemplate({
   
   // 判断是否是文章页（只在文章页显示背景）
   // 文章页路径格式：/posts/[slug] 或 /zh-cn/posts/[slug]
-  const isBlogPostPage = pathname?.match(/\/posts\/[^/]+$/);
+  const isBlogPostPage = pathname?.match(/\/posts\/[^/]+$/) || pathname?.match(/\/zh-cn\/posts\/[^/]+$/);
   
   // 判断是否配置了背景图片
   const hasBackgroundImage = backgroundImage && (
-    (typeof backgroundImage === 'string' && backgroundImage) ||
-    (typeof backgroundImage === 'object' && backgroundImage?.src)
+    (typeof backgroundImage === 'string' && backgroundImage !== '/images/about-bg.jpg') ||
+    (typeof backgroundImage === 'object' && backgroundImage?.src && backgroundImage.src !== '/images/about-bg.jpg')
   );
   
   const bgImageSrc = typeof backgroundImage === 'string' 
@@ -56,6 +56,7 @@ export default function PageTemplate({
           className="object-cover object-center"
           priority
           sizes="100vw"
+          unoptimized={bgImageSrc.startsWith('/static/')}
           {...imageProps}
         />
         {/* 渐变遮罩 */}

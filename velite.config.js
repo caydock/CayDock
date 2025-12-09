@@ -54,10 +54,17 @@ const blog = s
         
         if (imageSrc.startsWith('./')) {
           // 移除 ./ 前缀，添加博客目录路径
+          // 处理 ./blog/images/xxx 这种情况，转换为 ./images/xxx
+          if (imageSrc.startsWith('./blog/images/')) {
+            imageSrc = imageSrc.replace('./blog/images/', './images/');
+          }
           imageSrc = `/static/blogs/${blogDirName}${imageSrc.substring(1)}`;
         } else if (imageSrc.startsWith('/images/')) {
           // 如果已经是 /images/ 开头，添加博客目录路径
           imageSrc = `/static/blogs/${blogDirName}${imageSrc}`;
+        } else if (imageSrc.startsWith('/blog/images/')) {
+          // 处理 /blog/images/xxx 这种情况
+          imageSrc = `/static/blogs/${blogDirName}${imageSrc.replace('/blog/images/', '/images/')}`;
         } else if (!imageSrc.startsWith('/')) {
           // 如果没有 ./ 也没有 /，添加 /static/blogs/{slug}/
           imageSrc = `/static/blogs/${blogDirName}/${imageSrc}`;
