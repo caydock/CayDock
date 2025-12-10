@@ -25,6 +25,7 @@ export const routing = defineRouting({
     '/disclaimer': '/disclaimer',
     '/subscribe': '/subscribe',
     '/products': '/products',
+    '/music-cover': '/music-cover',
     '/tags': '/tags',
     '/tags/[slug]': '/tags/[slug]',
     '/posts/[slug]': '/posts/[slug]'

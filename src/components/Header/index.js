@@ -4,16 +4,28 @@ import { MoonIcon, SunIcon } from "../Icons";
 import { useThemeSwitch } from "../Hooks/useThemeSwitch";
 import { useTranslations } from 'next-intl';
 import { getClientTranslation } from '@/src/i18n';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { cx } from "@/src/utils";
 import SmartLink from '../Elements/SmartLink';
 import { usePathname as useNextPathname } from 'next/navigation';
+import { useMemoizedFn } from '@/src/hooks/useMemoizedFn';
 
 const Header = () => {
   const [mode, setMode] = useThemeSwitch();
   const [open, setOpen] = useState(false);
   const [showLangDropdown, setShowLangDropdown] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const nextPathname = useNextPathname();
+  
+  // 监听滚动事件
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
   
   // 判断是否为英文站（根目录）- 使用真实的浏览器路径
   const isEnglishSite = !nextPathname.startsWith('/zh-cn');
@@ -49,7 +61,12 @@ const Header = () => {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 w-full border-b border-dark/10 dark:border-light/10 bg-light/90 dark:bg-dark/90 backdrop-blur-sm">
+    <header className={cx(
+      "fixed top-0 left-0 right-0 z-50 w-full border-b transition-all duration-300",
+      isScrolled 
+        ? "bg-light/95 dark:bg-dark/95 border-dark/10 dark:border-light/10" 
+        : "bg-light/30 dark:bg-dark/30 border-dark/5 dark:border-light/5"
+    )}>
       <div className="w-full max-w-7xl mx-auto px-5 sm:px-10 py-4 flex items-center justify-between relative">
         {/* Logo - Left side */}
         <div className="flex items-center">
@@ -68,10 +85,13 @@ const Header = () => {
         {/* Right side - Actions */}
         <div className="flex items-center gap-3">
         {/* Language switcher - Dropdown */}
-        <div className="relative">
+        <div 
+          className="relative group"
+          onMouseEnter={() => setShowLangDropdown(true)}
+          onMouseLeave={() => setShowLangDropdown(false)}
+        >
           <button
-            onClick={() => setShowLangDropdown(!showLangDropdown)}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-md border border-dark/20 dark:border-light/20 bg-light dark:bg-dark text-dark dark:text-light hover:bg-dark/5 dark:hover:bg-light/5 transition-colors"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-dark dark:text-light hover:opacity-70 transition-opacity"
             aria-label="language-switcher"
             aria-expanded={showLangDropdown}
           >
@@ -93,21 +113,17 @@ const Header = () => {
           
           {/* Dropdown Menu */}
           {showLangDropdown && (
-            <>
-              {/* Backdrop */}
-              <div 
-                className="fixed inset-0 z-40" 
-                onClick={() => setShowLangDropdown(false)}
-                aria-hidden="true"
-              />
-              {/* Menu */}
-              <div className="absolute right-0 top-full mt-2 w-32 bg-light dark:bg-dark border border-dark/20 dark:border-light/20 rounded-md shadow-lg z-50 overflow-hidden">
+            <div 
+              className="absolute left-0 top-full pt-2 w-32 z-50"
+              onMouseEnter={() => setShowLangDropdown(true)}
+              onMouseLeave={() => setShowLangDropdown(false)}
+            >
+              <div className="bg-light dark:bg-dark rounded-md shadow-lg overflow-hidden">
                 {isEnglishSite ? (
                   <SmartLink
                     href={cleanPathname}
                     locale="zh-cn"
-                    className="block px-4 py-2 text-sm text-dark dark:text-light hover:bg-dark/5 dark:hover:bg-light/5 transition-colors"
-                    onClick={() => setShowLangDropdown(false)}
+                    className="block px-4 py-2 text-sm text-dark dark:text-light hover:opacity-70 transition-opacity"
                   >
                     中文
                   </SmartLink>
@@ -115,14 +131,13 @@ const Header = () => {
                   <SmartLink
                     href={cleanPathname}
                     locale="en"
-                    className="block px-4 py-2 text-sm text-dark dark:text-light hover:bg-dark/5 dark:hover:bg-light/5 transition-colors"
-                    onClick={() => setShowLangDropdown(false)}
+                    className="block px-4 py-2 text-sm text-dark dark:text-light hover:opacity-70 transition-opacity"
                   >
                     English
                   </SmartLink>
                 )}
               </div>
-            </>
+            </div>
           )}
         </div>
         

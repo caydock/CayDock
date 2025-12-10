@@ -45,6 +45,11 @@
       "description": "Explore my independent development products and tools. Discover innovative solutions designed to make your life easier and more efficient.",
       "keywords": "products, apps, tools, independent development, CayDock, music cover search, QR code generator, time tracking"
     },
+    "musicCover": {
+      "title": "Music Album Cover Search",
+      "description": "Free music cover search tool, supports searching album, song, and music video covers",
+      "keywords": "music cover, album cover, song cover, music video cover, free download, iTunes API, music artwork"
+    },
     "blog": {
       "title": "Blog",
       "description": "Read blog posts about programming, technology and more topics. Share my thoughts, tutorials and stories.",
@@ -130,7 +135,7 @@
         "name": "Music Album Cover Search",
         "description": "Free music cover search tool, supports searching album, song, and music video covers",
         "category": "Music Tools",
-        "link": "https://musiccover.caydock.com"
+        "link": "/music-cover"
       },
       "w3cay": {
         "name": "W3Cay",
@@ -359,5 +364,43 @@
       "slaHoliday": "Holidays: responses may be delayed",
       "thanksEnd": "Thanks for your support and understanding!"
     }
+  },
+  "musicCover": {
+    "title": "Music Album Cover Search",
+    "description": "Free music cover search tool, supports searching album, song, and music video covers",
+    "metaTitle": "Music Album Cover Search - Free Music Cover Finder | CayDock",
+    "metaDescription": "Search and download high-quality music album covers, song covers, and music video covers for free. Support multiple countries and cover sizes.",
+    "metaKeywords": "music cover, album cover, song cover, music video cover, free download, iTunes API, music artwork",
+    "searchType": "Search Type",
+    "song": "Song",
+    "album": "Album",
+    "musicVideo": "Music Video",
+    "country": "Country",
+    "countries": {
+      "us": "United States",
+      "cn": "China",
+      "hk": "Hong Kong",
+      "tw": "Taiwan",
+      "jp": "Japan",
+      "gb": "United Kingdom",
+      "au": "Australia",
+      "ca": "Canada",
+      "de": "Germany",
+      "fr": "France"
+    },
+    "coverSize": "Cover Size",
+    "searchKeyword": "Search Keyword",
+    "searchPlaceholder": "Enter song name, album name, or artist name...",
+    "search": "Search",
+    "searching": "Searching...",
+    "noResults": "No results found",
+    "noResultsDesc": "Try different keywords or search types",
+    "foundResults": "Found {count} results",
+    "clearResults": "Clear Results",
+    "downloadCover": "Download",
+    "copyCover": "Copy",
+    "coverCopied": "Cover copied to clipboard!",
+    "searchFailed": "Search failed, please try again later",
+    "appleDeviceTip": "On Apple devices, you can long-press the cover image to save it directly."
   }
 }

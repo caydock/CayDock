@@ -3,6 +3,7 @@ import BlogLayoutThree from "@/src/components/Blog/BlogLayoutThree";
 import Categories from "@/src/components/Blog/Categories";
 import { slug } from "github-slugger";
 import { getServerTranslation } from "@/src/i18n";
+import { sortBlogs } from '@/src/utils';
 
 export default function CategoryPageContent({ categorySlug, locale, language }) {
   // 获取翻译
@@ -68,6 +69,9 @@ export default function CategoryPageContent({ categorySlug, locale, language }) 
       return tagSlug === categorySlug || tagSlug === decodedCategorySlug || tag === decodedCategorySlug;
     });
   });
+
+  // 按日期从新到旧排序
+  const sortedBlogs = sortBlogs(filteredBlogs);
 
   // 获取当前分类的原始标签名称
   // 创建一个映射表，将 slug 映射到当前语言的标签名称
@@ -176,7 +180,7 @@ export default function CategoryPageContent({ categorySlug, locale, language }) 
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-16 mt-5 sm:mt-10 md:mt-24 sxl:mt-32 px-5 sm:px-10 md:px-10 mb-10">
-        {filteredBlogs.map((blog, index) => (
+        {sortedBlogs.map((blog, index) => (
           <article key={index} className="col-span-1 relative">
             <BlogLayoutThree blog={blog} lang={locale} />
           </article>

@@ -30,19 +30,19 @@ export default function SubscribeContent() {
         wordCount,
         readingTime: locale === 'zh-cn' ? '1分钟' : '1 min'
       }}
-      heroHeight="h-[40vh] sm:h-[50vh] md:h-[60vh]"
+      heroHeight="h-[30vh] sm:h-[35vh] md:h-[40vh]"
       locale={locale}
     >
       <section className="text-dark dark:text-light leading-relaxed">
-        <p className="text-lg mb-8 text-dark/80 dark:text-light/80">
+        <p className="text-sm md:text-base mb-8 text-dark/80 dark:text-light/80">
           {locale === 'zh-cn' ? '获取最新内容更新' : 'Get the latest content updates'}
         </p>
         
         <div className="prose dark:prose-invert max-w-none">
-          <h2 className="text-2xl font-bold mb-4">
+          <h2 className="text-xl md:text-2xl font-bold mb-4">
             {locale === 'zh-cn' ? '微信公众号' : 'WeChat Official Account'}
           </h2>
-          <p className="mb-6">
+          <p className="text-sm md:text-base mb-6">
             {locale === 'zh-cn' 
               ? '欢迎关注我的微信公众号，获取更多技术分享和独立开发经验：'
               : 'Follow my WeChat Official Account for more technical sharing and independent development experience:'
@@ -58,10 +58,10 @@ export default function SubscribeContent() {
             />
           </div>
 
-          <h2 className="text-2xl font-bold mb-4">
+          <h2 className="text-xl md:text-2xl font-bold mb-4">
             {locale === 'zh-cn' ? 'RSS 订阅' : 'RSS Feed'}
           </h2>
-          <p className="mb-4">
+          <p className="text-sm md:text-base mb-4">
             {locale === 'zh-cn' 
               ? '您可以使用 RSS 阅读器订阅我的博客：'
               : 'You can subscribe to my blog using an RSS reader:'

@@ -42,13 +42,15 @@
     },
     "products": {
       "title": "产品",
+      "description": "探索我的独立开发产品和工具。发现旨在让您的生活更轻松、更高效的创新解决方案。",
+      "keywords": "产品,应用,工具,独立开发,CayDock,音乐封面搜索,二维码生成器,时间追踪",
       "subtitle": "发现我们的创新工具和服务集合",
       "empty": "暂无产品",
       "musicCover": {
         "name": "音乐专辑封面查询",
         "description": "免费的音乐封面搜索工具，支持搜索专辑、歌曲和音乐视频封面",
         "category": "音乐工具",
-        "link": "https://musiccover.caydock.com"
+        "link": "/music-cover"
       },
       "w3cay": {
         "name": "W3Cay",
@@ -76,6 +78,11 @@
       "title": "博客",
       "description": "阅读关于编程、技术和更多主题的博客文章。分享我的想法、教程和故事。",
       "keywords": "博客,技术文章,编程教程,开发经验,技术分享,CayDock博客"
+    },
+    "musicCover": {
+      "title": "音乐专辑封面查询",
+      "description": "免费的音乐封面搜索工具，支持搜索专辑、歌曲和音乐视频封面",
+      "keywords": "音乐封面,专辑封面,歌曲封面,音乐视频封面,免费下载,iTunes API,音乐作品"
     },
     "categories": {
       "all": "所有分类",
@@ -157,7 +164,7 @@
         "name": "音乐专辑封面查询",
         "description": "免费的音乐封面搜索工具，支持搜索专辑、歌曲和音乐视频封面",
         "category": "音乐工具",
-        "link": "https://musiccover.caydock.com"
+        "link": "/music-cover"
       },
       "w3cay": {
         "name": "W3Cay",
@@ -388,5 +395,43 @@
       "slaHoliday": "节假日：可能会延迟",
       "thanksEnd": "感谢你的支持与理解！"
     }
+  },
+  "musicCover": {
+    "title": "音乐专辑封面查询",
+      "description": "免费的音乐封面搜索工具，支持搜索专辑、歌曲和音乐视频封面",
+      "metaTitle": "音乐专辑封面查询 - 免费音乐封面搜索工具 | CayDock",
+      "metaDescription": "免费搜索和下载高质量的音乐专辑封面、歌曲封面和音乐视频封面。支持多个国家和多种封面尺寸。",
+      "metaKeywords": "音乐封面,专辑封面,歌曲封面,音乐视频封面,免费下载,iTunes API,音乐作品",
+      "searchType": "搜索类型",
+      "song": "歌曲",
+      "album": "专辑",
+      "musicVideo": "音乐视频",
+      "country": "国家/地区",
+      "countries": {
+        "us": "美国",
+        "cn": "中国",
+        "hk": "香港",
+        "tw": "台湾",
+        "jp": "日本",
+        "gb": "英国",
+        "au": "澳大利亚",
+        "ca": "加拿大",
+        "de": "德国",
+        "fr": "法国"
+      },
+      "coverSize": "封面尺寸",
+      "searchKeyword": "搜索关键词",
+      "searchPlaceholder": "输入歌曲名、专辑名或艺术家名...",
+      "search": "搜索",
+      "searching": "搜索中...",
+      "noResults": "未找到结果",
+      "noResultsDesc": "尝试不同的关键词或搜索类型",
+      "foundResults": "找到 {count} 个结果",
+      "clearResults": "清除结果",
+      "downloadCover": "下载",
+      "copyCover": "复制",
+      "coverCopied": "封面已复制到剪贴板！",
+      "searchFailed": "搜索失败，请稍后重试",
+    "appleDeviceTip": "在苹果设备上，您可以长按封面图片直接保存。"
   }
 }

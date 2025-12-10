@@ -30,7 +30,7 @@ export async function generateMetadata() {
   return {
     metadataBase: base,
     title: {
-      template: '%s | CayDock',
+      template: '%s - CayDock',
       default: 'CayDock - Personal Blog & Project Showcase',
     },
     description: siteMetadata.description,

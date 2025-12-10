@@ -1,6 +1,7 @@
 "use client";
 import Image from 'next/image';
 import { memo } from 'react';
+import { useLocale } from 'next-intl';
 import SmartLink from '../Elements/SmartLink';
 
 const ProductCard = memo(function ProductCard({ 
@@ -10,6 +11,7 @@ const ProductCard = memo(function ProductCard({
   link,
   icon,
 }) {
+  const locale = useLocale();
   const isExternal = link.startsWith('http') || link.startsWith('//');
   const displayLink = isExternal ? link.replace(/^https?:\/\//, '') : link;
   
