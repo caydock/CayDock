@@ -59,25 +59,21 @@ export default function PageTemplate({
           unoptimized={bgImageSrc.startsWith('/static/')}
           {...imageProps}
         />
-        {/* 渐变遮罩 */}
-        <div 
-          className="absolute top-0 left-0 right-0 bottom-0"
-          style={{
-            background: 'linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.1) 5%, rgba(0, 0, 0, 0.1) 40%, rgba(0, 0, 0, 0.03) 48%, transparent 5%)'
-          }}
-        />
         </div>
       )}
 
       <article className="relative z-10 pt-16">
-        {/* 渐变背景遮罩 - 只在文章页且有配置背景图片时显示 */}
+        {/* 
+          渐变背景遮罩 - 只在文章页且有配置背景图片时显示
+          注意：使用固定像素值而非百分比，确保无论文章长度如何，透明范围都保持一致
+        */}
         {isBlogPostPage && hasBackgroundImage && (
           <>
             <div className="dark:hidden absolute inset-0" style={{
-              background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.4) 2%, rgba(255, 255, 255, 0.7) 5%,  rgba(255, 255, 255, 0.9) 10%,  rgba(255, 255, 255, 0.98) 100%)'
+              background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.15) 0px, rgba(255, 255, 255, 0.2) 160px, rgba(255, 255, 255, 0.4) 280px, rgba(255, 255, 255, 0.75) 400px, rgba(255, 255, 255, 0.98) 520px, rgba(255, 255, 255, 1) 600px)'
             }} />
             <div className="hidden dark:block absolute inset-0" style={{
-              background: 'linear-gradient(to bottom, rgba(26, 26, 26, 0.2) 0%, rgba(26, 26, 26, 0.4) 5%, rgba(26, 26, 26, 0.7) 10%, rgba(26, 26, 26, 0.9) 100%)'
+              background: 'linear-gradient(to bottom, rgba(26, 26, 26, 0.15) 0px, rgba(26, 26, 26, 0.2) 160px, rgba(26, 26, 26, 0.4) 280px, rgba(26, 26, 26, 0.75) 400px, rgba(26, 26, 26, 1) 600px)'
             }} />
           </>
         )}

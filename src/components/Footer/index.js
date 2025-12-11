@@ -46,7 +46,7 @@ const Footer = () => {
           <SmartLink href="/terms-of-service" locale={actualLocale} className="underline">{t('legal.terms')}</SmartLink>
           <SmartLink href="/privacy-policy" locale={actualLocale} className="underline">{t('legal.privacy')}</SmartLink>
           <SmartLink href="/disclaimer" locale={actualLocale} className="underline">{t('legal.disclaimer')}</SmartLink>
-          <a href="/sitemap.xml" className="underline">{t('footer.sitemap')}</a>
+          <SmartLink href="/sitemap.xml" locale={actualLocale} className="underline">{t('footer.sitemap')}</SmartLink>
         </div>
         <div className="text-center flex items-center gap-3 text-base sm:text-base">
           <span>

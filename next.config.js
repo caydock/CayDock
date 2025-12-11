@@ -31,24 +31,7 @@ const nextConfig = {
     },
     async redirects() {
       return [
-        // 重定向 /post/xxx.html 格式到 /?site=xxx 格式
-        {
-          source: '/post/:slug.html',
-          destination: '/?site=:slug',
-          permanent: true,
-        },
-        // 重定向 /site?id=xxx 格式到 /?site=xxx 格式
-        {
-          source: '/site',
-          has: [
-            {
-              type: 'query',
-              key: 'id',
-            },
-          ],
-          destination: '/?site=:id',
-          permanent: true,
-        },
+        // 注意：/tools/music-cover 的重定向在 middleware.js 中处理
         // 注意：页面路由重定向已移除，由 next-intl 自动处理
       ]
     },

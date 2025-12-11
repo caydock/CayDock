@@ -59,11 +59,11 @@ const RenderMdx = ({blog}) => {
         
         return (
           <>
-            <div dangerouslySetInnerHTML={{ __html: beforeAd }} />
+            <div className="dark:text-light prose dark:prose-invert dark:prose-p:text-light dark:prose-headings:text-light dark:prose-strong:text-light dark:prose-em:text-light dark:prose-code:text-light dark:prose-pre:text-light" dangerouslySetInnerHTML={{ __html: beforeAd }} />
             <div className="w-full my-8">
               <InArticleAd />
             </div>
-            <div dangerouslySetInnerHTML={{ __html: afterAd }} />
+            <div className="dark:text-light prose dark:prose-invert dark:prose-p:text-light dark:prose-headings:text-light dark:prose-strong:text-light dark:prose-em:text-light dark:prose-code:text-light dark:prose-pre:text-light" dangerouslySetInnerHTML={{ __html: afterAd }} />
           </>
         );
       }
@@ -96,9 +96,16 @@ const RenderMdx = ({blog}) => {
     prose-li:marker:text-accent
 
     dark:prose-invert
+    dark:text-light
     dark:prose-blockquote:border-accentDark
     dark:prose-blockquote:bg-accentDark/20
     dark:prose-li:marker:text-accentDark
+    dark:prose-p:text-light
+    dark:prose-headings:text-light
+    dark:prose-strong:text-light
+    dark:prose-em:text-light
+    dark:prose-code:text-light
+    dark:prose-pre:text-light
 
     first-letter:text-3xl
     sm:first-letter:text-5xl'> 

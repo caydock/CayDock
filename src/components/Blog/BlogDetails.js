@@ -83,7 +83,7 @@ export default function BlogDetails({ slug: blogSlug, locale }) {
       <RenderMdx blog={blog} />
       
       {/* 分享按钮 */}
-      <div className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
+      <div className="mt-12 pt-8 border-t border-dark/10 dark:border-light/10">
         <ShareButtons 
           url={`${siteMetadata.siteUrl}${blog.url}`}
           title={blog.title}

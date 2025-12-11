@@ -57,7 +57,7 @@ const ShareButtons = ({
 
   return (
     <div className={`flex items-center gap-3 ${className}`}>
-      <span className="text-sm font-medium text-gray-600 dark:text-gray-400 mr-2">
+      <span className="text-sm font-medium text-dark/70 dark:text-light/70 mr-2">
         {t('share.share') || 'Share:'}
       </span>
       

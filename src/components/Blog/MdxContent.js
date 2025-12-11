@@ -100,7 +100,7 @@ const MDXContent = ({ code, components, ...props }) => {
         
         return (
           <div 
-            className="prose prose-base max-w-none prose-a:underline prose-a:text-blue-600 hover:prose-a:no-underline hover:prose-a:text-blue-800"
+            className="prose prose-base max-w-none prose-a:underline prose-a:text-blue-600 hover:prose-a:no-underline hover:prose-a:text-blue-800 dark:prose-invert dark:text-light dark:prose-p:text-light dark:prose-headings:text-light dark:prose-strong:text-light dark:prose-em:text-light dark:prose-code:text-light dark:prose-pre:text-light dark:prose-a:text-blue-400 hover:dark:prose-a:text-blue-300"
             dangerouslySetInnerHTML={{ __html: processedHtml }}
           />
         );
