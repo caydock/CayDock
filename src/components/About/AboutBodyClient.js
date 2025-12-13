@@ -2,41 +2,28 @@
 import { useTranslations, useLocale } from 'next-intl';
 import SmartLink from '../Elements/SmartLink';
 import PageTemplate from '../PageTemplate/PageTemplate';
-import { useMemo } from 'react';
+import BreadcrumbClient from '../Blog/BreadcrumbClient';
 
 export default function AboutBodyClient() {
   const t = useTranslations('ui');
   const locale = useLocale();
   const language = locale === 'zh-cn' ? 'zh' : 'en';
-  
-  // 计算字数
-  const wordCount = useMemo(() => {
-    const content = [
-      t('about.aboutDesc'),
-      t('about.domainDesc'),
-    ].join('');
-    return content.length;
-  }, [t]);
+
+  const breadcrumbItems = [
+    {
+      label: locale === 'zh-cn' ? '关于' : 'About',
+      href: "/about"
+    }
+  ];
 
   return (
     <PageTemplate
-      backgroundImage="/images/about-bg.jpg"
       title={t('about.aboutTitle')}
-      breadcrumb="Pages /"
-      metadata={{
-        date: new Date().toLocaleDateString(locale === 'zh-cn' ? 'zh-CN' : 'en-US', {
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric'
-        }),
-        wordCount,
-        readingTime: locale === 'zh-cn' ? '1分钟' : '1 min'
-      }}
-      heroHeight="h-[30vh] sm:h-[35vh] md:h-[40vh]"
+      subtitle={t('about.subtitle')}
+      breadcrumb={<BreadcrumbClient items={breadcrumbItems} homeLabel={locale === 'zh-cn' ? '首页' : 'Home'} locale={locale} />}
       locale={locale}
     >
       <section className="text-dark dark:text-light leading-relaxed">
-        <h2 className="text-xl md:text-2xl font-semibold mb-4">{t('about.aboutTitle')}</h2>
         <div className="text-sm md:text-base mb-6 space-y-4">
           {t('about.aboutDesc').split('\n\n').map((paragraph, index) => (
             paragraph.trim() && (

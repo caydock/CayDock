@@ -4,6 +4,8 @@ import Categories from "@/src/components/Blog/Categories";
 import { slug } from "github-slugger";
 import { getServerTranslation } from "@/src/i18n";
 import { sortBlogs } from '@/src/utils';
+import BreadcrumbServer from '../Blog/BreadcrumbServer';
+import PageTemplate from '../PageTemplate/PageTemplate';
 
 export default function CategoryPageContent({ categorySlug, locale, language }) {
   // 获取翻译
@@ -170,22 +172,41 @@ export default function CategoryPageContent({ categorySlug, locale, language }) 
     return decodedSlug.replaceAll("-", " ").replace(/\b\w/g, l => l.toUpperCase());
   };
 
-  return (
-    <article className="relative z-10 mt-12 pt-24 flex flex-col text-dark dark:text-light max-w-7xl mx-auto">
-      <div className="px-5 sm:px-10 md:px-10 flex flex-col">
-        <h1 className="mt-6 font-semibold text-2xl md:text-4xl lg:text-5xl capitalize">#{getCategoryLabel(decodedCategorySlug)}</h1>
-      </div>
-      <div className="px-5 sm:px-10 md:px-10">
-        <Categories categories={allCategories} currentSlug={categorySlug} lang={locale} getCategoryLabel={getCategoryLabel} />
-      </div>
+  const categoryLabel = getCategoryLabel(decodedCategorySlug);
+  const breadcrumbItems = [
+    {
+      label: tdk.breadcrumb.categories,
+      href: "/tags"
+    }
+  ];
+  
+  if (categorySlug !== "all") {
+    breadcrumbItems.push({
+      label: categoryLabel,
+      href: `/tags/${categorySlug}`
+    });
+  }
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-16 mt-5 sm:mt-10 md:mt-24 sxl:mt-32 px-5 sm:px-10 md:px-10 mb-10">
-        {sortedBlogs.map((blog, index) => (
-          <article key={index} className="col-span-1 relative">
-            <BlogLayoutThree blog={blog} lang={locale} />
-          </article>
-        ))}
-      </div>
-    </article>
+  return (
+    <PageTemplate
+      title={`#${categoryLabel}`}
+      subtitle={tdk.tags?.subtitle}
+      breadcrumb={<BreadcrumbServer items={breadcrumbItems} homeLabel={locale === 'zh-cn' ? '首页' : 'Home'} locale={locale} />}
+      locale={locale}
+    >
+      <section className="text-dark dark:text-light">
+        <div className="mb-8">
+          <Categories categories={allCategories} currentSlug={categorySlug} lang={locale} getCategoryLabel={getCategoryLabel} />
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-16 mb-10">
+          {sortedBlogs.map((blog, index) => (
+            <article key={index} className="col-span-1 relative">
+              <BlogLayoutThree blog={blog} lang={locale} />
+            </article>
+          ))}
+        </div>
+      </section>
+    </PageTemplate>
   );
 }

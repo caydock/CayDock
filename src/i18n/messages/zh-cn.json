@@ -37,6 +37,7 @@
     },
     "subscribe": {
       "title": "订阅",
+      "subtitle": "获取最新内容更新",
       "description": "获取最新内容更新。订阅CayDock，获取技术分享和独立开发经验。",
       "keywords": "订阅,RSS,微信公众号,内容更新,CayDock"
     },
@@ -107,6 +108,7 @@
     },
     "blog": {
       "title": "博客",
+      "subtitle": "阅读关于编程、技术和更多主题的文章",
       "description": "阅读关于编程、技术和更多主题的博客文章。分享我的想法、教程和故事。",
       "featuredPosts": "精选文章",
       "recentPosts": "最新文章",
@@ -151,6 +153,9 @@
       "categories": "分类",
       "allCategories": "全部分类"
     },
+    "tags": {
+      "subtitle": "按分类和主题浏览文章"
+    },
     "share": {
       "share": "分享：",
       "defaultDescription": "在CayDock发现令人惊叹的有趣网站！",
@@ -187,6 +192,10 @@
         "link": "https://timecay.com",
         "icon": "https://timecay.com/favicon.ico"
       }
+    },
+    "subscribe": {
+      "title": "订阅",
+      "subtitle": "获取最新内容更新"
     },
     "terms": {
       "title": "服务条款",
@@ -357,6 +366,7 @@
       "heroTitle": "保持好奇，热爱分享，探索有趣的网络世界",
       "heroDesc": "这是我持续创作的信念。CayDock 专注于发现与分享有趣的网站、工具、游戏与 AI 体验，让灵感与快乐在日常里发生。保持学习、拥抱变化，用简单而美的方式传递价值。",
       "aboutTitle": "关于",
+      "subtitle": "了解更多关于我和我的故事",
       "aboutDesc": "👋 Hi, 我叫 Cayden，欢迎访问我的个人网站 CayDock\n\n我是一名 Web 程序员👨‍💻，目标是做一名自由的独立开发者\n\nCayDock 名字由来：Cayden 是我的名字，Dock 既有程序启动器的意思，也表示海边的船坞，寓意我的产品出海启程的地方和个人想法的港湾\n\n这里主要分享我的独立开发出海经验，解决过的技术、产品、SEO，运营等问题以及一些生活思考和琐碎事情，既有专业的技术分享，也有生活化的分享，既有深度，也有广度。\n\n不定时更新，如果分享的内容对你有帮助，欢迎订阅并留言与我交流",
       "domainTitle": "域名由来",
       "domainDesc": "\"CayDock\" 由 \"Cayden\"（我的名字）与 \"Dock\"（程序启动器，也指海边的船坞）组合而来。寓意我的产品出海启程的地方和个人想法的港湾。",

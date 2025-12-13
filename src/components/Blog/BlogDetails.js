@@ -66,7 +66,7 @@ export default function BlogDetails({ slug: blogSlug, locale }) {
       backgroundImage={blog.image?.src ? {
         src: blog.image.src,
         ...(blog.image.blurDataURL && { blurDataURL: blog.image.blurDataURL })
-      } : '/images/about-bg.jpg'}
+      } : undefined}
       title={blog.title}
       metadata={{
         date: new Date(blog.publishedAt).toLocaleDateString(locale === 'zh-cn' ? 'zh-CN' : 'en-US', {
@@ -78,6 +78,7 @@ export default function BlogDetails({ slug: blogSlug, locale }) {
         readingTime: blog.readingTime?.text || (locale === 'zh-cn' ? '3分钟' : '3 min')
       }}
       tags={tagElements}
+      author={true}
       locale={locale}
     >
       <RenderMdx blog={blog} />

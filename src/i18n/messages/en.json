@@ -37,6 +37,7 @@
     },
     "subscribe": {
       "title": "Subscribe",
+      "subtitle": "Get the latest content updates",
       "description": "Stay Updated with Latest Content. Subscribe to CayDock for technical sharing and independent development experience.",
       "keywords": "subscribe, RSS, newsletter, content updates, CayDock"
     },
@@ -78,6 +79,7 @@
     },
     "blog": {
       "title": "Blog",
+      "subtitle": "Read articles about programming, technology and more",
       "description": "Read blog posts about programming, technology and more topics. Share my thoughts, tutorials and stories.",
       "featuredPosts": "Featured Posts",
       "recentPosts": "Recent Posts",
@@ -122,6 +124,9 @@
       "categories": "Categories",
       "allCategories": "All Categories"
     },
+    "tags": {
+      "subtitle": "Browse articles by category and topic"
+    },
     "share": {
       "share": "Share:",
       "defaultDescription": "Discover amazing weird websites on CayDock!",
@@ -158,6 +163,10 @@
         "link": "https://timecay.com",
         "icon": "https://timecay.com/favicon.ico"
       }
+    },
+    "subscribe": {
+      "title": "Subscribe",
+      "subtitle": "Get the latest content updates"
     },
     "terms": {
       "title": "Terms of Service",
@@ -328,6 +337,7 @@
       "heroTitle": "Stay Curious, Share with Passion, Explore the World's Weird Websites",
         "heroDesc": "This is the belief behind my continuous creation. CayDock focuses on discovering and sharing weird and useless websites, bringing inspiration and joy to everyday life. Keep learning, embrace changes, and deliver value in a simple and beautiful way.",
         "aboutTitle": "About",
+        "subtitle": "Learn more about me and my journey",
         "aboutDesc": "👋 Hi, I am **Cayden**, welcome to my personal website CayDock\n\nI am a frontend development engineer👨‍💻, aiming to be a free independent developer\n\nCayDock is my personal project showcase website, Cay is my name, Dock means program launcher\n\nHere I also share my independent development overseas experience, solving technical, product, SEO, operations and other problems\n\nI also share some good books I have read, as well as some life trivia\n\nUpdated irregularly, if the content I share is helpful to you, welcome to subscribe and leave a message to communicate with me",
       "domainTitle": "Domain Origin",
         "domainDesc": "\"CayDock\" combines \"Cayden\" (my name) and \"Dock\" (program launcher, also means dock by the sea). It represents the place where my products set sail and the harbor for my personal thoughts.",

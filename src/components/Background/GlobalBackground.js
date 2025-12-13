@@ -19,25 +19,18 @@ const GlobalBackground = () => {
           priority
           sizes="100vw"
         />
-        {/* 渐变遮罩 */}
-        <div 
-          className="absolute top-0 left-0 right-0 bottom-0"
-          style={{
-            background: 'linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.1) 5%, rgba(0, 0, 0, 0.1) 40%, rgba(0, 0, 0, 0.03) 48%, transparent 5%)'
-          }}
-        />
       </div>
       
       {/* 高斯模糊背景遮罩 */}
       <div className="dark:hidden fixed inset-0 z-[1]" style={{
-        backdropFilter: 'blur(4px)',
-        WebkitBackdropFilter: 'blur(4px)',
-        background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.2) 2%, rgba(255, 255, 255, 0.5) 5%,  rgba(255, 255, 255, 0.65) 10%,  rgba(255, 255, 255, 0.95) 100%)'
+        backdropFilter: 'blur(16px)',
+        WebkitBackdropFilter: 'blur(16px)',
+        background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.35) 10%, rgba(255, 255, 255, 0.55) 25%, rgba(255, 255, 255, 0.75) 45%, rgba(255, 255, 255, 0.95) 100%)'
       }} />
       <div className="hidden dark:block fixed inset-0 z-[1]" style={{
-        backdropFilter: 'blur(4px)',
-        WebkitBackdropFilter: 'blur(4px)',
-        background: 'linear-gradient(to bottom, rgba(26, 26, 26, 0.3) 0%, rgba(26, 26, 26, 0.5) 5%, rgba(26, 26, 26, 0.7) 10%, rgba(26, 26, 26, 0.85) 100%)'
+        backdropFilter: 'blur(16px)',
+        WebkitBackdropFilter: 'blur(16px)',
+        background: 'linear-gradient(to bottom, transparent 0%, transparent 10%, rgba(26, 26, 26, 0.2) 20%, rgba(26, 26, 26, 0.4) 30%, rgba(26, 26, 26, 0.6) 50%, rgba(26, 26, 26, 0.85) 100%)'
       }} />
     </>
   );

@@ -111,13 +111,13 @@ export default async function RootLayout({ children }) {
         className={cx(
           inter.variable,
           manrope.variable,
-          "font-mr bg-light dark:bg-dark"
+          "font-mr bg-light dark:bg-dark flex flex-col min-h-screen"
         )}
       >
         <NextIntlClientProvider locale={locale} messages={messages}>
           <GlobalBackground />
           <Header />
-          <div className="relative z-10">
+          <div className="relative z-10 flex-grow">
             {children}
           </div>
           <Footer />

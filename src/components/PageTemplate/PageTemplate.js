@@ -9,15 +9,16 @@ import profileCharacter from "../../../public/cay.webp";
  * 用于博客详情页、关于页等需要相同布局的页面
  */
 export default function PageTemplate({
-  backgroundImage, // 背景图片路径或对象 {src, blurDataURL}
+  backgroundImage = '/images/about-bg.jpg', // 背景图片路径或对象 {src, blurDataURL}，默认使用通用背景
   title, // 页面标题
+  subtitle, // 副标题（可选）
   breadcrumb, // 面包屑导航（可选）
   metadata, // 元数据 {date, wordCount, readingTime}
   tags, // 标签数组（可选）
-  author, // 是否显示作者信息，默认 true
+  author = false, // 是否显示作者信息，默认 false（大部分页面不需要）
   children, // 主要内容
   locale = 'en', // 语言
-  heroHeight = 'h-[50vh] sm:h-[55vh] md:h-[60vh]', // Hero 区域高度
+  heroHeight = 'h-[200px]', // Hero 区域高度（固定值，确保所有屏幕尺寸下顶部距离一致）
 }) {
   const pathname = usePathname();
   
@@ -70,7 +71,7 @@ export default function PageTemplate({
         {isBlogPostPage && hasBackgroundImage && (
           <>
             <div className="dark:hidden absolute inset-0" style={{
-              background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.15) 0px, rgba(255, 255, 255, 0.2) 160px, rgba(255, 255, 255, 0.4) 280px, rgba(255, 255, 255, 0.75) 400px, rgba(255, 255, 255, 0.98) 520px, rgba(255, 255, 255, 1) 600px)'
+              background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.2) 0px, rgba(255, 255, 255, 0.35) 160px, rgba(255, 255, 255, 0.55) 280px, rgba(255, 255, 255, 0.8) 400px, rgba(255, 255, 255, 0.98) 520px, rgba(255, 255, 255, 1) 600px)'
             }} />
             <div className="hidden dark:block absolute inset-0" style={{
               background: 'linear-gradient(to bottom, rgba(26, 26, 26, 0.15) 0px, rgba(26, 26, 26, 0.2) 160px, rgba(26, 26, 26, 0.4) 280px, rgba(26, 26, 26, 0.75) 400px, rgba(26, 26, 26, 1) 600px)'
@@ -81,7 +82,7 @@ export default function PageTemplate({
         <div className="relative z-10">
           {/* Hero Section - 标题区域 */}
           <div className={`relative w-full ${heroHeight} flex items-end`}>
-            <div className="w-full pb-4 md:pb-4 lg:pb-4 z-10">
+            <div className="w-full pb-4 md:pb-6 lg:pb-8 z-10">
               <div className="max-w-7xl mx-auto px-5 sm:px-10">
                 <div className="w-full max-w-4xl">
                   {/* 面包屑导航 */}
@@ -92,9 +93,16 @@ export default function PageTemplate({
                   )}
                   
                   {/* 标题 */}
-                  <h1 className="font-bold text-2xl md:text-3xl lg:text-4xl xl:text-4xl mb-4 leading-tight text-dark dark:text-light">
+                  <h1 className={`font-bold text-2xl md:text-3xl lg:text-4xl xl:text-4xl leading-tight text-dark dark:text-light ${subtitle ? 'mb-2' : 'mb-0'}`}>
                     {title}
                   </h1>
+                  
+                  {/* 副标题 */}
+                  {subtitle && (
+                    <p className="text-base md:text-lg text-dark/70 dark:text-light/70 mb-0">
+                      {subtitle}
+                    </p>
+                  )}
                   
                   {/* 日期、字数、阅读时间 */}
                   {metadata && (
@@ -141,9 +149,7 @@ export default function PageTemplate({
           <div className="relative pb-10 md:pb-16">
             <div className="relative z-10">
               <div className="max-w-7xl mx-auto px-5 sm:px-10">
-                <div className="max-w-4xl">
-                  {children}
-                </div>
+                {children}
               </div>
             </div>
           </div>

@@ -3,6 +3,8 @@ import BlogLayoutThree from "@/src/components/Blog/BlogLayoutThree";
 import Pagination from "@/src/components/Blog/Pagination";
 import { sortBlogs } from '@/src/utils';
 import { getTranslations } from 'next-intl/server';
+import BreadcrumbServer from './BreadcrumbServer';
+import PageTemplate from '../PageTemplate/PageTemplate';
 
 const POSTS_PER_PAGE = 12;
 
@@ -27,21 +29,23 @@ export default async function BlogPageContent({ locale, language, searchParams }
 
   const t = await getTranslations({locale: locale, namespace: 'ui'});
 
-  return (
-    <main className="relative z-10 flex flex-col items-center justify-center min-h-screen pt-20 md:pt-24 pb-10">
-      <div className="w-full max-w-7xl mx-auto px-5 sm:px-10">
-        {/* 标题 */}
-        <div className="mb-8 md:mb-12">
-          <h1 className="font-bold text-3xl md:text-4xl lg:text-5xl text-dark dark:text-light mb-2">
-            {t('blog.title')}
-          </h1>
-          <p className="text-base md:text-lg text-dark/70 dark:text-light/70">
-            {locale === 'zh-cn' ? `共 ${sortedBlogs.length} 篇文章` : `${sortedBlogs.length} articles`}
-          </p>
-        </div>
+  const breadcrumbItems = [
+    {
+      label: t('blog.title'),
+      href: "/posts"
+    }
+  ];
 
+  return (
+    <PageTemplate
+      title={t('blog.title')}
+      subtitle={t('blog.subtitle')}
+      breadcrumb={<BreadcrumbServer items={breadcrumbItems} homeLabel={locale === 'zh-cn' ? '首页' : 'Home'} locale={locale} />}
+      locale={locale}
+    >
+      <section className="text-dark dark:text-light">
         {/* 博客列表 */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-full mb-10">
           {paginatedBlogs.map((blog, index) => (
             <article key={blog.slug} className="col-span-1">
               <BlogLayoutThree blog={blog} lang={locale} />
@@ -56,7 +60,7 @@ export default async function BlogPageContent({ locale, language, searchParams }
           locale={locale}
           basePath="/posts"
         />
-      </div>
-    </main>
+      </section>
+    </PageTemplate>
   );
 }

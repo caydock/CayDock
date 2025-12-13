@@ -1,6 +1,7 @@
+"use client";
 import SmartLink from '../Elements/SmartLink';
 
-const BreadcrumbServer = ({ items, homeLabel, locale }) => {
+const BreadcrumbClient = ({ items, homeLabel, locale }) => {
   return (
     <nav className="flex items-center space-x-2 text-sm text-dark/60 dark:text-light/60">
       <SmartLink 
@@ -33,4 +34,6 @@ const BreadcrumbServer = ({ items, homeLabel, locale }) => {
   );
 };
 
-export default BreadcrumbServer;
+export default BreadcrumbClient;
+
+

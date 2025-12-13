@@ -2,12 +2,21 @@
 import { memo, useMemo } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
 import ProductCard from './ProductCard';
+import BreadcrumbClient from '../Blog/BreadcrumbClient';
+import PageTemplate from '../PageTemplate/PageTemplate';
 
 const ProductsPageContent = memo(function ProductsPageContent({ locale: propLocale }) {
   const t = useTranslations('ui');
   const hookLocale = useLocale();
   const locale = propLocale || hookLocale;
   
+  const breadcrumbItems = useMemo(() => [
+    {
+      label: t('products.title'),
+      href: "/products"
+    }
+  ], [t]);
+
   const products = useMemo(() => [
     {
       name: t('products.musicCover.name'),
@@ -44,18 +53,13 @@ const ProductsPageContent = memo(function ProductsPageContent({ locale: propLoca
   ], [t]);
 
   return (
-    <main className="relative z-10 flex flex-col items-center justify-center min-h-screen pt-20 md:pt-24 py-12">
-      <div className="w-full max-w-7xl mx-auto px-5 sm:px-10">
-        {/* Hero Section */}
-        <div className="text-center mb-16">
-          <h1 className="text-3xl md:text-5xl font-bold mb-6 text-dark dark:text-light">
-            {t('products.title')}
-          </h1>
-          <p className="text-xl text-dark/70 dark:text-light/70 mb-2">
-            {t('products.subtitle')}
-          </p>
-        </div>
-
+    <PageTemplate
+      title={t('products.title')}
+      subtitle={t('products.subtitle')}
+      breadcrumb={<BreadcrumbClient items={breadcrumbItems} homeLabel={locale === 'zh-cn' ? '首页' : 'Home'} locale={locale} />}
+      locale={locale}
+    >
+      <section className="text-dark dark:text-light">
         {/* Products Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
           {products.map((product, index) => (
@@ -81,8 +85,8 @@ const ProductsPageContent = memo(function ProductsPageContent({ locale: propLoca
             <p className="text-lg text-dark/60 dark:text-light/60 font-medium">{t('products.empty')}</p>
           </div>
         )}
-      </div>
-    </main>
+      </section>
+    </PageTemplate>
   );
 });
 
