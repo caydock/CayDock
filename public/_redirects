@@ -1,0 +1,5 @@
+# 重定向规则
+# 语法: 源路径 目标路径 状态码
+
+# tools/music-cover/ 重定向到中文版本的音乐封面工具
+/tools/music-cover/ /zh-cn/music-cover/ 301
