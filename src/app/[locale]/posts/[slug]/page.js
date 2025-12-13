@@ -16,9 +16,15 @@ export async function generateStaticParams() {
     languageBlogs.forEach(blog => {
       // 优先使用 key，如果没有 key 则使用 slug（保持与旧项目一致）
       const urlSlug = blog.key || blog.slug;
+
+      // 对包含非ASCII字符的slug进行编码
+      const encodedSlug = /[^\x00-\x7F]/.test(urlSlug)
+        ? encodeURIComponent(urlSlug)
+        : urlSlug;
+
       params.push({
         locale,
-        slug: urlSlug,
+        slug: encodedSlug,
       });
     });
   });
@@ -31,10 +37,13 @@ export async function generateMetadata({ params }) {
   const t = await getTranslations({locale: locale, namespace: 'meta'});
   const language = locale === 'zh-cn' ? 'zh-cn' : 'en';
 
+  // 对 slug 进行解码，因为可能包含编码的中文
+  const decodedSlug = decodeURIComponent(slug);
+
   // 查找对应的博客文章（优先通过 key 查找，如果没有 key 则通过 slug 查找）
   const blog = blogs.find(blog => {
     const urlSlug = blog.key || blog.slug;
-    return urlSlug === slug && blog.language === language;
+    return urlSlug === decodedSlug && blog.language === language;
   });
 
   if (!blog) {
@@ -97,10 +106,13 @@ export default async function BlogDetailPage({ params }) {
   const { locale, slug } = await params;
   const language = locale === 'zh-cn' ? 'zh-cn' : 'en';
 
+  // 对 slug 进行解码，因为可能包含编码的中文
+  const decodedSlug = decodeURIComponent(slug);
+
   // 查找对应的博客文章（优先通过 key 查找，如果没有 key 则通过 slug 查找）
   const blog = blogs.find(blog => {
     const urlSlug = blog.key || blog.slug;
-    return urlSlug === slug && blog.language === language;
+    return urlSlug === decodedSlug && blog.language === language;
   });
 
   if (!blog) {

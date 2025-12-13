@@ -1,6 +1,6 @@
 import "./globals.css";
 import { cx } from "@/src/utils";
-import { Inter, Manrope } from "next/font/google";
+import { Inter, Manrope, Noto_Sans_SC } from "next/font/google";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Analytics from "@/src/components/Analytics";
@@ -22,6 +22,13 @@ const manrope = Manrope({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-mr",
+});
+
+const notoSansSC = Noto_Sans_SC({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  display: "swap",
+  variable: "--font-sc",
 });
 
 export async function generateMetadata() {
@@ -111,6 +118,7 @@ export default async function RootLayout({ children }) {
         className={cx(
           inter.variable,
           manrope.variable,
+          notoSansSC.variable,
           "font-mr bg-light dark:bg-dark flex flex-col min-h-screen"
         )}
       >

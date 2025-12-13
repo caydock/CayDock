@@ -5,7 +5,7 @@ import { slug } from 'github-slugger'
 export const runtime = 'edge'
 
 export default async function sitemap() {
-  const base = siteMetadata.siteUrl?.replace(/\/$/, '') || 'https://w3cay.com'
+  const base = siteMetadata.siteUrl?.replace(/\/$/, '') || 'https://caydock.com'
 
   // 英文页面（根路径，无前缀）
   const staticPaths = [

@@ -1,5 +1,5 @@
 {
-  "name": "w3cay",
+  "name": "CayDock",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -17,11 +17,7 @@
     "content:full": "npm run content && npm run copy-images",
     "reorganize-images": "./scripts/reorganize-images.sh",
     "generate-favicons": "node scripts/generate-favicons.js",
-    "d1:apply": "wrangler d1 migrations apply w3cay-db --local",
-    "d1:push": "wrangler d1 migrations apply w3cay-db",
-    "d1:exec": "wrangler d1 execute w3cay-db --command",
-    "cf:build": "npx @cloudflare/next-on-pages",
-    "cf:preview": "npx wrangler pages dev .vercel/output/static --d1 DB=w3cay-db --persist-to .wrangler/state"
+    "cf:build": "npx @cloudflare/next-on-pages"
   },
   "dependencies": {
     "@lottiefiles/dotlottie-react": "^0.12.0",

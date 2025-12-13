@@ -9,7 +9,7 @@ export async function GET(request, { params }) {
   const resolvedParams = params instanceof Promise ? await params : (params || {})
   const locale = resolvedParams?.locale || 'en'
   
-  const base = siteMetadata.siteUrl?.replace(/\/$/, '') || 'https://w3cay.com'
+  const base = siteMetadata.siteUrl?.replace(/\/$/, '') || 'https://caydock.com'
   const language = locale === 'zh-cn' ? 'zh-cn' : 'en'
   const localePrefix = locale === 'zh-cn' ? '/zh-cn' : ''
 

@@ -4,7 +4,7 @@ import siteMetadata from '@/src/utils/siteMetaData';
 export const runtime = 'edge';
 
 export async function GET() {
-  const base = siteMetadata.siteUrl?.replace(/\/$/, '') || 'https://w3cay.com';
+  const base = siteMetadata.siteUrl?.replace(/\/$/, '') || 'https://caydock.com';
   
   // 获取所有已发布的博客文章，按发布日期排序
   const publishedBlogs = blogs

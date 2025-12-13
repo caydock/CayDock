@@ -43,10 +43,13 @@ export default function BlogDetails({ slug: blogSlug, locale }) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // 对 slug 进行解码，因为可能包含编码的中文
+  const decodedSlug = decodeURIComponent(blogSlug);
+
   // 查找对应的博客文章（优先通过 key 查找，如果没有 key 则通过 slug 查找）
   const blog = blogs.find(blog => {
     const urlSlug = blog.key || blog.slug;
-    return urlSlug === blogSlug && blog.language === language;
+    return urlSlug === decodedSlug && blog.language === language;
   });
 
   if (!blog) {
@@ -70,7 +73,7 @@ export default function BlogDetails({ slug: blogSlug, locale }) {
       name={tag}
       link={`/tags/${slug(tag)}`}
       locale={locale}
-      className="!bg-light/20 dark:!bg-light/20 backdrop-blur-sm !border-dark/30 dark:!border-light/30 !text-dark dark:!text-light hover:!bg-dark/10 dark:hover:!bg-light/30 !border-2 px-4 py-1 text-xs md:text-sm"
+      className="!bg-light/20 dark:!bg-light/20 backdrop-blur-sm !border-dark/30 dark:!border-light/30 !text-dark dark:!text-light hover:!bg-dark/10 dark:hover:!bg-light/30 !border px-3 py-1 text-xs rounded-md"
     />
   ));
 
@@ -96,7 +99,9 @@ export default function BlogDetails({ slug: blogSlug, locale }) {
           day: 'numeric'
         }),
         wordCount,
-        readingTime: blog.readingTime?.text || (locale === 'zh-cn' ? '3分钟' : '3 min')
+        readingTime: blog.readingTime
+    ? `${Math.ceil(blog.readingTime.minutes)}${locale === 'zh-cn' ? '分钟' : ' min read'}`
+    : (locale === 'zh-cn' ? '3分钟' : '3 min')
       }}
       tags={tagElements}
       author={true}
@@ -108,7 +113,7 @@ export default function BlogDetails({ slug: blogSlug, locale }) {
           {/* 左侧内容区域 */}
           <div className="flex-1 pr-8">
             <div className="w-full max-w-4xl">
-              <RenderMdx blog={blog} />
+              <RenderMdx blog={blog} locale={locale} />
             </div>
 
             {/* 分享按钮 */}

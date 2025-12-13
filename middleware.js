@@ -7,6 +7,7 @@ const intlMiddleware = createMiddleware(routing);
 export default function middleware(request) {
   const { pathname } = request.nextUrl;
 
+  
   // 处理 next-intl 路由
   const response = intlMiddleware(request);
 

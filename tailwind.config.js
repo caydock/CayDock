@@ -17,7 +17,8 @@ module.exports = {
       },
       fontFamily:{
         mr: ["var(--font-mr)"],
-        in: ["var(--font-in)"]
+        in: ["var(--font-in)"],
+        sc: ["var(--font-sc)", "system-ui", "sans-serif"],
       },
       animation:{
         roll: "roll 24s linear infinite"
