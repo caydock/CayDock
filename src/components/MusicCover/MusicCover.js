@@ -206,7 +206,7 @@ const MusicCover = memo(function MusicCover() {
 			<main className="flex-1 relative w-full pt-20" style={{ margin: 0, zIndex: 1 }}>
 				<div className="max-w-7xl mx-auto px-5 sm:px-10 py-4 md:py-8">
 					<div className="mb-10">
-						<h1 className="text-4xl md:text-5xl font-bold mb-3 bg-gradient-to-r from-dark to-gray dark:from-light dark:to-gray bg-clip-text text-transparent">
+						<h1 className="text-3xl md:text-4xl font-bold mb-3 bg-gradient-to-r from-dark to-gray dark:from-light dark:to-gray bg-clip-text text-transparent">
 							{t('title')}
 						</h1>
 						<p className="text-dark/70 dark:text-light/70 text-lg">{t('description')}</p>

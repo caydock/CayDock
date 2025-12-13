@@ -47,7 +47,7 @@
       "keywords": "products, apps, tools, independent development, CayDock, music cover search, QR code generator, time tracking"
     },
     "musicCover": {
-      "title": "Music Album Cover Search",
+      "title": "CoverCay - Music Album Cover Search",
       "description": "Free music cover search tool, supports searching album, song, and music video covers",
       "keywords": "music cover, album cover, song cover, music video cover, free download, iTunes API, music artwork"
     },
@@ -137,7 +137,7 @@
       "subtitle": "Discover our collection of innovative tools and services",
       "empty": "No products available",
       "musicCover": {
-        "name": "Music Album Cover Search",
+        "name": "CoverCay",
         "description": "Free music cover search tool, supports searching album, song, and music video covers",
         "category": "Music Tools",
         "link": "/music-cover"
@@ -376,9 +376,9 @@
     }
   },
   "musicCover": {
-    "title": "Music Album Cover Search",
+    "title": "CoverCay - Music Album Cover Search",
     "description": "Free music cover search tool, supports searching album, song, and music video covers",
-    "metaTitle": "Music Album Cover Search - Free Music Cover Finder | CayDock",
+    "metaTitle": "CoverCay - Music Album Cover Search | Free Music Cover Finder",
     "metaDescription": "Search and download high-quality music album covers, song covers, and music video covers for free. Support multiple countries and cover sizes.",
     "metaKeywords": "music cover, album cover, song cover, music video cover, free download, iTunes API, music artwork",
     "searchType": "Search Type",

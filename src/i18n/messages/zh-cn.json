@@ -81,7 +81,7 @@
       "keywords": "博客,技术文章,编程教程,开发经验,技术分享,CayDock博客"
     },
     "musicCover": {
-      "title": "音乐专辑封面查询",
+      "title": "CoverCay - 音乐专辑封面查询",
       "description": "免费的音乐封面搜索工具，支持搜索专辑、歌曲和音乐视频封面",
       "keywords": "音乐封面,专辑封面,歌曲封面,音乐视频封面,免费下载,iTunes API,音乐作品"
     },
@@ -166,7 +166,7 @@
       "subtitle": "发现我们的创新工具和服务集合",
       "empty": "暂无产品",
       "musicCover": {
-        "name": "音乐专辑封面查询",
+        "name": "CoverCay",
         "description": "免费的音乐封面搜索工具，支持搜索专辑、歌曲和音乐视频封面",
         "category": "音乐工具",
         "link": "/music-cover"
@@ -407,9 +407,9 @@
     }
   },
   "musicCover": {
-    "title": "音乐专辑封面查询",
+    "title": "CoverCay - 音乐专辑封面查询",
       "description": "免费的音乐封面搜索工具，支持搜索专辑、歌曲和音乐视频封面",
-      "metaTitle": "音乐专辑封面查询 - 免费音乐封面搜索工具 | CayDock",
+      "metaTitle": "音乐专辑封面查询 - 免费音乐封面搜索工具 | CoverCay",
       "metaDescription": "免费搜索和下载高质量的音乐专辑封面、歌曲封面和音乐视频封面。支持多个国家和多种封面尺寸。",
       "metaKeywords": "音乐封面,专辑封面,歌曲封面,音乐视频封面,免费下载,iTunes API,音乐作品",
       "searchType": "搜索类型",
