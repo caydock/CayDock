@@ -109,9 +109,9 @@ export default function BlogDetails({ slug: blogSlug, locale }) {
     >
       {/* 两列布局 */}
       <div className="max-w-7xl mx-auto">
-        <div className="flex">
+        <div className="flex gap-8">
           {/* 左侧内容区域 */}
-          <div className="flex-1 pr-8">
+          <div className="flex-1">
             <div className="w-full max-w-4xl">
               <RenderMdx blog={blog} locale={locale} />
             </div>
@@ -132,9 +132,9 @@ export default function BlogDetails({ slug: blogSlug, locale }) {
             </div>
           </div>
 
-          {/* 右侧目录区域 */}
-          <div className="hidden xl:block">
-            <div ref={tocContainerRef} className="fixed right-[max(5px,calc(50%-540px-24px))] top-24 transition-opacity duration-300 opacity-0 pointer-events-none w-64">
+          {/* 右侧目录区域 - 只在大屏幕显示 */}
+          <div className="hidden xl:block flex-shrink-0 w-64">
+            <div ref={tocContainerRef} className="fixed right-[max(5px,calc(50%-540px-24px))] top-24 transition-opacity duration-300 opacity-0 pointer-events-none">
               <TableOfContents content={blog.body || ''} locale={locale} />
             </div>
           </div>

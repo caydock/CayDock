@@ -108,8 +108,8 @@
     },
     "blog": {
       "title": "博客",
-      "subtitle": "阅读关于编程、技术和更多主题的文章",
-      "description": "阅读关于编程、技术和更多主题的博客文章。分享我的想法、教程和故事。",
+      "subtitle": "分享我的产品、经验和独立开发之旅",
+      "description": "分享我的产品、经验和独立开发之旅",
       "featuredPosts": "精选文章",
       "recentPosts": "最新文章",
       "viewAll": "查看全部",

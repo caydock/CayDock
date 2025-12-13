@@ -51,9 +51,9 @@ const Footer = () => {
         <div className="text-center flex items-center gap-3 text-base sm:text-base">
           <span>
             {t('footer.madeWithBy')}{" "}
-            <a href="https://caydock.com" className="underline" target="_blank">
-              CayDock
-            </a>
+            <SmartLink href="/about" locale={actualLocale} className="underline">
+              Cayden
+            </SmartLink>
           </span>
         </div>
       </div>
