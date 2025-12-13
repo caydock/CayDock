@@ -10,12 +10,39 @@ import ShareButtons from '../Elements/ShareButtons';
 import PageTemplate from '../PageTemplate/PageTemplate';
 import siteMetadata from '@/src/utils/siteMetaData';
 import GiscusComments from '../Elements/GiscusComments';
-import { useMemo } from 'react';
+import TableOfContents from './TableOfContents';
+import { useMemo, useEffect, useRef } from 'react';
 
 export default function BlogDetails({ slug: blogSlug, locale }) {
   const t = useTranslations('ui');
   const language = locale === 'zh-cn' ? 'zh-cn' : 'en';
-  
+  const tocContainerRef = useRef(null);
+
+  useEffect(() => {
+    const tocElement = tocContainerRef.current;
+    if (!tocElement) return;
+
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      const heroHeight = 400; // 标题区域高度
+      const offset = 96; // header 高度
+
+      // 当滚动超过标题区域 + offset 时显示目录
+      if (scrollPosition > heroHeight + offset) {
+        tocElement.style.opacity = '1';
+        tocElement.style.pointerEvents = 'auto';
+      } else {
+        tocElement.style.opacity = '0';
+        tocElement.style.pointerEvents = 'none';
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // 初始检查
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   // 查找对应的博客文章（优先通过 key 查找，如果没有 key 则通过 slug 查找）
   const blog = blogs.find(blog => {
     const urlSlug = blog.key || blog.slug;
@@ -53,6 +80,7 @@ export default function BlogDetails({ slug: blogSlug, locale }) {
     { label: blog.title, href: blog.url }
   ];
 
+  
   return (
     <PageTemplate
       backgroundImage={blog.image?.src ? {
@@ -74,20 +102,39 @@ export default function BlogDetails({ slug: blogSlug, locale }) {
       author={true}
       locale={locale}
     >
-      <RenderMdx blog={blog} />
-      
-      {/* 分享按钮 */}
-      <div className="mt-12 pt-8 border-t border-dark/10 dark:border-light/10">
-        <ShareButtons 
-          url={`${siteMetadata.siteUrl}${blog.url}`}
-          title={blog.title}
-          description={blog.description}
-          hashtags="weirdwebsites,webdiscovery,blog"
-        />
-      </div>
+      {/* 两列布局 */}
+      <div className="max-w-7xl mx-auto">
+        <div className="flex">
+          {/* 左侧内容区域 */}
+          <div className="flex-1 pr-8">
+            <div className="w-full max-w-4xl">
+              <RenderMdx blog={blog} />
+            </div>
 
-      {/* 评论组件 */}
-      <GiscusComments locale={locale} />
+            {/* 分享按钮 */}
+            <div className="mt-12 pt-8 border-t border-dark/10 dark:border-light/10 w-full max-w-4xl">
+              <ShareButtons
+                url={`${siteMetadata.siteUrl}${blog.url}`}
+                title={blog.title}
+                description={blog.description}
+                hashtags="weirdwebsites,webdiscovery,blog"
+              />
+            </div>
+
+            {/* 评论组件 */}
+            <div className="mt-8 w-full max-w-4xl">
+              <GiscusComments locale={locale} />
+            </div>
+          </div>
+
+          {/* 右侧目录区域 */}
+          <div className="hidden xl:block">
+            <div ref={tocContainerRef} className="fixed right-[max(5px,calc(50%-540px-24px))] top-24 transition-opacity duration-300 opacity-0 pointer-events-none w-64">
+              <TableOfContents content={blog.body || ''} locale={locale} />
+            </div>
+          </div>
+        </div>
+      </div>
     </PageTemplate>
   );
 }

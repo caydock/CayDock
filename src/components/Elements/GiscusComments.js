@@ -40,8 +40,9 @@ export default function GiscusComments({ locale }) {
 
     return () => {
       // 清理脚本
-      if (commentsRef.current && script.parentNode) {
-        commentsRef.current.removeChild(script);
+      const currentRef = commentsRef.current;
+      if (currentRef && script.parentNode) {
+        currentRef.removeChild(script);
         scriptLoadedRef.current = false;
       }
     };

@@ -1,6 +1,7 @@
 'use client'
 
 import { memo, useMemo, useState, useCallback } from 'react'
+import Image from 'next/image'
 import { searchItunes, getCoverUrl } from '@/src/utils/api'
 import { useTranslations, useLocale } from 'next-intl'
 import { useMemoizedFn } from '@/src/hooks/useMemoizedFn'
@@ -327,12 +328,15 @@ const MusicCover = memo(function MusicCover() {
 											className="aspect-square mb-4 bg-gradient-to-br from-gray/20 to-gray/10 rounded-xl overflow-hidden shadow-lg group-hover:shadow-xl transition-shadow duration-300 cursor-pointer" 
 											onClick={() => copyCoverToClipboard(item)}
 										>
-											<img
+											<Image
 												src={getCoverUrl(item, coverSize)}
 												alt={item?.collectionName || item?.trackName || 'Cover'}
+												width={coverSize}
+												height={coverSize}
 												className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 pointer-events-none"
 												onError={handleImageError}
 												draggable={false}
+												unoptimized
 											/>
 										</div>
 										<h3 className="font-bold text-lg mb-2 line-clamp-2 group-hover:text-dark dark:group-hover:text-light transition-colors text-dark dark:text-light">

@@ -3,7 +3,7 @@ import Image from "next/image"
 import logo from "@/public/about-logo.webp"
 
 import { useTranslations, useLocale } from 'next-intl'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { shouldEnableAnalytics } from '@/src/utils/env'
 import { sites } from '@/src/data/sites'
 
@@ -54,7 +54,7 @@ export default function HomePage({ initialLanguage = 'en', searchParams = {}, in
   }
 
   // 处理URL参数的异步函数
-  const handleUrlParams = async () => {
+  const handleUrlParams = useCallback(async () => {
     // 优先使用传入的searchParams（服务端）
     let siteParam = searchParams?.site
     
@@ -132,10 +132,10 @@ export default function HomePage({ initialLanguage = 'en', searchParams = {}, in
         setCountdown(0)
       }
     }
-    
+
     // 如果没有特殊URL参数，获取随机网站ID
     fetchRandomSiteId()
-  }
+  }, [searchParams, router])
 
   // 初始化时处理服务端传入的网站信息
   useEffect(() => {
@@ -182,7 +182,7 @@ export default function HomePage({ initialLanguage = 'en', searchParams = {}, in
       // 如果没有服务端传入的网站信息，处理URL参数
       handleUrlParams()
     }
-  }, [initialSite])
+  }, [initialSite, handleUrlParams, searchParams, router])
 
   // 服务端渲染时也处理URL参数
   useEffect(() => {

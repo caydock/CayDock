@@ -23,13 +23,16 @@ const ProductCard = memo(function ProductCard({
           <div className="flex-shrink-0">
             {typeof icon === 'string' ? (
               icon.startsWith('http') || icon.startsWith('//') ? (
-                <img 
-                  src={icon} 
+                <Image
+                  src={icon}
                   alt={name}
+                  width={16}
+                  height={16}
                   className="w-4 h-4 object-contain"
                   onError={(e) => {
                     e.currentTarget.style.display = 'none';
                   }}
+                  unoptimized
                 />
               ) : (
                 <Image

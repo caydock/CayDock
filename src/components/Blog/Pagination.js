@@ -2,16 +2,12 @@
 import { memo, useMemo } from 'react';
 import SmartLink from '../Elements/SmartLink';
 
-const Pagination = memo(function Pagination({ 
-  currentPage, 
-  totalPages, 
+const Pagination = memo(function Pagination({
+  currentPage,
+  totalPages,
   locale,
   basePath = '/posts'
 }) {
-  if (totalPages <= 1) {
-    return null;
-  }
-
   const getPageUrl = (page) => {
     // basePath 应该是 /posts，next-intl 会根据 locale 自动添加语言前缀
     if (page === 1) {
@@ -23,7 +19,7 @@ const Pagination = memo(function Pagination({
   const pages = useMemo(() => {
     const pageNumbers = [];
     const maxVisible = 5;
-    
+
     if (totalPages <= maxVisible) {
       // 如果总页数少于等于最大可见数，显示所有页码
       for (let i = 1; i <= totalPages; i++) {
@@ -63,6 +59,11 @@ const Pagination = memo(function Pagination({
     
     return pageNumbers;
   }, [currentPage, totalPages]);
+
+  // 如果总页数少于等于1，不显示分页
+  if (totalPages <= 1) {
+    return null;
+  }
 
   return (
     <nav className="flex items-center justify-center gap-2 mt-12 mb-8" aria-label="Pagination">

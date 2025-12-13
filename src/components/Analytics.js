@@ -4,12 +4,6 @@ import { shouldEnableAnalytics } from '@/src/utils/env'
 import { useEffect } from 'react'
 
 export default function Analytics() {
-  // 在开发环境中不加载统计代码
-  if (!shouldEnableAnalytics) {
-    console.log('📊 开发环境：统计代码已禁用')
-    return null
-  }
-
   // Umami 事件追踪（与旧项目保持一致）
   useEffect(() => {
     if (!shouldEnableAnalytics) return;
@@ -35,6 +29,12 @@ export default function Analytics() {
       };
     }
   }, []);
+
+  // 在开发环境中不加载统计代码
+  if (!shouldEnableAnalytics) {
+    console.log('📊 开发环境：统计代码已禁用')
+    return null
+  }
 
   return (
     <>

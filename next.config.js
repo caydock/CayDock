@@ -48,7 +48,7 @@ const nextConfig = {
         VeliteWebpackPlugin.started = true
         const dev = compiler.options.mode === 'development'
         const { build } = await import('velite')
-        await build({ watch: dev, clean: !dev })
+        await build({ watch: dev, clean: false })
       })
     }
   }

@@ -21,16 +21,16 @@ const GlobalBackground = () => {
         />
       </div>
       
-      {/* 高斯模糊背景遮罩 */}
+      {/* 高斯模糊背景遮罩 - 覆盖整个页面，footer 沿用内容区域背景 */}
       <div className="dark:hidden fixed inset-0 z-[1]" style={{
         backdropFilter: 'blur(16px)',
         WebkitBackdropFilter: 'blur(16px)',
-        background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.35) 10%, rgba(255, 255, 255, 0.55) 25%, rgba(255, 255, 255, 0.75) 45%, rgba(255, 255, 255, 0.95) 100%)'
+        background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.35) 10%, rgba(255, 255, 255, 0.55) 25%, rgba(255, 255, 255, 0.75) 45%, rgba(255, 255, 255, 0.85) 80%, rgba(255, 255, 255, 0.9) 100%)'
       }} />
       <div className="hidden dark:block fixed inset-0 z-[1]" style={{
         backdropFilter: 'blur(16px)',
         WebkitBackdropFilter: 'blur(16px)',
-        background: 'linear-gradient(to bottom, transparent 0%, transparent 10%, rgba(26, 26, 26, 0.2) 20%, rgba(26, 26, 26, 0.4) 30%, rgba(26, 26, 26, 0.6) 50%, rgba(26, 26, 26, 0.85) 100%)'
+        background: 'linear-gradient(to bottom, transparent 0%, transparent 10%, rgba(26, 26, 26, 0.2) 20%, rgba(26, 26, 26, 0.4) 30%, rgba(26, 26, 26, 0.6) 50%, rgba(26, 26, 26, 0.75) 80%, rgba(26, 26, 26, 0.8) 100%)'
       }} />
     </>
   );

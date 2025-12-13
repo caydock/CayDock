@@ -2,9 +2,7 @@ import siteMetadata from '@/src/utils/siteMetaData'
 import { blogs } from '@/.velite/generated'
 import { slug } from 'github-slugger'
 
-export async function generateStaticParams() {
-  return [{ locale: 'en' }, { locale: 'zh-cn' }]
-}
+export const runtime = 'edge'
 
 export async function GET(request, { params }) {
   // 从 params 获取 locale

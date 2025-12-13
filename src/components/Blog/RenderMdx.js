@@ -59,11 +59,59 @@ const RenderMdx = ({blog}) => {
         
         return (
           <>
-            <div className="dark:text-light prose dark:prose-invert dark:prose-p:text-light dark:prose-headings:text-light dark:prose-strong:text-light dark:prose-em:text-light dark:prose-code:text-light dark:prose-pre:text-light" dangerouslySetInnerHTML={{ __html: beforeAd }} />
+            <div className="w-full text-base leading-relaxed text-dark dark:text-light px-0
+              [&>h2]:text-2xl [&>h2]:font-bold [&>h2]:mt-8 [&>h2]:mb-4
+              [&>h3]:text-xl [&>h3]:font-bold [&>h3]:mt-6 [&>h3]:mb-3
+              [&>h4]:text-lg [&>h4]:font-bold [&>h4]:mt-4 [&>h4]:mb-2
+              [&>p]:mb-6
+              [&>ul]:list-disc [&>ul]:pl-8 [&>ul]:mb-6
+              [&>ol]:list-decimal [&>ol]:pl-8 [&>ol]:mb-6
+              [&>li]:mb-2
+              [&>blockquote]:bg-accent/20 [&>blockquote]:p-2 [&>blockquote]:px-6
+              [&>blockquote]:border-accent [&>blockquote]:not-italic [&>blockquote]:rounded-r-lg
+              dark:[&>blockquote]:bg-accentDark/20 dark:[&>blockquote]:border-accentDark
+              [&>figure]:relative [&>figure]:mb-6
+              [&>img]:w-full [&>img]:rounded-lg
+              [&>figcaption]:mt-1 [&>figcaption]:mb-2 [&>figcaption]:text-sm [&>figcaption]:text-center
+              [&>code]:bg-accent/10 [&>code]:px-2 [&>code]:py-1 [&>code]:rounded [&>code]:font-mono
+              [&>pre]:bg-accent/10 [&>pre]:p-4 [&>pre]:rounded-lg [&>pre]:overflow-x-auto
+              [&>pre]:font-mono [&>pre]:text-sm
+              [&>a]:text-accent [&>a]:hover:text-accentDark dark:[&>a]:text-accentDark
+              [&>a]:font-medium [&>a]:hover:underline
+              [&>strong]:font-bold [&>em]:italic
+              [&_hr]:border-t [&_hr]:border-accent/30 [&_hr]:my-8
+              [&_table]:w-full [&_table]:border-collapse [&_table]:mb-6
+              [&_th]:border [&_th]:border-accent/30 [&_th]:px-4 [&_th]:py-2 [&_th]:bg-accent/10
+              [&_td]:border [&_td]:border-accent/30 [&_td]:px-4 [&_td]:py-2
+              dark:[&_th]:bg-accentDark/10 dark:[&_th]:border-accentDark/30" dangerouslySetInnerHTML={{ __html: beforeAd }} />
             <div className="w-full my-8">
               <InArticleAd />
             </div>
-            <div className="dark:text-light prose dark:prose-invert dark:prose-p:text-light dark:prose-headings:text-light dark:prose-strong:text-light dark:prose-em:text-light dark:prose-code:text-light dark:prose-pre:text-light" dangerouslySetInnerHTML={{ __html: afterAd }} />
+            <div className="w-full text-base leading-relaxed text-dark dark:text-light px-0
+              [&>h2]:text-2xl [&>h2]:font-bold [&>h2]:mt-8 [&>h2]:mb-4
+              [&>h3]:text-xl [&>h3]:font-bold [&>h3]:mt-6 [&>h3]:mb-3
+              [&>h4]:text-lg [&>h4]:font-bold [&>h4]:mt-4 [&>h4]:mb-2
+              [&>p]:mb-6
+              [&>ul]:list-disc [&>ul]:pl-8 [&>ul]:mb-6
+              [&>ol]:list-decimal [&>ol]:pl-8 [&>ol]:mb-6
+              [&>li]:mb-2
+              [&>blockquote]:bg-accent/20 [&>blockquote]:p-2 [&>blockquote]:px-6
+              [&>blockquote]:border-accent [&>blockquote]:not-italic [&>blockquote]:rounded-r-lg
+              dark:[&>blockquote]:bg-accentDark/20 dark:[&>blockquote]:border-accentDark
+              [&>figure]:relative [&>figure]:mb-6
+              [&>img]:w-full [&>img]:rounded-lg
+              [&>figcaption]:mt-1 [&>figcaption]:mb-2 [&>figcaption]:text-sm [&>figcaption]:text-center
+              [&>code]:bg-accent/10 [&>code]:px-2 [&>code]:py-1 [&>code]:rounded [&>code]:font-mono
+              [&>pre]:bg-accent/10 [&>pre]:p-4 [&>pre]:rounded-lg [&>pre]:overflow-x-auto
+              [&>pre]:font-mono [&>pre]:text-sm
+              [&>a]:text-accent [&>a]:hover:text-accentDark dark:[&>a]:text-accentDark
+              [&>a]:font-medium [&>a]:hover:underline
+              [&>strong]:font-bold [&>em]:italic
+              [&_hr]:border-t [&_hr]:border-accent/30 [&_hr]:my-8
+              [&_table]:w-full [&_table]:border-collapse [&_table]:mb-6
+              [&_th]:border [&_th]:border-accent/30 [&_th]:px-4 [&_th]:py-2 [&_th]:bg-accent/10
+              [&_td]:border [&_td]:border-accent/30 [&_td]:px-4 [&_td]:py-2
+              dark:[&_th]:bg-accentDark/10 dark:[&_th]:border-accentDark/30" dangerouslySetInnerHTML={{ __html: afterAd }} />
           </>
         );
       }
@@ -81,34 +129,43 @@ const RenderMdx = ({blog}) => {
   };
 
   return (
-    <div className='col-span-12 lg:col-span-8 font-in prose-base max-w-max
-    prose-blockquote:bg-accent/20 
-    prose-blockquote:p-2
-    prose-blockquote:px-6
-    prose-blockquote:border-accent
-    prose-blockquote:not-italic
-    prose-blockquote:rounded-r-lg
+    <div className='w-full text-base leading-relaxed text-dark dark:text-light px-0
+      [&>h2]:text-2xl [&>h2]:font-bold [&>h2]:mt-8 [&>h2]:mb-4
+      [&>h3]:text-xl [&>h3]:font-bold [&>h3]:mt-6 [&>h3]:mb-3
+      [&>h4]:text-lg [&>h4]:font-bold [&>h4]:mt-4 [&>h4]:mb-2
 
-    prose-figure:relative
-    prose-figcaption:mt-1
-    prose-figcaption:mb-2
+      [&>p]:mb-6
 
-    prose-li:marker:text-accent
+      [&>ul]:list-disc [&>ul]:pl-8 [&>ul]:mb-6
+      [&>ol]:list-decimal [&>ol]:pl-8 [&>ol]:mb-6
+      [&>li]:mb-2
 
-    dark:prose-invert
-    dark:text-light
-    dark:prose-blockquote:border-accentDark
-    dark:prose-blockquote:bg-accentDark/20
-    dark:prose-li:marker:text-accentDark
-    dark:prose-p:text-light
-    dark:prose-headings:text-light
-    dark:prose-strong:text-light
-    dark:prose-em:text-light
-    dark:prose-code:text-light
-    dark:prose-pre:text-light
+      [&>blockquote]:bg-accent/20 [&>blockquote]:p-2 [&>blockquote]:px-6
+      [&>blockquote]:border-accent [&>blockquote]:not-italic [&>blockquote]:rounded-r-lg
+      dark:[&>blockquote]:bg-accentDark/20 dark:[&>blockquote]:border-accentDark
 
-    first-letter:text-3xl
-    sm:first-letter:text-5xl'> 
+      [&>figure]:relative [&>figure]:mb-6
+      [&>img]:w-full [&>img]:rounded-lg
+      [&>figcaption]:mt-1 [&>figcaption]:mb-2 [&>figcaption]:text-sm [&>figcaption]:text-center
+
+      [&>code]:bg-accent/10 [&>code]:px-2 [&>code]:py-1 [&>code]:rounded [&>code]:font-mono
+      [&>pre]:bg-accent/10 [&>pre]:p-4 [&>pre]:rounded-lg [&>pre]:overflow-x-auto
+      [&>pre]:font-mono [&>pre]:text-sm
+
+      [&>a]:text-accent [&>a]:hover:text-accentDark dark:[&>a]:text-accentDark
+      [&>a]:font-medium [&>a]:hover:underline
+
+      [&>strong]:font-bold [&>em]:italic
+
+      [&_hr]:border-t [&_hr]:border-accent/30 [&_hr]:my-8
+
+      [&_table]:w-full [&_table]:border-collapse [&_table]:mb-6
+      [&_th]:border [&_th]:border-accent/30 [&_th]:px-4 [&_th]:py-2 [&_th]:bg-accent/10
+      [&_td]:border [&_td]:border-accent/30 [&_td]:px-4 [&_td]:py-2
+      dark:[&_th]:bg-accentDark/10 dark:[&_th]:border-accentDark/30
+
+      first-letter:text-3xl
+      sm:first-letter:text-5xl'>
         {insertAdInMiddle(blog.body)}
     </div>
   )
