@@ -62,10 +62,10 @@ const Header = () => {
 
   return (
     <header className={cx(
-      "fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300 backdrop-blur-md",
-      isScrolled 
-        ? "bg-light/85 dark:bg-dark/70" 
-        : "bg-light/75 dark:bg-dark/60"
+      "fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300",
+      isScrolled
+        ? "bg-light/90 dark:bg-dark/80"
+        : "bg-gradient-to-b from-white/60 dark:from-black/60 via-white/20 dark:via-black/20 to-transparent"
     )}>
       <div className="w-full max-w-7xl mx-auto px-5 sm:px-10 py-4 flex items-center justify-between relative">
         {/* Logo - Left side */}
