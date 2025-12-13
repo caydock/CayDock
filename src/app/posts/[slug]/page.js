@@ -18,6 +18,12 @@ export async function generateStaticParams() {
     params.push({
       slug: urlSlug,
     });
+    // 同时为原始 slug 生成参数（如果与 key 不同），以兼容旧的链接
+    if (blog.key && blog.slug && blog.key !== blog.slug) {
+      params.push({
+        slug: blog.slug,
+      });
+    }
   });
 
   return params;
@@ -31,8 +37,8 @@ export async function generateMetadata({ params }) {
 
   // 查找对应的博客文章（优先通过 key 查找，如果没有 key 则通过 slug 查找）
   const blog = blogs.find(blog => {
-    const urlSlug = blog.key || blog.slug;
-    return urlSlug === slug && blog.language === language;
+    // 匹配 key 或 slug，两者中任意一个都能访问到文章
+    return (blog.key === slug || blog.slug === slug) && blog.language === language;
   });
 
   if (!blog) {
@@ -96,10 +102,9 @@ export default async function BlogDetailPage({ params }) {
   const locale = 'en'; // 根目录默认为英文
   const language = 'en';
 
-  // 查找对应的博客文章（优先通过 key 查找，如果没有 key 则通过 slug 查找）
+  // 查找对应的博客文章（支持通过 key 或 slug 查找，兼容历史链接）
   const blog = blogs.find(blog => {
-    const urlSlug = blog.key || blog.slug;
-    return urlSlug === slug && blog.language === language;
+    return (blog.key === slug || blog.slug === slug) && blog.language === language;
   });
 
   if (!blog) {

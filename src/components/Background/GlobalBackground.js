@@ -30,7 +30,7 @@ const GlobalBackground = () => {
       <div className="hidden dark:block fixed inset-0 z-[1]" style={{
         backdropFilter: 'blur(16px)',
         WebkitBackdropFilter: 'blur(16px)',
-        background: 'linear-gradient(to bottom, transparent 0%, transparent 10%, rgba(26, 26, 26, 0.2) 20%, rgba(26, 26, 26, 0.4) 30%, rgba(26, 26, 26, 0.6) 50%, rgba(26, 26, 26, 0.75) 80%, rgba(26, 26, 26, 0.8) 100%)'
+        background: 'linear-gradient(to bottom, transparent 0%, transparent 10%, rgba(26, 26, 26, 0.08) 20%, rgba(26, 26, 26, 0.12) 30%, rgba(26, 26, 26, 0.18) 50%, rgba(26, 26, 26, 0.28) 80%, rgba(26, 26, 26, 0.32) 100%)'
       }} />
     </>
   );

@@ -26,6 +26,14 @@ export async function generateStaticParams() {
         locale,
         slug: encodedSlug,
       });
+      // 如果 key 与 slug 不同，额外生成原始 slug 的参数（编码或不编码），以兼容历史链接
+      if (blog.key && blog.slug && blog.key !== blog.slug) {
+        const origSlug = /[^\x00-\x7F]/.test(blog.slug) ? encodeURIComponent(blog.slug) : blog.slug;
+        params.push({
+          locale,
+          slug: origSlug,
+        });
+      }
     });
   });
 
@@ -40,10 +48,9 @@ export async function generateMetadata({ params }) {
   // 对 slug 进行解码，因为可能包含编码的中文
   const decodedSlug = decodeURIComponent(slug);
 
-  // 查找对应的博客文章（优先通过 key 查找，如果没有 key 则通过 slug 查找）
+  // 查找对应的博客文章（支持通过 key 或 slug 查找，兼容历史链接）
   const blog = blogs.find(blog => {
-    const urlSlug = blog.key || blog.slug;
-    return urlSlug === decodedSlug && blog.language === language;
+    return (blog.key === decodedSlug || blog.slug === decodedSlug) && blog.language === language;
   });
 
   if (!blog) {

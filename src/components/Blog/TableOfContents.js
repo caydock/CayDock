@@ -176,7 +176,7 @@ const TableOfContents = ({ content, locale }) => {
   return (
     <div className="bg-transparent p-4 overflow-y-auto h-full">
       {/* 目录标题 */}
-      <h3 className="text-sm text-gray-500 dark:text-gray-400 font-medium mb-4 pb-2">
+      <h3 className="text-sm text-gray-500 dark:text-light font-medium mb-4 pb-2">
         {locale === 'zh-cn' ? '文章目录' : 'Table of Contents'}
       </h3>
 
@@ -196,8 +196,8 @@ const TableOfContents = ({ content, locale }) => {
               className={`
                 block py-2 px-3 text-sm rounded-md transition-all duration-200
                 ${isActive
-                  ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 font-medium'
-                  : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700/50'
+                  ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-300 font-medium'
+                  : 'text-gray-600 dark:text-zinc-300 hover:text-gray-900 dark:hover:text-light hover:bg-gray-50 dark:hover:bg-gray-700/50'
                 }
                 ${heading.level === 3 ? 'ml-4' : ''}
                 ${heading.level === 4 ? 'ml-8' : ''}
@@ -212,7 +212,7 @@ const TableOfContents = ({ content, locale }) => {
       {/* 返回顶部按钮 */}
       <button
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        className="mt-4 w-full py-2 text-xs text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 transition-colors duration-200 pt-3"
+        className="mt-4 w-full py-2 text-xs text-gray-500 dark:text-zinc-300 hover:text-gray-700 dark:hover:text-light transition-colors duration-200 pt-3"
       >
         {locale === 'zh-cn' ? '返回顶部 ↑' : 'Back to top ↑'}
       </button>
