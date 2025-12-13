@@ -108,7 +108,7 @@ export default function BlogDetails({ slug: blogSlug, locale }) {
       locale={locale}
     >
       {/* 两列布局 */}
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-6xl mx-auto">
         <div className="flex gap-8">
           {/* 左侧内容区域 */}
           <div className="flex-1">
@@ -133,8 +133,16 @@ export default function BlogDetails({ slug: blogSlug, locale }) {
           </div>
 
           {/* 右侧目录区域 - 只在大屏幕显示 */}
-          <div className="hidden xl:block flex-shrink-0 w-64">
-            <div ref={tocContainerRef} className="fixed right-[max(5px,calc(50%-540px-24px))] top-24 transition-opacity duration-300 opacity-0 pointer-events-none">
+          <div className="hidden xl:block flex-shrink-0 w-64 max-w-xs">
+            <div
+              ref={tocContainerRef}
+              className="fixed transition-opacity duration-300 opacity-0 pointer-events-none"
+              style={{
+                top: '96px', // header height
+                left: '50%',
+                marginLeft: '544px' // content max-width/2 + gap + TOC width/2 = 512 + 32 + 0
+              }}
+            >
               <TableOfContents content={blog.body || ''} locale={locale} />
             </div>
           </div>
