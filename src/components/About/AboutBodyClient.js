@@ -25,7 +25,7 @@ export default function AboutBodyClient() {
       backgroundImage="/images/about-bg.jpg"
     >
       <section className="text-dark dark:text-light leading-relaxed">
-        <div className="text-sm md:text-base mb-6 space-y-4">
+        <div className="text-sm md:text-base mb-40 space-y-4">
           {t('about.aboutDesc').split('\n\n').map((paragraph, index) => (
             paragraph.trim() && (
               <p key={index}>{paragraph.trim()}</p>
@@ -33,17 +33,6 @@ export default function AboutBodyClient() {
           ))}
         </div>
 
-        <h3 className="mt-8 text-lg md:text-xl font-semibold mb-3">{t('about.domainTitle')}</h3>
-        <p className="text-sm md:text-base mb-6">{t('about.domainDesc')}</p>
-
-        {language === 'zh' && (
-          <>
-            <h3 className="mt-8 text-lg md:text-xl font-semibold mb-3">{t('about.wechatTitle')}</h3>
-            <p className="text-sm md:text-base mb-6">{t('about.wechatDesc')}</p>
-          </>
-        )}
-
-        <p className="mt-8 text-sm md:text-base text-dark/80 dark:text-light/80">{t('about.outro')}</p>
       </section>
     </PageTemplate>
   );
