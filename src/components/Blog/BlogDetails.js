@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation';
 import Tag from '../Elements/Tag';
 import { slug } from 'github-slugger';
 import RenderMdx from './RenderMdx';
+import BreadcrumbClient from './BreadcrumbClient';
 import ShareButtons from '../Elements/ShareButtons';
 import PageTemplate from '../PageTemplate/PageTemplate';
 import siteMetadata from '@/src/utils/siteMetaData';
@@ -34,21 +35,6 @@ export default function BlogDetails({ slug: blogSlug, locale }) {
     return 0;
   }, [blog.body]);
 
-  const breadcrumbItems = [
-    {
-      label: t('nav.blog'),
-      href: "/posts"
-    },
-    {
-      label: t('breadcrumb.categories'),
-      href: "/tags"
-    },
-    {
-      label: blog.title,
-      href: blog.url
-    }
-  ];
-
   // 准备标签组件
   // 始终使用 slug(tag) 生成链接，确保一致性
   const tagElements = blog.tags.slice(0, 4).map((tag, index) => (
@@ -61,6 +47,12 @@ export default function BlogDetails({ slug: blogSlug, locale }) {
     />
   ));
 
+  // 面包屑导航项：Home / Blog / CurrentArticle
+  const breadcrumbItems = [
+    { label: t('blog.title'), href: '/posts' },
+    { label: blog.title, href: blog.url }
+  ];
+
   return (
     <PageTemplate
       backgroundImage={blog.image?.src ? {
@@ -68,6 +60,7 @@ export default function BlogDetails({ slug: blogSlug, locale }) {
         ...(blog.image.blurDataURL && { blurDataURL: blog.image.blurDataURL })
       } : undefined}
       title={blog.title}
+      breadcrumb={<BreadcrumbClient items={breadcrumbItems} locale={locale} />}
       metadata={{
         date: new Date(blog.publishedAt).toLocaleDateString(locale === 'zh-cn' ? 'zh-CN' : 'en-US', {
           year: 'numeric',

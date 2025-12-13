@@ -189,10 +189,11 @@ export default function CategoryPageContent({ categorySlug, locale, language }) 
 
   return (
     <PageTemplate
-      title={`#${categoryLabel}`}
+      title={categoryLabel}
       subtitle={tdk.tags?.subtitle}
-      breadcrumb={<BreadcrumbServer items={breadcrumbItems} homeLabel={locale === 'zh-cn' ? '首页' : 'Home'} locale={locale} />}
+      breadcrumb={<BreadcrumbServer items={breadcrumbItems} locale={locale} />}
       locale={locale}
+      backgroundImage="/images/about-bg.jpg"
     >
       <section className="text-dark dark:text-light">
         <div className="mb-8">

@@ -1,7 +1,10 @@
 "use client";
+import { useTranslations } from 'next-intl';
 import SmartLink from '../Elements/SmartLink';
 
 const BreadcrumbClient = ({ items, homeLabel, locale }) => {
+  const t = useTranslations('ui');
+  const computedHomeLabel = homeLabel ?? t('nav.home') ?? (locale === 'zh-cn' ? '首页' : 'Home');
   return (
     <nav className="flex items-center space-x-2 text-sm text-dark/60 dark:text-light/60">
       <SmartLink 
@@ -9,7 +12,7 @@ const BreadcrumbClient = ({ items, homeLabel, locale }) => {
         locale={locale}
         className="hover:opacity-50 hover:scale-105 transition-all duration-300"
       >
-        {homeLabel}
+        {computedHomeLabel}
       </SmartLink>
       
       {items.map((item, index) => (

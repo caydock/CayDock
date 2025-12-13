@@ -20,8 +20,9 @@ export default function AboutBodyClient() {
     <PageTemplate
       title={t('about.aboutTitle')}
       subtitle={t('about.subtitle')}
-      breadcrumb={<BreadcrumbClient items={breadcrumbItems} homeLabel={locale === 'zh-cn' ? '首页' : 'Home'} locale={locale} />}
+      breadcrumb={<BreadcrumbClient items={breadcrumbItems} locale={locale} />}
       locale={locale}
+      backgroundImage="/images/about-bg.jpg"
     >
       <section className="text-dark dark:text-light leading-relaxed">
         <div className="text-sm md:text-base mb-6 space-y-4">

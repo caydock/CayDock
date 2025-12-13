@@ -1,6 +1,5 @@
 "use client";
 import Image from 'next/image';
-import { usePathname } from 'next/navigation';
 import siteMetadata from '@/src/utils/siteMetaData';
 import profileCharacter from "../../../public/cay.webp";
 
@@ -18,23 +17,17 @@ export default function PageTemplate({
   author = false, // 是否显示作者信息，默认 false（大部分页面不需要）
   children, // 主要内容
   locale = 'en', // 语言
-  heroHeight = 'h-[200px]', // Hero 区域高度（固定值，确保所有屏幕尺寸下顶部距离一致）
+  heroHeight = 'h-[400px]', // Hero 区域高度（固定值，确保所有屏幕尺寸下顶部距离一致）
 }) {
-  const pathname = usePathname();
-  
-  // 判断是否是文章页（只在文章页显示背景）
-  // 文章页路径格式：/posts/[slug] 或 /zh-cn/posts/[slug]
-  const isBlogPostPage = pathname?.match(/\/posts\/[^/]+$/) || pathname?.match(/\/zh-cn\/posts\/[^/]+$/);
-  
   // 判断是否配置了背景图片
   const hasBackgroundImage = backgroundImage && (
-    (typeof backgroundImage === 'string' && backgroundImage !== '/images/about-bg.jpg') ||
-    (typeof backgroundImage === 'object' && backgroundImage?.src && backgroundImage.src !== '/images/about-bg.jpg')
+    (typeof backgroundImage === 'string') ||
+    (typeof backgroundImage === 'object' && backgroundImage?.src)
   );
-  
-  const bgImageSrc = typeof backgroundImage === 'string' 
-    ? backgroundImage 
-    : backgroundImage?.src || '/images/about-bg.jpg';
+
+  const bgImageSrc = typeof backgroundImage === 'string'
+    ? backgroundImage
+    : backgroundImage?.src || null;
   
   const bgImageBlur = typeof backgroundImage === 'object' 
     ? backgroundImage?.blurDataURL 
@@ -47,8 +40,8 @@ export default function PageTemplate({
 
   return (
     <>
-      {/* 固定全局背景图片 - 只在文章页且有配置背景图片时显示，z-index 高于全局背景 */}
-      {isBlogPostPage && hasBackgroundImage && (
+      {/* 固定全局背景图片 - 文章页和导航栏页面且有配置背景图片时显示，z-index 高于全局背景 */}
+      {hasBackgroundImage && (
         <div className="fixed top-0 left-0 w-full h-screen z-[2]">
         <Image
           src={bgImageSrc}
@@ -63,12 +56,12 @@ export default function PageTemplate({
         </div>
       )}
 
-      <article className="relative z-10 pt-16">
-        {/* 
-          渐变背景遮罩 - 只在文章页且有配置背景图片时显示
+      <article className="relative z-10 pt-96">
+        {/*
+          渐变背景遮罩 - 文章页和导航栏页面且有配置背景图片时显示
           注意：使用固定像素值而非百分比，确保无论文章长度如何，透明范围都保持一致
         */}
-        {isBlogPostPage && hasBackgroundImage && (
+        {hasBackgroundImage && (
           <>
             <div className="dark:hidden absolute inset-0" style={{
               background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.2) 0px, rgba(255, 255, 255, 0.35) 160px, rgba(255, 255, 255, 0.55) 280px, rgba(255, 255, 255, 0.8) 400px, rgba(255, 255, 255, 0.98) 520px, rgba(255, 255, 255, 1) 600px)'
@@ -80,63 +73,61 @@ export default function PageTemplate({
         )}
         
         <div className="relative z-10">
-          {/* Hero Section - 标题区域 */}
-          <div className={`relative w-full ${heroHeight} flex items-end`}>
-            <div className="w-full pb-4 md:pb-6 lg:pb-8 z-10">
-              <div className="max-w-7xl mx-auto px-5 sm:px-10">
-                <div className="w-full max-w-4xl">
-                  {/* 面包屑导航 */}
-                  {breadcrumb && (
-                    <div className="text-sm md:text-base text-dark/60 dark:text-light/60 mb-2">
-                      {breadcrumb}
-                    </div>
+          {/* 标题区域 */}
+          <div className="max-w-7xl mx-auto px-5 sm:px-10">
+            <div className="w-full max-w-4xl">
+              {/* 面包屑导航 */}
+              {breadcrumb && (
+                <div className="text-sm md:text-base text-dark/60 dark:text-light/60 mb-2">
+                  {breadcrumb}
+                </div>
+              )}
+
+              {/* 标题 */}
+              <h1 className={`font-bold text-2xl md:text-3xl lg:text-4xl xl:text-4xl leading-tight text-dark dark:text-light ${subtitle ? 'mb-4' : 'mb-6'}`}>
+                {title}
+              </h1>
+
+              {/* 副标题 */}
+              {subtitle && (
+                <p className="text-base md:text-lg text-dark/70 dark:text-light/70 mb-4">
+                  {subtitle}
+                </p>
+              )}
+
+              {/* 日期、字数、阅读时间 */}
+              {metadata && (
+                <div className="flex flex-wrap items-center gap-3 text-dark/90 dark:text-light/90 text-sm md:text-base mb-4">
+                  {metadata.date && (
+                    <>
+                      <span>{metadata.date}</span>
+                      <span>・</span>
+                    </>
                   )}
-                  
-                  {/* 标题 */}
-                  <h1 className={`font-bold text-2xl md:text-3xl lg:text-4xl xl:text-4xl leading-tight text-dark dark:text-light ${subtitle ? 'mb-2' : 'mb-0'}`}>
-                    {title}
-                  </h1>
-                  
-                  {/* 副标题 */}
-                  {subtitle && (
-                    <p className="text-base md:text-lg text-dark/70 dark:text-light/70 mb-0">
-                      {subtitle}
-                    </p>
+                  {metadata.wordCount !== undefined && (
+                    <>
+                      <span>
+                        {locale === 'zh-cn' ? `${metadata.wordCount}字` : `${metadata.wordCount} words`}
+                      </span>
+                      <span>・</span>
+                    </>
                   )}
-                  
-                  {/* 日期、字数、阅读时间 */}
-                  {metadata && (
-                    <div className="flex flex-wrap items-center gap-3 text-dark/90 dark:text-light/90 text-sm md:text-base mb-4">
-                      {metadata.date && (
-                        <>
-                          <span>{metadata.date}</span>
-                          <span>・</span>
-                        </>
-                      )}
-                      {metadata.wordCount !== undefined && (
-                        <>
-                          <span>
-                            {locale === 'zh-cn' ? `${metadata.wordCount}字` : `${metadata.wordCount} words`}
-                          </span>
-                          <span>・</span>
-                        </>
-                      )}
-                      {metadata.readingTime && (
-                        <span>{metadata.readingTime}</span>
-                      )}
-                    </div>
-                  )}
-                  
-                  {/* 标签 */}
-                  {tags && tags.length > 0 && (
-                    <div className="flex flex-wrap gap-2">
-                      {tags}
-                    </div>
+                  {metadata.readingTime && (
+                    <span>{metadata.readingTime}</span>
                   )}
                 </div>
-              </div>
+              )}
+
+              {/* 标签 */}
+              {tags && tags.length > 0 && (
+                <div className="flex flex-wrap gap-2">
+                  {tags}
+                </div>
+              )}
             </div>
           </div>
+
+          <div className="h-8 md:h-12"></div>
 
           {/* 作者信息区域 */}
           {author !== false && (

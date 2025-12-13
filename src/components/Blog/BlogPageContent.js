@@ -40,8 +40,10 @@ export default async function BlogPageContent({ locale, language, searchParams }
     <PageTemplate
       title={t('blog.title')}
       subtitle={t('blog.subtitle')}
-      breadcrumb={<BreadcrumbServer items={breadcrumbItems} homeLabel={locale === 'zh-cn' ? '首页' : 'Home'} locale={locale} />}
+      breadcrumb={<BreadcrumbServer items={breadcrumbItems} locale={locale} />}
       locale={locale}
+      backgroundImage="/images/about-bg.jpg"
+      heroHeight="h-[400px]"
     >
       <section className="text-dark dark:text-light">
         {/* 博客列表 */}

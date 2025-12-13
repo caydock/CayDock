@@ -56,7 +56,7 @@ const ProductsPageContent = memo(function ProductsPageContent({ locale: propLoca
     <PageTemplate
       title={t('products.title')}
       subtitle={t('products.subtitle')}
-      breadcrumb={<BreadcrumbClient items={breadcrumbItems} homeLabel={locale === 'zh-cn' ? '首页' : 'Home'} locale={locale} />}
+      breadcrumb={<BreadcrumbClient items={breadcrumbItems} locale={locale} />}
       locale={locale}
     >
       <section className="text-dark dark:text-light">

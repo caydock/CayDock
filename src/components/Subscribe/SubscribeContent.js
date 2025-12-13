@@ -19,8 +19,9 @@ export default function SubscribeContent() {
     <PageTemplate
       title={t('subscribe.title')}
       subtitle={t('subscribe.subtitle')}
-      breadcrumb={<BreadcrumbClient items={breadcrumbItems} homeLabel={locale === 'zh-cn' ? '首页' : 'Home'} locale={locale} />}
+      breadcrumb={<BreadcrumbClient items={breadcrumbItems} locale={locale} />}
       locale={locale}
+      backgroundImage="/images/about-bg.jpg"
     >
       <section className="text-dark dark:text-light leading-relaxed">
         <div className="prose dark:prose-invert max-w-none">
